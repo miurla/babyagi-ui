@@ -2,17 +2,23 @@ import Head from "next/head";
 import { useState } from "react";
 
 export default function Home() {
-  const [message, setMessage] = useState("");
+  const [output, setOutput] = useState<string[]>([]);
+
+  const fetchData = async () => {
+    const eventSource = new EventSource("/api/tasks");
+
+    eventSource.onmessage = (event) => {
+      console.log(event.data);
+      setOutput((prevOutput) => [...prevOutput, event.data]);
+    };
+
+    return () => {
+      eventSource.close();
+    };
+  };
 
   const startTaskLoop = async () => {
-    try {
-      const response = await fetch("/api/tasks");
-      const data = await response.json();
-      setMessage(data.message);
-    } catch (error) {
-      console.error(error);
-      setMessage("An error occurred while starting the task loop");
-    }
+    fetchData();
   };
 
   return (
@@ -23,10 +29,21 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="">
-        <h1>Task Loop</h1>
-        <button onClick={startTaskLoop}>Start Task Loop</button>
-        {message && <p>{message}</p>}
+      <main className="p-12">
+        <div className="mb-4">
+          <h1 className="text-xl font-bold">Baby AGI</h1>
+          <button
+            className="text-gray-500 hover:text-gray-300"
+            onClick={startTaskLoop}
+          >
+            Start Task Loop
+          </button>
+        </div>
+        <ul>
+          {output.map((line, index) => (
+            <li key={index}>{line}</li>
+          ))}
+        </ul>
       </main>
     </>
   );

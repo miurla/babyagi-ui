@@ -185,7 +185,7 @@ const firstTask: Task = {
 
 addTask(firstTask);
 
-export const mainLoop = async () => {
+export const mainLoop = async (outputCallback: (output: string) => void) => {
   // Initialize Pinecone
   await pinecone.init({
     apiKey: PINECONE_API_KEY,
@@ -210,6 +210,9 @@ export const mainLoop = async () => {
       // print the task list
       console.log("\x1b[35m", "\n*****TASK LIST*****\n", "\x1b[39m");
       taskList.forEach((t) => console.log(`${t.taskId}: ${t.taskName}`));
+      // Output the task list
+      outputCallback(`*****TASK LIST*****\n`);
+      taskList.forEach((t) => outputCallback(`${t.taskId}: ${t.taskName}`));
 
       // Step 1: Pull the first task
       const task = taskList.shift();
@@ -218,12 +221,18 @@ export const mainLoop = async () => {
         continue;
       }
       console.log(`${task.taskId}: ${task.taskName}`);
+      // Output the next task
+      outputCallback(`*****NEXT TASK*****\n`);
+      outputCallback(`${task.taskId}: ${task.taskName}`);
 
       // Send to execution function to complete the task based on the context
       const result = await executionAgent(OBJECTIVE, task.taskName);
       const thisTaskId = task.taskId;
       console.log("\x1b[33m", "\n*****TASK RESULT*****\n", "\x1b[39m");
       console.log(result);
+      // Output the task result
+      outputCallback(`*****TASK RESULT*****\n`);
+      outputCallback(result ?? "");
 
       // Step 2: Enrich the result and store in Pinecone
       const enrichedResult = { data: result };

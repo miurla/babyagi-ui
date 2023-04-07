@@ -1,20 +1,27 @@
-// pages/api/tasks.ts
 import type { NextApiRequest, NextApiResponse } from "next";
-
-// Import the mainLoop function from the lib/mainLoop.ts file
 import { mainLoop } from "@/lib/babyagi";
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
-    await mainLoop();
-    res.status(200).json({ message: "Task loop completed successfully" });
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Content-Type", "text/event-stream;charset=utf-8");
+    res.setHeader("Cache-Control", "no-cache, no-transform");
+    res.setHeader("X-Accel-Buffering", "no");
+
+    const outputCallback = (output: string) => {
+      res.write(`data: ${output}\n\n`);
+    };
+
+    await mainLoop(outputCallback);
+
+    res.end("done\n");
   } catch (error) {
-    console.error(error);
-    res
-      .status(500)
-      .json({ message: "An error occurred while running the task loop" });
+    if (error instanceof Error) {
+      res.status(500).json({ error: error.message });
+    } else {
+      res.status(500).json({ error: "An unknown error occurred" });
+    }
   }
-}
+};
+
+export default handler;
