@@ -5,7 +5,7 @@ import AgentMessage from './AgentMessage';
 import { AgentParameter, iterationList, models } from './AgentParameter';
 import { ProjectTile } from './ProjectTile';
 import { AgentMessageHeader } from './AgentMessageHeader';
-import { getAgentMessage, loadingAgentMessage } from '../../../utils';
+import { getAgentMessage, loadingAgentMessage } from '../../utils';
 
 export const Agent: FC = () => {
   const [model, setModel] = useState<SelectItem>(models[0]);

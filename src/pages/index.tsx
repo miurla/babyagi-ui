@@ -1,8 +1,16 @@
 import { Agent } from '@/components/Agent/Agent';
+import { Navbar } from '@/components/Mobile/Navbar';
 import { Sidebar } from '@/components/Sidebar/Sidebar';
 import Head from 'next/head';
+import { useState } from 'react';
 
 export default function Home() {
+  const [showSidebar, setShowSidebar] = useState<boolean>(false);
+
+  const menuClickHandler = () => {
+    setShowSidebar(!showSidebar);
+  };
+
   return (
     <>
       <Head>
@@ -12,10 +20,15 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="flex h-screen w-screen flex-col text-sm text-white dark:text-white">
+        <div className="fixed top-0 w-full sm:hidden">
+          <Navbar onMenuClick={menuClickHandler} />
+        </div>
         <div className="flex h-full w-full pt-12 sm:pt-0">
-          <div>
-            <Sidebar />
-          </div>
+          {showSidebar && (
+            <div>
+              <Sidebar onMenuClick={menuClickHandler} />
+            </div>
+          )}
           <Agent />
         </div>
       </main>
