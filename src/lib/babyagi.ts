@@ -1,41 +1,18 @@
 import { ChatCompletionRequestMessage, Configuration, OpenAIApi } from 'openai';
 import { PineconeClient } from '@pinecone-database/pinecone';
+import { UserSettings } from '@/types';
 
 // Set API Keys
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
-if (!OPENAI_API_KEY) {
-  throw new Error('OPENAI_API_KEY environment variable is missing from .env');
-}
-
 const PINECONE_API_KEY = process.env.PINECONE_API_KEY;
-if (!PINECONE_API_KEY) {
-  throw new Error('PINECONE_API_KEY environment variable is missing from .env');
-}
-
 const PINECONE_ENVIRONMENT = process.env.PINECONE_ENVIRONMENT;
-if (!PINECONE_ENVIRONMENT) {
-  throw new Error(
-    'PINECONE_ENVIRONMENT environment variable is missing from .env',
-  );
-}
-
-const YOUR_TABLE_NAME = process.env.TABLE_NAME || 'baby-agi-test-table';
-
-// Use GPT-3.x model
-const USE_GPT4 = false;
-if (USE_GPT4) {
-  console.log(
-    '\x1b[31m',
-    '\n*****USING GPT-4. POTENTIALLY EXPENSIVE. MONITOR YOUR COSTS*****\n',
-    '\x1b[39m',
-  );
-}
+const YOUR_TABLE_NAME = process.env.TABLE_NAME ?? 'baby-agi-test-table';
 
 // Configure OpenAI and Pinecone
 const configuration = new Configuration({
   apiKey: OPENAI_API_KEY,
 });
-const openai = new OpenAIApi(configuration);
+let openai = new OpenAIApi(configuration);
 
 const pinecone = new PineconeClient();
 
@@ -177,23 +154,42 @@ const contextAgent = async (query: string, index: string, n: number) => {
 };
 
 export const startAgent = async (
-  objective: string = 'Solve world hunger',
-  firstTask: string = 'Develop a task list',
-  model: string = 'gpt-3',
+  objective: string,
+  firstTask: string,
+  model: string,
   iterations: number = 0,
+  settings: UserSettings | undefined,
   outputCallback: (output: string) => void,
   stopSignal: () => boolean,
 ) => {
-  // Print the objective
-  console.log('\x1b[36m', '\n*****OBJECTIVE*****\n', '\x1b[39m');
-  console.log(objective);
-  const objectiveString = `*****OBJECTIVE*****\n\n${objective}\n`;
-  outputCallback(objectiveString);
+  // Set the API keys
+  let openAIApiKey = OPENAI_API_KEY;
+  let pineconeApiKey = PINECONE_API_KEY;
+  let pineconeEnvironment = PINECONE_ENVIRONMENT;
+
+  // Set the user settings values
+  if (settings) {
+    openAIApiKey = settings.openAIApiKey;
+    const configuration = new Configuration({
+      apiKey: openAIApiKey,
+    });
+    openai = new OpenAIApi(configuration);
+
+    pineconeApiKey = settings.pineconeApiKey;
+    pineconeEnvironment = settings.pineconeEnvironment;
+  }
+
+  if (!openAIApiKey) {
+    throw new Error('OpenAI API key is required');
+  }
+  if (!pineconeApiKey || !pineconeEnvironment) {
+    throw new Error('Pinecone API key and environment are required');
+  }
 
   // Initialize Pinecone
   await pinecone.init({
-    apiKey: PINECONE_API_KEY,
-    environment: PINECONE_ENVIRONMENT,
+    apiKey: pineconeApiKey,
+    environment: pineconeEnvironment,
   });
   const pineconeIndexList = await pinecone.listIndexes();
 
@@ -219,6 +215,21 @@ export const startAgent = async (
   // Main loop
   let taskIdCounter = 1;
   let iterationCounter = 0;
+
+  // print warning if using GPT-4
+  if (model === 'gpt-4') {
+    console.log(
+      '\x1b[31m',
+      '\n*****USING GPT-4. POTENTIALLY EXPENSIVE. MONITOR YOUR COSTS*****\n',
+      '\x1b[39m',
+    );
+  }
+
+  // Print the objective
+  console.log('\x1b[36m', '\n*****OBJECTIVE*****\n', '\x1b[39m');
+  console.log(objective);
+  const objectiveString = `*****OBJECTIVE*****\n\n${objective}\n`;
+  outputCallback(objectiveString);
 
   // execute the main loop
   while (iterations === 0 || iterationCounter < iterations) {

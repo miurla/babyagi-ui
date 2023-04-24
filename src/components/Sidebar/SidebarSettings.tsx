@@ -22,6 +22,8 @@ export const SidebarSettings: FC = () => {
   const handleSave = () => {
     // get userSettings from localStorage
     const userSettings = localStorage.getItem('userSettings');
+    // TODO: validate settings before saving
+
     if (userSettings) {
       // If there is already a value, parse it and merge the new value
       const parsedUserSettings = JSON.parse(userSettings);
@@ -43,11 +45,12 @@ export const SidebarSettings: FC = () => {
   return (
     <DialogPrimitive.Root open={isOpen} onOpenChange={setIsOpen}>
       <DialogPrimitive.Trigger asChild>
-        <SidebarButton
-          text={'Settings'}
-          icon={<GearIcon />}
-          onClick={() => {}}
-        />
+        <div className="flex w-full cursor-pointer items-center gap-3 rounded-md px-3 py-3 text-white transition-colors duration-200 hover:bg-gray-500/10">
+          <div>
+            <GearIcon />
+          </div>
+          <div>Settings</div>
+        </div>
       </DialogPrimitive.Trigger>
       <DialogPrimitive.Portal forceMount>
         <Transition.Root show={isOpen}>
@@ -163,7 +166,7 @@ export const SidebarSettings: FC = () => {
                 <DialogPrimitive.Close
                   className={clsx(
                     'inline-flex select-none justify-center rounded-md px-4 py-2 text-sm font-medium',
-                    'bg-black text-white hover:bg-gray-700 dark:bg-gray-700 dark:text-gray-100 dark:hover:bg-gray-600',
+                    'bg-black text-white hover:bg-gray-800 dark:bg-gray-700 dark:text-gray-100 dark:hover:bg-gray-600',
                     'border border-transparent',
                     'focus:outline-none focus-visible:ring focus-visible:ring-neutral-500 focus-visible:ring-opacity-75',
                   )}

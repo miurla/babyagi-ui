@@ -1,5 +1,5 @@
 import { FC, useCallback, useEffect, useRef, useState } from 'react';
-import { SelectItem } from '@/types';
+import { SelectItem, UserSettings } from '@/types';
 import { Input } from './Input';
 import AgentMessage from './AgentMessage';
 import { AgentParameter, iterationList, models } from './AgentParameter';
@@ -26,6 +26,8 @@ export const Agent: FC = () => {
   }, [scrollToBottom]);
 
   const fetchAgent = async () => {
+    const userSettings = localStorage.getItem('userSettings');
+
     const response = await fetch('/api/agent', {
       method: 'POST',
       headers: {
@@ -36,6 +38,7 @@ export const Agent: FC = () => {
         firstTask,
         model: model.id,
         iterations: iterations.id,
+        userSettings: userSettings ? JSON.parse(userSettings) : null,
       }),
       signal: abortControllerRef.current.signal,
     });
@@ -71,6 +74,11 @@ export const Agent: FC = () => {
   };
 
   const startHandler = () => {
+    if (!availableUserSettings()) {
+      alert('Please set your OpenAI API key and Pinecone configuration first.');
+      return;
+    }
+
     setMessages([]);
     setIsStreaming(true);
     fetchAgent();
@@ -86,6 +94,31 @@ export const Agent: FC = () => {
 
   const clearHandler = () => {
     setMessages([]);
+  };
+
+  const availableUserSettings = () => {
+    const useEnvValues = process.env.NEXT_PUBLIC_USE_ENV_VALUES;
+    if (useEnvValues === 'true') {
+      return true;
+    }
+
+    const userSettings = localStorage.getItem('userSettings');
+    if (userSettings) {
+      const { openAIApiKey, pineconeApiKey, pineconeEnvironment } = JSON.parse(
+        userSettings,
+      ) as UserSettings;
+      if (
+        openAIApiKey &&
+        openAIApiKey?.length > 0 &&
+        pineconeApiKey &&
+        pineconeApiKey?.length > 0 &&
+        pineconeEnvironment &&
+        pineconeEnvironment?.length > 0
+      ) {
+        return true;
+      }
+    }
+    return false;
   };
 
   return (

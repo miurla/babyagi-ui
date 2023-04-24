@@ -69,7 +69,7 @@ export const AgentParameter: FC<AgentParameterProps> = ({
         />
       </div>
       <div className="flex w-full flex-col">
-        <label className="mb-2 text-left text-neutral-700 dark:text-neutral-400">
+        <label className="mb-2 text-left text-xs text-neutral-700 dark:text-neutral-400">
           {'First Task'}
         </label>
         <input

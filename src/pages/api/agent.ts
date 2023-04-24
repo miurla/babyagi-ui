@@ -1,14 +1,18 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { startAgent } from '@/lib/babyagi';
+import { UserSettings } from '@/types';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { objective, model, iterations, firstTask } = req.body;
-
+  const { objective, model, iterations, firstTask, userSettings } = req.body;
+  const settings: UserSettings | undefined =
+    process.env.NEXT_PUBLIC_USE_ENV_VALUES === 'true'
+      ? undefined
+      : userSettings;
   let clientDisconnected = false;
 
   res.on('close', () => {
-    clientDisconnected = true;
     console.log('Client disconnected');
+    clientDisconnected = true;
   });
 
   const stopSignal = () => clientDisconnected;
@@ -28,6 +32,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       firstTask as string,
       model as string,
       Number(iterations),
+      settings,
       outputCallback,
       stopSignal,
     );

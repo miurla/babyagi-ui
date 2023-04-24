@@ -11,9 +11,9 @@ interface AgentMessageProps {
 const AgentMessage: FC<AgentMessageProps> = ({ message }) => {
   const bgStyle =
     message.type === 'loading'
-      ? 'bg-gray-100 dark:bg-neutral-800'
+      ? 'bg-gray-100 dark:bg-gray-600/10'
       : message.type === 'objective' || message.type === 'task-result'
-      ? 'bg-white dark:bg-black'
+      ? 'bg-white dark:bg-gray-600/50'
       : 'bg-gray-50 dark:bg-[#444654]';
 
   return (

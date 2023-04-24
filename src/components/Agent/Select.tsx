@@ -18,20 +18,20 @@ interface Props {
 export const Select: FC<Props> = ({ label, item, items, onChange }) => {
   return (
     <div className="relative w-full">
-      <div className="flex w-full flex-col text-left ">
-        <label className="mb-1 text-sm text-neutral-600 dark:text-neutral-400">
+      <div className="flex w-full flex-col text-left text-xs">
+        <label className="mb-1 text-neutral-600 dark:text-neutral-400">
           {label}
         </label>
         <SelectPrimitive.Root onValueChange={onChange} defaultValue={item.id}>
-          <SelectPrimitive.Trigger className="focus:shadow-outline inline-flex w-full cursor-pointer appearance-none items-center justify-between rounded-lg border border-neutral-200 p-3 text-neutral-600 focus:outline-none dark:border-neutral-600 dark:bg-[#343541] dark:text-white">
+          <SelectPrimitive.Trigger className="focus:shadow-outline inline-flex w-full cursor-pointer appearance-none items-center justify-between rounded-lg border border-neutral-200 p-3 text-xs text-neutral-600 focus:outline-none dark:border-neutral-600 dark:bg-[#343541] dark:text-white">
             <SelectPrimitive.Value>
-              <div className="inline-flex h-6 items-center gap-2 font-mono">
+              <div className="inline-flex h-5 items-center gap-2 font-mono">
                 {item.icon && (
                   <Image
                     src={`/${item.icon}`}
                     alt={item.icon}
-                    width={16}
-                    height={16}
+                    width={14}
+                    height={14}
                     className="dark:invert"
                   />
                 )}
@@ -53,7 +53,7 @@ export const Select: FC<Props> = ({ label, item, items, onChange }) => {
                     key={`${item.id}-${index}`}
                     value={item.id}
                     className={
-                      'relative flex select-none items-center rounded-md px-8 py-2 font-mono text-sm font-medium text-gray-700 focus:bg-gray-100 focus:outline-none dark:text-gray-300 dark:focus:bg-neutral-900'
+                      'relative flex select-none items-center rounded-md px-8 py-2 font-mono font-medium text-gray-700 focus:bg-gray-100 focus:outline-none dark:text-gray-300 dark:focus:bg-neutral-900'
                     }
                   >
                     <SelectPrimitive.ItemText>
