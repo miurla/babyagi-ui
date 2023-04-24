@@ -12,13 +12,16 @@ if (!PINECONE_API_KEY) {
   throw new Error('PINECONE_API_KEY environment variable is missing from .env');
 }
 
-const PINECONE_ENVIRONMENT = process.env.PINECONE_ENVIRONMENT || 'us-east1-gcp';
-const YOUR_TABLE_NAME = process.env.TABLE_NAME;
-if (!YOUR_TABLE_NAME) {
-  throw new Error('TABLE_NAME environment variable is missing from .env');
+const PINECONE_ENVIRONMENT = process.env.PINECONE_ENVIRONMENT;
+if (!PINECONE_ENVIRONMENT) {
+  throw new Error(
+    'PINECONE_ENVIRONMENT environment variable is missing from .env',
+  );
 }
 
-// Use GPT-3 model
+const YOUR_TABLE_NAME = process.env.TABLE_NAME || 'baby-agi-test-table';
+
+// Use GPT-3.x model
 const USE_GPT4 = false;
 if (USE_GPT4) {
   console.log(

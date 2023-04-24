@@ -18,3 +18,9 @@ export type AgentMessageType =
   | 'task-result'
   | 'loading'
   | 'end-of-iterations';
+
+export type UserSettings = {
+  openAIApiKey?: string;
+  pineconeApiKey?: string;
+  pineconeEnvironment?: string;
+};
