@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { SidebarSettings } from './SidebarSettings';
 import { SidebarTheme } from './SidebarTheme';
-import { Cross2Icon, HamburgerMenuIcon } from '@radix-ui/react-icons';
+import { Cross2Icon } from '@radix-ui/react-icons';
 
 interface SidebarProps {
   onMenuClick: () => void;

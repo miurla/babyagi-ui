@@ -65,14 +65,14 @@ const getAdaEmbedding = async (text: string) => {
 
 const openaiCall = async (
   prompt: string,
-  useGpt4: boolean = false,
+  gptVersion: string, // change useGpt4 to gptVersion
   temperature: number = 0.5,
   maxTokens: number = 100,
 ) => {
-  if (!useGpt4) {
+  if (gptVersion.startsWith('text-')) {
     // Use GPT-3 DaVinci model
     const response = await openai.createCompletion({
-      model: 'text-davinci-003',
+      model: gptVersion,
       prompt,
       temperature,
       max_tokens: maxTokens,
@@ -87,7 +87,7 @@ const openaiCall = async (
       { role: 'user', content: prompt },
     ];
     const response = await openai.createChatCompletion({
-      model: 'gpt-4',
+      model: gptVersion,
       messages,
       temperature,
       max_tokens: maxTokens,
@@ -102,12 +102,12 @@ const taskCreationAgent = async (
   result: any,
   taskDescription: string,
   taskList: string[],
-  gptVersion: string = 'gpt-3',
+  gptVersion: string,
 ) => {
   const prompt = `You are an task creation AI that uses the result of an execution agent to create new tasks with the following objective: ${objective}, The last completed task has the result: ${result}. This result was based on this task description: ${taskDescription}. These are incomplete tasks: ${taskList.join(
     ', ',
   )}. Based on the result, create new tasks to be completed by the AI system that do not overlap with incomplete tasks. Return the tasks as an array.`;
-  const response = await openaiCall(prompt, gptVersion === 'gpt-4');
+  const response = await openaiCall(prompt, gptVersion);
   const newTasks = response?.split('\n');
   return newTasks?.map((taskName) => ({ taskName, taskId: 0 }));
 };
@@ -115,7 +115,7 @@ const taskCreationAgent = async (
 const prioritizationAgent = async (
   objective: string,
   thisTaskId: number,
-  gptVersion: string = 'gpt-3',
+  gptVersion: string,
 ) => {
   const taskNames = taskList.map((t) => t.taskName);
   const nextTaskId = thisTaskId + 1;
@@ -123,7 +123,7 @@ const prioritizationAgent = async (
     #. First task
     #. Second task
     Start the task list with number ${nextTaskId}.`;
-  const response = await openaiCall(prompt, gptVersion === 'gpt-4');
+  const response = await openaiCall(prompt, gptVersion);
   const newTasks = response?.split('\n').map((taskString) => {
     const [taskId, taskName] = taskString
       .trim()
@@ -147,7 +147,7 @@ const executionAgent = async (
 ) => {
   const context = await contextAgent(objective, YOUR_TABLE_NAME, 5);
   const prompt = `You are an AI who performs one task based on the following objective: ${objective}.\nTake into account these previously completed tasks: ${context}\nYour task: ${task}\nResponse:`;
-  return openaiCall(prompt, gptVersion === 'gpt-4', 0.7, 2000);
+  return openaiCall(prompt, gptVersion, 0.7, 2000);
 };
 
 const contextAgent = async (query: string, index: string, n: number) => {
@@ -173,7 +173,7 @@ const contextAgent = async (query: string, index: string, n: number) => {
     .filter((task) => task !== undefined);
 };
 
-export const mainLoop = async (
+export const startAgent = async (
   objective: string = 'Solve world hunger',
   firstTask: string = 'Develop a task list',
   model: string = 'gpt-3',
@@ -227,12 +227,12 @@ export const mainLoop = async (
     if (taskList.length > 0) {
       // print the task list
       console.log('\x1b[35m', '\n*****TASK LIST*****\n', '\x1b[39m');
-      taskList.forEach((t) => console.log(`${t.taskId}: ${t.taskName}`));
+      taskList.forEach((t) => console.log(`${t.taskId}. ${t.taskName}`));
       // Output the task list
       let taskListString = '';
       taskListString += `*****TASK LIST*****\n\n`;
       taskList.forEach(
-        (t) => (taskListString += `${t.taskId}: ${t.taskName} \n`),
+        (t) => (taskListString += `${t.taskId}. ${t.taskName} \n`),
       );
       outputCallback(taskListString);
 
@@ -242,11 +242,11 @@ export const mainLoop = async (
       if (!task) {
         continue;
       }
-      console.log(`${task.taskId}: ${task.taskName}`);
+      console.log(`${task.taskId}. ${task.taskName}`);
       // Output the next task
       let nextTaskString = '';
       nextTaskString += `*****NEXT TASK*****\n\n`;
-      nextTaskString += `${task.taskId}: ${task.taskName}`;
+      nextTaskString += `${task.taskId}. ${task.taskName}`;
       outputCallback(nextTaskString);
 
       // Send to execution function to complete the task based on the context
@@ -301,7 +301,7 @@ export const mainLoop = async (
 
     iterationCounter += 1;
     if (iterations > 0 && iterationCounter >= iterations) {
-      outputCallback('*****END OF LOOP*****');
+      outputCallback('*****END OF ITERATIONS*****');
       reset();
       break;
     }

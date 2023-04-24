@@ -27,7 +27,7 @@ export const Input: FC<InputProps> = ({
 }) => {
   return (
     <div className="dark:bg-vert-dark-gradient absolute bottom-0 left-0 w-full border-transparent bg-white from-[#343541] via-[#343541] to-[#343541]/0 pt-6 dark:border-white/20 dark:!bg-transparent dark:bg-[#444654] dark:bg-gradient-to-t md:pt-2">
-      <div className="stretch mx-2 mt-4 flex flex-row gap-3 last:mb-2 md:mx-4 md:mt-[52px] md:last:mb-6 lg:mx-auto lg:max-w-3xl">
+      <div className="stretch mx-2 mt-4 flex flex-row gap-3 last:mb-2 md:mx-4 md:mt-11 md:last:mb-6 lg:mx-auto lg:max-w-3xl">
         {isStreaming ? (
           <button
             className="absolute -top-2 left-0 right-0 mx-auto w-fit rounded border border-gray-500 px-4 py-2 text-black hover:opacity-50 dark:bg-[#343541] dark:text-white md:top-0"
@@ -35,7 +35,7 @@ export const Input: FC<InputProps> = ({
               onStop();
             }}
           >
-            <StopIcon className="mb-[2px] inline-block" /> {'Stop Execution'}
+            <StopIcon className="mb-[2px] inline-block" /> {'Stop'}
           </button>
         ) : hasMessages ? (
           <button

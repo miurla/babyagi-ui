@@ -3,11 +3,20 @@ import { Select } from './Select';
 import { SelectItem } from '@/types';
 
 export const models = [
-  { id: 'gpt-3.5', name: 'OpenAI GPT-3.5', icon: 'openai-logo.svg' },
   {
     id: 'gpt-4',
-    name: 'OpenAI GPT-4',
+    name: 'OpenAI gpt-4',
     message: 'USING GPT-4. POTENTIALLY EXPENSIVE. MONITOR YOUR COSTS',
+    icon: 'openai-logo.svg',
+  },
+  {
+    id: 'gpt-3.5-turbo',
+    name: 'OpenAI gpt-3.5-turbo',
+    icon: 'openai-logo.svg',
+  },
+  {
+    id: 'text-davinci-003',
+    name: 'OpenAI text-davinci-003',
     icon: 'openai-logo.svg',
   },
 ];

@@ -8,7 +8,7 @@ import { AgentMessageHeader } from './AgentMessageHeader';
 import { getAgentMessage, loadingAgentMessage } from '../../utils';
 
 export const Agent: FC = () => {
-  const [model, setModel] = useState<SelectItem>(models[0]);
+  const [model, setModel] = useState<SelectItem>(models[1]);
   const [iterations, setIterations] = useState<SelectItem>(iterationList[0]);
   const [objective, setObjective] = useState<string>('');
   const [firstTask, setFirstTask] = useState<string>('Develop a task list');
@@ -25,7 +25,7 @@ export const Agent: FC = () => {
     scrollToBottom();
   }, [scrollToBottom]);
 
-  const fetchData = async () => {
+  const fetchAgent = async () => {
     const response = await fetch('/api/agent', {
       method: 'POST',
       headers: {
@@ -46,7 +46,6 @@ export const Agent: FC = () => {
     if (reader) {
       while (true) {
         const { value, done } = await reader.read();
-        console.log('done', done);
         if (done) break;
 
         const decodedValue = decoder.decode(value);
@@ -62,6 +61,7 @@ export const Agent: FC = () => {
 
       // Complete the stream
       setIsStreaming(false);
+      // Reset abortControllerRef
       abortControllerRef.current = new AbortController();
     }
   };
@@ -73,12 +73,12 @@ export const Agent: FC = () => {
   const startHandler = () => {
     setMessages([]);
     setIsStreaming(true);
-    fetchData();
+    fetchAgent();
   };
 
   const stopHandler = () => {
-    setIsStreaming(false);
     console.log('Stop streaming');
+    setIsStreaming(false);
     abortControllerRef.current.abort();
     // Reset abortControllerRef
     abortControllerRef.current = new AbortController();

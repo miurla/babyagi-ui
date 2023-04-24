@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { mainLoop } from '@/lib/babyagi';
+import { startAgent } from '@/lib/babyagi';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { objective, model, iterations, firstTask } = req.body;
@@ -23,7 +23,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       res.write(`data: ${escapedOutput}\n\n`);
     };
 
-    await mainLoop(
+    await startAgent(
       objective as string,
       firstTask as string,
       model as string,
@@ -32,7 +32,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       stopSignal,
     );
 
-    res.write('event: done\ndata: \n\n');
     res.end();
   } catch (error) {
     if (error instanceof Error) {

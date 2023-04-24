@@ -46,14 +46,14 @@ export const Select: FC<Props> = ({ label, item, items, onChange }) => {
             <SelectPrimitive.ScrollUpButton className="flex items-center justify-center text-gray-700 dark:text-gray-300">
               <ChevronUpIcon />
             </SelectPrimitive.ScrollUpButton>
-            <SelectPrimitive.Viewport className="rounded-lg border bg-white p-2 shadow-lg dark:border-gray-900 dark:bg-gray-800">
+            <SelectPrimitive.Viewport className="rounded-lg border bg-white p-2 shadow-lg dark:border-neutral-900 dark:bg-neutral-800">
               <SelectPrimitive.Group>
                 {items.map((item, index) => (
                   <SelectPrimitive.Item
                     key={`${item.id}-${index}`}
                     value={item.id}
                     className={
-                      'relative flex select-none items-center rounded-md px-8 py-2 font-mono text-sm font-medium text-gray-700 focus:bg-gray-100 focus:outline-none dark:text-gray-300 dark:focus:bg-gray-900'
+                      'relative flex select-none items-center rounded-md px-8 py-2 font-mono text-sm font-medium text-gray-700 focus:bg-gray-100 focus:outline-none dark:text-gray-300 dark:focus:bg-neutral-900'
                     }
                   >
                     <SelectPrimitive.ItemText>
@@ -64,6 +64,7 @@ export const Select: FC<Props> = ({ label, item, items, onChange }) => {
                             alt={item.icon}
                             width={16}
                             height={16}
+                            className="dark:invert"
                           />
                         )}
                         {item.name}

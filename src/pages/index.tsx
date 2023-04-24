@@ -5,7 +5,7 @@ import Head from 'next/head';
 import { useState } from 'react';
 
 export default function Home() {
-  const [showSidebar, setShowSidebar] = useState<boolean>(false);
+  const [showSidebar, setShowSidebar] = useState<boolean>(true);
 
   const menuClickHandler = () => {
     setShowSidebar(!showSidebar);

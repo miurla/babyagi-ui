@@ -9,8 +9,8 @@ export const getAgentMessage = (text: string): AgentMessage => {
     ? 'next-task'
     : text.includes('TASK RESULT')
     ? 'task-result'
-    : text.includes('END OF LOOP')
-    ? 'end-of-loop'
+    : text.includes('END OF ITERATIONS')
+    ? 'end-of-iterations'
     : 'loading';
 
   const icon =
@@ -24,7 +24,7 @@ export const getAgentMessage = (text: string): AgentMessage => {
       ? '✅'
       : type === 'loading'
       ? '⏳'
-      : type === 'end-of-loop'
+      : type === 'end-of-iterations'
       ? '🏁'
       : '🤖';
 

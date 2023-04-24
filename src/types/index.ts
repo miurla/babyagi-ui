@@ -17,4 +17,4 @@ export type AgentMessageType =
   | 'next-task'
   | 'task-result'
   | 'loading'
-  | 'end-of-loop';
+  | 'end-of-iterations';
