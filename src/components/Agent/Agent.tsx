@@ -29,7 +29,7 @@ export const Agent: FC = () => {
   const fetchAgent = async () => {
     const userSettings = localStorage.getItem('userSettings');
 
-    fetchEventSource('/api/agent', {
+    const response = await fetch('/api/agents', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -42,25 +42,32 @@ export const Agent: FC = () => {
         userSettings: userSettings ? JSON.parse(userSettings) : null,
       }),
       signal: abortControllerRef.current.signal,
-      async onmessage(event) {
-        const { data } = event;
-        const unescapedData = data.replace(/\\n/g, '\n');
-        setMessages((messages) => [...messages, unescapedData]);
-      },
-      onclose() {
-        setIsStreaming(false);
-        // Reset abortControllerRef
-        abortControllerRef.current = new AbortController();
-      },
-      onerror(err) {
-        if (err.name === 'AbortError') return;
-
-        console.log(err);
-        setIsStreaming(false);
-        // Reset abortControllerRef
-        abortControllerRef.current = new AbortController();
-      },
     });
+
+    const reader = response.body?.getReader();
+    const decoder = new TextDecoder('utf-8');
+
+    if (reader) {
+      while (true) {
+        const { value, done } = await reader.read();
+        if (done) break;
+
+        const decodedValue = decoder.decode(value);
+        const lines = decodedValue.split('\n');
+
+        for (const line of lines) {
+          if (line.startsWith('data: ')) {
+            const unescapedData = line.slice(6).replace(/\\n/g, '\n');
+            setMessages((messages) => [...messages, unescapedData]);
+          }
+        }
+      }
+
+      // Complete the stream
+      setIsStreaming(false);
+      // Reset abortControllerRef
+      abortControllerRef.current = new AbortController();
+    }
   };
 
   const inputHandler = (value: string) => {
