@@ -234,7 +234,6 @@ export const startAgent = async (
   // execute the main loop
   while (iterations === 0 || iterationCounter < iterations) {
     if (stopSignal()) {
-      reset();
       return;
     }
 
@@ -250,6 +249,10 @@ export const startAgent = async (
       );
       outputCallback(taskListString);
 
+      if (stopSignal()) {
+        return;
+      }
+
       // Step 1: Pull the first task
       const task = taskList.shift();
       console.log('\x1b[32m', '\n*****NEXT TASK*****\n', '\x1b[39m');
@@ -263,6 +266,10 @@ export const startAgent = async (
       nextTaskString += `${task.taskId}. ${task.taskName}`;
       outputCallback(nextTaskString);
 
+      if (stopSignal()) {
+        return;
+      }
+
       // Send to execution function to complete the task based on the context
       const result = await executionAgent(objective, task.taskName, model);
       const thisTaskId = task.taskId;
@@ -273,6 +280,10 @@ export const startAgent = async (
       taskResultString += `*****TASK RESULT*****\n\n`;
       taskResultString += result ?? '';
       outputCallback(taskResultString);
+
+      if (stopSignal()) {
+        return;
+      }
 
       // Step 2: Enrich the result and store in Pinecone
       const enrichedResult = { data: result };
@@ -292,6 +303,10 @@ export const startAgent = async (
           ],
         },
       });
+
+      if (stopSignal()) {
+        return;
+      }
 
       // Step 3: Create new tasks and reprioritize the task list
       const newTasks = await taskCreationAgent(
@@ -316,10 +331,15 @@ export const startAgent = async (
     iterationCounter += 1;
     if (iterations > 0 && iterationCounter >= iterations) {
       outputCallback('*****END OF ITERATIONS*****');
-      reset();
       break;
+    }
+
+    if (stopSignal()) {
+      return;
     }
 
     await new Promise((resolve) => setTimeout(resolve, 1000)); // Sleep before checking the task list again
   }
+
+  reset();
 };

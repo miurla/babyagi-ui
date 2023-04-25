@@ -75,7 +75,9 @@ export const Agent: FC = () => {
 
   const startHandler = () => {
     if (!availableUserSettings()) {
-      alert('Please set your OpenAI API key and Pinecone configuration first.');
+      alert(
+        'Please set up your OpenAI API key and Pinecone config from the settings menu.',
+      );
       return;
     }
 

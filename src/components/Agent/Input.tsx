@@ -1,6 +1,6 @@
 import {
   PlayIcon,
-  ResetIcon,
+  ReloadIcon,
   StopIcon,
   UpdateIcon,
 } from '@radix-ui/react-icons';
@@ -44,7 +44,7 @@ export const Input: FC<InputProps> = ({
               onClear();
             }}
           >
-            <ResetIcon className="mb-[2px] inline-block" /> {'Reset'}
+            <ReloadIcon className="mb-[2px] inline-block" /> {'Reset'}
           </button>
         ) : null}
         <div className="relative flex w-full flex-grow flex-col rounded-md border border-black/10 bg-white py-2 shadow-[0_0_10px_rgba(0,0,0,0.10)] dark:border-gray-900/50 dark:bg-[#40414F] dark:text-white dark:shadow-[0_0_15px_rgba(0,0,0,0.10)] md:py-3 md:pl-4">
@@ -76,9 +76,9 @@ export const Input: FC<InputProps> = ({
           rel="noreferrer"
           className="underline"
         >
-          This project
+          BabyAGI UI
         </a>
-        {' is designed to make it easy to run '}
+        {' is designed to make it easier to run and develop with '}
         <a
           href="https://github.com/yoheinakajima/babyagi"
           target="_blank"
