@@ -2,9 +2,6 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { startAgent } from '@/lib/babyagi';
 import { UserSettings } from '@/types';
 
-export const runtime = 'nodejs';
-export const dynamic = 'force-dynamic';
-
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { objective, model, iterations, firstTask, userSettings } = req.body;
   const settings: UserSettings | undefined =
@@ -21,8 +18,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const stopSignal = () => clientDisconnected;
 
   try {
-    res.setHeader('Content-Type', 'text/event-stream');
-    res.setHeader('Cache-Control', 'no-cache');
+    res.setHeader('Content-Type', 'text/event-stream;charset=utf-8');
+    res.setHeader('Cache-Control', 'no-cache, no-transform');
     res.setHeader('Connection', 'keep-alive');
 
     const outputCallback = (output: string) => {

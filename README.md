@@ -58,7 +58,8 @@ npm run dev
 
 ### Vercel
 
-Host your own live version of BabyAGI UI with Vercel.
+~~Host your own live version of BabyAGI UI with Vercel.~~
+Note: Since it is implemented as a serverless function, Vercel will time out during execution.
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fmiurla%2Fbabyagi-ui)
 

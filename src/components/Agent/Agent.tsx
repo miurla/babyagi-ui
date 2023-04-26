@@ -6,7 +6,6 @@ import { AgentParameter, iterationList, models } from './AgentParameter';
 import { ProjectTile } from './ProjectTile';
 import { AgentMessageHeader } from './AgentMessageHeader';
 import { getAgentMessage, loadingAgentMessage } from '../../utils';
-import { fetchEventSource } from '@microsoft/fetch-event-source';
 
 export const Agent: FC = () => {
   const [model, setModel] = useState<SelectItem>(models[1]);
@@ -29,7 +28,7 @@ export const Agent: FC = () => {
   const fetchAgent = async () => {
     const userSettings = localStorage.getItem('userSettings');
 
-    const response = await fetch('/api/agents', {
+    const response = await fetch('/api/agent', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
