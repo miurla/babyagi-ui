@@ -1,16 +1,18 @@
 # BabyAGI UI
 
 BabyAGI UI is designed to make it easier to run and develop with [babyagi](https://github.com/yoheinakajima/babyagi) in a web app, like a ChatGPT.
-This is a port of [babyagi v0.1.0](https://github.com/yoheinakajima/babyagi/releases/tag/v0.1.0) from Python to TypeScript and build a user interface.
+This is a port of [babyagi](https://github.com/yoheinakajima/babyagi) from Python to TypeScript with [Langchain.js](https://github.com/hwchase17/langchainjs) and build a user interface.
 
 ![](./public/screenshot-230425.png)
 
 ## Roadmap
 
-- [ ] Add other LLM models
+- [ ] Display the current task and task list
+- [ ] User feedback
+- [ ] Other LLM models support
 - [ ] i18n support
 - [ ] Execution history
-- [ ] Output of Execution Result
+- [ ] Exporting Execution Results
 
 and more ...
 
@@ -58,8 +60,7 @@ npm run dev
 
 ### Vercel
 
-~~Host your own live version of BabyAGI UI with Vercel.~~
-Note: Since it is implemented as a serverless function, Vercel will time out during execution.
+Host your own live version of BabyAGI UI with Vercel.
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fmiurla%2Fbabyagi-ui)
 
