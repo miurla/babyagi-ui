@@ -1,10 +1,12 @@
 import { OpenAI } from 'langchain/llms/openai';
 import { OpenAIEmbeddings } from 'langchain/embeddings/openai';
-import { TaskExecutionChain } from './taskExecution';
-import { TaskCreationChain } from './taskCreation';
-import { TaskPrioritizationChain } from './taskPrioritization';
 import { PineconeClient } from '@pinecone-database/pinecone';
 import { Task } from './agent';
+import {
+  TaskCreationChain,
+  TaskExecutionChain,
+  TaskPrioritizationChain,
+} from '.';
 
 const pineconeClient = async () => {
   const pinecone = new PineconeClient();
@@ -20,8 +22,10 @@ export const executionAgent = async (
   task: string,
   context: string[],
   modelName: string,
+  openAIApiKey?: string,
 ) => {
   const model = new OpenAI({
+    openAIApiKey,
     modelName,
     temperature: 0.7,
     maxTokens: 2000,
@@ -41,8 +45,9 @@ export const taskCreationAgent = async (
   incomplete_tasks: string,
   objective: string,
   modelName: string,
+  openAIApiKey?: string,
 ) => {
-  const model = new OpenAI({ modelName, temperature: 0.5 });
+  const model = new OpenAI({ openAIApiKey, modelName, temperature: 0.5 });
   const chain = TaskCreationChain.fromLLM({ llm: model });
   const response = await chain._call({
     objective,
@@ -61,8 +66,9 @@ export const prioritizationAgent = async (
   taskID: number,
   taskNames: string,
   modelName: string,
+  openAIApiKey?: string,
 ) => {
-  const model = new OpenAI({ modelName, temperature: 0.5 });
+  const model = new OpenAI({ openAIApiKey, modelName, temperature: 0.5 });
   const chain = TaskPrioritizationChain.fromLLM({ llm: model });
   const response = await chain._call({
     objective,
@@ -84,7 +90,12 @@ export const prioritizationAgent = async (
   return prioritizedTaskList;
 };
 
-export const contextAgent = async (query: string, index: string, n: number) => {
+export const contextAgent = async (
+  query: string,
+  index: string,
+  n: number,
+  namespace?: string,
+) => {
   const pinecone = await pineconeClient();
   const embedding = new OpenAIEmbeddings();
   const queryEmbedding = await embedding.embedQuery(query);
@@ -94,6 +105,7 @@ export const contextAgent = async (query: string, index: string, n: number) => {
       vector: queryEmbedding,
       topK: n,
       includeMetadata: true,
+      namespace,
     },
   });
 
@@ -113,6 +125,7 @@ export const enrichResult = async (
   task: Task,
   result: string,
   index: string,
+  namespace?: string,
 ) => {
   const pinecone = await pineconeClient();
   const embedding = new OpenAIEmbeddings();
@@ -123,6 +136,7 @@ export const enrichResult = async (
   if (!vector) {
     return;
   }
+
   await pineconeIndex.upsert({
     upsertRequest: {
       vectors: [
@@ -132,6 +146,7 @@ export const enrichResult = async (
           metadata: { task: task.taskName, result },
         },
       ],
+      namespace,
     },
   });
 };

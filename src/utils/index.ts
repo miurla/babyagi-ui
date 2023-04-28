@@ -65,6 +65,8 @@ export const loadingAgentMessage = (status: MessageStatus) => {
       ? 'Saving tasks...'
       : status === 'preparing'
       ? 'Preparing...'
+      : status === 'terminating'
+      ? 'Terminating...'
       : 'Thinking...';
   return {
     text: text,

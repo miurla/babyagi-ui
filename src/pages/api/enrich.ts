@@ -7,8 +7,8 @@ export const config = {
 
 const handler = async (req: NextRequest) => {
   try {
-    const { task, result, index } = await req.json();
-    await enrichResult(task, result, index);
+    const { task, result, index, namespace } = await req.json();
+    await enrichResult(task, result, index, namespace);
     return NextResponse.json({ response: 'success' });
   } catch (error) {
     return NextResponse.error();

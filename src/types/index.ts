@@ -28,11 +28,10 @@ export type MessageStatus =
   | 'executing'
   | 'prioritizing'
   | 'saving'
+  | 'terminating'
   | 'finished'
-  | 'none';
+  | 'ready';
 
 export type UserSettings = {
   openAIApiKey?: string;
-  pineconeApiKey?: string;
-  pineconeEnvironment?: string;
 };

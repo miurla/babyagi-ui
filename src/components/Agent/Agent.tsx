@@ -6,7 +6,7 @@ import { AgentParameter, iterationList, models } from './AgentParameter';
 import { ProjectTile } from './ProjectTile';
 import { AgentMessageHeader } from './AgentMessageHeader';
 import { loadingAgentMessage } from '../../utils';
-import { BabyAGI } from '../../agents/babyagi/agent';
+import { BabyAGI } from '@/agents/babyagi';
 
 export const Agent: FC = () => {
   const [model, setModel] = useState<SelectItem>(models[1]);
@@ -14,13 +14,15 @@ export const Agent: FC = () => {
   const [objective, setObjective] = useState<string>('');
   const [firstTask, setFirstTask] = useState<string>('Develop a task list');
   const [messages, setMessages] = useState<Message[]>([]);
-  const [status, setStatus] = useState<MessageStatus>('none');
+  const [status, setStatus] = useState<MessageStatus>('ready');
   const [isStreaming, setIsStreaming] = useState<boolean>(false);
   const [agent, setAgent] = useState<BabyAGI | null>(null);
+
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = useCallback(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [messages]);
 
   useEffect(() => {
@@ -36,10 +38,8 @@ export const Agent: FC = () => {
   };
 
   const startHandler = () => {
-    if (!availableUserSettings()) {
-      alert(
-        'Please set up your OpenAI API key and Pinecone config from the settings menu.',
-      );
+    if (needSettingsAlert()) {
+      alert('Please set up your OpenAI API key from the settings menu.');
       return;
     }
 
@@ -63,38 +63,29 @@ export const Agent: FC = () => {
   };
 
   const stopHandler = () => {
-    console.log('Stop streaming');
     setIsStreaming(false);
     agent?.stop();
   };
 
   const clearHandler = () => {
     setMessages([]);
+    setStatus('ready');
   };
 
-  const availableUserSettings = () => {
-    const useEnvValues = process.env.NEXT_PUBLIC_USE_ENV_VALUES;
-    if (useEnvValues === 'true') {
-      return true;
+  const needSettingsAlert = () => {
+    const useUserApiKey = process.env.NEXT_PUBLIC_USE_USER_API_KEY;
+    if (useUserApiKey === 'false') {
+      return false;
     }
 
-    const userSettings = localStorage.getItem('userSettings');
+    const userSettings = localStorage.getItem('BABYAGIUI_SETTINGS');
     if (userSettings) {
-      const { openAIApiKey, pineconeApiKey, pineconeEnvironment } = JSON.parse(
-        userSettings,
-      ) as UserSettings;
-      if (
-        openAIApiKey &&
-        openAIApiKey?.length > 0 &&
-        pineconeApiKey &&
-        pineconeApiKey?.length > 0 &&
-        pineconeEnvironment &&
-        pineconeEnvironment?.length > 0
-      ) {
-        return true;
+      const { openAIApiKey } = JSON.parse(userSettings) as UserSettings;
+      if (openAIApiKey && openAIApiKey?.length > 0) {
+        return false;
       }
     }
-    return false;
+    return true;
   };
 
   return (

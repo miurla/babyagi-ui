@@ -1,5 +1,11 @@
-import { Message, MessageStatus } from '@/types';
+import { v4 as uuidv4 } from 'uuid';
+import { Message, MessageStatus, UserSettings } from '@/types';
 import { setupMessage } from '@/utils';
+import {
+  executionAgent,
+  prioritizationAgent,
+  taskCreationAgent,
+} from './service';
 
 export interface Task {
   taskID: string;
@@ -19,6 +25,7 @@ export class BabyAGI {
   cancel: () => void;
   isRunning: boolean;
   tableName: string;
+  namespace?: string;
 
   constructor(
     objective: string,
@@ -43,6 +50,10 @@ export class BabyAGI {
     this.isRunning = false;
     this.tableName =
       process.env.NEXT_PUBLIC_TABLE_NAME ?? 'baby-agi-test-table';
+    this.namespace =
+      process.env.NEXT_PUBLIC_USE_USER_API_KEY === 'true'
+        ? uuidv4()
+        : undefined;
   }
 
   printObjective() {
@@ -100,7 +111,33 @@ export class BabyAGI {
     console.log(result.trim());
   }
 
+  getUserApiKey() {
+    const item = localStorage.getItem('userSettings');
+
+    if (!item) {
+      return undefined;
+    }
+
+    const settings = JSON.parse(item) as UserSettings;
+    const openAIApiKey = settings?.openAIApiKey ?? undefined;
+
+    return openAIApiKey;
+  }
+
   async executeTask(objective: string, taskName: string) {
+    const userApiKey = this.getUserApiKey();
+
+    if (userApiKey) {
+      const context = await this.getContext(objective, taskName);
+      return await executionAgent(
+        objective,
+        taskName,
+        context,
+        this.modelName,
+        userApiKey,
+      );
+    }
+
     const response = await fetch('/api/execute', {
       method: 'POST',
       headers: {
@@ -123,6 +160,19 @@ export class BabyAGI {
     taskDescription: string,
   ) {
     const taskNames = this.taskList.map((task) => task.taskName).join(', ');
+    const userApiKey = this.getUserApiKey();
+
+    if (userApiKey) {
+      return await taskCreationAgent(
+        taskDescription,
+        taskNames,
+        result,
+        objective,
+        this.modelName,
+        userApiKey,
+      );
+    }
+
     const response = await fetch('/api/create', {
       method: 'POST',
       headers: {
@@ -143,6 +193,17 @@ export class BabyAGI {
   async taskPrioritization(objective: string, taskID: number) {
     const taskNames = this.taskList.map((t) => t.taskName).join(', ');
     const nextTaskID = taskID + 1;
+    const userApiKey = this.getUserApiKey();
+
+    if (userApiKey) {
+      return await prioritizationAgent(
+        objective,
+        nextTaskID,
+        taskNames,
+        this.modelName,
+        userApiKey,
+      );
+    }
 
     const response = await fetch('/api/prioritize', {
       method: 'POST',
@@ -151,7 +212,7 @@ export class BabyAGI {
       },
       body: JSON.stringify({
         objective,
-        task_id: String(nextTaskID),
+        task_id: nextTaskID,
         task_names: taskNames,
         model_name: this.modelName,
       }),
@@ -170,6 +231,26 @@ export class BabyAGI {
         task,
         result,
         index,
+        namespace: this.namespace,
+      }),
+    });
+
+    return response.json().then((data) => data.response);
+  }
+
+  // only used for client-side execution
+  async getContext(objective: string, taskName: string) {
+    const response = await fetch('/api/context', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        objective,
+        task: taskName,
+        table_name: this.tableName,
+        model_name: this.modelName,
+        namespace: this.namespace,
       }),
     });
 
@@ -197,6 +278,11 @@ export class BabyAGI {
 
     // Execute the loop
     await this.loop();
+
+    if (!this.isRunning) {
+      this.statusCallback('finished');
+      return;
+    }
 
     // Finish up
     this.statusCallback('finished');

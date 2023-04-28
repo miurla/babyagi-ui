@@ -1,6 +1,5 @@
 import { FC, useState, Fragment, useEffect } from 'react';
 import { Cross1Icon, GearIcon } from '@radix-ui/react-icons';
-import { SidebarButton } from './SidebarButton';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { Transition } from '@headlessui/react';
 import { clsx } from 'clsx';
@@ -8,11 +7,7 @@ import { UserSettings } from '@/types';
 
 export const SidebarSettings: FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [settings, setSettings] = useState<UserSettings>({
-    openAIApiKey: '',
-    pineconeApiKey: '',
-    pineconeEnvironment: '',
-  });
+  const [settings, setSettings] = useState<UserSettings | undefined>(undefined);
 
   const handleValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
@@ -20,22 +15,30 @@ export const SidebarSettings: FC = () => {
   };
 
   const handleSave = () => {
+    if (!settings) {
+      return;
+    }
+
     // get userSettings from localStorage
-    const userSettings = localStorage.getItem('userSettings');
+    const userSettings = localStorage.getItem('BABYAGIUI_SETTINGS');
     // TODO: validate settings before saving
 
     if (userSettings) {
       // If there is already a value, parse it and merge the new value
       const parsedUserSettings = JSON.parse(userSettings);
       const mergedSettings = { ...parsedUserSettings, ...settings };
-      localStorage.setItem('userSettings', JSON.stringify(mergedSettings));
+      localStorage.setItem(
+        'BABYAGIUI_SETTINGS',
+        JSON.stringify(mergedSettings),
+      );
       return;
     }
-    localStorage.setItem('userSettings', JSON.stringify(settings));
+
+    localStorage.setItem('BABYAGIUI_SETTINGS', JSON.stringify(settings));
   };
 
   useEffect(() => {
-    const userSettings = localStorage.getItem('userSettings');
+    const userSettings = localStorage.getItem('BABYAGIUI_SETTINGS');
     if (userSettings) {
       const parsedUserSettings = JSON.parse(userSettings);
       setSettings(parsedUserSettings);
@@ -91,7 +94,7 @@ export const SidebarSettings: FC = () => {
                 Settings
               </DialogPrimitive.Title>
               <DialogPrimitive.Description className="mt-2 text-sm font-normal text-gray-700 dark:text-gray-400">
-                {`Set the OpenAI API key and Pinecone config.`}
+                {`Set the OpenAI API key.`}
               </DialogPrimitive.Description>
               <form className="mt-6 space-y-2">
                 <fieldset>
@@ -111,54 +114,9 @@ export const SidebarSettings: FC = () => {
                       'border border-gray-400 focus-visible:border-transparent dark:border-neutral-700 dark:bg-neutral-800',
                       'focus:outline-none focus-visible:ring focus-visible:ring-neutral-500 focus-visible:ring-opacity-25',
                     )}
-                    value={settings.openAIApiKey}
+                    value={settings?.openAIApiKey ?? ''}
                     onChange={handleValueChange}
                   />
-                </fieldset>
-                <fieldset>
-                  <label
-                    htmlFor="pineconeApiKey"
-                    className="text-xs font-medium text-gray-700 dark:text-gray-400"
-                  >
-                    Pinecone API Key
-                  </label>
-                  <input
-                    id="pineconeApiKey"
-                    type="text"
-                    placeholder="Pinecone API Key"
-                    className={clsx(
-                      'mt-1 block w-full rounded p-2',
-                      'text-sm text-gray-700 placeholder:text-gray-500 dark:text-gray-400 dark:placeholder:text-gray-600',
-                      'border border-gray-400 focus-visible:border-transparent dark:border-neutral-700 dark:bg-neutral-800',
-                      'focus:outline-none focus-visible:ring focus-visible:ring-neutral-500 focus-visible:ring-opacity-25',
-                    )}
-                    value={settings.pineconeApiKey}
-                    onChange={handleValueChange}
-                  />
-                </fieldset>
-                <fieldset>
-                  <label
-                    htmlFor="pineconeEnvironment"
-                    className="text-xs font-medium text-gray-700 dark:text-gray-400"
-                  >
-                    Pinecone Environment
-                  </label>
-                  <input
-                    id="pineconeEnvironment"
-                    type="text"
-                    placeholder="(e.g. us-east1-gcp)"
-                    className={clsx(
-                      'mt-1 block w-full rounded p-2',
-                      'text-sm text-gray-700 placeholder:text-gray-500 dark:text-gray-400 dark:placeholder:text-gray-600',
-                      'border border-gray-400 focus-visible:border-transparent dark:border-neutral-700 dark:bg-neutral-800',
-                      'focus:outline-none focus-visible:ring focus-visible:ring-neutral-500 focus-visible:ring-opacity-25',
-                    )}
-                    value={settings.pineconeEnvironment}
-                    onChange={handleValueChange}
-                  />
-                  <div className="mt-2 text-xs text-gray-500 dark:text-gray-400">
-                    {'(The default table name is "baby-agi-test-table".)'}
-                  </div>
                 </fieldset>
               </form>
 
