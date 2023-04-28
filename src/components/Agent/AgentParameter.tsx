@@ -27,6 +27,8 @@ export const iterationList = [
   { id: '3', name: '3' },
   { id: '5', name: '5' },
   { id: '10', name: '10' },
+  { id: '20', name: '20' },
+  { id: '50', name: '50' },
 ];
 
 interface AgentParameterProps {

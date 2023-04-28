@@ -1,27 +1,18 @@
-import { AgentMessage } from '@/types';
+import { Message } from '@/types';
+import { getMessageText } from '@/utils';
 import { UpdateIcon } from '@radix-ui/react-icons';
 import { FC } from 'react';
 import ReactMarkdown from 'react-markdown';
 import 'tailwindcss/tailwind.css';
 
 interface AgentMessageProps {
-  message: AgentMessage;
+  message: Message;
 }
 
 const AgentMessage: FC<AgentMessageProps> = ({ message }) => {
-  const bgStyle =
-    message.type === 'loading'
-      ? 'bg-gray-100 dark:bg-gray-600/10'
-      : message.type === 'objective' || message.type === 'task-result'
-      ? 'bg-white dark:bg-gray-600/50'
-      : 'bg-gray-50 dark:bg-[#444654]';
-
   return (
     <div
-      className={
-        'border-b border-black/10 text-gray-800 dark:border-gray-900/50 dark:text-gray-100 ' +
-        bgStyle
-      }
+      className={`border-b border-black/10 text-gray-800 dark:border-gray-900/50 dark:text-gray-100 ${message.bgColor}`}
     >
       <div className="relative m-auto flex gap-4 p-4 text-base md:max-w-2xl md:gap-6 md:py-6 lg:max-w-2xl lg:px-0 xl:max-w-3xl">
         {message.type === 'loading' ? (
@@ -32,7 +23,7 @@ const AgentMessage: FC<AgentMessageProps> = ({ message }) => {
           <div className="w-10 text-xl">{message.icon}</div>
         )}
         <div className="prose dark:prose-invert">
-          <ReactMarkdown>{message.text}</ReactMarkdown>
+          <ReactMarkdown>{getMessageText(message)}</ReactMarkdown>
         </div>
       </div>
     </div>

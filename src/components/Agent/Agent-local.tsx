@@ -1,23 +1,21 @@
 import { FC, useCallback, useEffect, useRef, useState } from 'react';
-import { Message, MessageStatus, SelectItem, UserSettings } from '@/types';
+import { SelectItem, UserSettings } from '@/types';
 import { Input } from './Input';
 import AgentMessage from './AgentMessage';
 import { AgentParameter, iterationList, models } from './AgentParameter';
 import { ProjectTile } from './ProjectTile';
 import { AgentMessageHeader } from './AgentMessageHeader';
-import { loadingAgentMessage } from '../../utils';
-import { BabyAGI } from '../../agents/babyagi/agent';
+import { getAgentMessage, loadingAgentMessage } from '../../utils';
 
 export const Agent: FC = () => {
   const [model, setModel] = useState<SelectItem>(models[1]);
   const [iterations, setIterations] = useState<SelectItem>(iterationList[0]);
   const [objective, setObjective] = useState<string>('');
   const [firstTask, setFirstTask] = useState<string>('Develop a task list');
-  const [messages, setMessages] = useState<Message[]>([]);
-  const [status, setStatus] = useState<MessageStatus>('none');
+  const [messages, setMessages] = useState<string[]>([]);
   const [isStreaming, setIsStreaming] = useState<boolean>(false);
-  const [agent, setAgent] = useState<BabyAGI | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const abortControllerRef = useRef<AbortController>(new AbortController());
 
   const scrollToBottom = useCallback(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -27,8 +25,48 @@ export const Agent: FC = () => {
     scrollToBottom();
   }, [scrollToBottom]);
 
-  const messageHandler = (message: Message) => {
-    setMessages((messages) => [...messages, message]);
+  const fetchAgent = async () => {
+    const userSettings = localStorage.getItem('userSettings');
+
+    const response = await fetch('/api/agent', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        objective,
+        firstTask,
+        model: model.id,
+        iterations: iterations.id,
+        userSettings: userSettings ? JSON.parse(userSettings) : null,
+      }),
+      signal: abortControllerRef.current.signal,
+    });
+
+    const reader = response.body?.getReader();
+    const decoder = new TextDecoder('utf-8');
+
+    if (reader) {
+      while (true) {
+        const { value, done } = await reader.read();
+        if (done) break;
+
+        const decodedValue = decoder.decode(value);
+        const lines = decodedValue.split('\n');
+
+        for (const line of lines) {
+          if (line.startsWith('data: ')) {
+            const unescapedData = line.slice(6).replace(/\\n/g, '\n');
+            setMessages((messages) => [...messages, unescapedData]);
+          }
+        }
+      }
+
+      // Complete the stream
+      setIsStreaming(false);
+      // Reset abortControllerRef
+      abortControllerRef.current = new AbortController();
+    }
   };
 
   const inputHandler = (value: string) => {
@@ -45,27 +83,15 @@ export const Agent: FC = () => {
 
     setMessages([]);
     setIsStreaming(true);
-
-    const agent = new BabyAGI(
-      objective,
-      model.id,
-      Number(iterations.id),
-      firstTask,
-      messageHandler,
-      setStatus,
-      () => {
-        setAgent(null);
-        setIsStreaming(false);
-      },
-    );
-    setAgent(agent);
-    agent.run();
+    fetchAgent();
   };
 
   const stopHandler = () => {
     console.log('Stop streaming');
     setIsStreaming(false);
-    agent?.stop();
+    abortControllerRef.current.abort();
+    // Reset abortControllerRef
+    abortControllerRef.current = new AbortController();
   };
 
   const clearHandler = () => {
@@ -117,11 +143,9 @@ export const Agent: FC = () => {
         <div className="max-h-full overflow-scroll">
           <AgentMessageHeader model={model} iterations={iterations} />
           {messages.map((message, index) => (
-            <AgentMessage key={index} message={message} />
+            <AgentMessage key={index} message={getAgentMessage(message)} />
           ))}
-          {isStreaming && (
-            <AgentMessage message={loadingAgentMessage(status)} />
-          )}
+          {isStreaming && <AgentMessage message={loadingAgentMessage} />}
           <div
             className="h-[162px] bg-white dark:bg-[#343541]"
             ref={messagesEndRef}

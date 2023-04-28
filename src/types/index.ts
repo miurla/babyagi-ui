@@ -5,19 +5,31 @@ export type SelectItem = {
   icon?: string;
 };
 
-export type AgentMessage = {
+export type Message = {
   text: string;
-  icon: string;
-  type: AgentMessageType;
+  type: MessageType;
+  icon?: string;
+  title?: string;
+  bgColor?: string;
+  status?: MessageStatus;
 };
 
-export type AgentMessageType =
+export type MessageType =
   | 'objective'
   | 'task-list'
   | 'next-task'
   | 'task-result'
   | 'loading'
   | 'end-of-iterations';
+
+export type MessageStatus =
+  | 'preparing'
+  | 'creating'
+  | 'executing'
+  | 'prioritizing'
+  | 'saving'
+  | 'finished'
+  | 'none';
 
 export type UserSettings = {
   openAIApiKey?: string;

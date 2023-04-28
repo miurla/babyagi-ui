@@ -1,18 +1,6 @@
-import { AgentMessage } from '@/types';
+import { Message, MessageStatus, MessageType } from '@/types';
 
-export const getAgentMessage = (text: string): AgentMessage => {
-  const type = text.includes('OBJECTIVE')
-    ? 'objective'
-    : text.includes('TASK LIST')
-    ? 'task-list'
-    : text.includes('NEXT TASK')
-    ? 'next-task'
-    : text.includes('TASK RESULT')
-    ? 'task-result'
-    : text.includes('END OF ITERATIONS')
-    ? 'end-of-iterations'
-    : 'loading';
-
+export const setupMessage = (type: MessageType, text: string): Message => {
   const icon =
     type === 'objective'
       ? '🎯'
@@ -28,15 +16,59 @@ export const getAgentMessage = (text: string): AgentMessage => {
       ? '🏁'
       : '🤖';
 
+  const title =
+    type === 'objective'
+      ? 'Objective'
+      : type === 'task-list'
+      ? 'Task List'
+      : type === 'next-task'
+      ? 'Next Task'
+      : type === 'task-result'
+      ? 'Task Result'
+      : type === 'loading'
+      ? 'Loading'
+      : type === 'end-of-iterations'
+      ? 'End of Iterations'
+      : '';
+
+  const bgColor =
+    type === 'loading'
+      ? 'bg-gray-100 dark:bg-gray-600/10'
+      : type === 'objective' || type === 'task-result'
+      ? 'bg-white dark:bg-gray-600/50'
+      : 'bg-gray-50 dark:bg-[#444654]';
+
   return {
     text: text,
     type: type,
     icon: icon,
+    title: title,
+    bgColor: bgColor,
   };
 };
 
-export const loadingAgentMessage: AgentMessage = {
-  text: 'Thinking...',
-  type: 'loading',
-  icon: '⏳',
+export const getMessageText = (message: Message): string => {
+  if (message.title) return `### ${message.title}\n\n ${message.text}`;
+
+  return message.text;
+};
+
+export const loadingAgentMessage = (status: MessageStatus) => {
+  const text =
+    status === 'creating'
+      ? 'Creating tasks...'
+      : status === 'executing'
+      ? 'Executing tasks...'
+      : status === 'prioritizing'
+      ? 'Prioritizing tasks...'
+      : status === 'saving'
+      ? 'Saving tasks...'
+      : status === 'preparing'
+      ? 'Preparing...'
+      : 'Thinking...';
+  return {
+    text: text,
+    type: 'loading',
+    bgColor: 'bg-gray-100 dark:bg-gray-600/10',
+  } as Message;
 };
