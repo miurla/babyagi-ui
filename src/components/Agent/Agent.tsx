@@ -5,8 +5,9 @@ import AgentMessage from './AgentMessage';
 import { AgentParameter, iterationList, models } from './AgentParameter';
 import { ProjectTile } from './ProjectTile';
 import { AgentMessageHeader } from './AgentMessageHeader';
-import { loadingAgentMessage } from '../../utils';
+import { loadingAgentMessage } from '../../utils/message';
 import { BabyAGI } from '@/agents/babyagi';
+import { SETTINGS_KEY } from '@/utils/constants';
 
 export const Agent: FC = () => {
   const [model, setModel] = useState<SelectItem>(models[1]);
@@ -78,7 +79,7 @@ export const Agent: FC = () => {
       return false;
     }
 
-    const userSettings = localStorage.getItem('BABYAGIUI_SETTINGS');
+    const userSettings = localStorage.getItem(SETTINGS_KEY);
     if (userSettings) {
       const { openAIApiKey } = JSON.parse(userSettings) as UserSettings;
       if (openAIApiKey && openAIApiKey?.length > 0) {

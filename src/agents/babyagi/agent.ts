@@ -1,11 +1,12 @@
 import { v4 as uuidv4 } from 'uuid';
 import { Message, MessageStatus, UserSettings } from '@/types';
-import { setupMessage } from '@/utils';
+import { setupMessage } from '@/utils/message';
 import {
   executionAgent,
   prioritizationAgent,
   taskCreationAgent,
 } from './service';
+import { SETTINGS_KEY } from '@/utils/constants';
 
 export interface Task {
   taskID: string;
@@ -112,7 +113,7 @@ export class BabyAGI {
   }
 
   getUserApiKey() {
-    const item = localStorage.getItem('userSettings');
+    const item = localStorage.getItem(SETTINGS_KEY);
 
     if (!item) {
       return undefined;
@@ -262,7 +263,6 @@ export class BabyAGI {
   }
 
   async stop() {
-    console.log('BabyAGI stopping...');
     this.isRunning = false;
     this.cancel();
   }

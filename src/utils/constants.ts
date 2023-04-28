@@ -1,0 +1,1 @@
+export const SETTINGS_KEY = 'BABYAGIUI_SETTINGS';

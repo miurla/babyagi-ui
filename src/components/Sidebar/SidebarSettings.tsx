@@ -4,6 +4,7 @@ import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { Transition } from '@headlessui/react';
 import { clsx } from 'clsx';
 import { UserSettings } from '@/types';
+import { SETTINGS_KEY } from '@/utils/constants';
 
 export const SidebarSettings: FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,25 +21,22 @@ export const SidebarSettings: FC = () => {
     }
 
     // get userSettings from localStorage
-    const userSettings = localStorage.getItem('BABYAGIUI_SETTINGS');
+    const userSettings = localStorage.getItem(SETTINGS_KEY);
     // TODO: validate settings before saving
 
     if (userSettings) {
       // If there is already a value, parse it and merge the new value
       const parsedUserSettings = JSON.parse(userSettings);
       const mergedSettings = { ...parsedUserSettings, ...settings };
-      localStorage.setItem(
-        'BABYAGIUI_SETTINGS',
-        JSON.stringify(mergedSettings),
-      );
+      localStorage.setItem(SETTINGS_KEY, JSON.stringify(mergedSettings));
       return;
     }
 
-    localStorage.setItem('BABYAGIUI_SETTINGS', JSON.stringify(settings));
+    localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
   };
 
   useEffect(() => {
-    const userSettings = localStorage.getItem('BABYAGIUI_SETTINGS');
+    const userSettings = localStorage.getItem(SETTINGS_KEY);
     if (userSettings) {
       const parsedUserSettings = JSON.parse(userSettings);
       setSettings(parsedUserSettings);

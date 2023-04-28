@@ -1,5 +1,5 @@
 import { Message } from '@/types';
-import { getMessageText } from '@/utils';
+import { getMessageText } from '@/utils/message';
 import { UpdateIcon } from '@radix-ui/react-icons';
 import { FC } from 'react';
 import ReactMarkdown from 'react-markdown';
