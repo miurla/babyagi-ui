@@ -44,8 +44,6 @@ npm install
 
 4. Setup your .env file. And set the variables.
 
-   - 👉 If you set values from the app, you can skip this step.
-
 ```sh
 cp .env.example .env.
 ```
