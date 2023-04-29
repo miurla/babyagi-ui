@@ -2,11 +2,13 @@ import { v4 as uuidv4 } from 'uuid';
 import { Message, MessageStatus, UserSettings } from '@/types';
 import { setupMessage } from '@/utils/message';
 import {
+  contextAgent,
   executionAgent,
   prioritizationAgent,
   taskCreationAgent,
 } from './service';
 import { SETTINGS_KEY } from '@/utils/constants';
+import { OpenAIEmbeddings } from 'langchain/embeddings/openai';
 
 export interface Task {
   taskID: string;
@@ -114,7 +116,6 @@ export class BabyAGI {
 
   getUserApiKey() {
     const item = localStorage.getItem(SETTINGS_KEY);
-
     if (!item) {
       return undefined;
     }
@@ -128,6 +129,7 @@ export class BabyAGI {
   async executeTask(objective: string, taskName: string) {
     const userApiKey = this.getUserApiKey();
 
+    // should request client side
     if (userApiKey) {
       const context = await this.getContext(objective, taskName);
       return await executionAgent(
@@ -163,6 +165,7 @@ export class BabyAGI {
     const taskNames = this.taskList.map((task) => task.taskName).join(', ');
     const userApiKey = this.getUserApiKey();
 
+    // should request client side
     if (userApiKey) {
       return await taskCreationAgent(
         taskDescription,
@@ -196,6 +199,7 @@ export class BabyAGI {
     const nextTaskID = taskID + 1;
     const userApiKey = this.getUserApiKey();
 
+    // should request client side
     if (userApiKey) {
       return await prioritizationAgent(
         objective,
@@ -223,6 +227,17 @@ export class BabyAGI {
   }
 
   async enrich(task: Task, result: string, index: string) {
+    const userApiKey = this.getUserApiKey();
+    let values: number[] | undefined = undefined;
+
+    // should request client side
+    if (userApiKey) {
+      const embedding = await new OpenAIEmbeddings({
+        openAIApiKey: userApiKey,
+      });
+      values = (await embedding.embedDocuments([result]))[0] ?? [];
+    }
+
     const response = await fetch('/api/enrich', {
       method: 'POST',
       headers: {
@@ -233,14 +248,26 @@ export class BabyAGI {
         result,
         index,
         namespace: this.namespace,
+        vector_values: values,
       }),
     });
 
     return response.json().then((data) => data.response);
   }
 
-  // only used for client-side execution
+  // only used for client-side openai api requests
   async getContext(objective: string, taskName: string) {
+    const userApiKey = this.getUserApiKey() ?? undefined;
+
+    if (!userApiKey) {
+      throw new Error('OpenAI API key not found');
+    }
+
+    const embedding = await new OpenAIEmbeddings({
+      openAIApiKey: userApiKey,
+    });
+    const queryEmbedding = await embedding.embedQuery(objective);
+
     const response = await fetch('/api/context', {
       method: 'POST',
       headers: {
@@ -252,6 +279,7 @@ export class BabyAGI {
         table_name: this.tableName,
         model_name: this.modelName,
         namespace: this.namespace,
+        query_embedding: queryEmbedding,
       }),
     });
 

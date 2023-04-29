@@ -95,14 +95,18 @@ export const contextAgent = async (
   index: string,
   n: number,
   namespace?: string,
+  queryEmbedding?: number[],
 ) => {
+  let qe = queryEmbedding;
+  if (!qe) {
+    const embedding = new OpenAIEmbeddings();
+    qe = await embedding.embedQuery(query);
+  }
   const pinecone = await pineconeClient();
-  const embedding = new OpenAIEmbeddings();
-  const queryEmbedding = await embedding.embedQuery(query);
   const pineconeIndex = pinecone.Index(index);
   const results = await pineconeIndex.query({
     queryRequest: {
-      vector: queryEmbedding,
+      vector: qe,
       topK: n,
       includeMetadata: true,
       namespace,
@@ -126,9 +130,14 @@ export const enrichResult = async (
   result: string,
   index: string,
   namespace?: string,
+  vectorValues?: number[],
 ) => {
+  let values = vectorValues;
+  if (!values) {
+    const embedding = new OpenAIEmbeddings();
+    values = (await embedding.embedDocuments([result]))[0] ?? [];
+  }
   const pinecone = await pineconeClient();
-  const embedding = new OpenAIEmbeddings();
   const pineconeIndex = pinecone.Index(index);
   const enrichedResult = { data: result };
   const resultId = `result_${task.taskID}`;
@@ -142,7 +151,7 @@ export const enrichResult = async (
       vectors: [
         {
           id: resultId,
-          values: (await embedding.embedDocuments(vector))[0] ?? [],
+          values: values,
           metadata: { task: task.taskName, result },
         },
       ],

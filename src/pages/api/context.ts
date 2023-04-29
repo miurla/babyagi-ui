@@ -7,9 +7,16 @@ export const config = {
 
 const handler = async (req: NextRequest) => {
   try {
-    const { objective, table_name, namespace } = await req.json();
+    const { objective, table_name, namespace, query_embedding } =
+      await req.json();
 
-    const response = await contextAgent(objective, table_name, 5, namespace);
+    const response = await contextAgent(
+      objective,
+      table_name,
+      5,
+      namespace,
+      query_embedding,
+    );
     return NextResponse.json({ response: response });
   } catch (error) {
     return NextResponse.error();
