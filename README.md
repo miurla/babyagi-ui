@@ -1,11 +1,11 @@
-# BabyAGI UI
+# 👶🤖🖥️ BabyAGI UI
 
 BabyAGI UI is designed to make it easier to run and develop with [babyagi](https://github.com/yoheinakajima/babyagi) in a web app, like a ChatGPT.
 This is a port of [babyagi](https://github.com/yoheinakajima/babyagi) from Python to TypeScript with [Langchain.js](https://github.com/hwchase17/langchainjs) and build a user interface.
 
 ![](./public/screenshot-230425.png)
 
-## Roadmap
+## 🚗 Roadmap
 
 - [ ] Display the current task and task list
 - [ ] User feedback
@@ -16,13 +16,15 @@ This is a port of [babyagi](https://github.com/yoheinakajima/babyagi) from Pytho
 
 and more ...
 
-## Stack
+## 🧰 Stack
 
 - [Next.js](https://nextjs.org/)
+- [Pinecone](https://www.pinecone.io/)
+- [LangChain.js](https://github.com/hwchase17/langchainjs)
 - [Tailwind CSS](https://tailwindcss.com/)
 - [Radix UI](https://www.radix-ui.com/)
 
-## Getting Started
+## 👉 Getting Started
 
 1. Clone the repository
 
@@ -54,7 +56,7 @@ cp .env.example .env.
 npm run dev
 ```
 
-## Deploy
+## 🚀 Deploy
 
 ### Vercel
 

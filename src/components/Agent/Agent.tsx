@@ -2,16 +2,16 @@ import { FC, useCallback, useEffect, useRef, useState } from 'react';
 import { Message, MessageStatus, SelectItem, UserSettings } from '@/types';
 import { Input } from './Input';
 import AgentMessage from './AgentMessage';
-import { AgentParameter, iterationList, models } from './AgentParameter';
+import { AgentParameter } from './AgentParameter';
 import { ProjectTile } from './ProjectTile';
 import { AgentMessageHeader } from './AgentMessageHeader';
 import { loadingAgentMessage } from '../../utils/message';
 import { BabyAGI } from '@/agents/babyagi';
-import { SETTINGS_KEY } from '@/utils/constants';
+import { ITERATIONS, MODELS, SETTINGS_KEY } from '@/utils/constants';
 
 export const Agent: FC = () => {
-  const [model, setModel] = useState<SelectItem>(models[1]);
-  const [iterations, setIterations] = useState<SelectItem>(iterationList[0]);
+  const [model, setModel] = useState<SelectItem>(MODELS[1]);
+  const [iterations, setIterations] = useState<SelectItem>(ITERATIONS[0]);
   const [objective, setObjective] = useState<string>('');
   const [firstTask, setFirstTask] = useState<string>('Develop a task list');
   const [messages, setMessages] = useState<Message[]>([]);
@@ -60,7 +60,7 @@ export const Agent: FC = () => {
       },
     );
     setAgent(agent);
-    agent.run();
+    agent.start();
   };
 
   const stopHandler = () => {

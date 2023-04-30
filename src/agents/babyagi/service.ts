@@ -10,9 +10,12 @@ import {
 
 const pineconeClient = async () => {
   const pinecone = new PineconeClient();
+  if (!process.env.PINECONE_API_KEY || !process.env.PINECONE_ENVIRONMENT) {
+    throw new Error('Pinecone API key or environment not set');
+  }
   await pinecone.init({
-    apiKey: process.env.PINECONE_API_KEY ?? '',
-    environment: process.env.PINECONE_ENVIRONMENT ?? '',
+    apiKey: process.env.PINECONE_API_KEY,
+    environment: process.env.PINECONE_ENVIRONMENT,
   });
   return pinecone;
 };

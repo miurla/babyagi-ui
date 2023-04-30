@@ -1,6 +1,6 @@
-export { TaskCreationChain } from './taskCreation';
-export { TaskExecutionChain } from './taskExecution';
-export { TaskPrioritizationChain } from './taskPrioritization';
+export { TaskCreationChain } from './chains/taskCreation';
+export { TaskExecutionChain } from './chains/taskExecution';
+export { TaskPrioritizationChain } from './chains/taskPrioritization';
 export { BabyAGI } from './agent';
 export {
   executionAgent,

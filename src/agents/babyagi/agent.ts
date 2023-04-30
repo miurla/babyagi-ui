@@ -20,12 +20,12 @@ export class BabyAGI {
   modelName: string;
   maxIterations: number;
   firstTask: string;
+  messageCallback: (message: Message) => void;
+  statusCallback: (status: MessageStatus) => void;
+  cancelCallback: () => void;
   verbose: boolean;
   taskList: Task[];
   taskIDCounter: number;
-  messageCallback: (message: Message) => void;
-  statusCallback: (status: MessageStatus) => void;
-  cancel: () => void;
   isRunning: boolean;
   tableName: string;
   namespace?: string;
@@ -47,7 +47,7 @@ export class BabyAGI {
     this.verbose = verbose;
     this.taskList = [];
     this.taskIDCounter = 1;
-    this.cancel = cancel;
+    this.cancelCallback = cancel;
     this.messageCallback = messageCallback;
     this.statusCallback = statusCallback;
     this.isRunning = false;
@@ -292,10 +292,10 @@ export class BabyAGI {
 
   async stop() {
     this.isRunning = false;
-    this.cancel();
+    this.cancelCallback();
   }
 
-  async run() {
+  async start() {
     this.printGPT4Alert();
     this.printObjective();
 
@@ -315,8 +315,8 @@ export class BabyAGI {
     // Finish up
     this.statusCallback('finished');
     this.messageCallback(setupMessage('end-of-iterations', ''));
+    this.cancelCallback();
     this.isRunning = false;
-    this.cancel();
   }
 
   async loop() {
@@ -343,7 +343,7 @@ export class BabyAGI {
         // Step 2: Enrich the result and store in Pinecone
         // TODO: taskEnrichment
         this.statusCallback('saving');
-        await this.enrich(task, result, 'baby-agi-test-table');
+        await this.enrich(task, result, this.tableName);
 
         if (!this.isRunning) break;
 
