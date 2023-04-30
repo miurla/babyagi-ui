@@ -1,7 +1,7 @@
 # 👶🤖🖥️ BabyAGI UI
 
 BabyAGI UI is designed to make it easier to run and develop with [babyagi](https://github.com/yoheinakajima/babyagi) in a web app, like a ChatGPT.
-This is a port of [babyagi](https://github.com/yoheinakajima/babyagi) from Python to TypeScript with [Langchain.js](https://github.com/hwchase17/langchainjs) and build a user interface.
+This is a port of [babyagi](https://github.com/yoheinakajima/babyagi) with [Langchain.js](https://github.com/hwchase17/langchainjs) and build a user interface.
 
 ![](./public/screenshot-230425.png)
 
@@ -64,7 +64,7 @@ Host your own live version of BabyAGI UI with Vercel.
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fmiurla%2Fbabyagi-ui)
 
-## Warning
+## ⚠️ Warning
 
 This script is designed to be run continuously as part of a task management system. Running this script continuously can result in high API usage, so please use it responsibly. Additionally, the script requires the OpenAI API to be set up correctly, so make sure you have set up the API before running the script.
 

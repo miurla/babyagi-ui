@@ -2,13 +2,13 @@ import { v4 as uuidv4 } from 'uuid';
 import { Message, MessageStatus, UserSettings } from '@/types';
 import { setupMessage } from '@/utils/message';
 import {
-  contextAgent,
   executionAgent,
   prioritizationAgent,
   taskCreationAgent,
 } from './service';
 import { SETTINGS_KEY } from '@/utils/constants';
 import { OpenAIEmbeddings } from 'langchain/embeddings/openai';
+import axios from 'axios';
 
 export interface Task {
   taskID: string;
@@ -29,6 +29,7 @@ export class BabyAGI {
   isRunning: boolean;
   tableName: string;
   namespace?: string;
+  abortController?: AbortController;
 
   constructor(
     objective: string,
@@ -141,20 +142,29 @@ export class BabyAGI {
       );
     }
 
-    const response = await fetch('/api/execute', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        objective,
-        task: taskName,
-        table_name: this.tableName,
-        model_name: this.modelName,
-      }),
-    });
+    this.abortController = new AbortController();
+    const response = await axios
+      .post(
+        '/api/execute',
+        {
+          objective,
+          task: taskName,
+          table_name: this.tableName,
+          model_name: this.modelName,
+        },
+        {
+          signal: this.abortController.signal,
+        },
+      )
+      .catch((error) => {
+        if (error.name === 'AbortError') {
+          console.log('Request aborted', error.message);
+        } else {
+          console.log(error.message);
+        }
+      });
 
-    return response.json().then((data) => data.response);
+    return response?.data?.response;
   }
 
   async taskCreation(
@@ -177,21 +187,27 @@ export class BabyAGI {
       );
     }
 
-    const response = await fetch('/api/create', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        objective,
-        result: result,
-        task_description: taskDescription,
-        incomplete_tasks: taskNames,
-        model_name: this.modelName,
-      }),
-    });
+    const response = await axios
+      .post(
+        '/api/create',
+        {
+          objective,
+          result: result,
+          task_description: taskDescription,
+          incomplete_tasks: taskNames,
+          model_name: this.modelName,
+        },
+        { signal: this.abortController?.signal },
+      )
+      .catch((error) => {
+        if (error.name === 'AbortError') {
+          console.log('Request aborted', error.message);
+        } else {
+          console.log(error.message);
+        }
+      });
 
-    return response.json().then((data) => data.response);
+    return response?.data?.response;
   }
 
   async taskPrioritization(objective: string, taskID: number) {
@@ -210,20 +226,28 @@ export class BabyAGI {
       );
     }
 
-    const response = await fetch('/api/prioritize', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        objective,
-        task_id: nextTaskID,
-        task_names: taskNames,
-        model_name: this.modelName,
-      }),
-    });
+    const response = await axios
+      .post(
+        '/api/prioritize',
+        {
+          objective,
+          task_id: nextTaskID,
+          task_names: taskNames,
+          model_name: this.modelName,
+        },
+        {
+          signal: this.abortController?.signal,
+        },
+      )
+      .catch((error) => {
+        if (error.name === 'AbortError') {
+          console.log('Request aborted', error.message);
+        } else {
+          console.log(error.message);
+        }
+      });
 
-    return response.json().then((data) => data.response);
+    return response?.data?.response;
   }
 
   async enrich(task: Task, result: string, index: string) {
@@ -238,21 +262,29 @@ export class BabyAGI {
       values = (await embedding.embedDocuments([result]))[0] ?? [];
     }
 
-    const response = await fetch('/api/enrich', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        task,
-        result,
-        index,
-        namespace: this.namespace,
-        vector_values: values,
-      }),
-    });
+    const response = await axios
+      .post(
+        '/api/enrich',
+        {
+          task,
+          result,
+          index,
+          namespace: this.namespace,
+          vector_values: values,
+        },
+        {
+          signal: this.abortController?.signal,
+        },
+      )
+      .catch((error) => {
+        if (error.name === 'AbortError') {
+          console.log('Request aborted', error.message);
+        } else {
+          console.log(error.message);
+        }
+      });
 
-    return response.json().then((data) => data.response);
+    return response?.data?.response;
   }
 
   // only used for client-side openai api requests
@@ -267,23 +299,30 @@ export class BabyAGI {
       openAIApiKey: userApiKey,
     });
     const queryEmbedding = await embedding.embedQuery(objective);
+    const response = await axios
+      .post(
+        '/api/context',
+        {
+          objective,
+          task: taskName,
+          table_name: this.tableName,
+          model_name: this.modelName,
+          namespace: this.namespace,
+          query_embedding: queryEmbedding,
+        },
+        {
+          signal: this.abortController?.signal,
+        },
+      )
+      .catch((error) => {
+        if (error.name === 'AbortError') {
+          console.log('Request aborted', error.message);
+        } else {
+          console.log(error.message);
+        }
+      });
 
-    const response = await fetch('/api/context', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        objective,
-        task: taskName,
-        table_name: this.tableName,
-        model_name: this.modelName,
-        namespace: this.namespace,
-        query_embedding: queryEmbedding,
-      }),
-    });
-
-    return response.json().then((data) => data.response);
+    return response?.data?.response;
   }
 
   async addTask(taskID: string, taskName: string) {
@@ -293,6 +332,7 @@ export class BabyAGI {
   async stop() {
     this.isRunning = false;
     this.cancelCallback();
+    this.abortController?.abort();
   }
 
   async start() {
