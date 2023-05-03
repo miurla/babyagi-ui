@@ -9,6 +9,6 @@ services:
       - PINECONE_API_KEY=""
       - PINECONE_ENVIRONMENT=""
       - NEXT_PUBLIC_TABLE_NAME="baby-agi-test-table"
-      - NEXT_PUBLIC_USE_USER_API_KEY="false"
+      - NEXT_PUBLIC_USE_USER_API_KEY="true"
     ports:
       - 7845:3000
