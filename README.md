@@ -45,6 +45,8 @@ npm install
 ```
 
 4. Setup your .env file. And set the variables.
+   - You need to create an index in advance with [Pinecone](https://www.pinecone.io/).
+     - [Reference setting](./public/pinecone-setup.png)
 
 ```sh
 cp .env.example .env.
