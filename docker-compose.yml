@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  babyagi-ui:
+    build: .
+    container_name: babyagi-ui
+    environment:
+      - OPENAI_API_KEY=""
+      - PINECONE_API_KEY=""
+      - PINECONE_ENVIRONMENT=""
+      - NEXT_PUBLIC_TABLE_NAME="baby-agi-test-table"
+      - NEXT_PUBLIC_USE_USER_API_KEY="false"
+    ports:
+      - 7845:3000
