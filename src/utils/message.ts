@@ -14,6 +14,12 @@ export const setupMessage = (type: MessageType, text: string): Message => {
       ? '⏳'
       : type === 'end-of-iterations'
       ? '🏁'
+      : type === 'session-summary'
+      ? '📑'
+      : type === 'done'
+      ? '👍'
+      : type === 'complete'
+      ? '🎉'
       : '🤖';
 
   const title =
@@ -29,6 +35,12 @@ export const setupMessage = (type: MessageType, text: string): Message => {
       ? 'Loading'
       : type === 'end-of-iterations'
       ? 'End of Iterations'
+      : type === 'session-summary'
+      ? 'Session Summary'
+      : type === 'done'
+      ? 'Done'
+      : type === 'complete'
+      ? 'All Tasks Completed'
       : '';
 
   const bgColor =

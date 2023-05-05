@@ -23,10 +23,14 @@
     "clsx": "^1.2.1",
     "eslint": "8.37.0",
     "eslint-config-next": "13.2.4",
+    "install": "^0.13.0",
+    "jsdom": "^21.1.1",
     "langchain": "^0.0.64",
     "next": "13.2.4",
     "next-theme": "^0.1.5",
+    "npm": "^9.6.6",
     "openai": "^3.2.1",
+    "puppeteer": "^20.1.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-markdown": "^8.0.6",
@@ -34,6 +38,7 @@
     "uuid": "^9.0.0"
   },
   "devDependencies": {
+    "@types/jsdom": "^21.1.1",
     "@types/uuid": "^9.0.1",
     "autoprefixer": "^10.4.14",
     "postcss": "^8.4.21",

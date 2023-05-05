@@ -20,7 +20,10 @@ export type MessageType =
   | 'next-task'
   | 'task-result'
   | 'loading'
-  | 'end-of-iterations';
+  | 'end-of-iterations'
+  | 'session-summary'
+  | 'done'
+  | 'complete';
 
 export type MessageStatus =
   | 'preparing'
@@ -35,3 +38,5 @@ export type MessageStatus =
 export type UserSettings = {
   openAIApiKey?: string;
 };
+
+export type ToolType = 'web-scrape' | 'web-search' | 'text-completion';

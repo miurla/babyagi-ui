@@ -8,6 +8,7 @@ import { AgentMessageHeader } from './AgentMessageHeader';
 import { loadingAgentMessage } from '../../utils/message';
 import { BabyAGI } from '@/agents/babyagi';
 import { ITERATIONS, MODELS, SETTINGS_KEY } from '@/utils/constants';
+import { BabyBeeAGI } from '@/agents/babybeeagi/agent';
 
 export const Agent: FC = () => {
   const [model, setModel] = useState<SelectItem>(MODELS[1]);
@@ -17,7 +18,7 @@ export const Agent: FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [status, setStatus] = useState<MessageStatus>('ready');
   const [isStreaming, setIsStreaming] = useState<boolean>(false);
-  const [agent, setAgent] = useState<BabyAGI | null>(null);
+  const [agent, setAgent] = useState<BabyAGI | BabyBeeAGI | null>(null);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -47,18 +48,37 @@ export const Agent: FC = () => {
     setMessages([]);
     setIsStreaming(true);
 
-    const agent = new BabyAGI(
-      objective,
-      model.id,
-      Number(iterations.id),
-      firstTask,
-      messageHandler,
-      setStatus,
-      () => {
-        setAgent(null);
-        setIsStreaming(false);
-      },
-    );
+    const useBabyBeeAgi = true;
+    const verbose = true;
+    let agent = null;
+    if (useBabyBeeAgi) {
+      agent = new BabyBeeAGI(
+        objective,
+        model.id,
+        firstTask,
+        messageHandler,
+        setStatus,
+        () => {
+          setAgent(null);
+          setIsStreaming(false);
+        },
+        verbose,
+      );
+    } else {
+      agent = new BabyAGI(
+        objective,
+        model.id,
+        Number(iterations.id),
+        firstTask,
+        messageHandler,
+        setStatus,
+        () => {
+          setAgent(null);
+          setIsStreaming(false);
+        },
+        verbose,
+      );
+    }
     setAgent(agent);
     agent.start();
   };
