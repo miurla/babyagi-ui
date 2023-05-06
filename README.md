@@ -49,7 +49,7 @@ npm install
      - [Reference setting](./public/pinecone-setup.png)
 
 ```sh
-cp .env.example .env.
+cp .env.example .env
 ```
 
 5. Run the project
