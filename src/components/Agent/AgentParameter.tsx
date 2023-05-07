@@ -37,12 +37,12 @@ export const AgentParameter: FC<AgentParameterProps> = ({
             setModel(MODELS.find((model) => model.id === value)!);
           }}
         />
-        {checked ? (
+        {checked && model.id === 'gpt-4' ? (
           <Select
             label="Iterations"
             item={BABYBEEAGI_ITERATIONS[0]}
             items={BABYBEEAGI_ITERATIONS}
-            onChange={(value) => {}}
+            onChange={() => {}}
           />
         ) : (
           <Select
@@ -69,28 +69,31 @@ export const AgentParameter: FC<AgentParameterProps> = ({
       </div>
       <div className="flex w-full flex-col px-1 py-1">
         {model.id === 'gpt-4' && (
-          <Checkbox
-            label="BabyBeeAGI Mode 🐝"
-            caption="(Only GPT-4)"
-            checked={checked}
-            onChecked={setChecked}
-          />
+          <>
+            <Checkbox
+              label="BabyBeeAGI Mode 🐝"
+              caption="(Only GPT-4)"
+              checked={checked}
+              onChecked={setChecked}
+            />
+
+            <label className="pl-1 text-xs text-neutral-400 dark:text-neutral-400">
+              {`In this mode, The BabyAGI can search and scrape the web. However, as it's an experimental feature, it may not always work and can be slow at times. `}
+              {'For more details: '}
+              <Link
+                href={
+                  'https://twitter.com/yoheinakajima/status/1652732735344246784'
+                }
+                passHref
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline"
+              >
+                {'please refer to the original paper.'}
+              </Link>
+            </label>
+          </>
         )}
-        <label className="pl-1 text-xs text-neutral-400 dark:text-neutral-400">
-          {`In this mode, The BabyAGI can search and scrape the web. However, as it's an experimental feature, it may not always work and can be slow at times. `}
-          {'For more details: '}
-          <Link
-            href={
-              'https://twitter.com/yoheinakajima/status/1652732735344246784'
-            }
-            passHref
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline"
-          >
-            {'please refer to the original paper.'}
-          </Link>
-        </label>
       </div>
     </div>
   );

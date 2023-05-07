@@ -124,7 +124,7 @@ export const Agent: FC = () => {
             checked={modeChecked}
             setChecked={setModeChecked}
           />
-          <div className="h-[calc(100vh-317px)]">
+          <div className="h-[calc(100vh-360px)]">
             <ProjectTile />
           </div>
         </>
