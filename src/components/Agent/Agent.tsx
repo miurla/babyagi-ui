@@ -19,6 +19,7 @@ export const Agent: FC = () => {
   const [status, setStatus] = useState<MessageStatus>('ready');
   const [isStreaming, setIsStreaming] = useState<boolean>(false);
   const [agent, setAgent] = useState<BabyAGI | BabyBeeAGI | null>(null);
+  const [modeChecked, setModeChecked] = useState<boolean>(false);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -48,8 +49,8 @@ export const Agent: FC = () => {
     setMessages([]);
     setIsStreaming(true);
 
-    const useBabyBeeAgi = true;
-    const verbose = true;
+    const useBabyBeeAgi = modeChecked && model.id === 'gpt-4';
+    const verbose = false;
     let agent = null;
     if (useBabyBeeAgi) {
       agent = new BabyBeeAGI(
@@ -120,6 +121,8 @@ export const Agent: FC = () => {
             setIterations={setIterations}
             firstTask={firstTask}
             setFirstTask={setFirstTask}
+            checked={modeChecked}
+            setChecked={setModeChecked}
           />
           <div className="h-[calc(100vh-317px)]">
             <ProjectTile />

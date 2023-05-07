@@ -11,8 +11,10 @@
   "dependencies": {
     "@headlessui/react": "^1.7.14",
     "@pinecone-database/pinecone": "^0.0.10",
+    "@radix-ui/react-checkbox": "^1.0.3",
     "@radix-ui/react-dialog": "^1.0.3",
     "@radix-ui/react-icons": "^1.3.0",
+    "@radix-ui/react-label": "^2.0.1",
     "@radix-ui/react-select": "^1.2.1",
     "@tailwindcss/typography": "^0.5.9",
     "@types/node": "18.15.11",

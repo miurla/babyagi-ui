@@ -1,7 +1,9 @@
 import { FC } from 'react';
 import { Select } from './Select';
 import { SelectItem } from '@/types';
-import { ITERATIONS, MODELS } from '@/utils/constants';
+import { BABYBEEAGI_ITERATIONS, ITERATIONS, MODELS } from '@/utils/constants';
+import { Checkbox } from './Checkbox';
+import Link from 'next/link';
 
 interface AgentParameterProps {
   model: SelectItem;
@@ -10,6 +12,8 @@ interface AgentParameterProps {
   setIterations: (iterations: SelectItem) => void;
   firstTask: string;
   setFirstTask: (firstTask: string) => void;
+  checked: boolean;
+  setChecked: (checked: boolean) => void;
 }
 
 export const AgentParameter: FC<AgentParameterProps> = ({
@@ -19,6 +23,8 @@ export const AgentParameter: FC<AgentParameterProps> = ({
   setIterations,
   firstTask,
   setFirstTask,
+  checked,
+  setChecked,
 }) => {
   return (
     <div className="mx-auto flex flex-col items-center space-y-3 p-4 pt-12 lg:w-2/3 xl:w-2/4">
@@ -31,16 +37,25 @@ export const AgentParameter: FC<AgentParameterProps> = ({
             setModel(MODELS.find((model) => model.id === value)!);
           }}
         />
-        <Select
-          label="Iterations"
-          item={iterations}
-          items={ITERATIONS}
-          onChange={(value) => {
-            setIterations(
-              ITERATIONS.find((iterations) => iterations.id === value)!,
-            );
-          }}
-        />
+        {checked ? (
+          <Select
+            label="Iterations"
+            item={BABYBEEAGI_ITERATIONS[0]}
+            items={BABYBEEAGI_ITERATIONS}
+            onChange={(value) => {}}
+          />
+        ) : (
+          <Select
+            label="Iterations"
+            item={iterations}
+            items={ITERATIONS}
+            onChange={(value) => {
+              setIterations(
+                ITERATIONS.find((iterations) => iterations.id === value)!,
+              );
+            }}
+          />
+        )}
       </div>
       <div className="flex w-full flex-col">
         <label className="mb-2 text-left text-xs text-neutral-700 dark:text-neutral-400">
@@ -51,6 +66,31 @@ export const AgentParameter: FC<AgentParameterProps> = ({
           value={firstTask}
           onChange={(e) => setFirstTask(e.target.value)}
         ></input>
+      </div>
+      <div className="flex w-full flex-col px-1 py-1">
+        {model.id === 'gpt-4' && (
+          <Checkbox
+            label="BabyBeeAGI Mode 🐝"
+            caption="(Only GPT-4)"
+            checked={checked}
+            onChecked={setChecked}
+          />
+        )}
+        <label className="pl-1 text-xs text-neutral-400 dark:text-neutral-400">
+          {`In this mode, The BabyAGI can search and scrape the web. However, as it's an experimental feature, it may not always work and can be slow at times. `}
+          {'For more details: '}
+          <Link
+            href={
+              'https://twitter.com/yoheinakajima/status/1652732735344246784'
+            }
+            passHref
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline"
+          >
+            {'please refer to the original paper.'}
+          </Link>
+        </label>
       </div>
     </div>
   );
