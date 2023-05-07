@@ -8,6 +8,7 @@ import { AgentMessageHeader } from './AgentMessageHeader';
 import { loadingAgentMessage } from '../../utils/message';
 import { BabyAGI } from '@/agents/babyagi';
 import { ITERATIONS, MODELS, SETTINGS_KEY } from '@/utils/constants';
+import { BabyBeeAGI } from '@/agents/babybeeagi/agent';
 
 export const Agent: FC = () => {
   const [model, setModel] = useState<SelectItem>(MODELS[1]);
@@ -17,7 +18,8 @@ export const Agent: FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [status, setStatus] = useState<MessageStatus>('ready');
   const [isStreaming, setIsStreaming] = useState<boolean>(false);
-  const [agent, setAgent] = useState<BabyAGI | null>(null);
+  const [agent, setAgent] = useState<BabyAGI | BabyBeeAGI | null>(null);
+  const [modeChecked, setModeChecked] = useState<boolean>(false);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -47,18 +49,37 @@ export const Agent: FC = () => {
     setMessages([]);
     setIsStreaming(true);
 
-    const agent = new BabyAGI(
-      objective,
-      model.id,
-      Number(iterations.id),
-      firstTask,
-      messageHandler,
-      setStatus,
-      () => {
-        setAgent(null);
-        setIsStreaming(false);
-      },
-    );
+    const useBabyBeeAgi = modeChecked && model.id === 'gpt-4';
+    const verbose = false;
+    let agent = null;
+    if (useBabyBeeAgi) {
+      agent = new BabyBeeAGI(
+        objective,
+        model.id,
+        firstTask,
+        messageHandler,
+        setStatus,
+        () => {
+          setAgent(null);
+          setIsStreaming(false);
+        },
+        verbose,
+      );
+    } else {
+      agent = new BabyAGI(
+        objective,
+        model.id,
+        Number(iterations.id),
+        firstTask,
+        messageHandler,
+        setStatus,
+        () => {
+          setAgent(null);
+          setIsStreaming(false);
+        },
+        verbose,
+      );
+    }
     setAgent(agent);
     agent.start();
   };
@@ -100,8 +121,10 @@ export const Agent: FC = () => {
             setIterations={setIterations}
             firstTask={firstTask}
             setFirstTask={setFirstTask}
+            checked={modeChecked}
+            setChecked={setModeChecked}
           />
-          <div className="h-[calc(100vh-317px)]">
+          <div className="h-[calc(100vh-450px)]">
             <ProjectTile />
           </div>
         </>
@@ -128,6 +151,7 @@ export const Agent: FC = () => {
         onClear={clearHandler}
         isStreaming={isStreaming}
         hasMessages={messages.length > 0}
+        isBabyBeeAGIMode={modeChecked && model.id === 'gpt-4'}
       />
     </div>
   );

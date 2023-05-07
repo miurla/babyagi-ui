@@ -3,7 +3,7 @@ import { getMessageText } from '@/utils/message';
 import { UpdateIcon } from '@radix-ui/react-icons';
 import { FC } from 'react';
 import ReactMarkdown from 'react-markdown';
-import 'tailwindcss/tailwind.css';
+import remarkGfm from 'remark-gfm';
 
 interface AgentMessageProps {
   message: Message;
@@ -20,10 +20,12 @@ const AgentMessage: FC<AgentMessageProps> = ({ message }) => {
             <UpdateIcon className="animate-spin" />
           </div>
         ) : (
-          <div className="w-10 text-xl">{message.icon}</div>
+          <div className="w-10 pt-0.5 text-xl">{message.icon}</div>
         )}
-        <div className="prose dark:prose-invert">
-          <ReactMarkdown>{getMessageText(message)}</ReactMarkdown>
+        <div className="prose dark:prose-invert prose-pre:bg-neutral-200 prose-pre:text-black dark:prose-pre:bg-neutral-800 dark:prose-pre:text-white">
+          <ReactMarkdown remarkPlugins={[remarkGfm]}>
+            {getMessageText(message)}
+          </ReactMarkdown>
         </div>
       </div>
     </div>

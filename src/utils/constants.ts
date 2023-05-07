@@ -28,3 +28,7 @@ export const ITERATIONS = [
   { id: '20', name: '20' },
   { id: '50', name: '50' },
 ];
+
+export const BABYBEEAGI_ITERATIONS = [
+  { id: '0', name: 'Until All tasks completed 🐝' },
+];

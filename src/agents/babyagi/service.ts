@@ -58,6 +58,7 @@ export const taskCreationAgent = async (
     task_description,
     incomplete_tasks,
   });
+
   const newTasks = (response.text as string).split('\n');
   return newTasks
     .filter((taskName) => taskName.trim())
