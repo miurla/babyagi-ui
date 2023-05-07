@@ -4,7 +4,7 @@ BabyAGI UI is designed to make it easier to run and develop with [babyagi](https
 This is a port of [babyagi](https://github.com/yoheinakajima/babyagi) with [Langchain.js](https://github.com/hwchase17/langchainjs) and build a user interface.
 
 ![](./public/screenshot-230507.png)
-[Demo movie](https://twitter.com/miiura/status/1653026609606320130)
+[Demo](https://twitter.com/miiura/status/1653026609606320130)
 
 ## 🧰 Stack
 

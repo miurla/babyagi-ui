@@ -1,4 +1,4 @@
-import { Task } from '@/agents/babybeeagi/agent';
+import { AgentTask } from '@/agents/babybeeagi/agent';
 
 const camelToSnakeCase = (str: string): string =>
   str.replace(/[A-Z]/g, (letter) => `_${letter.toLowerCase()}`);
@@ -25,12 +25,12 @@ const convertKeys = (obj: any, converter: (key: string) => string): any => {
   return newObj;
 };
 
-export const stringifyTasks = (tasks: Task[]): string => {
+export const stringifyTasks = (tasks: AgentTask[]): string => {
   const snakeCaseTasks = convertKeys(tasks, camelToSnakeCase);
   return JSON.stringify(snakeCaseTasks);
 };
 
-export const parseTasks = (jsonString: string): Task[] => {
+export const parseTasks = (jsonString: string): AgentTask[] => {
   const parsedObj = JSON.parse(jsonString);
   const camelCaseObj = convertKeys(parsedObj, snakeToCamelCase);
   return camelCaseObj;

@@ -1,7 +1,7 @@
 import { TaskSummarizeChain } from './chains/taskSummerize';
 import { TaskOverviewChain } from './chains/taskOverview';
 import { TaskManagementChain } from './chains/taskManagement';
-import { Task } from './agent';
+import { AgentTask } from './agent';
 import { OpenAI, OpenAIChat } from 'langchain/llms/openai';
 import { stringifyTasks } from '@/utils/task';
 
@@ -49,7 +49,7 @@ export const overviewAgent = async (
 };
 
 export const taskManagementAgent = async (
-  minifiedTaskList: Task[],
+  minifiedTaskList: AgentTask[],
   objective: string,
   result: string,
   websearchVar: string,

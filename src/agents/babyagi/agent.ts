@@ -394,11 +394,13 @@ export class BabyAGI {
           result,
           task.taskName,
         );
-        for (const task of newTasks) {
-          this.taskIDCounter += 1;
-          task.taskID = this.taskIDCounter.toFixed();
-          await this.addTask(task.taskID, task.taskName);
-        }
+        await Promise.all(
+          newTasks.map(async (task: Task) => {
+            this.taskIDCounter += 1;
+            task.taskID = this.taskIDCounter.toFixed();
+            await this.addTask(task.taskID, task.taskName);
+          }),
+        );
 
         if (!this.isRunning) break;
 

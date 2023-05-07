@@ -12,7 +12,7 @@ import { SETTINGS_KEY } from '@/utils/constants';
 import axios from 'axios';
 import { parseTasks } from '@/utils/task';
 
-export interface Task {
+export interface AgentTask {
   id: number;
   task: string;
   tool: ToolType;
@@ -26,7 +26,7 @@ export class BabyBeeAGI {
   objective: string;
   modelName: string;
   firstTask: string;
-  taskList: Task[] = [];
+  taskList: AgentTask[] = [];
   sessionSummary: string = '';
   taskIdCounter: number = 1;
   isRunning: boolean;
@@ -58,6 +58,7 @@ export class BabyBeeAGI {
 
   // print logs
   printBabyBee() {
+    if (!this.verbose) return;
     console.log(
       '%c*****BABY BEE AGI*****\n\n%c%s',
       'color:orange',
@@ -109,7 +110,7 @@ export class BabyBeeAGI {
     console.log(this.sessionSummary);
   }
 
-  printNextTask(task: Task) {
+  printNextTask(task: AgentTask) {
     if (!this.isRunning) return;
 
     const nextTask = `${task.id}. ${task.task} - **[${getToolIcon(task.tool)} ${
@@ -121,7 +122,7 @@ export class BabyBeeAGI {
     console.log('%c*****NEXT TASK*****\n\n%s', 'color:green', '', nextTask);
   }
 
-  printResult(result: string, task: Task) {
+  printResult(result: string, task: AgentTask) {
     if (!this.isRunning) return;
 
     let output = result;
@@ -262,7 +263,7 @@ export class BabyBeeAGI {
   }
 
   // Task list functions
-  async addTask(task: Task) {
+  async addTask(task: AgentTask) {
     this.taskList.push(task);
   }
 
@@ -424,7 +425,7 @@ export class BabyBeeAGI {
   }
 
   // Agent functions
-  async executeTask(task: Task, taskList: Task[], objective: string) {
+  async executeTask(task: AgentTask, taskList: AgentTask[], objective: string) {
     // Check if task is already completed
     let dependentTask;
     if (task.dependentTaskId) {
@@ -510,7 +511,7 @@ export class BabyBeeAGI {
 
   async start() {
     // Add the first task
-    const task: Task = {
+    const task: AgentTask = {
       id: this.taskIdCounter, // 1
       task: this.firstTask,
       tool: 'text-completion',
