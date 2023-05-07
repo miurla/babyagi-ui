@@ -1,8 +1,13 @@
-import { OpenAI } from 'langchain/llms/openai';
+import { OpenAIChat } from 'langchain/llms/openai';
 
-export const textCompletion = async (text: string, openAIApiKey?: string) => {
-  const tool = new OpenAI({
+export const textCompletion = async (
+  text: string,
+  modelName: string,
+  openAIApiKey?: string,
+) => {
+  const tool = new OpenAIChat({
     openAIApiKey: openAIApiKey,
+    modelName: modelName,
     temperature: 0.5,
     maxTokens: 1500,
     topP: 1,

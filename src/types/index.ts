@@ -19,6 +19,7 @@ export type MessageType =
   | 'task-list'
   | 'next-task'
   | 'task-result'
+  | 'task-result-summary'
   | 'loading'
   | 'end-of-iterations'
   | 'session-summary'
@@ -33,10 +34,15 @@ export type MessageStatus =
   | 'saving'
   | 'terminating'
   | 'finished'
-  | 'ready';
+  | 'ready'
+  | 'closing'
+  | 'updating'
+  | 'summarizing'
+  | 'managing';
 
 export type UserSettings = {
   openAIApiKey?: string;
 };
 
 export type ToolType = 'web-scrape' | 'web-search' | 'text-completion';
+export type TaskStatus = 'complete' | 'incomplete';

@@ -24,7 +24,8 @@ export const webScrape = async (url: string) => {
         } else if (
           childNode.nodeType === Node.ELEMENT_NODE &&
           childNode.nodeName !== 'SCRIPT' &&
-          childNode.nodeName !== 'STYLE'
+          childNode.nodeName !== 'STYLE' &&
+          childNode.nodeName !== 'IFRAME'
         ) {
           textNodes.push(...getTextNodes(childNode));
         }
@@ -43,7 +44,7 @@ export const webScrape = async (url: string) => {
     },
   );
 
-  let result = text?.replace(/\s+/g, ' ') + 'URLs: ';
+  let result = text + '\n\nURLs: ';
   for (const link of links) {
     result += link + ', ';
   }

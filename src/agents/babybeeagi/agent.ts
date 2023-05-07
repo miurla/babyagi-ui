@@ -1,18 +1,23 @@
-import { Message, MessageStatus, ToolType, UserSettings } from '@/types';
-// import { webScrape } from './tools/webScrape';
-import { webSearch } from './tools/webSearch';
+import {
+  Message,
+  MessageStatus,
+  TaskStatus,
+  ToolType,
+  UserSettings,
+} from '@/types';
 import { textCompletion } from './tools/textCompletion';
 import { overviewAgent, summarizerAgent, taskManagementAgent } from './service';
-import { setupMessage } from '@/utils/message';
+import { getToolIcon, setupMessage } from '@/utils/message';
 import { SETTINGS_KEY } from '@/utils/constants';
 import axios from 'axios';
+import { parseTasks } from '@/utils/task';
 
 export interface Task {
   id: number;
   task: string;
   tool: ToolType;
   dependentTaskId?: number;
-  status: string;
+  status: TaskStatus;
   result?: string;
   resultSummary?: string;
 }
@@ -75,12 +80,16 @@ export class BabyBeeAGI {
   printTaskList() {
     if (!this.isRunning) return;
 
-    let message = '';
+    let message =
+      '| ID | Status | Task  | Tool | Dependency | \n | :-: | :-: | - | :-: | :-: | \n';
     this.taskList.forEach((task) => {
       const dependentTask = task.dependentTaskId
-        ? `<dependency: ${task.dependentTaskId}>`
-        : '';
-      message += `${task.id}: ${task.task} ${task.status} [${task.tool}] ${dependentTask} \n`;
+        ? `${task.dependentTaskId}`
+        : '-';
+      const status = task.status === 'complete' ? '✅' : '⬜️';
+      message += `| ${task.id} | ${status} | ${task.task} | ${getToolIcon(
+        task.tool,
+      )} | ${dependentTask} |\n`;
     });
 
     this.messageCallback(setupMessage('task-list', message));
@@ -103,28 +112,53 @@ export class BabyBeeAGI {
   printNextTask(task: Task) {
     if (!this.isRunning) return;
 
-    const nextTask = `${task.id}. ${task.task} **[${task.tool}]**`;
+    const nextTask = `${task.id}. ${task.task} - **[${getToolIcon(task.tool)} ${
+      task.tool
+    }]**`;
     this.messageCallback(setupMessage('next-task', nextTask));
 
     if (!this.verbose) return;
     console.log('%c*****NEXT TASK*****\n\n%s', 'color:green', '', nextTask);
   }
 
-  printResult(result: string) {
+  printResult(result: string, task: Task) {
     if (!this.isRunning) return;
 
-    const output =
-      result.length > 2000 ? result.slice(0, 2000) + '...' : result;
-    this.messageCallback(setupMessage('task-result', output));
+    let output = result;
+    if (task.tool !== 'text-completion') {
+      // code block for non-text-completion tools
+      output = '```\n' + output + '\n```';
+    }
+    this.messageCallback(setupMessage('task-result', output, task?.tool));
 
     if (!this.verbose) return;
+    output = result.length > 2000 ? result.slice(0, 2000) + '...' : result;
     console.log('%c*****TASK RESULT*****\n%c%s', 'color:purple', '', output);
+  }
+
+  printResultSummary(summary: string) {
+    if (!this.isRunning) return;
+
+    this.messageCallback(setupMessage('task-result-summary', summary));
+
+    if (!this.verbose) return;
+    console.log(
+      '%c*****TASK RESULT SUMMARY*****\n%c%s',
+      'color:purple',
+      '',
+      summary,
+    );
   }
 
   printDone() {
     if (!this.isRunning) return;
 
-    this.messageCallback(setupMessage('done', ''));
+    this.messageCallback(
+      setupMessage(
+        'done',
+        `Number of tasks completed: ${this.taskIdCounter.toString()}`,
+      ),
+    );
 
     if (!this.verbose) return;
     console.log('%c*****DONE*****%c', 'color:blue', '');
@@ -133,7 +167,7 @@ export class BabyBeeAGI {
   printAllTaskCompleted() {
     if (!this.isRunning) return;
 
-    this.messageCallback(setupMessage('complete', ''));
+    this.messageCallback(setupMessage('complete', 'All Tasks Completed'));
     if (!this.verbose) return;
     console.log('%c*****ALL TASK COMPLETED*****%c', 'color:blue', '');
   }
@@ -206,21 +240,24 @@ export class BabyBeeAGI {
   }
 
   async getCompletedTasks() {
-    return this.taskList.filter((task) => task.status === 'completed');
+    return this.taskList.filter((task) => task.status === 'complete');
   }
 
   async summarizeTask(value: string) {
-    const text = value.length > 2000 ? value.slice(0, 2000) + '...' : value;
+    const text = value.length > 4000 ? value.slice(0, 4000) + '...' : value;
+
+    // TODO: add summarizer agent
     return await summarizerAgent(text, this.getUserApiKey());
   }
 
   async overviewTask(lastTaskId: number) {
-    const tasks = await this.getCompletedTasks();
-    let completeTasksText = '\n';
-    tasks.forEach((task) => {
-      completeTasksText += `${task.id}. ${task.task} [${task.tool}]\n`;
+    const completedTasks = await this.getCompletedTasks();
+    let completeTasksText = '';
+    completedTasks.forEach((task) => {
+      completeTasksText += `${task.id}. ${task.task} - ${task.resultSummary}\n`;
     });
 
+    // TODO: add overview agent
     return await overviewAgent(
       this.objective,
       this.sessionSummary,
@@ -247,6 +284,7 @@ export class BabyBeeAGI {
     const websearchVar = '[web-search] ';
     const res = result.slice(0, 4000); // come up with a better solution lator
 
+    // TODO: add management agent
     const managedResult = await taskManagementAgent(
       minifiedTaskList,
       this.objective,
@@ -256,13 +294,9 @@ export class BabyBeeAGI {
       this.getUserApiKey(),
     );
 
-    console.log('agentResult', managedResult);
-
     // update task list
-    this.printDone();
-
     try {
-      taskList = JSON.parse(managedResult);
+      taskList = parseTasks(managedResult);
     } catch (error) {
       console.error(error);
 
@@ -272,14 +306,16 @@ export class BabyBeeAGI {
 
     // Add the 'result' field back in
     for (let i = 0; i < taskList.length; i++) {
-      const updatedTask = taskList[i];
       const originalTask = originalTaskList[i];
-
       if (originalTask?.result) {
-        updatedTask.result = originalTask.result;
+        taskList[i].result = originalTask.result;
       }
     }
-    taskList[currntTaskId]['result'] = managedResult;
+
+    const currentTask = taskList[currntTaskId - 1];
+    if (currentTask) {
+      taskList[currntTaskId - 1].result = managedResult;
+    }
 
     return taskList;
   }
@@ -287,55 +323,75 @@ export class BabyBeeAGI {
   // Agent functions
   async executeTask(task: Task, taskList: Task[], objective: string) {
     // Check if task is already completed
+    let dependentTask;
     if (task.dependentTaskId) {
-      const dependentTask = await this.getTask(task.dependentTaskId);
-      if (dependentTask && dependentTask.status !== 'completed') {
+      dependentTask = await this.getTask(task.dependentTaskId);
+      if (!dependentTask || dependentTask.status !== 'complete') {
         return;
       }
     }
+
     // Execute task
+    this.statusCallback('executing');
     this.printNextTask(task);
     let taskPrompt = `Complete your assign task based on the objective:\n\n${objective}, Your task: ${task.task}`;
     if (task.dependentTaskId) {
-      const dependentTask = await this.getTask(task.dependentTaskId);
       if (dependentTask) {
-        taskPrompt += `\n\nPrevious task result: ${dependentTask.result}`;
+        const dependentTaskResult = dependentTask.resultSummary; // Use summary instead of result to avoid long text (original code use result)
+        // console.log('dependentTaskResult: ', dependentTaskResult);
+        taskPrompt += `\nThe previous task ${dependentTask.id}. ${dependentTask.task} result: ${dependentTaskResult}`;
       }
     }
 
+    // taskPrompt += '\nResponses should be no more than 1000 characters.'; // Added message (Not in original code)
     taskPrompt += '\nResponse:';
     let result = '';
 
     switch (task.tool) {
       case 'text-completion':
-        result = await textCompletion(taskPrompt, this.getUserApiKey());
+        result = await textCompletion(
+          taskPrompt,
+          'gpt-3.5-turbo',
+          this.getUserApiKey(),
+        );
         break;
       case 'web-search':
-        const search = await this.webSearchTool(task.task);
+        const search = (await this.webSearchTool(task.task)) ?? '';
         result = JSON.stringify(search);
         break;
       case 'web-scrape':
-        result = await this.webScrapeTool(task.task);
+        result =
+          (await this.webScrapeTool(task.task)) ?? 'Failed to scrape web page';
+        break;
+      default:
+        result = 'Unknown tool';
         break;
     }
 
-    this.printResult(result);
+    this.printResult(result, task);
 
+    this.statusCallback('updating');
     // Update task status and result
-    task.status = 'completed';
+    task.status = 'complete';
     task.result = result;
     task.resultSummary = await this.summarizeTask(result);
 
+    this.printResultSummary(task.resultSummary ?? '');
+
+    this.statusCallback('summarizing');
     // Update session summary
     this.sessionSummary = await this.overviewTask(task.id);
+
+    this.printSessionSummary();
 
     // Increment task id counter
     this.taskIdCounter += 1;
 
     const incompleteTasks = taskList
-      .filter((task) => task['status'] === 'incomplete')
-      .map((task) => task['task']);
+      .filter((task) => task.status === 'incomplete')
+      .map((task) => task.task);
 
+    this.statusCallback('managing');
     // Update task manager agent of tasks
     this.taskList = await this.managementTask(
       result,
@@ -377,7 +433,6 @@ export class BabyBeeAGI {
     // Objective completed
     this.printAllTaskCompleted();
     this.statusCallback('finished');
-    this.messageCallback(setupMessage('complete', ''));
     this.cancelCallback();
     this.isRunning = false;
   }
@@ -406,14 +461,15 @@ export class BabyBeeAGI {
 
       if (!this.isRunning) break;
 
-      this.statusCallback('executing');
       // Execute the task & call task manager from function
       await this.executeTask(task, incompleteTasks, this.objective);
 
-      // Print task list and session summary
+      this.statusCallback('closing');
+      // Print task list
       this.printTaskList();
-      this.printSessionSummary();
+      this.printDone();
+
+      await new Promise((resolve) => setTimeout(resolve, 1000)); // Sleep before checking the task list again
     }
-    await new Promise((resolve) => setTimeout(resolve, 1000)); // Sleep before checking the task list again
   }
 }

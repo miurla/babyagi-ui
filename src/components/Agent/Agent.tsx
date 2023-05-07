@@ -11,7 +11,7 @@ import { ITERATIONS, MODELS, SETTINGS_KEY } from '@/utils/constants';
 import { BabyBeeAGI } from '@/agents/babybeeagi/agent';
 
 export const Agent: FC = () => {
-  const [model, setModel] = useState<SelectItem>(MODELS[1]);
+  const [model, setModel] = useState<SelectItem>(MODELS[0]);
   const [iterations, setIterations] = useState<SelectItem>(ITERATIONS[0]);
   const [objective, setObjective] = useState<string>('');
   const [firstTask, setFirstTask] = useState<string>('Develop a task list');

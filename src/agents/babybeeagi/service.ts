@@ -3,6 +3,7 @@ import { TaskOverviewChain } from './chains/taskOverview';
 import { TaskManagementChain } from './chains/taskManagement';
 import { Task } from './agent';
 import { OpenAI, OpenAIChat } from 'langchain/llms/openai';
+import { stringifyTasks } from '@/utils/task';
 
 export const summarizerAgent = async (text: string, openAIApiKey?: string) => {
   const model = new OpenAI({
@@ -15,7 +16,7 @@ export const summarizerAgent = async (text: string, openAIApiKey?: string) => {
     presencePenalty: 0,
   });
   const chain = TaskSummarizeChain.fromLLM({ llm: model });
-  const response = await chain._call({
+  const response = await chain.call({
     text,
   });
   return response.text;
@@ -37,8 +38,8 @@ export const overviewAgent = async (
     frequencyPenalty: 0,
     presencePenalty: 0,
   });
-  const chain = TaskOverviewChain.fromLLM({ llm: model, verbose: true });
-  const response = await chain._call({
+  const chain = TaskOverviewChain.fromLLM({ llm: model });
+  const response = await chain.call({
     objective,
     session_summary: sessionSummary,
     last_task_id: lastTaskId,
@@ -65,8 +66,9 @@ export const taskManagementAgent = async (
     presencePenalty: 0,
   });
   const chain = TaskManagementChain.fromLLM({ llm: model });
-  const response = await chain._call({
-    minified_task_list: minifiedTaskList,
+
+  const response = await chain.call({
+    minified_task_list: stringifyTasks(minifiedTaskList),
     objective,
     result,
     websearch_var: websearchVar,

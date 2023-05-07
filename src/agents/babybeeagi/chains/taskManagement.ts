@@ -1,11 +1,9 @@
 import {
   ChatPromptTemplate,
   HumanMessagePromptTemplate,
-  PromptTemplate,
   SystemMessagePromptTemplate,
 } from 'langchain/prompts';
 import { LLMChain, LLMChainInput } from 'langchain/chains';
-import { HumanChatMessage, SystemChatMessage } from 'langchain/dist/schema';
 
 export class TaskManagementChain extends LLMChain {
   static fromLLM(fields: Omit<LLMChainInput, 'prompt'>): LLMChain {
