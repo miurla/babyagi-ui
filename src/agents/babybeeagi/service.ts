@@ -1,4 +1,4 @@
-import { TaskSummarizeChain } from './chains/taskSummerize';
+import { TaskSummarizeChain } from './chains/taskSummarize';
 import { TaskOverviewChain } from './chains/taskOverview';
 import { TaskManagementChain } from './chains/taskManagement';
 import { AgentTask } from './agent';
