@@ -14,6 +14,7 @@ type InputProps = {
   onClear: () => void;
   isStreaming: boolean;
   hasMessages: boolean;
+  isBabyBeeAGIMode: boolean;
 };
 
 export const Input: FC<InputProps> = ({
@@ -24,6 +25,7 @@ export const Input: FC<InputProps> = ({
   onClear,
   isStreaming,
   hasMessages,
+  isBabyBeeAGIMode,
 }) => {
   return (
     <div className="dark:bg-vert-dark-gradient absolute bottom-0 left-0 w-full border-transparent bg-white from-[#343541] via-[#343541] to-[#343541]/0 pt-6 dark:border-white/20 dark:!bg-transparent dark:bg-[#444654] dark:bg-gradient-to-t md:pt-2">
@@ -50,7 +52,11 @@ export const Input: FC<InputProps> = ({
         <div className="relative flex w-full flex-grow flex-col rounded-md border border-black/10 bg-white py-2 shadow-[0_0_10px_rgba(0,0,0,0.10)] dark:border-gray-900/50 dark:bg-[#40414F] dark:text-white dark:shadow-[0_0_15px_rgba(0,0,0,0.10)] md:py-3 md:pl-4">
           <input
             className="m-0 w-full resize-none border-0 bg-transparent p-0 pl-2 pr-7 text-black outline-none focus:ring-0 focus-visible:ring-0 dark:bg-transparent dark:text-white md:pl-0"
-            placeholder="Input your objective here... (e.g. Solve world hunger)"
+            placeholder={
+              isBabyBeeAGIMode
+                ? 'Input your objective here... (e.g. Write a weather report for Tokyo today)'
+                : 'Input your objective here... (e.g. Solve world hunger)'
+            }
             value={value}
             onChange={(e) => onChange(e.target.value)}
           />

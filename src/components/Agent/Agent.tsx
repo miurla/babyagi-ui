@@ -151,6 +151,7 @@ export const Agent: FC = () => {
         onClear={clearHandler}
         isStreaming={isStreaming}
         hasMessages={messages.length > 0}
+        isBabyBeeAGIMode={modeChecked && model.id === 'gpt-4'}
       />
     </div>
   );
