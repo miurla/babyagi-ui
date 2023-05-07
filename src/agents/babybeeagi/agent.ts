@@ -230,6 +230,37 @@ export class BabyBeeAGI {
     return response?.data?.response;
   }
 
+  async textCompletionTool(prompt: string) {
+    if (this.getUserApiKey()) {
+      return await textCompletion(
+        prompt,
+        'gpt-3.5-turbo',
+        this.getUserApiKey(),
+      );
+    }
+
+    const response = await axios
+      .post(
+        '/api/tools/completion',
+        {
+          prompt,
+          apiKey: this.getUserApiKey(),
+        },
+        {
+          signal: this.abortController?.signal,
+        },
+      )
+      .catch((error) => {
+        if (error.name === 'AbortError') {
+          console.log('Request aborted', error.message);
+        } else {
+          console.log(error.message);
+        }
+      });
+
+    return response?.data?.response;
+  }
+
   // Task list functions
   async addTask(task: Task) {
     this.taskList.push(task);
@@ -246,25 +277,71 @@ export class BabyBeeAGI {
   async summarizeTask(value: string) {
     const text = value.length > 4000 ? value.slice(0, 4000) + '...' : value;
 
-    // TODO: add summarizer agent
-    return await summarizerAgent(text, this.getUserApiKey());
+    if (this.getUserApiKey()) {
+      return await summarizerAgent(text, this.getUserApiKey());
+    }
+
+    const response = await axios
+      .post(
+        '/api/agents/summarize',
+        {
+          text,
+          apiKey: this.getUserApiKey(),
+        },
+        {
+          signal: this.abortController?.signal,
+        },
+      )
+      .catch((error) => {
+        if (error.name === 'AbortError') {
+          console.log('Request aborted', error.message);
+        } else {
+          console.log(error.message);
+        }
+      });
+
+    return response?.data?.response;
   }
 
   async overviewTask(lastTaskId: number) {
     const completedTasks = await this.getCompletedTasks();
-    let completeTasksText = '';
+    let completedTasksText = '';
     completedTasks.forEach((task) => {
-      completeTasksText += `${task.id}. ${task.task} - ${task.resultSummary}\n`;
+      completedTasksText += `${task.id}. ${task.task} - ${task.resultSummary}\n`;
     });
 
-    // TODO: add overview agent
-    return await overviewAgent(
-      this.objective,
-      this.sessionSummary,
-      lastTaskId,
-      completeTasksText,
-      this.getUserApiKey(),
-    );
+    if (this.getUserApiKey()) {
+      return await overviewAgent(
+        this.objective,
+        this.sessionSummary,
+        lastTaskId,
+        completedTasksText,
+        this.getUserApiKey(),
+      );
+    }
+
+    const response = await axios
+      .post(
+        '/api/agents/overview',
+        {
+          objective: this.objective,
+          session_summary: this.sessionSummary,
+          last_task_id: lastTaskId,
+          completed_tasks_text: completedTasksText,
+        },
+        {
+          signal: this.abortController?.signal,
+        },
+      )
+      .catch((error) => {
+        if (error.name === 'AbortError') {
+          console.log('Request aborted', error.message);
+        } else {
+          console.log(error.message);
+        }
+      });
+
+    return response?.data?.response;
   }
 
   async managementTask(
@@ -281,18 +358,44 @@ export class BabyBeeAGI {
       const { result, ...rest } = task;
       return rest;
     });
-    const websearchVar = '[web-search] ';
+    const websearchVar = process.env.SEARP_API_KEY ? '[web-search] ' : ''; // if search api key is not set, don't add [web-search] to the task description
     const res = result.slice(0, 4000); // come up with a better solution lator
 
-    // TODO: add management agent
-    const managedResult = await taskManagementAgent(
-      minifiedTaskList,
-      this.objective,
-      res,
-      websearchVar,
-      this.modelName,
-      this.getUserApiKey(),
-    );
+    let managedResult = '';
+    if (this.getUserApiKey()) {
+      managedResult = await taskManagementAgent(
+        minifiedTaskList,
+        this.objective,
+        res,
+        websearchVar,
+        this.modelName,
+        this.getUserApiKey(),
+      );
+    } else {
+      const response = await axios
+        .post(
+          '/api/agents/management',
+          {
+            task_list: minifiedTaskList,
+            objective: this.objective,
+            result: res,
+            websearch_var: websearchVar,
+            model_name: this.modelName,
+          },
+          {
+            signal: this.abortController?.signal,
+          },
+        )
+        .catch((error) => {
+          if (error.name === 'AbortError') {
+            console.log('Request aborted', error.message);
+          } else {
+            console.log(error.message);
+          }
+        });
+
+      managedResult = response?.data?.response;
+    }
 
     // update task list
     try {
@@ -349,11 +452,9 @@ export class BabyBeeAGI {
 
     switch (task.tool) {
       case 'text-completion':
-        result = await textCompletion(
-          taskPrompt,
-          'gpt-3.5-turbo',
-          this.getUserApiKey(),
-        );
+        result =
+          (await this.textCompletionTool(taskPrompt)) ??
+          'Failed to complete text';
         break;
       case 'web-search':
         const search = (await this.webSearchTool(task.task)) ?? '';
