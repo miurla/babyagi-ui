@@ -1,4 +1,6 @@
 import {
+  ClipboardCopyIcon,
+  DownloadIcon,
   PlayIcon,
   ReloadIcon,
   StopIcon,
@@ -12,6 +14,8 @@ type InputProps = {
   onStart: (value: string) => void;
   onStop: () => void;
   onClear: () => void;
+  onCopy: () => void;
+  onDownload: () => void;
   isStreaming: boolean;
   hasMessages: boolean;
   isBabyBeeAGIMode: boolean;
@@ -23,32 +27,57 @@ export const Input: FC<InputProps> = ({
   onStart,
   onStop,
   onClear,
+  onCopy,
+  onDownload,
   isStreaming,
   hasMessages,
   isBabyBeeAGIMode,
 }) => {
   return (
     <div className="dark:bg-vert-dark-gradient absolute bottom-0 left-0 w-full border-transparent bg-white from-[#343541] via-[#343541] to-[#343541]/0 pt-6 dark:border-white/20 dark:!bg-transparent dark:bg-[#444654] dark:bg-gradient-to-t md:pt-2">
-      <div className="stretch mx-2 mt-4 flex flex-row gap-3 last:mb-2 md:mx-4 md:mt-11 md:last:mb-6 lg:mx-auto lg:max-w-3xl">
-        {isStreaming ? (
-          <button
-            className="absolute -top-2 left-0 right-0 mx-auto w-fit rounded border border-gray-500 px-4 py-2 text-black hover:opacity-50 dark:bg-[#343541] dark:text-white md:top-0"
-            onClick={() => {
-              onStop();
-            }}
-          >
-            <StopIcon className="mb-[2px] inline-block" /> {'Stop'}
-          </button>
-        ) : hasMessages ? (
-          <button
-            className="absolute -top-2 left-0 right-0 mx-auto w-fit rounded border border-gray-500 px-4 py-2 text-black hover:opacity-50 dark:bg-[#343541] dark:text-white md:top-0"
-            onClick={() => {
-              onClear();
-            }}
-          >
-            <ReloadIcon className="mb-[2px] inline-block" /> {'Reset'}
-          </button>
-        ) : null}
+      <div className="stretch mx-2 mt-4 flex flex-col gap-3 last:mb-2 md:mx-4 md:mt-11 md:last:mb-6 lg:mx-auto lg:max-w-3xl">
+        <div className="flex-cols flex justify-between">
+          <div className="w-1/3"></div>
+          <div className="flex w-1/3 justify-center">
+            {isStreaming ? (
+              <button
+                className="absolute -top-2 left-0 right-0 mx-auto w-fit rounded border border-gray-500 px-4 py-2 text-black hover:opacity-50 dark:bg-[#343541] dark:text-white md:top-0"
+                onClick={() => {
+                  onStop();
+                }}
+              >
+                <StopIcon className="mb-[2px] inline-block" /> {'Stop'}
+              </button>
+            ) : hasMessages ? (
+              <button
+                className="rounded border border-gray-500 px-4 py-2 text-black hover:opacity-50 dark:bg-[#343541] dark:text-white md:top-0"
+                onClick={() => {
+                  onClear();
+                }}
+              >
+                <ReloadIcon className="mb-[2px] inline-block" /> {'Reset'}
+              </button>
+            ) : null}
+          </div>
+          <div className="flex w-1/3 justify-end">
+            {!isStreaming && hasMessages && (
+              <div className="flex gap-1">
+                <button
+                  className="w-fit rounded border border-gray-500 px-4 py-2 text-black hover:opacity-50 dark:bg-[#343541] dark:text-white md:top-0"
+                  onClick={onCopy}
+                >
+                  <ClipboardCopyIcon className="mb-[2px] inline-block" />
+                </button>
+                <button
+                  className="w-fit rounded border border-gray-500 px-4 py-2 text-black hover:opacity-50 dark:bg-[#343541] dark:text-white md:top-0"
+                  onClick={onDownload}
+                >
+                  <DownloadIcon className="mb-[2px] inline-block" />
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
         <div className="relative flex w-full flex-grow flex-col rounded-md border border-black/10 bg-white py-2 shadow-[0_0_10px_rgba(0,0,0,0.10)] dark:border-gray-900/50 dark:bg-[#40414F] dark:text-white dark:shadow-[0_0_15px_rgba(0,0,0,0.10)] md:py-3 md:pl-4">
           <input
             className="m-0 w-full resize-none border-0 bg-transparent p-0 pl-2 pr-7 text-black outline-none focus:ring-0 focus-visible:ring-0 dark:bg-transparent dark:text-white md:pl-0"
