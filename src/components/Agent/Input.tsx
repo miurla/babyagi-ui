@@ -63,13 +63,13 @@ export const Input: FC<InputProps> = ({
             {!isStreaming && hasMessages && (
               <div className="flex gap-1">
                 <button
-                  className="w-fit rounded border border-gray-500 px-4 py-2 text-black hover:opacity-50 dark:bg-[#343541] dark:text-white md:top-0"
+                  className="w-fit rounded p-2 text-black hover:opacity-50 dark:bg-[#343541] dark:text-white md:top-0"
                   onClick={onCopy}
                 >
                   <ClipboardCopyIcon className="mb-[2px] inline-block" />
                 </button>
                 <button
-                  className="w-fit rounded border border-gray-500 px-4 py-2 text-black hover:opacity-50 dark:bg-[#343541] dark:text-white md:top-0"
+                  className="w-fit rounded p-2 text-black hover:opacity-50 dark:bg-[#343541] dark:text-white md:top-0"
                   onClick={onDownload}
                 >
                   <DownloadIcon className="mb-[2px] inline-block" />
