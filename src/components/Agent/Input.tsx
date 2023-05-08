@@ -41,7 +41,7 @@ export const Input: FC<InputProps> = ({
           <div className="flex w-1/3 justify-center">
             {isStreaming ? (
               <button
-                className="absolute -top-2 left-0 right-0 mx-auto w-fit rounded border border-gray-500 px-4 py-2 text-black hover:opacity-50 dark:bg-[#343541] dark:text-white md:top-0"
+                className="rounded border border-gray-500 px-4 py-2 text-black hover:opacity-50 dark:bg-[#343541] dark:text-white md:top-0"
                 onClick={() => {
                   onStop();
                 }}
