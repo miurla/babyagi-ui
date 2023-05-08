@@ -17,12 +17,12 @@ This is a port of [babyagi](https://github.com/yoheinakajima/babyagi) with [Lang
 ## 🚗 Roadmap
 
 - [x] The BabyAGI can search and scrape the web. ([BabyBeeAGI](https://twitter.com/yoheinakajima/status/1652732735344246784))
+- [x] Exporting Execution Results
+- [ ] Execution history
+- [ ] i18n support
 - [ ] Display the current task and task list
 - [ ] User feedback
 - [ ] Other LLM models support
-- [ ] i18n support
-- [ ] Execution history
-- [ ] Exporting Execution Results
 
 and more ...
 

@@ -5,10 +5,11 @@ import AgentMessage from './AgentMessage';
 import { AgentParameter } from './AgentParameter';
 import { ProjectTile } from './ProjectTile';
 import { AgentMessageHeader } from './AgentMessageHeader';
-import { loadingAgentMessage } from '../../utils/message';
+import { getExportText, loadingAgentMessage } from '../../utils/message';
 import { BabyAGI } from '@/agents/babyagi';
 import { ITERATIONS, MODELS, SETTINGS_KEY } from '@/utils/constants';
 import { BabyBeeAGI } from '@/agents/babybeeagi/agent';
+import { toast } from 'react-hot-toast';
 
 export const Agent: FC = () => {
   const [model, setModel] = useState<SelectItem>(MODELS[0]);
@@ -94,6 +95,22 @@ export const Agent: FC = () => {
     setStatus('ready');
   };
 
+  const copyHandler = () => {
+    navigator.clipboard.writeText(getExportText(messages));
+    toast.success('Copied to clipboard');
+  };
+
+  const downloadHandler = () => {
+    const element = document.createElement('a');
+    const file = new Blob([getExportText(messages)], {
+      type: 'text/plain;charset=utf-8',
+    });
+    element.href = URL.createObjectURL(file);
+    element.download = `${objective.replace(/\s/g, '_')}.txt`;
+    document.body.appendChild(element);
+    element.click();
+  };
+
   const needSettingsAlert = () => {
     const useUserApiKey = process.env.NEXT_PUBLIC_USE_USER_API_KEY;
     if (useUserApiKey === 'false') {
@@ -149,6 +166,8 @@ export const Agent: FC = () => {
         onStart={startHandler}
         onStop={stopHandler}
         onClear={clearHandler}
+        onCopy={copyHandler}
+        onDownload={downloadHandler}
         isStreaming={isStreaming}
         hasMessages={messages.length > 0}
         isBabyBeeAGIMode={modeChecked && model.id === 'gpt-4'}

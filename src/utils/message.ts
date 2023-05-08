@@ -119,3 +119,10 @@ export const getToolIcon = (tool: ToolType) => {
       return '🤖';
   }
 };
+
+export const getExportText = (messages: Message[]) => {
+  const text = messages
+    .map((message) => `## ${message.icon} ${message.title}\n${message.text}`)
+    .join('\n\n');
+  return text;
+};
