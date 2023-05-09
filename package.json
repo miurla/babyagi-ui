@@ -29,7 +29,6 @@
     "jsdom": "^21.1.1",
     "langchain": "^0.0.64",
     "next": "13.2.4",
-    "next-theme": "^0.1.5",
     "next-themes": "^0.2.1",
     "npm": "^9.6.6",
     "openai": "^3.2.1",
