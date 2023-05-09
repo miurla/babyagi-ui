@@ -1,5 +1,5 @@
 import {
-  ClipboardCopyIcon,
+  ClipboardIcon,
   DownloadIcon,
   PlayIcon,
   ReloadIcon,
@@ -66,7 +66,7 @@ export const Input: FC<InputProps> = ({
                   className="w-fit rounded p-2 text-black hover:opacity-50 dark:bg-[#343541] dark:text-white md:top-0"
                   onClick={onCopy}
                 >
-                  <ClipboardCopyIcon className="mb-[2px] inline-block" />
+                  <ClipboardIcon className="mb-[2px] inline-block" />
                 </button>
                 <button
                   className="w-fit rounded p-2 text-black hover:opacity-50 dark:bg-[#343541] dark:text-white md:top-0"

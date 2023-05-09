@@ -9,7 +9,7 @@ import { getExportText, loadingAgentMessage } from '../../utils/message';
 import { BabyAGI } from '@/agents/babyagi';
 import { ITERATIONS, MODELS, SETTINGS_KEY } from '@/utils/constants';
 import { BabyBeeAGI } from '@/agents/babybeeagi/agent';
-import { toast } from 'react-hot-toast';
+import { toast } from 'sonner';
 
 export const Agent: FC = () => {
   const [model, setModel] = useState<SelectItem>(MODELS[0]);

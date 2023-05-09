@@ -1,7 +1,7 @@
-import { FC, useEffect, useState } from 'react';
+import { FC } from 'react';
 import { SidebarButton } from './SidebarButton';
 import { MoonIcon, SunIcon } from '@radix-ui/react-icons';
-import useTheme from 'next-theme';
+import { useTheme } from 'next-themes';
 
 export const SidebarTheme: FC = () => {
   const { theme, setTheme } = useTheme();
