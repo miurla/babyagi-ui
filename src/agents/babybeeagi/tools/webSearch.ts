@@ -9,7 +9,7 @@ export const webSearch = async (query: string) => {
         api_key: process.env.SEARP_API_KEY,
         engine: 'google',
         q: query,
-        Number: 3,
+        num: 3,
       },
     });
 
