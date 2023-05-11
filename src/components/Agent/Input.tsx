@@ -2,7 +2,7 @@ import {
   ClipboardIcon,
   DownloadIcon,
   PlayIcon,
-  ReloadIcon,
+  PlusIcon,
   StopIcon,
   UpdateIcon,
 } from '@radix-ui/react-icons';
@@ -16,7 +16,7 @@ type InputProps = {
   onClear: () => void;
   onCopy: () => void;
   onDownload: () => void;
-  isStreaming: boolean;
+  isExecuting: boolean;
   hasMessages: boolean;
   isBabyBeeAGIMode: boolean;
 };
@@ -29,7 +29,7 @@ export const Input: FC<InputProps> = ({
   onClear,
   onCopy,
   onDownload,
-  isStreaming,
+  isExecuting,
   hasMessages,
   isBabyBeeAGIMode,
 }) => {
@@ -39,7 +39,7 @@ export const Input: FC<InputProps> = ({
         <div className="flex-cols flex justify-between">
           <div className="w-1/3"></div>
           <div className="flex w-1/3 justify-center">
-            {isStreaming ? (
+            {isExecuting ? (
               <button
                 className="rounded border border-gray-500 px-4 py-2 text-black hover:opacity-50 dark:bg-[#343541] dark:text-white md:top-0"
                 onClick={() => {
@@ -55,12 +55,12 @@ export const Input: FC<InputProps> = ({
                   onClear();
                 }}
               >
-                <ReloadIcon className="mb-[2px] inline-block" /> {'Reset'}
+                <PlusIcon className="mb-[2px] inline-block" /> {'New'}
               </button>
             ) : null}
           </div>
           <div className="flex w-1/3 justify-end">
-            {!isStreaming && hasMessages && (
+            {!isExecuting && hasMessages && (
               <div className="flex gap-1">
                 <button
                   className="w-fit rounded p-2 text-black hover:opacity-50 dark:text-white md:top-0"
@@ -94,9 +94,9 @@ export const Input: FC<InputProps> = ({
             onClick={() => {
               onStart(value);
             }}
-            disabled={value.length === 0 || isStreaming}
+            disabled={value.length === 0 || isExecuting}
           >
-            {isStreaming ? (
+            {isExecuting ? (
               <UpdateIcon className="animate-spin" />
             ) : (
               <PlayIcon className="opacity-60" />

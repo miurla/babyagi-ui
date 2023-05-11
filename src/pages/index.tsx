@@ -6,9 +6,17 @@ import { useState } from 'react';
 
 export default function Home() {
   const [showSidebar, setShowSidebar] = useState<boolean>(true);
+  const [newObjectiveClicked, setNewObjectiveClicked] = useState(false);
 
   const menuClickHandler = () => {
     setShowSidebar(!showSidebar);
+  };
+
+  const newObjectiveClickHandler = () => {
+    setNewObjectiveClicked(true);
+    setTimeout(() => {
+      setNewObjectiveClicked(false);
+    }, 100);
   };
 
   return (
@@ -43,10 +51,13 @@ export default function Home() {
         <div className="flex h-full w-full pt-12 sm:pt-0">
           {showSidebar && (
             <div>
-              <Sidebar onMenuClick={menuClickHandler} />
+              <Sidebar
+                onMenuClick={menuClickHandler}
+                onNewObjectiveClick={newObjectiveClickHandler}
+              />
             </div>
           )}
-          <Agent />
+          <Agent newObjectiveClicked={newObjectiveClicked} />
         </div>
       </main>
     </>
