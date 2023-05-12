@@ -14,6 +14,24 @@ export type Message = {
   status?: MessageStatus;
 };
 
+export type Execution = {
+  id: string;
+  name: string;
+  params: ExecutionParams;
+  messages: Message[];
+  date: string;
+};
+
+export type ExecutionParams = {
+  model: SelectItem;
+  iterations: SelectItem;
+  firstTask: string;
+  objective: string;
+  agent: AgentType;
+};
+
+export type AgentType = 'babyagi' | 'babybeeagi' | 'none';
+
 export type MessageType =
   | 'objective'
   | 'task-list'

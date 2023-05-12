@@ -6,9 +6,17 @@ import { useState } from 'react';
 
 export default function Home() {
   const [showSidebar, setShowSidebar] = useState<boolean>(true);
+  const [newObjectiveClicked, setNewObjectiveClicked] = useState(false);
 
   const menuClickHandler = () => {
     setShowSidebar(!showSidebar);
+  };
+
+  const newObjectiveClickHandler = () => {
+    setNewObjectiveClicked(true);
+    setTimeout(() => {
+      setNewObjectiveClicked(false);
+    }, 100);
   };
 
   return (
@@ -26,8 +34,11 @@ export default function Home() {
           property="og:description"
           content="BabyAGI UI is designed to make it easier to run and develop with babyagi in a web app, like a ChatGPT."
         />
-        <meta property="og:image" content="/og-image.png" />
         <meta property="og:url" content="https://babyagi-ui.vercel.app/" />
+        <meta
+          property="og:image"
+          content="https://babyagi-ui.vercel.app/og-image.png"
+        />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="BabyAGI-UI" />
         <meta

@@ -1,5 +1,11 @@
 import { FC, useCallback, useEffect, useRef, useState } from 'react';
-import { Message, MessageStatus, SelectItem, UserSettings } from '@/types';
+import {
+  Execution,
+  Message,
+  MessageStatus,
+  SelectItem,
+  UserSettings,
+} from '@/types';
 import { Input } from './Input';
 import AgentMessage from './AgentMessage';
 import { AgentParameter } from './AgentParameter';
@@ -10,6 +16,9 @@ import { BabyAGI } from '@/agents/babyagi';
 import { ITERATIONS, MODELS, SETTINGS_KEY } from '@/utils/constants';
 import { BabyBeeAGI } from '@/agents/babybeeagi/agent';
 import { toast } from 'sonner';
+import { v4 as uuidv4 } from 'uuid';
+import { useExecution } from '@/hooks/useExecution';
+import { useExecutionStatus } from '@/hooks/useExecutionStatus';
 
 export const Agent: FC = () => {
   const [model, setModel] = useState<SelectItem>(MODELS[0]);
@@ -18,14 +27,22 @@ export const Agent: FC = () => {
   const [firstTask, setFirstTask] = useState<string>('Develop a task list');
   const [messages, setMessages] = useState<Message[]>([]);
   const [status, setStatus] = useState<MessageStatus>('ready');
-  const [isStreaming, setIsStreaming] = useState<boolean>(false);
   const [agent, setAgent] = useState<BabyAGI | BabyBeeAGI | null>(null);
   const [modeChecked, setModeChecked] = useState<boolean>(false);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const {
+    addExecution,
+    updateExec,
+    executions,
+    selectedExecutionId,
+    selectExecution,
+  } = useExecution();
+  const { isExecuting, setExecuting } = useExecutionStatus();
 
   const scrollToBottom = useCallback(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    const behavior = isExecuting ? 'smooth' : 'auto';
+    messagesEndRef.current?.scrollIntoView({ behavior: behavior });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [messages]);
 
@@ -33,6 +50,59 @@ export const Agent: FC = () => {
     scrollToBottom();
   }, [scrollToBottom]);
 
+  useEffect(() => {
+    if (selectedExecutionId) {
+      const selectedExecution = executions.find(
+        (exe) => exe.id === selectedExecutionId,
+      );
+      if (selectedExecution) {
+        setMessages(selectedExecution.messages);
+      }
+    } else {
+      setMessages([]);
+      setObjective('');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedExecutionId]);
+
+  useEffect(() => {
+    const execution = executions.find((exe) => exe.id === selectedExecutionId);
+    if (execution) {
+      const updatedExecution: Execution = {
+        ...execution,
+        messages: messages,
+      };
+      updateExec(updatedExecution);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [messages]);
+
+  // manage data
+  const saveNewData = async () => {
+    const execution: Execution = {
+      id: uuidv4(),
+      name: objective,
+      date: new Date().toISOString(),
+      params: {
+        objective: objective,
+        model: model,
+        iterations: iterations,
+        firstTask: firstTask,
+        agent: modeChecked && model.id === 'gpt-4' ? 'babybeeagi' : 'babyagi',
+      },
+      messages: messages,
+    };
+
+    selectExecution(execution.id);
+    await new Promise((resolve) => {
+      addExecution(execution);
+      resolve(null);
+    });
+
+    return execution;
+  };
+
+  // handler functions
   const messageHandler = (message: Message) => {
     setMessages((messages) => [...messages, message]);
   };
@@ -41,14 +111,15 @@ export const Agent: FC = () => {
     setObjective(value);
   };
 
-  const startHandler = () => {
+  const startHandler = async () => {
     if (needSettingsAlert()) {
       alert('Please set up your OpenAI API key from the settings menu.');
       return;
     }
 
     setMessages([]);
-    setIsStreaming(true);
+    setExecuting(true);
+    const execution = await saveNewData();
 
     const useBabyBeeAgi = modeChecked && model.id === 'gpt-4';
     const verbose = false;
@@ -62,7 +133,7 @@ export const Agent: FC = () => {
         setStatus,
         () => {
           setAgent(null);
-          setIsStreaming(false);
+          setExecuting(false);
         },
         verbose,
       );
@@ -72,11 +143,12 @@ export const Agent: FC = () => {
         model.id,
         Number(iterations.id),
         firstTask,
+        execution.id,
         messageHandler,
         setStatus,
         () => {
           setAgent(null);
-          setIsStreaming(false);
+          setExecuting(false);
         },
         verbose,
       );
@@ -86,12 +158,13 @@ export const Agent: FC = () => {
   };
 
   const stopHandler = () => {
-    setIsStreaming(false);
+    setExecuting(false);
     agent?.stop();
   };
 
   const clearHandler = () => {
     setMessages([]);
+    selectExecution(undefined);
     setStatus('ready');
   };
 
@@ -151,7 +224,7 @@ export const Agent: FC = () => {
           {messages.map((message, index) => (
             <AgentMessage key={index} message={message} />
           ))}
-          {isStreaming && (
+          {isExecuting && (
             <AgentMessage message={loadingAgentMessage(status)} />
           )}
           <div
@@ -168,7 +241,7 @@ export const Agent: FC = () => {
         onClear={clearHandler}
         onCopy={copyHandler}
         onDownload={downloadHandler}
-        isStreaming={isStreaming}
+        isExecuting={isExecuting}
         hasMessages={messages.length > 0}
         isBabyBeeAGIMode={modeChecked && model.id === 'gpt-4'}
       />

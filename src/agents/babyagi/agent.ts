@@ -36,6 +36,7 @@ export class BabyAGI {
     modelName: string,
     maxIterations: number,
     firstTask: string,
+    id: string,
     messageCallback: (message: Message) => void,
     statusCallback: (status: MessageStatus) => void,
     cancel: () => void,
@@ -55,9 +56,7 @@ export class BabyAGI {
     this.tableName =
       process.env.NEXT_PUBLIC_TABLE_NAME ?? 'baby-agi-test-table';
     this.namespace =
-      process.env.NEXT_PUBLIC_USE_USER_API_KEY === 'true'
-        ? uuidv4()
-        : undefined;
+      process.env.NEXT_PUBLIC_USE_USER_API_KEY === 'true' ? id : undefined;
   }
 
   printObjective() {
@@ -394,6 +393,9 @@ export class BabyAGI {
           result,
           task.taskName,
         );
+
+        if (!this.isRunning) break;
+
         await Promise.all(
           newTasks.map(async (task: Task) => {
             this.taskIDCounter += 1;
