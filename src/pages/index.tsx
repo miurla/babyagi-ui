@@ -34,8 +34,11 @@ export default function Home() {
           property="og:description"
           content="BabyAGI UI is designed to make it easier to run and develop with babyagi in a web app, like a ChatGPT."
         />
-        <meta property="og:image" content="/og-image.png" />
         <meta property="og:url" content="https://babyagi-ui.vercel.app/" />
+        <meta
+          property="og:image"
+          content="https://babyagi-ui.vercel.app/og-image.png"
+        />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="BabyAGI-UI" />
         <meta
@@ -51,13 +54,10 @@ export default function Home() {
         <div className="flex h-full w-full pt-12 sm:pt-0">
           {showSidebar && (
             <div>
-              <Sidebar
-                onMenuClick={menuClickHandler}
-                onNewObjectiveClick={newObjectiveClickHandler}
-              />
+              <Sidebar onMenuClick={menuClickHandler} />
             </div>
           )}
-          <Agent newObjectiveClicked={newObjectiveClicked} />
+          <Agent />
         </div>
       </main>
     </>
