@@ -3,7 +3,7 @@
 BabyAGI UI is designed to make it easier to run and develop with [babyagi](https://github.com/yoheinakajima/babyagi) in a web app, like a ChatGPT.
 This is a port of [babyagi](https://github.com/yoheinakajima/babyagi) with [Langchain.js](https://github.com/hwchase17/langchainjs) and build a user interface.
 
-![](./public/screenshot-230507.png)
+![](./public/screenshot-230512.png)
 [Demo](https://twitter.com/miiura/status/1653026609606320130)
 
 ## 🧰 Stack
@@ -18,9 +18,9 @@ This is a port of [babyagi](https://github.com/yoheinakajima/babyagi) with [Lang
 
 - [x] The BabyAGI can search and scrape the web. ([BabyBeeAGI](https://twitter.com/yoheinakajima/status/1652732735344246784))
 - [x] Exporting Execution Results
-- [ ] Execution history
-- [ ] i18n support
+- [x] Execution history
 - [ ] Display the current task and task list
+- [ ] i18n support
 - [ ] User feedback
 - [ ] Other LLM models support
 
