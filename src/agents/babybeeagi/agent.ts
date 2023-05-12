@@ -1,16 +1,10 @@
-import {
-  Message,
-  MessageStatus,
-  TaskStatus,
-  ToolType,
-  UserSettings,
-} from '@/types';
+import { Message, MessageStatus, TaskStatus, ToolType } from '@/types';
 import { textCompletion } from './tools/textCompletion';
 import { overviewAgent, summarizerAgent, taskManagementAgent } from './service';
 import { getToolIcon, setupMessage } from '@/utils/message';
-import { SETTINGS_KEY } from '@/utils/constants';
 import axios from 'axios';
 import { parseTasks } from '@/utils/task';
+import { getUserApiKey } from '@/utils/settings';
 
 export interface AgentTask {
   id: number;
@@ -173,19 +167,6 @@ export class BabyBeeAGI {
     console.log('%c*****ALL TASK COMPLETED*****%c', 'color:blue', '');
   }
 
-  // utility functions
-  getUserApiKey() {
-    const item = localStorage.getItem(SETTINGS_KEY);
-    if (!item) {
-      return undefined;
-    }
-
-    const settings = JSON.parse(item) as UserSettings;
-    const openAIApiKey = settings?.openAIApiKey ?? undefined;
-
-    return openAIApiKey;
-  }
-
   // Tools functions
   async webSearchTool(query: string) {
     const response = await axios
@@ -232,12 +213,8 @@ export class BabyBeeAGI {
   }
 
   async textCompletionTool(prompt: string) {
-    if (this.getUserApiKey()) {
-      return await textCompletion(
-        prompt,
-        'gpt-3.5-turbo',
-        this.getUserApiKey(),
-      );
+    if (getUserApiKey()) {
+      return await textCompletion(prompt, 'gpt-3.5-turbo', getUserApiKey());
     }
 
     const response = await axios
@@ -245,7 +222,7 @@ export class BabyBeeAGI {
         '/api/tools/completion',
         {
           prompt,
-          apiKey: this.getUserApiKey(),
+          apiKey: getUserApiKey(),
         },
         {
           signal: this.abortController?.signal,
@@ -278,8 +255,8 @@ export class BabyBeeAGI {
   async summarizeTask(value: string) {
     const text = value.length > 4000 ? value.slice(0, 4000) + '...' : value;
 
-    if (this.getUserApiKey()) {
-      return await summarizerAgent(text, this.getUserApiKey());
+    if (getUserApiKey()) {
+      return await summarizerAgent(text, getUserApiKey());
     }
 
     const response = await axios
@@ -287,7 +264,7 @@ export class BabyBeeAGI {
         '/api/agents/summarize',
         {
           text,
-          apiKey: this.getUserApiKey(),
+          apiKey: getUserApiKey(),
         },
         {
           signal: this.abortController?.signal,
@@ -311,13 +288,13 @@ export class BabyBeeAGI {
       completedTasksText += `${task.id}. ${task.task} - ${task.resultSummary}\n`;
     });
 
-    if (this.getUserApiKey()) {
+    if (getUserApiKey()) {
       return await overviewAgent(
         this.objective,
         this.sessionSummary,
         lastTaskId,
         completedTasksText,
-        this.getUserApiKey(),
+        getUserApiKey(),
       );
     }
 
@@ -363,14 +340,14 @@ export class BabyBeeAGI {
     const res = result.slice(0, 4000); // come up with a better solution lator
 
     let managedResult = '';
-    if (this.getUserApiKey()) {
+    if (getUserApiKey()) {
       managedResult = await taskManagementAgent(
         minifiedTaskList,
         this.objective,
         res,
         websearchVar,
         this.modelName,
-        this.getUserApiKey(),
+        getUserApiKey(),
       );
     } else {
       const response = await axios

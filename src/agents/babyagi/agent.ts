@@ -1,12 +1,11 @@
-import { v4 as uuidv4 } from 'uuid';
-import { Message, MessageStatus, UserSettings } from '@/types';
+import { Message, MessageStatus } from '@/types';
 import { setupMessage } from '@/utils/message';
+import { getUserApiKey } from '@/utils/settings';
 import {
   executionAgent,
   prioritizationAgent,
   taskCreationAgent,
 } from './service';
-import { SETTINGS_KEY } from '@/utils/constants';
 import { OpenAIEmbeddings } from 'langchain/embeddings/openai';
 import axios from 'axios';
 
@@ -114,20 +113,8 @@ export class BabyAGI {
     console.log(result.trim());
   }
 
-  getUserApiKey() {
-    const item = localStorage.getItem(SETTINGS_KEY);
-    if (!item) {
-      return undefined;
-    }
-
-    const settings = JSON.parse(item) as UserSettings;
-    const openAIApiKey = settings?.openAIApiKey ?? undefined;
-
-    return openAIApiKey;
-  }
-
   async executeTask(objective: string, taskName: string) {
-    const userApiKey = this.getUserApiKey();
+    const userApiKey = getUserApiKey();
 
     // should request client side
     if (userApiKey) {
@@ -172,7 +159,7 @@ export class BabyAGI {
     taskDescription: string,
   ) {
     const taskNames = this.taskList.map((task) => task.taskName).join(', ');
-    const userApiKey = this.getUserApiKey();
+    const userApiKey = getUserApiKey();
 
     // should request client side
     if (userApiKey) {
@@ -212,7 +199,7 @@ export class BabyAGI {
   async taskPrioritization(objective: string, taskID: number) {
     const taskNames = this.taskList.map((t) => t.taskName).join(', ');
     const nextTaskID = taskID + 1;
-    const userApiKey = this.getUserApiKey();
+    const userApiKey = getUserApiKey();
 
     // should request client side
     if (userApiKey) {
@@ -250,7 +237,7 @@ export class BabyAGI {
   }
 
   async enrich(task: Task, result: string, index: string) {
-    const userApiKey = this.getUserApiKey();
+    const userApiKey = getUserApiKey();
     let values: number[] | undefined = undefined;
 
     // should request client side
@@ -288,7 +275,7 @@ export class BabyAGI {
 
   // only used for client-side openai api requests
   async getContext(objective: string, taskName: string) {
-    const userApiKey = this.getUserApiKey() ?? undefined;
+    const userApiKey = getUserApiKey() ?? undefined;
 
     if (!userApiKey) {
       throw new Error('OpenAI API key not found');
