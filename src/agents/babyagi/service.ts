@@ -108,14 +108,21 @@ export const contextAgent = async (
   }
   const pinecone = await pineconeClient();
   const pineconeIndex = pinecone.Index(index);
-  const results = await pineconeIndex.query({
-    queryRequest: {
-      vector: qe,
-      topK: n,
-      includeMetadata: true,
-      namespace,
-    },
-  });
+
+  let results;
+  try {
+    results = await pineconeIndex.query({
+      queryRequest: {
+        vector: qe,
+        topK: n,
+        includeMetadata: true,
+        namespace,
+      },
+    });
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
 
   if (!results.matches) {
     return [];

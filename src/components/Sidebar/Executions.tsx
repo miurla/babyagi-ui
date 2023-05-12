@@ -8,7 +8,7 @@ export const Executions: FC = () => {
 
   return (
     <div className="flex w-full flex-grow flex-col gap-1 overflow-auto pt-2">
-      <ul>
+      <ul className="flex flex-col gap-1">
         {exe.map((execution) => (
           <ExecutionRow execution={execution} key={execution.id} />
         ))}

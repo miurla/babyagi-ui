@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import { Execution } from '@/types';
 import {
+  deleteExecution,
   saveExecution,
   savedExecutions,
   updateExecution,
@@ -12,6 +13,7 @@ type ExecutionContextType = {
   addExecution: (execution: Execution) => void;
   updateExec: (updatedExecution: Execution) => void;
   selectExecution: (executionId?: string) => void;
+  removeExecution: (executionId: string) => void;
 };
 
 const ExecutionContext = createContext<ExecutionContextType>({
@@ -20,6 +22,7 @@ const ExecutionContext = createContext<ExecutionContextType>({
   addExecution: () => {},
   updateExec: () => {},
   selectExecution: () => {},
+  removeExecution: () => {},
 });
 
 export const useExecution = () => {
@@ -57,6 +60,11 @@ export const ExecutionProvider: React.FC<ExecutionProviderProps> = ({
     setSelectedExecutionId(executionId);
   };
 
+  const removeExecution = (executionId: string) => {
+    const updatedExecutions = deleteExecution(executionId);
+    setExecutions(updatedExecutions);
+  };
+
   return (
     <ExecutionContext.Provider
       value={{
@@ -65,6 +73,7 @@ export const ExecutionProvider: React.FC<ExecutionProviderProps> = ({
         addExecution,
         updateExec,
         selectExecution,
+        removeExecution,
       }}
     >
       {children}

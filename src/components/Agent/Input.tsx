@@ -94,7 +94,7 @@ export const Input: FC<InputProps> = ({
             onClick={() => {
               onStart(value);
             }}
-            disabled={value.length === 0 || isExecuting}
+            disabled={value.length === 0 || isExecuting || hasMessages}
           >
             {isExecuting ? (
               <UpdateIcon className="animate-spin" />

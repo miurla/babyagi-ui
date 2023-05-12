@@ -30,6 +30,14 @@ export const savedExecutions = () => {
   ) as Execution[];
 };
 
+export const deleteExecution = (executionId: string) => {
+  const executions = savedExecutions().filter(
+    (savedExecution) => savedExecution.id !== executionId,
+  );
+  saveExecutions(executions);
+  return executions;
+};
+
 export const iconFromExecutionType = (type: AgentType) => {
   switch (type) {
     case 'babyagi':

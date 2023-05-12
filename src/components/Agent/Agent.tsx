@@ -21,7 +21,7 @@ import { useExecution } from '@/hooks/useExecution';
 import { useExecutionStatus } from '@/hooks/useExecutionStatus';
 
 export const Agent: FC = () => {
-  const [model, setModel] = useState<SelectItem>(MODELS[0]);
+  const [model, setModel] = useState<SelectItem>(MODELS[1]);
   const [iterations, setIterations] = useState<SelectItem>(ITERATIONS[0]);
   const [objective, setObjective] = useState<string>('');
   const [firstTask, setFirstTask] = useState<string>('Develop a task list');
@@ -29,7 +29,6 @@ export const Agent: FC = () => {
   const [status, setStatus] = useState<MessageStatus>('ready');
   const [agent, setAgent] = useState<BabyAGI | BabyBeeAGI | null>(null);
   const [modeChecked, setModeChecked] = useState<boolean>(false);
-  const [selectedId, setSelectedId] = useState<string | undefined>(undefined);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const {
@@ -52,22 +51,34 @@ export const Agent: FC = () => {
   }, [scrollToBottom]);
 
   useEffect(() => {
-    if (selectedExecutionId && !isExecuting) {
+    if (selectedExecutionId) {
       const selectedExecution = executions.find(
         (exe) => exe.id === selectedExecutionId,
       );
       if (selectedExecution) {
         setMessages(selectedExecution.messages);
       }
-    } else if (!isExecuting) {
+    } else {
       setMessages([]);
       setObjective('');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedExecutionId]);
 
+  useEffect(() => {
+    const execution = executions.find((exe) => exe.id === selectedExecutionId);
+    if (execution) {
+      const updatedExecution: Execution = {
+        ...execution,
+        messages: messages,
+      };
+      updateExec(updatedExecution);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [messages]);
+
   // manage data
-  const saveNewData = () => {
+  const saveNewData = async () => {
     const execution: Execution = {
       id: uuidv4(),
       name: objective,
@@ -77,40 +88,30 @@ export const Agent: FC = () => {
         model: model,
         iterations: iterations,
         firstTask: firstTask,
-        agent: modeChecked ? 'babybeeagi' : 'babyagi',
+        agent: modeChecked && model.id === 'gpt-4' ? 'babybeeagi' : 'babyagi',
       },
       messages: messages,
     };
-    setSelectedId(execution.id);
-    addExecution(execution);
-    selectExecution(execution.id);
-  };
 
-  const updateData = () => {
-    const execution = executions.find((exe) => exe.id === selectedId);
-    if (execution) {
-      const updatedExecution: Execution = {
-        ...execution,
-        messages: messages,
-      };
-      updateExec(updatedExecution);
-    }
+    selectExecution(execution.id);
+    await new Promise((resolve) => {
+      addExecution(execution);
+      resolve(null);
+    });
+
+    return execution;
   };
 
   // handler functions
   const messageHandler = (message: Message) => {
     setMessages((messages) => [...messages, message]);
-
-    if (isExecuting) {
-      updateData();
-    }
   };
 
   const inputHandler = (value: string) => {
     setObjective(value);
   };
 
-  const startHandler = () => {
+  const startHandler = async () => {
     if (needSettingsAlert()) {
       alert('Please set up your OpenAI API key from the settings menu.');
       return;
@@ -118,7 +119,7 @@ export const Agent: FC = () => {
 
     setMessages([]);
     setExecuting(true);
-    saveNewData();
+    const execution = await saveNewData();
 
     const useBabyBeeAgi = modeChecked && model.id === 'gpt-4';
     const verbose = false;
@@ -142,6 +143,7 @@ export const Agent: FC = () => {
         model.id,
         Number(iterations.id),
         firstTask,
+        execution.id,
         messageHandler,
         setStatus,
         () => {
