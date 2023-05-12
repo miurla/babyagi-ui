@@ -21,7 +21,7 @@ import { useExecution } from '@/hooks/useExecution';
 import { useExecutionStatus } from '@/hooks/useExecutionStatus';
 
 export const Agent: FC = () => {
-  const [model, setModel] = useState<SelectItem>(MODELS[1]);
+  const [model, setModel] = useState<SelectItem>(MODELS[0]);
   const [iterations, setIterations] = useState<SelectItem>(ITERATIONS[0]);
   const [objective, setObjective] = useState<string>('');
   const [firstTask, setFirstTask] = useState<string>('Develop a task list');
