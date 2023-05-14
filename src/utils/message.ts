@@ -1,4 +1,4 @@
-import { Message, MessageStatus, MessageType, ToolType } from '@/types';
+import { AgentStatus, Message, MessageType, ToolType } from '@/types';
 
 export const setupMessage = (
   type: MessageType,
@@ -32,6 +32,12 @@ export const setupMessage = (
       ? '✅'
       : type === 'complete'
       ? '🏁'
+      : type === 'task-output' && tool === 'web-search'
+      ? '🔍'
+      : type === 'task-output' && tool === 'web-scrape'
+      ? '📄'
+      : type === 'task-output' && tool === 'text-completion'
+      ? '🤖'
       : '🤖';
 
   const title =
@@ -43,6 +49,8 @@ export const setupMessage = (
       ? 'Next Task'
       : type === 'task-result'
       ? 'Task Result'
+      : type === 'task-output'
+      ? 'Task Output'
       : type === 'task-result-summary'
       ? 'Task Result Summary'
       : type === 'loading'
@@ -79,27 +87,30 @@ export const getMessageText = (message: Message): string => {
   return message.text;
 };
 
-export const loadingAgentMessage = (status: MessageStatus) => {
-  const text =
-    status === 'creating'
-      ? 'Creating tasks...'
-      : status === 'executing'
+export const loadingAgentMessage = (status: AgentStatus) => {
+  let text =
+    status.type === 'creating'
+      ? 'Creating tasks... (🤖💬: *This process takes time. Please wait.*)'
+      : status.type === 'executing'
       ? '⚒️ Executing tasks...'
-      : status === 'prioritizing'
+      : status.type === 'prioritizing'
       ? 'Prioritizing tasks...'
-      : status === 'saving'
+      : status.type === 'saving'
       ? 'Saving tasks...'
-      : status === 'preparing'
+      : status.type === 'preparing'
       ? 'Preparing...'
-      : status === 'terminating'
+      : status.type === 'terminating'
       ? 'Terminating...'
-      : status === 'updating'
+      : status.type === 'updating'
       ? '♻️ Task Updating...'
-      : status === 'summarizing'
+      : status.type === 'summarizing'
       ? '✍️ Summarizing...'
-      : status === 'managing'
+      : status.type === 'managing'
       ? '🗂️ Task management in progress... (🤖💬: *This process takes time. Please wait.*)'
       : 'Thinking...';
+
+  if (status.message) text += `\n\n${status.message}`;
+
   return {
     text: text,
     type: 'loading',

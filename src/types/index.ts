@@ -11,7 +11,7 @@ export type Message = {
   icon?: string;
   title?: string;
   bgColor?: string;
-  status?: MessageStatus;
+  status?: AgentStatus;
 };
 
 export type Execution = {
@@ -30,13 +30,14 @@ export type ExecutionParams = {
   agent: AgentType;
 };
 
-export type AgentType = 'babyagi' | 'babybeeagi' | 'none';
+export type AgentType = 'babyagi' | 'babybeeagi' | 'babycatagi' | 'none';
 
 export type MessageType =
   | 'objective'
   | 'task-list'
   | 'next-task'
   | 'task-result'
+  | 'task-output'
   | 'task-result-summary'
   | 'loading'
   | 'end-of-iterations'
@@ -44,7 +45,7 @@ export type MessageType =
   | 'done'
   | 'complete';
 
-export type MessageStatus =
+export type AgentStatusType =
   | 'preparing'
   | 'creating'
   | 'executing'
@@ -64,3 +65,20 @@ export type UserSettings = {
 
 export type ToolType = 'web-scrape' | 'web-search' | 'text-completion';
 export type TaskStatus = 'complete' | 'incomplete';
+
+export interface AgentTask {
+  id: number;
+  task: string;
+  tool: ToolType;
+  dependentTaskIds?: number[];
+  status: TaskStatus;
+  output?: string; // for babycatagi
+  result?: string; // for babybeeagi
+  resultSummary?: string; // for babybeeagi
+  dependentTaskId?: number; // for babybeeagi
+}
+
+export type AgentStatus = {
+  type: AgentStatusType;
+  message?: string;
+};

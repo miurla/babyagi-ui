@@ -33,3 +33,9 @@ export const ITERATIONS = [
 export const BABYBEEAGI_ITERATIONS = [
   { id: '0', name: 'Until All tasks completed 🐝' },
 ];
+
+export const AGENT = [
+  { id: 'babycatagi', name: 'BabyCatAGI', icon: '🐱' },
+  { id: 'babybeeagi', name: 'BabyBeeAGI', icon: '🐝' },
+  { id: 'babyagi', name: 'BabyAGI', icon: '👶' },
+];

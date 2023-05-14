@@ -1,4 +1,4 @@
-import { webScrape } from '@/agents/babybeeagi/tools/webScrape';
+import { webScrape } from '@/agents/common/tools/webScrape';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {

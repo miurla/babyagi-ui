@@ -1,8 +1,9 @@
 import { FC, useCallback, useEffect, useRef, useState } from 'react';
 import {
+  AgentStatus,
+  AgentType,
   Execution,
   Message,
-  MessageStatus,
   SelectItem,
   UserSettings,
 } from '@/types';
@@ -13,8 +14,9 @@ import { ProjectTile } from './ProjectTile';
 import { AgentMessageHeader } from './AgentMessageHeader';
 import { getExportText, loadingAgentMessage } from '../../utils/message';
 import { BabyAGI } from '@/agents/babyagi';
-import { ITERATIONS, MODELS, SETTINGS_KEY } from '@/utils/constants';
 import { BabyBeeAGI } from '@/agents/babybeeagi/agent';
+import { BabyCatAGI } from '@/agents/babycatagi/agent';
+import { AGENT, ITERATIONS, MODELS, SETTINGS_KEY } from '@/utils/constants';
 import { toast } from 'sonner';
 import { v4 as uuidv4 } from 'uuid';
 import { useExecution } from '@/hooks/useExecution';
@@ -26,9 +28,14 @@ export const Agent: FC = () => {
   const [objective, setObjective] = useState<string>('');
   const [firstTask, setFirstTask] = useState<string>('Develop a task list');
   const [messages, setMessages] = useState<Message[]>([]);
-  const [status, setStatus] = useState<MessageStatus>('ready');
-  const [agent, setAgent] = useState<BabyAGI | BabyBeeAGI | null>(null);
+  const [agentStatus, setAgentStatus] = useState<AgentStatus>({
+    type: 'ready',
+  });
+  const [agent, setAgent] = useState<BabyAGI | BabyBeeAGI | BabyCatAGI | null>(
+    null,
+  );
   const [modeChecked, setModeChecked] = useState<boolean>(false);
+  const [selectedAgent, setSelectedAgent] = useState<SelectItem>(AGENT[0]);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const {
@@ -88,7 +95,7 @@ export const Agent: FC = () => {
         model: model,
         iterations: iterations,
         firstTask: firstTask,
-        agent: modeChecked && model.id === 'gpt-4' ? 'babybeeagi' : 'babyagi',
+        agent: selectedAgent.id as AgentType,
       },
       messages: messages,
     };
@@ -105,6 +112,13 @@ export const Agent: FC = () => {
   // handler functions
   const messageHandler = (message: Message) => {
     setMessages((messages) => [...messages, message]);
+
+    // show toast notification
+    if (message.type === 'complete') {
+      toast.success('All Tasks Completed!');
+    } else if (message.type === 'done') {
+      toast.success('Task Completed!');
+    }
   };
 
   const inputHandler = (value: string) => {
@@ -120,41 +134,55 @@ export const Agent: FC = () => {
     setMessages([]);
     setExecuting(true);
     const execution = await saveNewData();
-
-    const useBabyBeeAgi = modeChecked && model.id === 'gpt-4';
-    const verbose = false;
+    const verbose = true;
     let agent = null;
-    if (useBabyBeeAgi) {
-      agent = new BabyBeeAGI(
-        objective,
-        model.id,
-        firstTask,
-        messageHandler,
-        setStatus,
-        () => {
-          setAgent(null);
-          setExecuting(false);
-        },
-        verbose,
-      );
-    } else {
-      agent = new BabyAGI(
-        objective,
-        model.id,
-        Number(iterations.id),
-        firstTask,
-        execution.id,
-        messageHandler,
-        setStatus,
-        () => {
-          setAgent(null);
-          setExecuting(false);
-        },
-        verbose,
-      );
+    switch (selectedAgent.id) {
+      case 'babyagi':
+        agent = new BabyAGI(
+          objective,
+          model.id,
+          Number(iterations.id),
+          firstTask,
+          execution.id,
+          messageHandler,
+          setAgentStatus,
+          () => {
+            setAgent(null);
+            setExecuting(false);
+          },
+          verbose,
+        );
+        break;
+      case 'babybeeagi':
+        agent = new BabyBeeAGI(
+          objective,
+          model.id,
+          firstTask,
+          messageHandler,
+          setAgentStatus,
+          () => {
+            setAgent(null);
+            setExecuting(false);
+          },
+          verbose,
+        );
+        break;
+      case 'babycatagi':
+        agent = new BabyCatAGI(
+          objective,
+          model.id,
+          messageHandler,
+          setAgentStatus,
+          () => {
+            setAgent(null);
+            setExecuting(false);
+          },
+          verbose,
+        );
+        break;
     }
     setAgent(agent);
-    agent.start();
+    agent?.start();
   };
 
   const stopHandler = () => {
@@ -165,7 +193,8 @@ export const Agent: FC = () => {
   const clearHandler = () => {
     setMessages([]);
     selectExecution(undefined);
-    setStatus('ready');
+    // setStatus('ready');
+    setAgentStatus({ type: 'ready' });
   };
 
   const copyHandler = () => {
@@ -225,7 +254,7 @@ export const Agent: FC = () => {
             <AgentMessage key={index} message={message} />
           ))}
           {isExecuting && (
-            <AgentMessage message={loadingAgentMessage(status)} />
+            <AgentMessage message={loadingAgentMessage(agentStatus)} />
           )}
           <div
             className="h-[162px] bg-white dark:bg-[#343541]"

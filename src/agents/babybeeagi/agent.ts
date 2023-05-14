@@ -1,4 +1,4 @@
-import { Message, MessageStatus, TaskStatus, ToolType } from '@/types';
+import { AgentStatus, Message, TaskStatus, ToolType } from '@/types';
 import { textCompletion } from './tools/textCompletion';
 import { overviewAgent, summarizerAgent, taskManagementAgent } from './service';
 import { getToolIcon, setupMessage } from '@/utils/message';
@@ -26,7 +26,7 @@ export class BabyBeeAGI {
   isRunning: boolean;
   verbose: boolean;
   messageCallback: (message: Message) => void;
-  statusCallback: (status: MessageStatus) => void;
+  statusCallback: (status: AgentStatus) => void;
   cancelCallback: () => void;
   abortController?: AbortController;
 
@@ -35,7 +35,7 @@ export class BabyBeeAGI {
     modelName: string,
     firstTask: string,
     messageCallback: (message: Message) => void,
-    statusCallback: (status: MessageStatus) => void,
+    statusCallback: (status: AgentStatus) => void,
     cancel: () => void,
     verbose: boolean = false,
   ) {
@@ -413,7 +413,7 @@ export class BabyBeeAGI {
     }
 
     // Execute task
-    this.statusCallback('executing');
+    this.statusCallback({ type: 'executing' });
     this.printNextTask(task);
     let taskPrompt = `Complete your assign task based on the objective:\n\n${objective}, Your task: ${task.task}`;
     if (task.dependentTaskId) {
@@ -449,7 +449,7 @@ export class BabyBeeAGI {
 
     this.printResult(result, task);
 
-    this.statusCallback('updating');
+    this.statusCallback({ type: 'updating' });
     // Update task status and result
     task.status = 'complete';
     task.result = result;
@@ -457,7 +457,7 @@ export class BabyBeeAGI {
 
     this.printResultSummary(task.resultSummary ?? '');
 
-    this.statusCallback('summarizing');
+    this.statusCallback({ type: 'summarizing' });
     // Update session summary
     this.sessionSummary = await this.overviewTask(task.id);
 
@@ -470,7 +470,7 @@ export class BabyBeeAGI {
       .filter((task) => task.status === 'incomplete')
       .map((task) => task.task);
 
-    this.statusCallback('managing');
+    this.statusCallback({ type: 'managing' });
     // Update task manager agent of tasks
     this.taskList = await this.managementTask(
       result,
@@ -505,13 +505,13 @@ export class BabyBeeAGI {
     await this.loop();
 
     if (!this.isRunning) {
-      this.statusCallback('finished');
+      this.statusCallback({ type: 'finished' });
       return;
     }
 
     // Objective completed
     this.printAllTaskCompleted();
-    this.statusCallback('finished');
+    this.statusCallback({ type: 'finished' });
     this.cancelCallback();
     this.isRunning = false;
   }
@@ -522,7 +522,7 @@ export class BabyBeeAGI {
       this.taskList.some((task) => task.status === 'incomplete') &&
       this.isRunning
     ) {
-      this.statusCallback('preparing');
+      this.statusCallback({ type: 'preparing' });
       // Filter out incomplete tasks
       const incompleteTasks = this.taskList.filter(
         (task) => task.status === 'incomplete',
@@ -543,7 +543,7 @@ export class BabyBeeAGI {
       // Execute the task & call task manager from function
       await this.executeTask(task, incompleteTasks, this.objective);
 
-      this.statusCallback('closing');
+      this.statusCallback({ type: 'closing' });
       // Print task list
       this.printTaskList();
       this.printDone();
