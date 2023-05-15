@@ -92,7 +92,7 @@ export const Input: FC<InputProps> = ({
             onChange={(e) => onChange(e.target.value)}
           />
           <button
-            className="absolute right-5 rounded-sm p-1 text-neutral-800 hover:bg-neutral-200 hover:text-neutral-900 focus:outline-none disabled:opacity-30 dark:bg-opacity-50 dark:text-neutral-100 dark:hover:text-neutral-200"
+            className="absolute right-5 rounded-sm p-1 text-neutral-800 hover:bg-neutral-100 hover:text-neutral-900 focus:outline-none disabled:opacity-30 dark:bg-opacity-50 dark:text-neutral-100 dark:hover:bg-neutral-800 dark:hover:text-neutral-200"
             onClick={() => {
               onStart(value);
             }}

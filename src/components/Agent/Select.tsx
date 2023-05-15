@@ -36,7 +36,7 @@ export const Select: FC<Props> = ({ label, item, items, onChange }) => {
   };
   const badge = (item: SelectItem) => {
     const badge = item.badge ? (
-      <span className="rounded-full bg-blue-500 bg-opacity-10 px-2 py-0.5 text-[10px] text-blue-500 dark:bg-blue-500 dark:bg-opacity-10 dark:text-blue-300">
+      <span className="select-none rounded-full bg-blue-500 bg-opacity-10 px-2 py-0.5 text-[10px] text-blue-500 dark:bg-blue-500 dark:bg-opacity-10 dark:text-blue-300">
         {item.badge}
       </span>
     ) : null;
