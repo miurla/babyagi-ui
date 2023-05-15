@@ -6,6 +6,7 @@ import {
   PlayIcon,
   PlusIcon,
   StopIcon,
+  UpdateIcon,
 } from '@radix-ui/react-icons';
 import { FC } from 'react';
 
@@ -98,11 +99,18 @@ export const Input: FC<InputProps> = ({
             disabled={value.length === 0 || isExecuting || hasMessages}
           >
             {isExecuting ? (
-              <DotFilledIcon className="animate-pulse text-green-500" />
+              <UpdateIcon className="animate-spin" />
             ) : (
               <PlayIcon className="opacity-60" />
             )}
           </button>
+          <div
+            className={`absolute -right-7 ${
+              isExecuting && 'animate-pulse text-green-500'
+            }`}
+          >
+            {isExecuting ? <DotFilledIcon className="h-5 w-5" /> : null}
+          </div>
         </div>
       </div>
       <div className="px-3 pb-3 pt-2 text-center text-xs text-black/50 dark:text-white/50 md:px-4 md:pb-6 md:pt-3">

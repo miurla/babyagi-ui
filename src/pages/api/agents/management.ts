@@ -1,8 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import {
-  summarizerAgent,
-  taskManagementAgent,
-} from '@/agents/babybeeagi/service';
+import { taskManagementAgent } from '@/agents/babybeeagi/service';
 
 export const config = {
   runtime: 'edge',

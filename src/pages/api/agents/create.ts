@@ -1,19 +1,21 @@
+import { NextRequest, NextResponse } from 'next/server';
 import { taskCreationAgent } from '@/agents/babycatagi/service';
-import { NextApiRequest, NextApiResponse } from 'next';
 
-const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+export const config = {
+  runtime: 'edge',
+};
+
+const handler = async (req: NextRequest) => {
   try {
-    const { objective, websearch_var, model_name } = await req.body;
-
+    const { objective, websearch_var, model_name } = await req.json();
     const response = await taskCreationAgent(
       objective,
       websearch_var,
       model_name,
     );
-
-    return res.status(200).json({ response: response });
+    return NextResponse.json({ response: response });
   } catch (error) {
-    return res.status(500).json({ error: error });
+    return NextResponse.error();
   }
 };
 
