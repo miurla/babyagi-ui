@@ -40,6 +40,7 @@ export const AGENT = [
     name: 'BabyCatAGI',
     icon: '🐱',
     message: 'TOOLS: 🤖/🔎+📄',
+    badge: 'NEW',
   },
   {
     id: 'babybeeagi',

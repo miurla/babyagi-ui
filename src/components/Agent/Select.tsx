@@ -7,7 +7,6 @@ import {
 import * as SelectPrimitive from '@radix-ui/react-select';
 import { FC } from 'react';
 import Image from 'next/image';
-import { text } from 'stream/consumers';
 
 interface Props {
   label: string;
@@ -35,6 +34,14 @@ export const Select: FC<Props> = ({ label, item, items, onChange }) => {
     ) : null;
     return label;
   };
+  const badge = (item: SelectItem) => {
+    const badge = item.badge ? (
+      <span className="rounded-full bg-blue-500 bg-opacity-10 px-2 py-0.5 text-[10px] text-blue-500 dark:bg-blue-500 dark:bg-opacity-10 dark:text-blue-300">
+        {item.badge}
+      </span>
+    ) : null;
+    return badge;
+  };
 
   return (
     <div className="relative w-full">
@@ -48,6 +55,7 @@ export const Select: FC<Props> = ({ label, item, items, onChange }) => {
               <div className="inline-flex h-5 items-center gap-2 truncate font-mono">
                 {iconLabel(item)}
                 {item.name}
+                {badge(item)}
               </div>
             </SelectPrimitive.Value>
             <SelectPrimitive.Icon>
@@ -72,6 +80,7 @@ export const Select: FC<Props> = ({ label, item, items, onChange }) => {
                       <div className="inline-flex h-6 items-center gap-2">
                         {iconLabel(item)}
                         {item.name}
+                        {badge(item)}
                       </div>
                     </SelectPrimitive.ItemText>
                     <SelectPrimitive.ItemIndicator className="absolute left-2 inline-flex items-center">

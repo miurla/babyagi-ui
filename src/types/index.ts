@@ -3,6 +3,7 @@ export type SelectItem = {
   name: string;
   message?: string;
   icon?: string;
+  badge?: string;
 };
 
 export type Message = {
