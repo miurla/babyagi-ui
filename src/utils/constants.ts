@@ -5,7 +5,7 @@ export const MODELS = [
   {
     id: 'gpt-4',
     name: 'OpenAI gpt-4',
-    message: 'USING GPT-4. POTENTIALLY EXPENSIVE. MONITOR YOUR COSTS',
+    message: '🚨 USING GPT-4. POTENTIALLY EXPENSIVE. MONITOR YOUR COSTS',
     icon: 'openai-logo.svg',
   },
   {
@@ -32,4 +32,21 @@ export const ITERATIONS = [
 
 export const BABYBEEAGI_ITERATIONS = [
   { id: '0', name: 'Until All tasks completed 🐝' },
+];
+
+export const AGENT = [
+  {
+    id: 'babycatagi',
+    name: 'BabyCatAGI',
+    icon: '🐱',
+    message: 'TOOLS: 🤖/🔎+📄',
+    badge: 'NEW',
+  },
+  {
+    id: 'babybeeagi',
+    name: 'BabyBeeAGI',
+    icon: '🐝',
+    message: 'TOOLS: 🤖/🔎/📄',
+  },
+  { id: 'babyagi', name: 'BabyAGI', icon: '👶', message: 'TOOLS: 🤖' },
 ];

@@ -1,4 +1,4 @@
-import { webSearch } from '@/agents/babybeeagi/tools/webSearch';
+import { webSearch } from '@/agents/common/tools/webSearch';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {

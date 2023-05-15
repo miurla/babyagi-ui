@@ -1,4 +1,4 @@
-import { AgentTask } from '@/agents/babybeeagi/agent';
+import { AgentTask } from '@/types';
 
 const camelToSnakeCase = (str: string): string =>
   str.replace(/[A-Z]/g, (letter) => `_${letter.toLowerCase()}`);

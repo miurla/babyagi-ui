@@ -44,6 +44,8 @@ export const iconFromExecutionType = (type: AgentType) => {
       return '👶';
     case 'babybeeagi':
       return '🐝';
+    case 'babycatagi':
+      return '🐱';
     default:
       return '🤖';
   }

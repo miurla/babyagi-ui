@@ -1,4 +1,4 @@
-import { Message, MessageStatus } from '@/types';
+import { AgentStatus, Message } from '@/types';
 import { setupMessage } from '@/utils/message';
 import { getUserApiKey } from '@/utils/settings';
 import {
@@ -20,7 +20,7 @@ export class BabyAGI {
   maxIterations: number;
   firstTask: string;
   messageCallback: (message: Message) => void;
-  statusCallback: (status: MessageStatus) => void;
+  statusCallback: (status: AgentStatus) => void;
   cancelCallback: () => void;
   verbose: boolean;
   taskList: Task[];
@@ -37,7 +37,7 @@ export class BabyAGI {
     firstTask: string,
     id: string,
     messageCallback: (message: Message) => void,
-    statusCallback: (status: MessageStatus) => void,
+    statusCallback: (status: AgentStatus) => void,
     cancel: () => void,
     verbose: boolean = false,
   ) {
@@ -334,12 +334,12 @@ export class BabyAGI {
     await this.loop();
 
     if (!this.isRunning) {
-      this.statusCallback('finished');
+      this.statusCallback({ type: 'finished' });
       return;
     }
 
     // Finish up
-    this.statusCallback('finished');
+    this.statusCallback({ type: 'finished' });
     this.messageCallback(setupMessage('end-of-iterations', ''));
     this.cancelCallback();
     this.isRunning = false;
@@ -356,25 +356,25 @@ export class BabyAGI {
         this.printTaskList();
 
         // Step 1: Pull the first task
-        this.statusCallback('preparing');
+        this.statusCallback({ type: 'preparing' });
         const task = this.taskList.shift()!;
         this.printNextTask(task);
 
         // Send to execution function to complete the task based on the context
-        this.statusCallback('executing');
+        this.statusCallback({ type: 'executing' });
         const result = await this.executeTask(this.objective, task.taskName);
         const taskID = parseInt(task.taskID, 10);
         this.printTaskResult(result);
 
         // Step 2: Enrich the result and store in Pinecone
         // TODO: taskEnrichment
-        this.statusCallback('saving');
+        this.statusCallback({ type: 'saving' });
         await this.enrich(task, result, this.tableName);
 
         if (!this.isRunning) break;
 
         // Step 3: Create new tasks and reprioritize the task list
-        this.statusCallback('creating');
+        this.statusCallback({ type: 'creating' });
         const newTasks = await this.taskCreation(
           this.objective,
           result,
@@ -393,7 +393,7 @@ export class BabyAGI {
 
         if (!this.isRunning) break;
 
-        this.statusCallback('prioritizing');
+        this.statusCallback({ type: 'prioritizing' });
         this.taskList = await this.taskPrioritization(this.objective, taskID);
 
         // console.log('iteration: ', iteration);

@@ -10,6 +10,14 @@ interface AgentMessageProps {
 }
 
 const AgentMessage: FC<AgentMessageProps> = ({ message }) => {
+  const contents = (
+    <div className="prose dark:prose-invert prose-pre:bg-neutral-200 prose-pre:text-black dark:prose-pre:bg-neutral-800 dark:prose-pre:text-white">
+      <ReactMarkdown remarkPlugins={[remarkGfm]}>
+        {getMessageText(message)}
+      </ReactMarkdown>
+    </div>
+  );
+
   return (
     <div
       className={`border-b border-black/10 text-gray-800 dark:border-gray-900/50 dark:text-gray-100 ${message.bgColor}`}
@@ -22,11 +30,14 @@ const AgentMessage: FC<AgentMessageProps> = ({ message }) => {
         ) : (
           <div className="w-10 pt-0.5 text-xl">{message.icon}</div>
         )}
-        <div className="prose dark:prose-invert prose-pre:bg-neutral-200 prose-pre:text-black dark:prose-pre:bg-neutral-800 dark:prose-pre:text-white">
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>
-            {getMessageText(message)}
-          </ReactMarkdown>
-        </div>
+        {message.type === 'session-summary' ? (
+          <details>
+            <summary className="pt-0.5 text-lg font-bold">Summary</summary>
+            {contents}
+          </details>
+        ) : (
+          contents
+        )}
       </div>
     </div>
   );

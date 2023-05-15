@@ -1,5 +1,5 @@
+import { taskCreationAgent } from '@/agents/babycatagi/service';
 import { NextRequest, NextResponse } from 'next/server';
-import { taskManagementAgent } from '@/agents/babybeeagi/service';
 
 export const config = {
   runtime: 'edge',
@@ -7,12 +7,9 @@ export const config = {
 
 const handler = async (req: NextRequest) => {
   try {
-    const { minified_task_list, objective, result, websearch_var, model_name } =
-      await req.json();
-    const response = await taskManagementAgent(
-      minified_task_list,
+    const { objective, websearch_var, model_name } = await req.json();
+    const response = await taskCreationAgent(
       objective,
-      result,
       websearch_var,
       model_name,
     );

@@ -16,6 +16,33 @@ interface Props {
 }
 
 export const Select: FC<Props> = ({ label, item, items, onChange }) => {
+  const imageExtensions = /\.(jpg|jpeg|png|gif|svg)$/i;
+  const alertMessage = /EXPENSIVE/i;
+  const isImage = imageExtensions.test(item.icon ?? '');
+  const isAlert = alertMessage.test(item.message ?? '');
+  const iconLabel = (item: SelectItem) => {
+    const label = isImage ? (
+      <Image
+        src={`/${item.icon}`}
+        alt={item.name}
+        width={14}
+        height={14}
+        className="dark:invert"
+      />
+    ) : item.icon ? (
+      <span>{item.icon}</span>
+    ) : null;
+    return label;
+  };
+  const badge = (item: SelectItem) => {
+    const badge = item.badge ? (
+      <span className="select-none rounded-full bg-blue-500 bg-opacity-10 px-2 py-0.5 text-[10px] text-blue-500 dark:bg-blue-500 dark:bg-opacity-10 dark:text-blue-300">
+        {item.badge}
+      </span>
+    ) : null;
+    return badge;
+  };
+
   return (
     <div className="relative w-full">
       <div className="flex w-full flex-col text-left text-xs">
@@ -25,17 +52,10 @@ export const Select: FC<Props> = ({ label, item, items, onChange }) => {
         <SelectPrimitive.Root onValueChange={onChange} defaultValue={item.id}>
           <SelectPrimitive.Trigger className="focus:shadow-outline inline-flex w-full cursor-pointer appearance-none items-center justify-between rounded-lg border border-neutral-200 p-3 text-xs text-neutral-600 focus:outline-none dark:border-neutral-600 dark:bg-[#343541] dark:text-white">
             <SelectPrimitive.Value>
-              <div className="inline-flex h-5 items-center gap-2 font-mono">
-                {item.icon && (
-                  <Image
-                    src={`/${item.icon}`}
-                    alt={item.icon}
-                    width={14}
-                    height={14}
-                    className="dark:invert"
-                  />
-                )}
+              <div className="inline-flex h-5 items-center gap-2 truncate font-mono">
+                {iconLabel(item)}
                 {item.name}
+                {badge(item)}
               </div>
             </SelectPrimitive.Value>
             <SelectPrimitive.Icon>
@@ -46,7 +66,7 @@ export const Select: FC<Props> = ({ label, item, items, onChange }) => {
             <SelectPrimitive.ScrollUpButton className="flex items-center justify-center text-gray-700 dark:text-gray-300">
               <ChevronUpIcon />
             </SelectPrimitive.ScrollUpButton>
-            <SelectPrimitive.Viewport className="rounded-lg border bg-white p-2 shadow-lg dark:border-neutral-900 dark:bg-neutral-800">
+            <SelectPrimitive.Viewport className="z-20 rounded-lg border bg-white p-2 shadow-lg dark:border-neutral-900 dark:bg-neutral-800">
               <SelectPrimitive.Group>
                 {items.map((item, index) => (
                   <SelectPrimitive.Item
@@ -58,16 +78,9 @@ export const Select: FC<Props> = ({ label, item, items, onChange }) => {
                   >
                     <SelectPrimitive.ItemText>
                       <div className="inline-flex h-6 items-center gap-2">
-                        {item.icon && (
-                          <Image
-                            src={`/${item.icon}`}
-                            alt={item.icon}
-                            width={16}
-                            height={16}
-                            className="dark:invert"
-                          />
-                        )}
+                        {iconLabel(item)}
                         {item.name}
+                        {badge(item)}
                       </div>
                     </SelectPrimitive.ItemText>
                     <SelectPrimitive.ItemIndicator className="absolute left-2 inline-flex items-center">
@@ -83,7 +96,13 @@ export const Select: FC<Props> = ({ label, item, items, onChange }) => {
           </SelectPrimitive.Content>
         </SelectPrimitive.Root>
         {item.message && (
-          <span className="p-1 font-mono text-xs text-red-500">
+          <span
+            className={`p-1 font-mono text-xs ${
+              isAlert
+                ? 'text-red-400 dark:text-red-600'
+                : 'text-right text-neutral-500 dark:text-neutral-400'
+            }`}
+          >
             {item.message}
           </span>
         )}
