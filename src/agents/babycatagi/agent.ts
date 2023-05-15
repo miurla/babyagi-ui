@@ -356,8 +356,8 @@ export class BabyCatAGI {
           '/api/agents/create',
           {
             objective: this.objective,
-            websearchVar,
-            modelName: this.modelName,
+            websearch_var: websearchVar,
+            model_name: this.modelName,
           },
           {
             signal: this.abortController?.signal,
