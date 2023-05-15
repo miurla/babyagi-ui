@@ -240,8 +240,8 @@ export const Agent: FC = () => {
             setIterations={setIterations}
             firstTask={firstTask}
             setFirstTask={setFirstTask}
-            checked={modeChecked}
-            setChecked={setModeChecked}
+            agent={selectedAgent}
+            setAgent={setSelectedAgent}
           />
           <div className="h-[calc(100vh-450px)]">
             <ProjectTile />

@@ -7,6 +7,7 @@ import {
 import * as SelectPrimitive from '@radix-ui/react-select';
 import { FC } from 'react';
 import Image from 'next/image';
+import { text } from 'stream/consumers';
 
 interface Props {
   label: string;
@@ -16,6 +17,25 @@ interface Props {
 }
 
 export const Select: FC<Props> = ({ label, item, items, onChange }) => {
+  const imageExtensions = /\.(jpg|jpeg|png|gif|svg)$/i;
+  const alertMessage = /EXPENSIVE/i;
+  const isImage = imageExtensions.test(item.icon ?? '');
+  const isAlert = alertMessage.test(item.message ?? '');
+  const iconLabel = (item: SelectItem) => {
+    const label = isImage ? (
+      <Image
+        src={`/${item.icon}`}
+        alt={item.name}
+        width={14}
+        height={14}
+        className="dark:invert"
+      />
+    ) : item.icon ? (
+      <span>{item.icon}</span>
+    ) : null;
+    return label;
+  };
+
   return (
     <div className="relative w-full">
       <div className="flex w-full flex-col text-left text-xs">
@@ -25,16 +45,8 @@ export const Select: FC<Props> = ({ label, item, items, onChange }) => {
         <SelectPrimitive.Root onValueChange={onChange} defaultValue={item.id}>
           <SelectPrimitive.Trigger className="focus:shadow-outline inline-flex w-full cursor-pointer appearance-none items-center justify-between rounded-lg border border-neutral-200 p-3 text-xs text-neutral-600 focus:outline-none dark:border-neutral-600 dark:bg-[#343541] dark:text-white">
             <SelectPrimitive.Value>
-              <div className="inline-flex h-5 items-center gap-2 font-mono">
-                {item.icon && (
-                  <Image
-                    src={`/${item.icon}`}
-                    alt={item.icon}
-                    width={14}
-                    height={14}
-                    className="dark:invert"
-                  />
-                )}
+              <div className="inline-flex h-5 items-center gap-2 truncate font-mono">
+                {iconLabel(item)}
                 {item.name}
               </div>
             </SelectPrimitive.Value>
@@ -58,15 +70,7 @@ export const Select: FC<Props> = ({ label, item, items, onChange }) => {
                   >
                     <SelectPrimitive.ItemText>
                       <div className="inline-flex h-6 items-center gap-2">
-                        {item.icon && (
-                          <Image
-                            src={`/${item.icon}`}
-                            alt={item.icon}
-                            width={16}
-                            height={16}
-                            className="dark:invert"
-                          />
-                        )}
+                        {iconLabel(item)}
                         {item.name}
                       </div>
                     </SelectPrimitive.ItemText>
@@ -83,7 +87,13 @@ export const Select: FC<Props> = ({ label, item, items, onChange }) => {
           </SelectPrimitive.Content>
         </SelectPrimitive.Root>
         {item.message && (
-          <span className="p-1 font-mono text-xs text-red-500">
+          <span
+            className={`p-1 font-mono text-xs ${
+              isAlert
+                ? 'text-red-500'
+                : 'text-neutral-500 dark:text-neutral-400'
+            }`}
+          >
             {item.message}
           </span>
         )}

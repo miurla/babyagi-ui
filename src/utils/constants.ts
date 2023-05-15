@@ -35,7 +35,17 @@ export const BABYBEEAGI_ITERATIONS = [
 ];
 
 export const AGENT = [
-  { id: 'babycatagi', name: 'BabyCatAGI', icon: '🐱' },
-  { id: 'babybeeagi', name: 'BabyBeeAGI', icon: '🐝' },
-  { id: 'babyagi', name: 'BabyAGI', icon: '👶' },
+  {
+    id: 'babycatagi',
+    name: 'BabyCatAGI',
+    icon: '🐱',
+    message: 'TOOLS: 🤖/🔎+📄',
+  },
+  {
+    id: 'babybeeagi',
+    name: 'BabyBeeAGI',
+    icon: '🐝',
+    message: 'TOOLS: 🤖/🔎/📄',
+  },
+  { id: 'babyagi', name: 'BabyAGI', icon: '👶', message: 'TOOLS: 🤖' },
 ];
