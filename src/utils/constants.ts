@@ -5,7 +5,7 @@ export const MODELS = [
   {
     id: 'gpt-4',
     name: 'OpenAI gpt-4',
-    message: 'USING GPT-4. POTENTIALLY EXPENSIVE. MONITOR YOUR COSTS',
+    message: '🚨 USING GPT-4. POTENTIALLY EXPENSIVE. MONITOR YOUR COSTS',
     icon: 'openai-logo.svg',
   },
   {

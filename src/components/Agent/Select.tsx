@@ -99,8 +99,8 @@ export const Select: FC<Props> = ({ label, item, items, onChange }) => {
           <span
             className={`p-1 font-mono text-xs ${
               isAlert
-                ? 'text-red-500'
-                : 'text-neutral-500 dark:text-neutral-400'
+                ? 'text-red-400 dark:text-red-600'
+                : 'text-right text-neutral-500 dark:text-neutral-400'
             }`}
           >
             {item.message}

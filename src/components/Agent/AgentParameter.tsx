@@ -81,10 +81,10 @@ export const AgentParameter: FC<AgentParameterProps> = ({
           ></input>
         </div>
       )}
-      <div className="flex w-full flex-col px-1 py-1">
-        {agent.id !== 'babyagi' && (
+      {agent.id !== 'babyagi' && (
+        <div className="flex w-full flex-col rounded bg-neutral-50 p-2 dark:bg-neutral-600 dark:bg-opacity-20">
           <label className="pl-1 text-xs text-neutral-400 dark:text-neutral-400">
-            {`In this Agent, The BabyAGI can search and scrape the web. However, as it's an experimental feature, it may not always work and can be slow at times. `}
+            {`This BabyAGI can search and scrape the web. However, since this is an experimental feature, it may not always work and may be slow. `}
             {'For more details: '}
             <Link
               href={
@@ -98,8 +98,8 @@ export const AgentParameter: FC<AgentParameterProps> = ({
               {'Please refer to the original paper.'}
             </Link>
           </label>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };
