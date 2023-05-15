@@ -2,10 +2,11 @@ import { getUserApiKey } from '@/utils/settings';
 import { FC, useEffect, useState } from 'react';
 
 export const ProjectTile: FC = () => {
-  const [apiKey, setApiKey] = useState<string | undefined>(undefined);
+  const [showMessage, setShowMessage] = useState(false);
   useEffect(() => {
     const key = getUserApiKey();
-    setApiKey(key);
+    const useUserApiKey = process.env.NEXT_PUBLIC_USE_USER_API_KEY === 'true';
+    setShowMessage(!key && useUserApiKey);
   }, []);
 
   return (
@@ -16,7 +17,7 @@ export const ProjectTile: FC = () => {
           UI
         </span>
       </div>
-      {!apiKey && (
+      {showMessage && (
         <div className="inline-flex items-center gap-2">
           <span className="rounded px-1 text-sm font-normal md:text-base">
             👉 You must set your OpenAI API key in the settings menu.

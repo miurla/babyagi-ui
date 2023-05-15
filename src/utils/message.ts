@@ -90,7 +90,7 @@ export const getMessageText = (message: Message): string => {
 export const loadingAgentMessage = (status: AgentStatus) => {
   let text =
     status.type === 'creating'
-      ? 'Creating tasks... (🤖💬: *This process takes time. Please wait.*)'
+      ? 'Creating tasks... (🤖💬: *This process takes time. Please wait...*)'
       : status.type === 'executing'
       ? '⚒️ Executing tasks...'
       : status.type === 'prioritizing'
@@ -106,7 +106,7 @@ export const loadingAgentMessage = (status: AgentStatus) => {
       : status.type === 'summarizing'
       ? '✍️ Summarizing...'
       : status.type === 'managing'
-      ? '🗂️ Task management in progress... (🤖💬: *This process takes time. Please wait.*)'
+      ? '🗂️ Task management in progress... (🤖💬: *This process takes time. Please wait...*)'
       : 'Thinking...';
 
   if (status.message) text += `\n\n${status.message}`;

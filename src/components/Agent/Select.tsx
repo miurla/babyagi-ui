@@ -66,7 +66,7 @@ export const Select: FC<Props> = ({ label, item, items, onChange }) => {
             <SelectPrimitive.ScrollUpButton className="flex items-center justify-center text-gray-700 dark:text-gray-300">
               <ChevronUpIcon />
             </SelectPrimitive.ScrollUpButton>
-            <SelectPrimitive.Viewport className="rounded-lg border bg-white p-2 shadow-lg dark:border-neutral-900 dark:bg-neutral-800">
+            <SelectPrimitive.Viewport className="z-20 rounded-lg border bg-white p-2 shadow-lg dark:border-neutral-900 dark:bg-neutral-800">
               <SelectPrimitive.Group>
                 {items.map((item, index) => (
                   <SelectPrimitive.Item

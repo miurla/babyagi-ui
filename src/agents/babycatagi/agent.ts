@@ -248,6 +248,8 @@ export class BabyCatAGI {
       this.callbackSearchStatus(statusMessage);
 
       const content = await this.webScrapeTool(url);
+      if (!content) continue;
+
       if (this.verbose) {
         console.log(
           'Scrape completed. Length:%s. Now extracting relevant info... \n',
@@ -338,12 +340,38 @@ export class BabyCatAGI {
     this.statusCallback({ type: 'creating' });
 
     const websearchVar = process.env.SEARP_API_KEY ? '[web-search] ' : ''; // if search api key is not set, don't add [web-search] to the task description
-    const result = await taskCreationAgent(
-      this.objective,
-      websearchVar,
-      this.modelName,
-      getUserApiKey(),
-    );
+
+    let result = '';
+    if (getUserApiKey()) {
+      result = await taskCreationAgent(
+        this.objective,
+        websearchVar,
+        this.modelName,
+        getUserApiKey(),
+      );
+    } else {
+      // Server side call
+      const response = await axios
+        .post(
+          '/api/agents/create',
+          {
+            objective: this.objective,
+            websearchVar,
+            modelName: this.modelName,
+          },
+          {
+            signal: this.abortController?.signal,
+          },
+        )
+        .catch((error) => {
+          if (error.name === 'AbortError') {
+            console.log('Request aborted', error.message);
+          } else {
+            console.log(error.message);
+          }
+        });
+      result = response?.data?.response;
+    }
 
     if (!result) {
       return [];

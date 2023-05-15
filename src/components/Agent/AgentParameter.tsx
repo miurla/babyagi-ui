@@ -56,7 +56,7 @@ export const AgentParameter: FC<AgentParameterProps> = ({
         />
       </div>
       {agent.id === 'babyagi' && (
-        <div className="flex w-1/2 items-start pr-1">
+        <div className="z-20 flex w-1/2 items-start pr-1 pt-2">
           <Select
             label="Iterations"
             item={iterations}

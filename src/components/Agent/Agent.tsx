@@ -134,7 +134,9 @@ export const Agent: FC = () => {
     setMessages([]);
     setExecuting(true);
     const execution = await saveNewData();
-    const verbose = true;
+    const verbose = false; // You can set this to true to see the agent's internal state
+
+    // switch agent
     let agent = null;
     switch (selectedAgent.id) {
       case 'babyagi':
@@ -193,7 +195,6 @@ export const Agent: FC = () => {
   const clearHandler = () => {
     setMessages([]);
     selectExecution(undefined);
-    // setStatus('ready');
     setAgentStatus({ type: 'ready' });
   };
 
@@ -272,7 +273,7 @@ export const Agent: FC = () => {
         onDownload={downloadHandler}
         isExecuting={isExecuting}
         hasMessages={messages.length > 0}
-        isBabyBeeAGIMode={modeChecked && model.id === 'gpt-4'}
+        agent={selectedAgent.id as AgentType}
       />
     </div>
   );

@@ -1,12 +1,11 @@
+import { AgentType } from '@/types';
 import {
   ClipboardIcon,
   DotFilledIcon,
-  DotIcon,
   DownloadIcon,
   PlayIcon,
   PlusIcon,
   StopIcon,
-  UpdateIcon,
 } from '@radix-ui/react-icons';
 import { FC } from 'react';
 
@@ -20,7 +19,7 @@ type InputProps = {
   onDownload: () => void;
   isExecuting: boolean;
   hasMessages: boolean;
-  isBabyBeeAGIMode: boolean;
+  agent: AgentType;
 };
 
 export const Input: FC<InputProps> = ({
@@ -33,7 +32,7 @@ export const Input: FC<InputProps> = ({
   onDownload,
   isExecuting,
   hasMessages,
-  isBabyBeeAGIMode,
+  agent,
 }) => {
   return (
     <div className="dark:bg-vert-dark-gradient absolute bottom-0 left-0 w-full border-transparent bg-white from-[#343541] via-[#343541] to-[#343541]/0 pt-6 dark:border-white/20 dark:!bg-transparent dark:bg-[#444654] dark:bg-gradient-to-t md:pt-2">
@@ -82,9 +81,9 @@ export const Input: FC<InputProps> = ({
         </div>
         <div className="relative flex w-full flex-grow flex-col justify-center rounded-md border border-black/10 bg-white py-2 shadow-[0_0_10px_rgba(0,0,0,0.10)] dark:border-gray-900/50 dark:bg-[#40414F] dark:text-white dark:shadow-[0_0_15px_rgba(0,0,0,0.10)] md:py-3 md:pl-4">
           <input
-            className="m-0 w-full resize-none border-0 bg-transparent p-0 pl-2 pr-7 text-black outline-none focus:ring-0 focus-visible:ring-0 dark:bg-transparent dark:text-white md:pl-0"
+            className="m-0 w-full resize-none border-0 bg-transparent p-0 pl-2 pr-12 text-black outline-none focus:ring-0 focus-visible:ring-0 dark:bg-transparent dark:text-white md:pl-0"
             placeholder={
-              isBabyBeeAGIMode
+              agent !== 'babyagi'
                 ? 'Input your objective here... (e.g. Write a weather report for Tokyo today)'
                 : 'Input your objective here... (e.g. Solve world hunger)'
             }
