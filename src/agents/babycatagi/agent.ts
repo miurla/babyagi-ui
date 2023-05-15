@@ -292,6 +292,29 @@ export class BabyCatAGI {
           getUserApiKey(),
         );
         notes += response;
+      } else {
+        // Server side call
+        const response = await axios
+          .post(
+            '/api/tools/extract',
+            {
+              objective: this.objective,
+              task: task.task,
+              chunk,
+              notes,
+            },
+            {
+              signal: this.abortController?.signal,
+            },
+          )
+          .catch((error) => {
+            if (error.name === 'AbortError') {
+              console.log('Request aborted', error.message);
+            } else {
+              console.log(error.message);
+            }
+          });
+        notes += response?.data?.response;
       }
     }
     return notes;
