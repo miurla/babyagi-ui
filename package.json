@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "translate": "node ./translate.cjs"
+    "translate": "node ./translator.cjs"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.14",
