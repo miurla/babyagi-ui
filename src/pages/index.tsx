@@ -3,8 +3,14 @@ import { Navbar } from '@/components/Mobile/Navbar';
 import { Sidebar } from '@/components/Sidebar/Sidebar';
 import Head from 'next/head';
 import { useState } from 'react';
+import { useRouter } from 'next/router';
+import type { GetStaticProps } from 'next';
+import { useTranslation, Trans } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import nextI18NextConfig from '../../next-i18next.config.js';
+import { languages } from '../utils/languages';
 
-export default function Home() {
+function Home() {
   const [showSidebar, setShowSidebar] = useState<boolean>(true);
   const [newObjectiveClicked, setNewObjectiveClicked] = useState(false);
 
@@ -63,3 +69,16 @@ export default function Home() {
     </>
   );
 }
+
+export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
+  const supportedLocales = languages.map((language) => language.code);
+  const chosenLocale = supportedLocales.includes(locale) ? locale : 'en';
+
+  return {
+    props: {
+      ...(await serverSideTranslations(chosenLocale, nextI18NextConfig.ns)),
+    },
+  };
+};
+
+export default Home;

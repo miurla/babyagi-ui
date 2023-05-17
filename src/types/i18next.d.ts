@@ -1,0 +1,1 @@
+import 'i18next';
