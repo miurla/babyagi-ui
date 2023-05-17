@@ -1,5 +1,5 @@
 import { i18n } from 'next-i18next';
-import type nextI18NextConfig from '../../next-i18next.config.js';
+//import type nextI18NextConfig from '../../next-i18next.config.js';
 
 type Namespace = 'common' | 'agent' | 'constants' | 'message';
 
