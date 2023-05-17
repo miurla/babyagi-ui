@@ -40,6 +40,7 @@ export type MessageType =
   | 'task-result'
   | 'task-output'
   | 'task-result-summary'
+  | 'search-logs'
   | 'loading'
   | 'end-of-iterations'
   | 'session-summary'

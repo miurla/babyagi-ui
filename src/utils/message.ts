@@ -23,6 +23,8 @@ export const setupMessage = (
       ? '✅'
       : type === 'task-result-summary'
       ? '📋'
+      : type === 'search-logs'
+      ? '🌐'
       : type === 'loading'
       ? '⏳'
       : type === 'end-of-iterations'
@@ -60,6 +62,8 @@ export const setupMessage = (
       ? translate('END_OF_ITERATIONS', 'message')
       : type === 'session-summary'
       ? translate('SESSION_SUMMARY', 'message')
+      : type === 'search-logs'
+      ? translate("SEARCH_LOGS", "message")
       : type === 'done'
       ? translate('DONE', 'message')
       : type === 'complete'
@@ -95,20 +99,20 @@ export const loadingAgentMessage = (status: AgentStatus) => {
       : status.type === 'executing'
       ? translate('EXECUTING', 'message')
       : status.type === 'prioritizing'
-      ? translate("PRIORITIZING", "message")
+      ? translate('PRIORITIZING', 'message')
       : status.type === 'saving'
-      ? translate("SAVING", "message")
+      ? translate('SAVING', 'message')
       : status.type === 'preparing'
-      ? translate("PREPARING", "message")
+      ? translate('PREPARING', 'message')
       : status.type === 'terminating'
-      ? translate("TERMINATING", "message")
+      ? translate('TERMINATING', 'message')
       : status.type === 'updating'
-      ? translate("UPDATING", "message")
+      ? translate('UPDATING', 'message')
       : status.type === 'summarizing'
-      ? translate("SUMMARIZING", "message")
+      ? translate('SUMMARIZING', 'message')
       : status.type === 'managing'
       ? translate('MANAGING', 'message')
-      : translate("THINKING", "message");
+      : translate('THINKING', 'message');
 
   if (status.message) text += `\n\n${status.message}`;
 

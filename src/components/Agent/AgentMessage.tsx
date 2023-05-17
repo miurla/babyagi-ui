@@ -5,6 +5,8 @@ import { FC } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { translate } from '../../utils/translate';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { oneDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 
 interface AgentMessageProps {
   message: Message;
@@ -13,7 +15,28 @@ interface AgentMessageProps {
 const AgentMessage: FC<AgentMessageProps> = ({ message }) => {
   const contents = (
     <div className="prose dark:prose-invert prose-pre:bg-neutral-200 prose-pre:text-black dark:prose-pre:bg-neutral-800 dark:prose-pre:text-white">
-      <ReactMarkdown remarkPlugins={[remarkGfm]}>
+      <ReactMarkdown
+        remarkPlugins={[remarkGfm]}
+        components={{
+          code({ node, inline, className, children, style, ...props }) {
+            const match = /language-(\w+)/.exec(className || '');
+            return !inline && match ? (
+              <SyntaxHighlighter
+                language={match[1]}
+                style={oneDark}
+                PreTag="div"
+                {...props}
+              >
+                {String(children).replace(/\n$/, '')}
+              </SyntaxHighlighter>
+            ) : (
+              <code className={className} {...props}>
+                {children}
+              </code>
+            );
+          },
+        }}
+      >
         {getMessageText(message)}
       </ReactMarkdown>
     </div>
@@ -34,7 +57,7 @@ const AgentMessage: FC<AgentMessageProps> = ({ message }) => {
         {message.type === 'session-summary' ? (
           <details>
             <summary className="pt-0.5 text-lg font-bold">
-              {translate("SUMMARY", "common")}
+              {translate('SUMMARY', 'common')}
             </summary>
             {contents}
           </details>

@@ -41,12 +41,14 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-markdown": "^8.0.6",
+    "react-syntax-highlighter": "^15.5.0",
     "remark-gfm": "^3.0.1",
     "sonner": "^0.3.5",
     "typescript": "5.0.3",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
+    "@types/react-syntax-highlighter": "^15.5.6",
     "@types/uuid": "^9.0.1",
     "autoprefixer": "^10.4.14",
     "dotenv": "^16.0.3",
