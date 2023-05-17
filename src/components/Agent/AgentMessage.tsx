@@ -4,7 +4,6 @@ import { UpdateIcon } from '@radix-ui/react-icons';
 import { FC } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { translate } from '../../utils/translate';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { oneDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 
@@ -56,9 +55,7 @@ const AgentMessage: FC<AgentMessageProps> = ({ message }) => {
         )}
         {message.type === 'session-summary' ? (
           <details>
-            <summary className="pt-0.5 text-lg font-bold">
-              {translate('SUMMARY', 'common')}
-            </summary>
+            <summary className="pt-0.5 text-lg font-bold">Summary</summary>
             {contents}
           </details>
         ) : (

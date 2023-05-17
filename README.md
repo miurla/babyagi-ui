@@ -21,7 +21,7 @@ This is a port of [babyagi](https://github.com/yoheinakajima/babyagi) with [Lang
 - [x] Execution history
 - [x] Faster speeds and fewer errors. ([😺 BabyCatAGI](https://twitter.com/yoheinakajima/status/1657448504112091136))
 - [ ] Display the current task and task list
-- [x] i18n support
+- [ ] i18n support
 - [ ] User feedback
 - [ ] Other LLM models support
 

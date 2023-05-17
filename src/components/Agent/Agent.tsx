@@ -21,7 +21,6 @@ import { toast } from 'sonner';
 import { v4 as uuidv4 } from 'uuid';
 import { useExecution } from '@/hooks/useExecution';
 import { useExecutionStatus } from '@/hooks/useExecutionStatus';
-import { translate } from '../../utils/translate';
 
 export const Agent: FC = () => {
   const [model, setModel] = useState<SelectItem>(MODELS[0]);
@@ -116,9 +115,9 @@ export const Agent: FC = () => {
 
     // show toast notification
     if (message.type === 'complete') {
-      toast.success(translate('ALL_TASKS_COMPLETED_TOAST', 'agent'));
+      toast.success('All Tasks Completed!');
     } else if (message.type === 'done') {
-      toast.success(translate('TASK_COMPLETED_TOAST', 'agent'));
+      toast.success('Task Completed!');
     }
   };
 
@@ -128,7 +127,7 @@ export const Agent: FC = () => {
 
   const startHandler = async () => {
     if (needSettingsAlert()) {
-      alert(translate('ALERT_SET_UP_API_KEY', 'agent'));
+      alert('Please set up your OpenAI API key from the settings menu.');
       return;
     }
 
@@ -201,7 +200,7 @@ export const Agent: FC = () => {
 
   const copyHandler = () => {
     navigator.clipboard.writeText(getExportText(messages));
-    toast.success(translate('COPIED_TO_CLIPBOARD', 'agent'));
+    toast.success('Copied to clipboard');
   };
 
   const downloadHandler = () => {
