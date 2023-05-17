@@ -1,5 +1,6 @@
 import { getUserApiKey } from '@/utils/settings';
 import { FC, useEffect, useState } from 'react';
+import { translate } from '../../utils/translate';
 
 export const ProjectTile: FC = () => {
   const [showMessage, setShowMessage] = useState(false);
@@ -20,7 +21,7 @@ export const ProjectTile: FC = () => {
       {showMessage && (
         <div className="inline-flex items-center gap-2">
           <span className="rounded px-1 text-sm font-normal md:text-base">
-            👉 You must set your OpenAI API key in the settings menu.
+            {translate('TITLE_INSTRUCTION_OPENAI_API_KEY', 'common')}
           </span>
         </div>
       )}

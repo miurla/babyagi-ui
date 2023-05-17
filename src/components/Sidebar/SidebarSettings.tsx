@@ -5,6 +5,7 @@ import { Transition } from '@headlessui/react';
 import { clsx } from 'clsx';
 import { UserSettings } from '@/types';
 import { SETTINGS_KEY } from '@/utils/constants';
+import { translate } from '../../utils/translate';
 
 export const SidebarSettings: FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -50,7 +51,7 @@ export const SidebarSettings: FC = () => {
           <div>
             <GearIcon />
           </div>
-          <div>Settings</div>
+          <div>{translate("SETTINGS", "common")}</div>
         </div>
       </DialogPrimitive.Trigger>
       <DialogPrimitive.Portal forceMount>
@@ -89,10 +90,10 @@ export const SidebarSettings: FC = () => {
               )}
             >
               <DialogPrimitive.Title className="text-lg font-medium text-gray-900 dark:text-gray-100">
-                Settings
+                {translate("SETTINGS", "common")}
               </DialogPrimitive.Title>
               <DialogPrimitive.Description className="mt-2 text-sm font-normal text-gray-700 dark:text-gray-400">
-                {`Set the OpenAI API key.`}
+                {translate('SET_OPENAI_API_KEY', 'common')}
               </DialogPrimitive.Description>
               <form className="mt-6 space-y-2">
                 <fieldset>
@@ -100,12 +101,12 @@ export const SidebarSettings: FC = () => {
                     htmlFor="openAIApiKey"
                     className="text-xs font-medium text-gray-700 dark:text-gray-400"
                   >
-                    OpenAI API Key
+                    {translate("OPENAI_API_KEY", "common")}
                   </label>
                   <input
                     id="openAIApiKey"
                     type="text"
-                    placeholder="OpenAI API Key"
+                    placeholder={translate('OPENAI_API_KEY', 'common')}
                     className={clsx(
                       'mt-1 block w-full rounded p-2',
                       'text-sm text-gray-700 placeholder:text-gray-500 dark:text-gray-400 dark:placeholder:text-gray-600',
@@ -128,7 +129,7 @@ export const SidebarSettings: FC = () => {
                   )}
                   onClick={handleSave}
                 >
-                  Save
+                  {translate("SAVE", "common")}
                 </DialogPrimitive.Close>
               </div>
               <DialogPrimitive.Close
