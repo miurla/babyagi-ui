@@ -52,3 +52,14 @@ export const AGENT = [
   },
   { id: 'babyagi', name: 'BabyAGI', icon: '👶', message: 'TOOLS: 🤖' },
 ];
+
+export const THEME = [
+  { id: 'system', name: 'System', icon: '🖥️' },
+  { id: 'light', name: 'Light', icon: '🌞' },
+  { id: 'dark', name: 'Dark', icon: '🌚' },
+];
+
+export const LANGUAGE = [
+  { id: 'en', name: 'English', icon: '🇺🇸' },
+  { id: 'hu', name: 'Magyar', icon: '🇭🇺' },
+];

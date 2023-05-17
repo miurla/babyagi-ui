@@ -17,5 +17,7 @@
   "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 A beállítások menüben be kell állítania az OpenAI API kulcsát.",
   "ITERATIONS": "Iterációk",
   "New": "Új",
-  "Stop": "Megállít"
+  "Stop": "Megállít",
+  "LANGUAGE": "Nyelv",
+  "THEME": "Téma"
 }
