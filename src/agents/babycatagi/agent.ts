@@ -235,6 +235,7 @@ export class BabyCatAGI {
     if (!this.isRunning) return;
 
     let result = '';
+    let index = 1;
     // Loop through search results
     for (const searchResult of sinmplifiedSearchResults) {
       if (!this.isRunning) break;
@@ -244,7 +245,7 @@ export class BabyCatAGI {
       if (this.verbose) {
         console.log('Scraping: %s ...', url);
       }
-      statusMessage += `1. Scraping: ${url} ...\n`;
+      statusMessage += `${index}. Scraping: ${url} ...\n`;
       this.callbackSearchStatus(statusMessage);
 
       const content = await this.webScrapeTool(url);
@@ -256,7 +257,7 @@ export class BabyCatAGI {
           content.length,
         );
       }
-      statusMessage += `2. Scrape completed. Length:${content.length}. Now extracting relevant info... \n`;
+      statusMessage += `  - Scrape completed. Length:${content.length}. Now extracting relevant info... \n`;
       this.callbackSearchStatus(statusMessage);
 
       if (!this.isRunning) break;
@@ -269,9 +270,17 @@ export class BabyCatAGI {
       if (this.verbose) {
         console.log('Content: %s ...\n', result.slice(0, 100));
       }
-      statusMessage += `3. Content: ${result.slice(0, 100)} ...\n`;
+      statusMessage += `  - Content: ${result.slice(0, 100)} ...\n`;
       this.callbackSearchStatus(statusMessage);
+
+      index++;
     }
+
+    // callback to search logs
+    this.messageCallback(
+      setupMessage('search-logs', '```markdown\n' + statusMessage + '\n```'),
+    );
+    console.log('Search logs: %s', '```markdown\n' + statusMessage + '\n```');
 
     return result;
   }
