@@ -1,0 +1,18 @@
+{
+  "AGENT": "Ügynök",
+  "DARK_MODE": "Sötét mód",
+  "DELETE": "Töröl",
+  "DESCRIPTION_BABYAGI": "Ez a BabyAGI képes keresni és kaparni a weben. ",
+  "FIRST_TASK": "Első feladat",
+  "FOR_MORE_DETAILS": "További részletek...",
+  "LIGHT_MODE": "Világos mód",
+  "MODEL": "Modell",
+  "NEW_OBJECTIVE": "Új cél",
+  "OPENAI_API_KEY": "OpenAI API kulcs",
+  "REFER_TO_THE_ORIGINAL_PAPER": "Kérjük, olvassa el az útmutatót.",
+  "SAVE": "Mentés",
+  "SETTINGS": "Beállítások",
+  "SET_OPENAI_API_KEY": "Állítsa be az OpenAI API kulcsot",
+  "SUMMARY": "Összegzés",
+  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 A beállítások menüben be kell állítania az OpenAI API kulcsát."
+}
