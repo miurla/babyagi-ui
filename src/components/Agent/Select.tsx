@@ -104,7 +104,10 @@ export const Select: FC<Props> = ({ label, item, items, onChange }) => {
                 : 'text-right text-neutral-500 dark:text-neutral-400'
             }`}
           >
-            {`${translate(item.message as string, '', 'constants')}`}
+            {isAlert
+              ? `${translate(item.message as string, '', 'constants')}`
+              : item.message}
+            {}
           </span>
         )}
       </div>
