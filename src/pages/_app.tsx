@@ -5,8 +5,10 @@ import { Toaster } from 'sonner';
 import { ThemeProvider } from 'next-themes';
 import { ExecutionProvider } from '@/hooks/useExecution';
 import { ExecutionStatusProvider } from '@/hooks/useExecutionStatus';
+import { appWithTranslation } from 'next-i18next';
+import nextI18NextConfig from '../../next-i18next.config.js';
 
-export default function App({ Component, pageProps }: AppProps) {
+const App = ({ Component, pageProps }: AppProps) => {
   return (
     <ThemeProvider attribute="class" defaultTheme="light">
       <ExecutionProvider>
@@ -18,4 +20,6 @@ export default function App({ Component, pageProps }: AppProps) {
       </ExecutionProvider>
     </ThemeProvider>
   );
-}
+};
+
+export default appWithTranslation(App, nextI18NextConfig);
