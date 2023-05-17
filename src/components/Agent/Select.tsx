@@ -7,7 +7,6 @@ import {
 import * as SelectPrimitive from '@radix-ui/react-select';
 import { FC } from 'react';
 import Image from 'next/image';
-import { translate } from '../../utils/translate';
 
 interface Props {
   label: string;
@@ -104,7 +103,7 @@ export const Select: FC<Props> = ({ label, item, items, onChange }) => {
                 : 'text-right text-neutral-500 dark:text-neutral-400'
             }`}
           >
-            {`${translate(item.message as string, '', 'constants')}`}
+            {item.message}
           </span>
         )}
       </div>

@@ -2,7 +2,6 @@ import { DotsHorizontalIcon, TrashIcon } from '@radix-ui/react-icons';
 import * as PopoverPrimitive from '@radix-ui/react-popover';
 import { on } from 'events';
 import React, { FC } from 'react';
-import { translate } from '../../utils/translate';
 
 interface ExtraButtonProps {
   onDelete: () => void;
@@ -33,7 +32,7 @@ export const ExtraButton: FC<ExtraButtonProps> = ({ onDelete }) => {
             onClick={handleClick}
           >
             <TrashIcon className="h-5 w-5" />
-            {translate("DELETE", "common")}
+            Delete
           </button>
         </PopoverPrimitive.Content>
       </PopoverPrimitive.Root>

@@ -3,7 +3,6 @@ import { Select } from './Select';
 import { SelectItem } from '@/types';
 import { AGENT, ITERATIONS, MODELS } from '@/utils/constants';
 import Link from 'next/link';
-import { translate } from '../../utils/translate';
 
 interface AgentParameterProps {
   model: SelectItem;
@@ -40,7 +39,7 @@ export const AgentParameter: FC<AgentParameterProps> = ({
     <div className="mx-auto flex flex-col items-start space-y-3 p-4 pt-12 lg:w-2/3 xl:w-2/4">
       <div className="z-10 flex w-full items-start justify-center gap-2">
         <Select
-          label={translate("MODEL", "common")}
+          label="Model"
           item={model}
           items={MODELS}
           onChange={(value) => {
@@ -48,7 +47,7 @@ export const AgentParameter: FC<AgentParameterProps> = ({
           }}
         />
         <Select
-          label={translate("AGENT", "common")}
+          label="Agent"
           item={agent}
           items={agentOption}
           onChange={(value) => {
@@ -73,7 +72,7 @@ export const AgentParameter: FC<AgentParameterProps> = ({
       {agent.id !== 'babycatagi' && (
         <div className="flex w-full flex-col">
           <label className="mb-2 text-left text-xs text-neutral-700 dark:text-neutral-400">
-            {translate('FIRST_TASK', 'common')}
+            {'First Task'}
           </label>
           <input
             className="w-full rounded-lg border border-neutral-200 p-3 text-neutral-600 focus:outline-none dark:border-neutral-600 dark:bg-[#343541] dark:text-white"
@@ -85,8 +84,8 @@ export const AgentParameter: FC<AgentParameterProps> = ({
       {agent.id !== 'babyagi' && (
         <div className="flex w-full flex-col rounded bg-neutral-50 p-2 dark:bg-neutral-600 dark:bg-opacity-20">
           <label className="pl-1 text-xs text-neutral-400 dark:text-neutral-400">
-            {translate('DESCRIPTION_BABYAGI', 'common')}{' '}
-            {translate("FOR_MORE_DETAILS", "common")}
+            {`This BabyAGI can search and scrape the web. However, since this is an experimental feature, it may not always work and may be slow. `}
+            {'For more details: '}
             <Link
               href={
                 'https://twitter.com/yoheinakajima/status/1657448504112091136'
@@ -96,7 +95,7 @@ export const AgentParameter: FC<AgentParameterProps> = ({
               rel="noopener noreferrer"
               className="underline"
             >
-              {translate('REFER_TO_THE_ORIGINAL_PAPER', 'common')}
+              {'Please refer to the original paper.'}
             </Link>
           </label>
         </div>

@@ -1,5 +1,4 @@
 import { AgentStatus, Message, MessageType, ToolType } from '@/types';
-import { translate } from './translate';
 
 export const setupMessage = (
   type: MessageType,
@@ -45,29 +44,29 @@ export const setupMessage = (
 
   const title =
     type === 'objective'
-      ? translate('OBJECTIVE', 'message')
+      ? 'Objective'
       : type === 'task-list'
-      ? translate('TASK_LIST', 'message')
+      ? 'Task List'
       : type === 'next-task'
-      ? translate('NEXT_TASK', 'message')
+      ? 'Next Task'
       : type === 'task-result'
-      ? translate('TASK_RESULT', 'message')
+      ? 'Task Result'
       : type === 'task-output'
-      ? translate('TASK_OUTPUT', 'message')
+      ? 'Task Output'
       : type === 'task-result-summary'
-      ? translate('TASK_RESULT_SUMMARY', 'message')
+      ? 'Task Result Summary'
       : type === 'loading'
-      ? translate('LOADING', 'message')
+      ? 'Loading'
       : type === 'end-of-iterations'
-      ? translate('END_OF_ITERATIONS', 'message')
+      ? 'End of Iterations'
       : type === 'session-summary'
-      ? translate('SESSION_SUMMARY', 'message')
+      ? 'Session Summary'
       : type === 'search-logs'
-      ? translate("SEARCH_LOGS", "message")
+      ? 'Search Logs'
       : type === 'done'
-      ? translate('DONE', 'message')
+      ? 'Done'
       : type === 'complete'
-      ? translate('FINISHED', 'message')
+      ? 'Finished'
       : '';
 
   const bgColor =
@@ -95,24 +94,24 @@ export const getMessageText = (message: Message): string => {
 export const loadingAgentMessage = (status: AgentStatus) => {
   let text =
     status.type === 'creating'
-      ? translate('CREATING', 'message')
+      ? 'Creating tasks... (🤖💬: *This process takes time. Please wait...*)'
       : status.type === 'executing'
-      ? translate('EXECUTING', 'message')
+      ? '⚒️ Executing tasks...'
       : status.type === 'prioritizing'
-      ? translate('PRIORITIZING', 'message')
+      ? 'Prioritizing tasks...'
       : status.type === 'saving'
-      ? translate('SAVING', 'message')
+      ? 'Saving tasks...'
       : status.type === 'preparing'
-      ? translate('PREPARING', 'message')
+      ? 'Preparing...'
       : status.type === 'terminating'
-      ? translate('TERMINATING', 'message')
+      ? 'Terminating...'
       : status.type === 'updating'
-      ? translate('UPDATING', 'message')
+      ? '♻️ Task Updating...'
       : status.type === 'summarizing'
-      ? translate('SUMMARIZING', 'message')
+      ? '✍️ Summarizing...'
       : status.type === 'managing'
-      ? translate('MANAGING', 'message')
-      : translate('THINKING', 'message');
+      ? '🗂️ Task management in progress... (🤖💬: *This process takes time. Please wait...*)'
+      : 'Thinking...';
 
   if (status.message) text += `\n\n${status.message}`;
 
