@@ -17,5 +17,7 @@
   "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 You must set your OpenAI API key in the settings menu.",
   "ITERATIONS": "Iterations",
   "New": "New",
-  "Stop": "Stop"
+  "Stop": "Stop",
+  "LANGUAGE": "Language",
+  "THEME": "Theme"
 }
