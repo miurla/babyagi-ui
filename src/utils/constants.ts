@@ -1,3 +1,5 @@
+import { translate } from './translate';
+
 export const SETTINGS_KEY = 'BABYAGIUI_SETTINGS';
 export const EXECUTIONS_KEY = 'BABYAGIUI_EXECUTIONS';
 
@@ -5,7 +7,7 @@ export const MODELS = [
   {
     id: 'gpt-4',
     name: 'OpenAI gpt-4',
-    message: '🚨 USING GPT-4. POTENTIALLY EXPENSIVE. MONITOR YOUR COSTS',
+    message: `GPT_4_WARNING`,
     icon: 'openai-logo.svg',
   },
   {
@@ -21,7 +23,7 @@ export const MODELS = [
 ];
 
 export const ITERATIONS = [
-  { id: '0', name: 'Infinity' },
+  { id: '0', name: 'Infinity' }, // translate('INFINITY', 'constants') this translation is not working
   { id: '1', name: '1' },
   { id: '3', name: '3' },
   { id: '5', name: '5' },
@@ -31,7 +33,7 @@ export const ITERATIONS = [
 ];
 
 export const BABYBEEAGI_ITERATIONS = [
-  { id: '0', name: 'Until All tasks completed 🐝' },
+  { id: '0', name: 'Until All tasks completed 🐝' }, //${translate('UNTIL_ALL_TASKS_COMPLETED', 'constants') this translation is not working
 ];
 
 export const AGENT = [

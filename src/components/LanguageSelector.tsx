@@ -7,7 +7,6 @@ import {
 import * as SelectPrimitive from '@radix-ui/react-select';
 import { FC } from 'react';
 import Image from 'next/image';
-import { translate } from '../../utils/translate';
 
 interface Props {
   label: string;
@@ -18,9 +17,9 @@ interface Props {
 
 export const Select: FC<Props> = ({ label, item, items, onChange }) => {
   const imageExtensions = /\.(jpg|jpeg|png|gif|svg)$/i;
-  const alertMessage = 'GPT_4_WARNING';
+  const alertMessage = /EXPENSIVE/i;
   const isImage = imageExtensions.test(item.icon ?? '');
-  const isAlert = alertMessage === item.message;
+  const isAlert = alertMessage.test(item.message ?? '');
   const iconLabel = (item: SelectItem) => {
     const label = isImage ? (
       <Image
@@ -104,9 +103,7 @@ export const Select: FC<Props> = ({ label, item, items, onChange }) => {
                 : 'text-right text-neutral-500 dark:text-neutral-400'
             }`}
           >
-            {isAlert
-              ? `${translate(item.message as string, 'constants')} `
-              : `${item.message}`}
+            {item.message}
           </span>
         )}
       </div>

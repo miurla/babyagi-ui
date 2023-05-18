@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "translate": "node ./translator.cjs"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.14",
@@ -27,9 +28,13 @@
     "clsx": "^1.2.1",
     "eslint": "8.37.0",
     "eslint-config-next": "13.2.4",
+    "i18next": "^22.4.15",
+    "i18next-browser-languagedetector": "^7.0.1",
+    "i18next-http-backend": "^2.2.0",
     "install": "^0.13.0",
     "langchain": "^0.0.64",
     "next": "13.2.4",
+    "next-i18next": "^13.2.2",
     "next-themes": "^0.2.1",
     "npm": "^9.6.6",
     "openai": "^3.2.1",
@@ -46,6 +51,7 @@
     "@types/react-syntax-highlighter": "^15.5.6",
     "@types/uuid": "^9.0.1",
     "autoprefixer": "^10.4.14",
+    "dotenv": "^16.0.3",
     "postcss": "^8.4.21",
     "prettier": "^2.8.7",
     "prettier-plugin-tailwindcss": "^0.2.7",
