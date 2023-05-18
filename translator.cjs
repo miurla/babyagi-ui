@@ -54,17 +54,17 @@ class Translator {
     //      /(?:translate|i18n\?\.t|t)\(\s*?['"]([^'"]+)['"](?:\s*?,\s*?['"]([^'"]+)['"])(?:\s?,\s*?['"]([^'"]+)['"])?\)/g; // Working
 
     const regex =
-      /(?:translate|i18n\?\.t|t)\(\s*?\t*?\n*?['"]([^'"]+)['"](?:,\s*?\t*?\n*?['"]([^'"]+)['"])(?:\s*?\t*?\n*?,\s*?['"]([^'"]+)['"])?\)/g;
+      /(?:translate\(|i18n\?\.t\(|t\()['"](?!(?:\\n|a)['"])([^'"]+)['"](?:\s?,\s?['"]([^'"]+)['"])?(?:,\s?['"]([^'"]+)['"])?\)/g;
     let match;
 
     while ((match = regex.exec(fileContent)) !== null) {
       const key = match[1];
-      const defaultText = match[3]
+      let defaultText = match[3]
         ? match[2]
         : match[2] !== ''
         ? match[2]
         : 'common';
-      const namespace = match[3]
+      let namespace = match[3]
         ? match[3] !== ''
           ? match[3]
           : 'common'
@@ -73,6 +73,16 @@ class Translator {
           ? match[2]
           : 'common'
         : 'common';
+      if (this.debug && !match[3] && !match[4]) {
+        console.log(
+          key +
+            ' at line ' +
+            fileContent.substring(0, regex.lastIndex).split('\n').length +
+            ' ' +
+            filePath,
+        );
+      }
+
       if (match[3]) {
         this.keyTextNamespacePairs.push({ key, defaultText, namespace });
         const replacement = `translate("${key}", "${namespace}")`;
@@ -80,7 +90,6 @@ class Translator {
       } else {
         this.keyNamespacePairs.push({ key, namespace });
       }
-      console.log(console.log(fileContent));
     }
     fs.writeFileSync(filePath, fileContent, 'utf8');
   }
@@ -194,13 +203,21 @@ class Translator {
                         },
                       );
                     } else {
-                      this.writeTranslationFile(targetLangFilePath, key, null);
+                      this.writeTranslationFile(
+                        targetLangFilePath,
+                        key,
+                        'MISSING_TRANSLATION',
+                      );
                       rl.close();
                     }
                   },
                 );
               } else {
-                this.writeTranslationFile(targetLangFilePath, key, null);
+                this.writeTranslationFile(
+                  targetLangFilePath,
+                  key,
+                  'MISSING_TRANSLATION',
+                );
               }
             }
           },
@@ -344,16 +361,14 @@ const rl = readline.createInterface({
   output: process.stdout,
 });
 
-rl.question(`Choose a mode:\n1. Automatic mode\n2. Manual mode\n`, (answer) => {
-  rl.question('Enter source language code: ', (srcLang) => {
-    srcLang === '' ? (srcLang = 'en') : (srcLang = srcLang);
-    rl.question('Enter target language code: ', (targetLang) => {
-      targetLang === ''
-        ? (targetLang = process.env.DEFAULT_TARGET_LANGUAGE || 'hu')
-        : (targetLang = targetLang);
-      const translator = new Translator(srcLang, targetLang);
-      translator.run('src');
-      rl.close();
-    });
+rl.question('Enter source language code: ', (srcLang) => {
+  srcLang === '' ? (srcLang = 'en') : (srcLang = srcLang);
+  rl.question('Enter target language code: ', (targetLang) => {
+    targetLang === ''
+      ? (targetLang = process.env.DEFAULT_TARGET_LANGUAGE || 'hu')
+      : (targetLang = targetLang);
+    const translator = new Translator(srcLang, targetLang);
+    translator.run('src');
+    rl.close();
   });
 });
