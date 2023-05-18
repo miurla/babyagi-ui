@@ -2,6 +2,7 @@ import { useExecution } from '@/hooks/useExecution';
 import { useExecutionStatus } from '@/hooks/useExecutionStatus';
 import { Cross2Icon, PlusIcon } from '@radix-ui/react-icons';
 import { FC } from 'react';
+import { translate } from '../../utils/translate';
 
 interface SidebarHeaderProps {
   onMenuClick: () => void;
@@ -23,7 +24,7 @@ export const SidebarHeader: FC<SidebarHeaderProps> = ({ onMenuClick }) => {
         disabled={isExecuting}
       >
         <PlusIcon />
-        {'New objective'}
+        {translate("NEW_OBJECTIVE", "common")}
       </button>
       <button className="p-3 sm:hidden" onClick={onMenuClick}>
         <Cross2Icon />
