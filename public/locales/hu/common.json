@@ -14,5 +14,8 @@
   "SETTINGS": "Beállítások",
   "SET_OPENAI_API_KEY": "Állítsa be az OpenAI API kulcsot",
   "SUMMARY": "Összegzés",
-  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 A beállítások menüben be kell állítania az OpenAI API kulcsát."
+  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 A beállítások menüben be kell állítania az OpenAI API kulcsát.",
+  "ITERATIONS": "Iterációk",
+  "New": "Új",
+  "Stop": "Megállít"
 }

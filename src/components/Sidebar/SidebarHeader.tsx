@@ -24,7 +24,7 @@ export const SidebarHeader: FC<SidebarHeaderProps> = ({ onMenuClick }) => {
         disabled={isExecuting}
       >
         <PlusIcon />
-        {translate("NEW_OBJECTIVE", "common")}
+        {translate('NEW_OBJECTIVE')}
       </button>
       <button className="p-3 sm:hidden" onClick={onMenuClick}>
         <Cross2Icon />

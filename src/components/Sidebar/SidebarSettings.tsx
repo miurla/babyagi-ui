@@ -51,7 +51,7 @@ export const SidebarSettings: FC = () => {
           <div>
             <GearIcon />
           </div>
-          <div>{translate("SETTINGS", "common")}</div>
+          <div>{translate('SETTINGS')}</div>
         </div>
       </DialogPrimitive.Trigger>
       <DialogPrimitive.Portal forceMount>
@@ -90,10 +90,10 @@ export const SidebarSettings: FC = () => {
               )}
             >
               <DialogPrimitive.Title className="text-lg font-medium text-gray-900 dark:text-gray-100">
-                {translate("SETTINGS", "common")}
+                {translate('SETTINGS')}
               </DialogPrimitive.Title>
               <DialogPrimitive.Description className="mt-2 text-sm font-normal text-gray-700 dark:text-gray-400">
-                {translate('SET_OPENAI_API_KEY', 'common')}
+                {translate('SET_OPENAI_API_KEY')}
               </DialogPrimitive.Description>
               <form className="mt-6 space-y-2">
                 <fieldset>
@@ -101,12 +101,12 @@ export const SidebarSettings: FC = () => {
                     htmlFor="openAIApiKey"
                     className="text-xs font-medium text-gray-700 dark:text-gray-400"
                   >
-                    {translate("OPENAI_API_KEY", "common")}
+                    {translate('OPENAI_API_KEY')}
                   </label>
                   <input
                     id="openAIApiKey"
                     type="text"
-                    placeholder={translate('OPENAI_API_KEY', 'common')}
+                    placeholder={translate('OPENAI_API_KEY')}
                     className={clsx(
                       'mt-1 block w-full rounded p-2',
                       'text-sm text-gray-700 placeholder:text-gray-500 dark:text-gray-400 dark:placeholder:text-gray-600',
@@ -129,7 +129,7 @@ export const SidebarSettings: FC = () => {
                   )}
                   onClick={handleSave}
                 >
-                  {translate("SAVE", "common")}
+                  {translate('SAVE')}
                 </DialogPrimitive.Close>
               </div>
               <DialogPrimitive.Close

@@ -63,7 +63,7 @@ export const setupMessage = (
       : type === 'session-summary'
       ? translate('SESSION_SUMMARY', 'message')
       : type === 'search-logs'
-      ? translate("SEARCH_LOGS", "message")
+      ? translate('SEARCH_LOGS', 'message')
       : type === 'done'
       ? translate('DONE', 'message')
       : type === 'complete'

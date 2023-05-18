@@ -1,12 +1,11 @@
 import { i18n } from 'next-i18next';
-import type nextI18NextConfig from '../../next-i18next.config.js';
 
 type Namespace = 'common' | 'agent' | 'constants' | 'message';
 
 export const translate = (
   key: string,
+  ns?: Namespace | null,
   text?: string | undefined | null,
-  ns?: Namespace | null
 ) => {
   const opts = !!ns ? { ns } : undefined;
   const defaultText = text ? text : key;

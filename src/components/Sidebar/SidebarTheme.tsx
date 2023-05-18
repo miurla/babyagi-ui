@@ -20,8 +20,8 @@ export const SidebarTheme: FC = () => {
     <SidebarButton
       text={
         theme === 'light'
-          ? `${translate("DARK_MODE", "common")}`
-          : `${translate("LIGHT_MODE", "common")}`
+          ? `${translate('DARK_MODE')}`
+          : `${translate('LIGHT_MODE')}`
       }
       icon={theme === 'light' ? <MoonIcon /> : <SunIcon />}
       onClick={() => {

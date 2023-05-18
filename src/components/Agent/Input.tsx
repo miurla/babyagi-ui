@@ -1,4 +1,5 @@
 import { AgentType } from '@/types';
+import { translate } from '@/utils/translate';
 import {
   ClipboardIcon,
   DotFilledIcon,
@@ -48,7 +49,8 @@ export const Input: FC<InputProps> = ({
                   onStop();
                 }}
               >
-                <StopIcon className="mb-[2px] inline-block" /> {'Stop'}
+                <StopIcon className="mb-[2px] inline-block" />{' '}
+                {translate('Stop')}
               </button>
             ) : hasMessages ? (
               <button
@@ -57,7 +59,8 @@ export const Input: FC<InputProps> = ({
                   onClear();
                 }}
               >
-                <PlusIcon className="mb-[2px] inline-block" /> {'New'}
+                <PlusIcon className="mb-[2px] inline-block" />{' '}
+                {translate('New')}
               </button>
             ) : null}
           </div>

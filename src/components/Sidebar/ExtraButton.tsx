@@ -33,7 +33,7 @@ export const ExtraButton: FC<ExtraButtonProps> = ({ onDelete }) => {
             onClick={handleClick}
           >
             <TrashIcon className="h-5 w-5" />
-            {translate("DELETE", "common")}
+            {translate('DELETE')}
           </button>
         </PopoverPrimitive.Content>
       </PopoverPrimitive.Root>

@@ -57,7 +57,7 @@ const AgentMessage: FC<AgentMessageProps> = ({ message }) => {
         {message.type === 'session-summary' ? (
           <details>
             <summary className="pt-0.5 text-lg font-bold">
-              {translate('SUMMARY', 'common')}
+              {translate('SUMMARY')}
             </summary>
             {contents}
           </details>
