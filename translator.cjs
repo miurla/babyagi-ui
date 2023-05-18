@@ -152,13 +152,21 @@ class Translator {
                     },
                   );
                 } else {
-                  this.writeTranslationFile(targetLangFilePath, key, null);
+                  this.writeTranslationFile(
+                    targetLangFilePath,
+                    key,
+                    'MISSING_TRANSLATION',
+                  );
                   rl.close();
                 }
               },
             );
           } else {
-            this.writeTranslationFile(targetLangFilePath, key, null);
+            this.writeTranslationFile(
+              targetLangFilePath,
+              key,
+              'MISSING_TRANSLATION',
+            );
           }
         }
       }),
