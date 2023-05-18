@@ -1,6 +1,6 @@
 {
-  "ALERT_SET_UP_API_KEY": "Kérjük, állítsa be OpenAI API-kulcsát a beállítások menüből.",
-  "ALL_TASKS_COMPLETED_TOAST": "Minden feladat teljesítve!",
-  "COPIED_TO_CLIPBOARD": "Vágólapra másolva",
-  "TASK_COMPLETED_TOAST": "Feladat elvégezve!"
+  "ALERT_SET_UP_API_KEY": null,
+  "ALL_TASKS_COMPLETED_TOAST": null,
+  "COPIED_TO_CLIPBOARD": null,
+  "TASK_COMPLETED_TOAST": null
 }

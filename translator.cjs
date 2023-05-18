@@ -59,20 +59,8 @@ class Translator {
 
     while ((match = regex.exec(fileContent)) !== null) {
       const key = match[1];
-      const defaultText = match[3]
-        ? match[2]
-        : match[2] !== ''
-        ? match[2]
-        : 'common';
-      const namespace = match[3]
-        ? match[3] !== ''
-          ? match[3]
-          : 'common'
-        : match[2]
-        ? match[2] !== ''
-          ? match[2]
-          : 'common'
-        : 'common';
+      const namespace = match[2] ? match[2] : 'common';
+      const defaultText = match[3] ? match[3] : '';
       if (match[3]) {
         this.keyTextNamespacePairs.push({ key, defaultText, namespace });
         const replacement = `translate("${key}", "${namespace}")`;
@@ -229,12 +217,18 @@ class Translator {
       this.translatorService === 'openai' &&
       this.openaiTranslationMethod === 'chat'
     ) {
-      return await this.translateViaChatCompletion(sourceTranslationValue);
+      return await this.translateViaChatCompletion(
+        sourceTranslationValue,
+        this.targetLang,
+      );
     } else if (
       this.translatorService === 'openai' &&
       this.openaiTranslationMethod === 'text'
     ) {
-      return await this.translateViaCompletion(sourceTranslationValue);
+      return await this.translateViaCompletion(
+        sourceTranslationValue,
+        this.targetLang,
+      );
     } else {
       return console.log('No translator service selected.');
     }
@@ -302,11 +296,17 @@ class Translator {
   };
 
   // Translate via OpenAI ChatCompletion
-  translateViaChatCompletion = async (TRANSLATE_PROMPT) => {
+  translateViaChatCompletion = async (TRANSLATE_PROMPT, targetLang) => {
     const translationResult = await this.openai.createChatCompletion({
       model: 'gpt-3.5-turbo',
       temperature: 1,
-      messages: [{ role: 'user', content: TRANSLATE_PROMPT }],
+      messages: [
+        {
+          role: 'system',
+          content: `Translate the following sentence with language code "${targetLang}"`,
+        },
+        { role: 'user', content: TRANSLATE_PROMPT },
+      ],
     });
     return translationResult.data.choices[0].message.content.replace(
       /^['",`]+|['",`]+$/g,
@@ -315,10 +315,11 @@ class Translator {
   };
 
   // Translate via OpenAI TextCompletion
-  translateViaTextCompletion = async (TRANSLATE_PROMPT) => {
+  translateViaTextCompletion = async (TRANSLATE_PROMPT, targetLang) => {
+    const prompt = `Translate the following sentence with language code "${targetLang}":\n\n${TRANSLATE_PROMPT}\n\nTranslation:`;
     const translationResult = await this.openai.createCompletion({
       model: 'text-davinci-003',
-      prompt: TRANSLATE_PROMPT,
+      prompt: prompt,
       temperature: 0.7,
       max_tokens: 100,
       top_p: 1,

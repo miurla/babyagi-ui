@@ -116,9 +116,9 @@ export const Agent: FC = () => {
 
     // show toast notification
     if (message.type === 'complete') {
-      toast.success(translate('ALL_TASKS_COMPLETED_TOAST', 'agent'));
+      toast.success(translate("ALL_TASKS_COMPLETED_TOAST", "agent"));
     } else if (message.type === 'done') {
-      toast.success(translate('TASK_COMPLETED_TOAST', 'agent'));
+      toast.success(translate("TASK_COMPLETED_TOAST", "agent"));
     }
   };
 
@@ -128,7 +128,7 @@ export const Agent: FC = () => {
 
   const startHandler = async () => {
     if (needSettingsAlert()) {
-      alert(translate('ALERT_SET_UP_API_KEY', 'agent'));
+      alert(translate("ALERT_SET_UP_API_KEY", "agent"));
       return;
     }
 
@@ -201,7 +201,7 @@ export const Agent: FC = () => {
 
   const copyHandler = () => {
     navigator.clipboard.writeText(getExportText(messages));
-    toast.success(translate('COPIED_TO_CLIPBOARD', 'agent'));
+    toast.success(translate("COPIED_TO_CLIPBOARD", "agent"));
   };
 
   const downloadHandler = () => {

@@ -45,29 +45,29 @@ export const setupMessage = (
 
   const title =
     type === 'objective'
-      ? translate('OBJECTIVE', 'message')
+      ? translate("OBJECTIVE", "message")
       : type === 'task-list'
-      ? translate('TASK_LIST', 'message')
+      ? translate("TASK_LIST", "message")
       : type === 'next-task'
-      ? translate('NEXT_TASK', 'message')
+      ? translate("NEXT_TASK", "message")
       : type === 'task-result'
-      ? translate('TASK_RESULT', 'message')
+      ? translate("TASK_RESULT", "message")
       : type === 'task-output'
-      ? translate('TASK_OUTPUT', 'message')
+      ? translate("TASK_OUTPUT", "message")
       : type === 'task-result-summary'
-      ? translate('TASK_RESULT_SUMMARY', 'message')
+      ? translate("TASK_RESULT_SUMMARY", "message")
       : type === 'loading'
-      ? translate('LOADING', 'message')
+      ? translate("LOADING", "message")
       : type === 'end-of-iterations'
-      ? translate('END_OF_ITERATIONS', 'message')
+      ? translate("END_OF_ITERATIONS", "message")
       : type === 'session-summary'
-      ? translate('SESSION_SUMMARY', 'message')
+      ? translate("SESSION_SUMMARY", "message")
       : type === 'search-logs'
-      ? translate('SEARCH_LOGS', 'message')
+      ? translate("SEARCH_LOGS", "message")
       : type === 'done'
-      ? translate('DONE', 'message')
+      ? translate("DONE", "message")
       : type === 'complete'
-      ? translate('FINISHED', 'message')
+      ? translate("FINISHED", "message")
       : '';
 
   const bgColor =
@@ -95,24 +95,24 @@ export const getMessageText = (message: Message): string => {
 export const loadingAgentMessage = (status: AgentStatus) => {
   let text =
     status.type === 'creating'
-      ? translate('CREATING', 'message')
+      ? translate("CREATING", "message")
       : status.type === 'executing'
-      ? translate('EXECUTING', 'message')
+      ? translate("EXECUTING", "message")
       : status.type === 'prioritizing'
-      ? translate('PRIORITIZING', 'message')
+      ? translate("PRIORITIZING", "message")
       : status.type === 'saving'
-      ? translate('SAVING', 'message')
+      ? translate("SAVING", "message")
       : status.type === 'preparing'
-      ? translate('PREPARING', 'message')
+      ? translate("PREPARING", "message")
       : status.type === 'terminating'
-      ? translate('TERMINATING', 'message')
+      ? translate("TERMINATING", "message")
       : status.type === 'updating'
-      ? translate('UPDATING', 'message')
+      ? translate("UPDATING", "message")
       : status.type === 'summarizing'
-      ? translate('SUMMARIZING', 'message')
+      ? translate("SUMMARIZING", "message")
       : status.type === 'managing'
-      ? translate('MANAGING', 'message')
-      : translate('THINKING', 'message');
+      ? translate("MANAGING", "message")
+      : translate("THINKING", "message");
 
   if (status.message) text += `\n\n${status.message}`;
 

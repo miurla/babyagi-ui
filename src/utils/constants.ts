@@ -23,7 +23,7 @@ export const MODELS = [
 ];
 
 export const ITERATIONS = [
-  { id: '0', name: 'Infinity' }, // translate('INFINITY', 'constants') this translation is not working
+  { id: '0', name: 'Infinity' }, // translate("INFINITY", "constants") this translation is not working
   { id: '1', name: '1' },
   { id: '3', name: '3' },
   { id: '5', name: '5' },
@@ -33,7 +33,7 @@ export const ITERATIONS = [
 ];
 
 export const BABYBEEAGI_ITERATIONS = [
-  { id: '0', name: 'Until All tasks completed 🐝' }, //${translate('UNTIL_ALL_TASKS_COMPLETED', 'constants') this translation is not working
+  { id: '0', name: 'Until All tasks completed 🐝' }, //${translate("UNTIL_ALL_TASKS_COMPLETED", "constants") this translation is not working
 ];
 
 export const AGENT = [
@@ -62,4 +62,5 @@ export const THEME = [
 export const LANGUAGE = [
   { id: 'en', name: 'English', icon: '🇺🇸' },
   { id: 'hu', name: 'Magyar', icon: '🇭🇺' },
+  { id: 'ja', name: '日本語', icon: '🇯🇵' },
 ];
