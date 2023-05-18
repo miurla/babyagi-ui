@@ -20,7 +20,7 @@ This is a port of [babyagi](https://github.com/yoheinakajima/babyagi) with [Lang
 - [x] Exporting Execution Results
 - [x] Execution history
 - [x] Faster speeds and fewer errors. ([😺 BabyCatAGI](https://twitter.com/yoheinakajima/status/1657448504112091136))
-- [x] i18n support (🇺🇸, 🇭🇺)
+- [x] i18n support (🇺🇸, 🇭🇺, 🇯🇵)
 - [ ] Display the current task and task list
 - [ ] User feedback
 - [ ] Other LLM models support
