@@ -57,8 +57,6 @@ export const SidebarSettings: FC = () => {
       const parsedUserSettings = JSON.parse(userSettings);
       setSettings(parsedUserSettings);
     }
-
-    console.log('language', language);
   }, []);
 
   return (
@@ -142,7 +140,7 @@ export const SidebarSettings: FC = () => {
                         )}
                         onClick={handleSave}
                       >
-                        {translate('SAVE', 'common')}
+                        {translate('SAVE')}
                       </button>
                     </DialogPrimitive.DialogClose>
                   </div>
@@ -155,7 +153,7 @@ export const SidebarSettings: FC = () => {
                     htmlFor="language"
                     className="text-xs font-medium text-gray-700 dark:text-gray-400"
                   >
-                    {translate('LANGUAGE', 'common')}
+                    {translate('LANGUAGE')}
                   </label>
                   <select
                     id="language"
