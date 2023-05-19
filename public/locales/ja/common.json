@@ -1,11 +1,13 @@
 {
   "AGENT": "エージェント",
+  "DARK_MODE": "ダークモード",
   "DELETE": "削除",
   "DESCRIPTION_BABYAGI": "このBabyAGIはウェブを検索してスクレイプすることができます。ただし、これは実験的な機能であるため、常に動作しない場合があり、遅い可能性があります。",
   "FIRST_TASK": "最初のタスク",
   "FOR_MORE_DETAILS": "詳細については...",
   "ITERATION": "繰り返し",
   "ITERATIONS": "繰り返し回数",
+  "Light mode": "ライトモード",
   "LANGUAGE": "言語",
   "MODEL": "モデル",
   "NEW_OBJECTIVE": "新しい目標",

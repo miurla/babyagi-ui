@@ -1,8 +1,11 @@
 {
   "AGENT": "Agente",
+  "DARK_MODE": "Modo escuro",
   "DELETE": "Excluir",
   "DESCRIPTION_BABYAGI": "Essa BabyAGI pode pesquisar e coletar informações na web. No entanto, uma vez que essa é uma funcionalidade experimental, ela pode não funcionar sempre e pode ser lenta.",
+  "FIRST_TASK": "Primeira tarefa",
   "FOR_MORE_DETAILS": "Para mais detalhes...",
+  "LIGHT_MODE": "Modo claro",
   "ITERATION": "MISSING_TRANSLATION",
   "ITERATIONS": "Iterações.",
   "LANGUAGE": "Língua.",
@@ -15,5 +18,7 @@
   "SET_OPENAI_API_KEY": "Defina a chave da API do OpenAI",
   "SUMMARY": "Resumo",
   "THEME": "Assunto",
-  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 Você deve configurar sua chave de API do OpenAI no menu de configurações."
+  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 Você deve configurar sua chave de API do OpenAI no menu de configurações.",
+  "Stop": "Parar",
+  "Language": "Língua"
 }

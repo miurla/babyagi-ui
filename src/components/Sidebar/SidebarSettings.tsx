@@ -134,7 +134,7 @@ export const SidebarSettings: FC = () => {
                     <DialogPrimitive.DialogClose asChild>
                       <button
                         className={clsx(
-                          'inline-flex select-none justify-center rounded-md px-4 py-2 text-sm font-medium',
+                          'inline-flex min-w-[64px] select-none justify-center rounded-md px-4 py-2 text-sm font-medium',
                           'bg-black text-white hover:bg-gray-800 dark:bg-gray-700 dark:text-gray-100 dark:hover:bg-gray-600',
                           'border border-transparent',
                           'focus:outline-none focus-visible:ring focus-visible:ring-neutral-500 focus-visible:ring-opacity-10',

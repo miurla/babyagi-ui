@@ -2,5 +2,5 @@
   "ALERT_SET_UP_API_KEY": "設定メニューからOpenAI APIキーを設定してください。",
   "ALL_TASKS_COMPLETED_TOAST": "すべてのタスクが完了しました",
   "COPIED_TO_CLIPBOARD": "クリップボードにコピーしました。",
-  "TASK_COMPLETED_TOAST": "作業完了しました"
+  "TASK_COMPLETED_TOAST": "タスク完了しました"
 }
