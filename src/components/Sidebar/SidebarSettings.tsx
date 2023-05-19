@@ -4,11 +4,12 @@ import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { Transition } from '@headlessui/react';
 import { clsx } from 'clsx';
 import { UserSettings } from '@/types';
-import { LANGUAGE, SETTINGS_KEY, THEME } from '@/utils/constants';
+import { SETTINGS_KEY, THEME } from '@/utils/constants';
 import { translate } from '../../utils/translate';
 import { useTheme } from 'next-themes';
 import { i18n } from 'next-i18next';
 import { useRouter } from 'next/router';
+import { availableLanguages } from '@/utils/languages';
 
 export const SidebarSettings: FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -169,9 +170,9 @@ export const SidebarSettings: FC = () => {
                       setLanguage(event.target.value);
                     }}
                   >
-                    {LANGUAGE.map((item, index) => (
-                      <option key={index} value={item.id}>
-                        {`${item.icon} ${item.name}`}
+                    {availableLanguages.map((item, index) => (
+                      <option key={index} value={item.code}>
+                        {`${item.flag} ${item.name}`}
                       </option>
                     ))}
                   </select>

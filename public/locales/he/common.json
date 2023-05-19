@@ -1,0 +1,22 @@
+{
+  "AGENT": "הסוכן",
+  "DELETE": "מחק",
+  "DESCRIPTION_BABYAGI": "הבייבי AGI הזה יכול לחפש ולגרור את האינטרנט. אך, מכיוון שזה תכונה ניסיונית, יתכן שלא תפעל תמיד ותהיה אטית.",
+  "FIRST_TASK": "המשימה הראשונה",
+  "FOR_MORE_DETAILS": "לפרטים נוספים...",
+  "ITERATION": "השגרה",
+  "ITERATIONS": "השגרות",
+  "LANGUAGE": "שפה",
+  "MODEL": "המודל",
+  "NEW_OBJECTIVE": "המטרה החדשה.",
+  "New": "חדש",
+  "OPENAI_API_KEY": "מפתח API של OpenAI",
+  "REFER_TO_THE_ORIGINAL_PAPER": "בבקשה הפנה למקור המקורי.",
+  "SAVE": "שמור",
+  "SETTINGS": "הגדרות",
+  "SET_OPENAI_API_KEY": "הגדר מפתח OpenAI API",
+  "SUMMARY": "סיכום",
+  "Stop": "הפסק",
+  "THEME": "נושא",
+  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉  עליך להגדיר את מפתח ה- API שלך של OpenAI בתפריט ההגדרות."
+}

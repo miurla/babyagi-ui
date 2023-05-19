@@ -1,0 +1,22 @@
+{
+  "AGENT": "エージェント",
+  "DELETE": "削除",
+  "DESCRIPTION_BABYAGI": "このBabyAGIはウェブを検索してスクレイプすることができます。ただし、これは実験的な機能であるため、常に動作しない場合があり、遅い可能性があります。",
+  "FIRST_TASK": "最初のタスク",
+  "FOR_MORE_DETAILS": "詳細については...",
+  "ITERATION": "繰り返し",
+  "ITERATIONS": "繰り返し回数",
+  "LANGUAGE": "言語",
+  "MODEL": "モデル",
+  "NEW_OBJECTIVE": "新しい目標",
+  "New": "New",
+  "OPENAI_API_KEY": "OpenAI APIキー",
+  "REFER_TO_THE_ORIGINAL_PAPER": "元のペーパーを参照してください。",
+  "SAVE": "保存",
+  "SETTINGS": "設定",
+  "SET_OPENAI_API_KEY": "OpenAI APIキーの設定",
+  "SUMMARY": "要約",
+  "Stop": "停止",
+  "THEME": "テーマ",
+  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 設定メニューであなたのOpenAI APIキーを設定する必要があります。"
+}
