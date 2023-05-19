@@ -243,7 +243,7 @@ class Translator {
     return translations[key] || '';
   }
 
-  async translateText(sourceTranslationValue) {
+async translateText(sourceTranslationValue) {
     if (this.translatorService === 'google') {
       return await this.GoogleTranslate(
         this.srcLang,
@@ -254,12 +254,14 @@ class Translator {
       this.translatorService === 'openai' &&
       this.openaiTranslationMethod === 'chat'
     ) {
-      return await this.translateViaChatCompletion(sourceTranslationValue);
+      const TRANSLATE_PROMPT = `Translate the ${sourceTranslationValue} text using the ${this.targetLang} language code then respond only with the translated text.`;
+      return await this.translateViaChatCompletion(TRANSLATE_PROMPT);
     } else if (
       this.translatorService === 'openai' &&
       this.openaiTranslationMethod === 'text'
     ) {
-      return await this.translateViaCompletion(sourceTranslationValue);
+      const TRANSLATE_PROMPT = `Translate the ${sourceTranslationValue} text using the ${this.targetLang} language code then respond only with the translated text.`;
+      return await this.translateViaTextCompletion(TRANSLATE_PROMPT);
     } else {
       return console.log('No translator service selected.');
     }
