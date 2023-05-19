@@ -1,0 +1,23 @@
+{
+  "CREATING": "Aufgaben werden erstellt... (🤖💬: *Dieser Vorgang benötigt Zeit. Bitte warten...*)",
+  "DONE": "Erledigt.",
+  "END_OF_ITERATIONS": "Ende der Iterationen",
+  "EXECUTING": "⚒️ Ausführung von Aufgaben...",
+  "FINISHED": "Fertig",
+  "LOADING": "Laden\" (Translation in German)",
+  "MANAGING": "🗂️ Aufgabenmanagement läuft... (🤖💬: *Dieser Vorgang benötigt Zeit. Bitte warten Sie...*)",
+  "OBJECTIVE": "Objektiv",
+  "PREPARING": "Vorbereitung...",
+  "PRIORITIZING": "Priorisierung von Aufgaben...",
+  "SAVING": "Speichere Aufgaben...",
+  "SEARCH_LOGS": "Suchprotokolle durchsuchen",
+  "SESSION_SUMMARY": "Sitzungszusammenfassung",
+  "SUMMARIZING": "✍️ Zusammenfassend...",
+  "TASK_LIST": "Aufgabenliste",
+  "TASK_OUTPUT": "Aufgabenausgabe",
+  "TASK_RESULT": "Ergebnis der Aufgabe",
+  "TASK_RESULT_SUMMARY": "Zusammenfassung der Aufgabenergebnisse",
+  "TERMINATING": "Beenden...",
+  "THINKING": "Denken...",
+  "UPDATING": "♻️ Aufgabenerstellung wird aktualisiert..."
+}

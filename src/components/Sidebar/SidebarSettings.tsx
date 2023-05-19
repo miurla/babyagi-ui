@@ -4,11 +4,12 @@ import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { Transition } from '@headlessui/react';
 import { clsx } from 'clsx';
 import { UserSettings } from '@/types';
-import { LANGUAGE, SETTINGS_KEY, THEME } from '@/utils/constants';
+import { SETTINGS_KEY, THEME } from '@/utils/constants';
 import { translate } from '../../utils/translate';
 import { useTheme } from 'next-themes';
 import { i18n } from 'next-i18next';
 import { useRouter } from 'next/router';
+import { availableLanguages } from '@/utils/languages';
 
 export const SidebarSettings: FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -133,7 +134,7 @@ export const SidebarSettings: FC = () => {
                     <DialogPrimitive.DialogClose asChild>
                       <button
                         className={clsx(
-                          'inline-flex select-none justify-center rounded-md px-4 py-2 text-sm font-medium',
+                          'inline-flex min-w-[64px] select-none justify-center rounded-md px-4 py-2 text-sm font-medium',
                           'bg-black text-white hover:bg-gray-800 dark:bg-gray-700 dark:text-gray-100 dark:hover:bg-gray-600',
                           'border border-transparent',
                           'focus:outline-none focus-visible:ring focus-visible:ring-neutral-500 focus-visible:ring-opacity-10',
@@ -169,9 +170,9 @@ export const SidebarSettings: FC = () => {
                       setLanguage(event.target.value);
                     }}
                   >
-                    {LANGUAGE.map((item, index) => (
-                      <option key={index} value={item.id}>
-                        {`${item.icon} ${item.name}`}
+                    {availableLanguages.map((item, index) => (
+                      <option key={index} value={item.code}>
+                        {`${item.flag} ${item.name}`}
                       </option>
                     ))}
                   </select>
