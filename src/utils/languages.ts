@@ -12,7 +12,6 @@ export const availableLanguages: Language[] = [
   { code: 'en', name: 'English', flag: '🇺🇸' },
   { code: 'es', name: 'Español', flag: '🇪🇸' },
   { code: 'fr', name: 'Français', flag: '🇫🇷' },
-  { code: 'he', name: 'עברית', flag: '🇮🇱' },
   { code: 'hi', name: 'हिन्दी', flag: '🇮🇳' },
   { code: 'hu', name: 'Magyar', flag: '🇭🇺' },
   { code: 'ja', name: '日本語', flag: '🇯🇵' },

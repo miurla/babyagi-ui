@@ -2,6 +2,7 @@ import { AgentType } from '@/types';
 import { translate } from '@/utils/translate';
 import {
   ClipboardIcon,
+  DividerVerticalIcon,
   DotFilledIcon,
   DownloadIcon,
   PlayIcon,
@@ -9,6 +10,7 @@ import {
   StopIcon,
   UpdateIcon,
 } from '@radix-ui/react-icons';
+import { ThumbsUp, ThumbsDown } from 'react-feather';
 import { FC } from 'react';
 
 type InputProps = {
@@ -66,19 +68,38 @@ export const Input: FC<InputProps> = ({
           </div>
           <div className="flex w-1/3 justify-end">
             {!isExecuting && hasMessages && (
-              <div className="flex gap-1">
-                <button
-                  className="w-fit rounded p-2 text-black hover:opacity-50 dark:text-white md:top-0"
-                  onClick={onCopy}
-                >
-                  <ClipboardIcon className="mb-[2px] inline-block" />
-                </button>
-                <button
-                  className="w-fit rounded p-2 text-black hover:opacity-50 dark:text-white md:top-0"
-                  onClick={onDownload}
-                >
-                  <DownloadIcon className="mb-[2px] inline-block" />
-                </button>
+              <div className="inline-flex items-center gap-2">
+                <div className="flex gap-1">
+                  <button
+                    className="w-fit rounded p-2 text-black hover:opacity-50 dark:text-white md:top-0"
+                    onClick={onCopy}
+                  >
+                    <ThumbsUp className="mb-[2px] inline-block h-4 w-4" />
+                  </button>
+                  <button
+                    className="w-fit rounded p-2 text-black hover:opacity-50 dark:text-white md:top-0"
+                    onClick={onDownload}
+                  >
+                    <ThumbsDown className="mb-[2px] inline-block h-4 w-4" />
+                  </button>
+                </div>
+                <div>
+                  <DividerVerticalIcon className="text-black opacity-30 dark:text-white" />
+                </div>
+                <div className="flex gap-1">
+                  <button
+                    className="w-fit rounded p-2 text-black hover:opacity-50 dark:text-white md:top-0"
+                    onClick={onCopy}
+                  >
+                    <ClipboardIcon className="mb-[2px] inline-block" />
+                  </button>
+                  <button
+                    className="w-fit rounded p-2 text-black hover:opacity-50 dark:text-white md:top-0"
+                    onClick={onDownload}
+                  >
+                    <DownloadIcon className="mb-[2px] inline-block" />
+                  </button>
+                </div>
               </div>
             )}
           </div>

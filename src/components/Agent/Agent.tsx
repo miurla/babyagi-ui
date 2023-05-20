@@ -22,6 +22,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { useExecution } from '@/hooks/useExecution';
 import { useExecutionStatus } from '@/hooks/useExecutionStatus';
 import { translate } from '../../utils/translate';
+import { AgentMessageFooter } from './AgentMessageFooter';
 
 export const Agent: FC = () => {
   const [model, setModel] = useState<SelectItem>(MODELS[0]);
@@ -258,6 +259,7 @@ export const Agent: FC = () => {
           {isExecuting && (
             <AgentMessage message={loadingAgentMessage(agentStatus)} />
           )}
+          {!isExecuting && messages.length > 0 && <AgentMessageFooter />}
           <div
             className="h-[162px] bg-white dark:bg-[#343541]"
             ref={messagesEndRef}

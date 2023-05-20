@@ -1,3 +1,4 @@
 {
-  "UNTIL_ALL_TASKS_COMPLETED": "До завершения всех задач"
+  "UNTIL_ALL_TASKS_COMPLETED": "До завершения всех задач",
+  "FEEDBACK_MESSAGE": "Эта кнопка делится результатами выполнения с разработчиком."
 }

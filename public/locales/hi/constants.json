@@ -1,4 +1,5 @@
 {
   "INFINITY": "अनन्त",
-  "UNTIL_ALL_TASKS_COMPLETED": "सभी कार्य पूर्ण हो जाने तक"
+  "UNTIL_ALL_TASKS_COMPLETED": "सभी कार्य पूर्ण हो जाने तक",
+  "FEEDBACK_MESSAGE": "यह बटन डेवलपर के साथ निष्पादन परिणामों को साझा करता है।"
 }

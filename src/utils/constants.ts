@@ -65,7 +65,6 @@ export const LANGUAGE = [
   { id: 'en', name: 'English', icon: '🇺🇸' },
   { id: 'es', name: 'Español', icon: '🇪🇸' },
   { id: 'fr', name: 'Français', icon: '🇫🇷' },
-  { id: 'he', name: 'עברית', icon: '🇮🇱' },
   { id: 'hi', name: 'हिन्दी', icon: '🇮🇳' },
   { id: 'hu', name: 'Magyar', icon: '🇭🇺' },
   { id: 'ja', name: '日本語', icon: '🇯🇵' },
