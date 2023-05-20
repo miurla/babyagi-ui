@@ -1,0 +1,22 @@
+{
+  "AGENT": "Agentas",
+  "DELETE": "Ištrinti",
+  "DESCRIPTION_BABYAGI": "Šis BabyAGI gali ieškoti ir naršyti internete. ",
+  "FIRST_TASK": "Pirma užduotis",
+  "FOR_MORE_DETAILS": "Daugiau detalių...",
+  "ITERATION": "Iteracija",
+  "ITERATIONS": "Iteracijos",
+  "LANGUAGE": "Kalba",
+  "MODEL": "Modelis",
+  "NEW_OBJECTIVE": "Naujas tikslas",
+  "New": "Nauja",
+  "OPENAI_API_KEY": "OpenAI API raktas",
+  "REFER_TO_THE_ORIGINAL_PAPER": "Žiūrėkite originalų popierių.",
+  "SAVE": "Sutaupyti",
+  "SETTINGS": "Nustatymai",
+  "SET_OPENAI_API_KEY": "Nustatykite OpenAI API raktą",
+  "SUMMARY": "Santrauka",
+  "Stop": "Sustabdyti",
+  "THEME": "tema",
+  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 Nustatymų meniu turite nustatyti OpenAI API raktą."
+}

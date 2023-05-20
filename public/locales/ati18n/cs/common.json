@@ -1,0 +1,22 @@
+{
+  "AGENT": "Činidlo",
+  "DELETE": "Vymazat",
+  "DESCRIPTION_BABYAGI": "Toto BabyAGI umí prohledávat a škrábat web. ",
+  "FIRST_TASK": "První úkol",
+  "FOR_MORE_DETAILS": "Více podrobností...",
+  "ITERATION": "Opakování",
+  "ITERATIONS": "Iterace",
+  "LANGUAGE": "Jazyk",
+  "MODEL": "Modelka",
+  "NEW_OBJECTIVE": "Nový cíl",
+  "New": "Nový",
+  "OPENAI_API_KEY": "Klíč API OpenAI",
+  "REFER_TO_THE_ORIGINAL_PAPER": "Podívejte se prosím na původní papír.",
+  "SAVE": "Uložit",
+  "SETTINGS": "Nastavení",
+  "SET_OPENAI_API_KEY": "Nastavit klíč API OpenAI",
+  "SUMMARY": "souhrn",
+  "Stop": "Stop",
+  "THEME": "Téma",
+  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 Svůj klíč OpenAI API musíte nastavit v nabídce nastavení."
+}

@@ -1,0 +1,22 @@
+{
+  "AGENT": "Μέσο",
+  "DELETE": "Διαγράφω",
+  "DESCRIPTION_BABYAGI": "Αυτό το BabyAGI μπορεί να αναζητήσει και να ξύσει τον ιστό. ",
+  "FIRST_TASK": "Πρώτη εργασία",
+  "FOR_MORE_DETAILS": "Για περισσότερες πληροφορίες...",
+  "ITERATION": "Επανάληψη",
+  "ITERATIONS": "Επαναλήψεις",
+  "LANGUAGE": "Γλώσσα",
+  "MODEL": "Μοντέλο",
+  "NEW_OBJECTIVE": "Νέος στόχος",
+  "New": "Νέος",
+  "OPENAI_API_KEY": "Κλειδί OpenAI API",
+  "REFER_TO_THE_ORIGINAL_PAPER": "Ανατρέξτε στο πρωτότυπο έγγραφο.",
+  "SAVE": "Αποθηκεύσετε",
+  "SETTINGS": "Ρυθμίσεις",
+  "SET_OPENAI_API_KEY": "Ορίστε το κλειδί OpenAI API",
+  "SUMMARY": "Περίληψη",
+  "Stop": "Να σταματήσει",
+  "THEME": "Θέμα",
+  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 Πρέπει να ορίσετε το κλειδί OpenAI API στο μενού ρυθμίσεων."
+}

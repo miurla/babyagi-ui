@@ -1,0 +1,22 @@
+{
+  "AGENT": "Đại lý",
+  "DELETE": "Xóa bỏ",
+  "DESCRIPTION_BABYAGI": "BabyAGI này có thể tìm kiếm và quét trên web. ",
+  "FIRST_TASK": "Nhiệm vụ đầu tiên",
+  "FOR_MORE_DETAILS": "Để biết thêm chi tiết...",
+  "ITERATION": "lặp lại",
+  "ITERATIONS": "lặp đi lặp lại",
+  "LANGUAGE": "Ngôn ngữ",
+  "MODEL": "Người mẫu",
+  "NEW_OBJECTIVE": "mục tiêu mới",
+  "New": "Mới",
+  "OPENAI_API_KEY": "Khóa API OpenAI",
+  "REFER_TO_THE_ORIGINAL_PAPER": "Xin vui lòng tham khảo bài báo gốc.",
+  "SAVE": "Cứu",
+  "SETTINGS": "Cài đặt",
+  "SET_OPENAI_API_KEY": "Đặt khóa API OpenAI",
+  "SUMMARY": "Bản tóm tắt",
+  "Stop": "Dừng lại",
+  "THEME": "chủ đề",
+  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 Bạn phải đặt khóa API OpenAI của mình trong menu cài đặt."
+}
