@@ -1,0 +1,22 @@
+{
+  "AGENT": "Agent",
+  "DELETE": "Delete",
+  "DESCRIPTION_BABYAGI": "This BabyAGI can search and scrape the web. However, since this is an experimental feature, it may not always work and may be slow.",
+  "FIRST_TASK": "First Task",
+  "FOR_MORE_DETAILS": "For more details...",
+  "ITERATION": "Iteration",
+  "ITERATIONS": "Iterations",
+  "LANGUAGE": "Language",
+  "MODEL": "Model",
+  "NEW_OBJECTIVE": "New objective",
+  "New": "New",
+  "OPENAI_API_KEY": "OpenAI API Key",
+  "REFER_TO_THE_ORIGINAL_PAPER": "Please refer to the original paper.",
+  "SAVE": "Save",
+  "SETTINGS": "Settings",
+  "SET_OPENAI_API_KEY": "Set OpenAI API key",
+  "SUMMARY": "Summary",
+  "Stop": "Stop",
+  "THEME": "Theme",
+  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 You must set your OpenAI API key in the settings menu."
+}

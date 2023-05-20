@@ -1,0 +1,22 @@
+{
+  "AGENT": "Middel",
+  "DELETE": "Slett",
+  "DESCRIPTION_BABYAGI": "Denne BabyAGI kan søke og skrape nettet. ",
+  "FIRST_TASK": "Første oppgave",
+  "FOR_MORE_DETAILS": "For flere detaljer...",
+  "ITERATION": "Iterasjon",
+  "ITERATIONS": "Iterasjoner",
+  "LANGUAGE": "Språk",
+  "MODEL": "Modell",
+  "NEW_OBJECTIVE": "Nytt mål",
+  "New": "Ny",
+  "OPENAI_API_KEY": "OpenAI API-nøkkel",
+  "REFER_TO_THE_ORIGINAL_PAPER": "Vennligst se det originale papiret.",
+  "SAVE": "Lagre",
+  "SETTINGS": "Innstillinger",
+  "SET_OPENAI_API_KEY": "Angi OpenAI API-nøkkel",
+  "SUMMARY": "Sammendrag",
+  "Stop": "Stoppe",
+  "THEME": "Tema",
+  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 Du må angi OpenAI API-nøkkelen i innstillingsmenyen."
+}

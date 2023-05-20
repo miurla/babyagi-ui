@@ -3,16 +3,17 @@ const fs = require('fs');
 const path = require('path');
 
 class Translator {
-  constructor(srcLang, targetLang, transService, settings = {}) {
-    this.srcLang = srcLang;
-    this.targetLang = targetLang;
+  constructor(options) {
+    this.srcLang = options.srcLang || null;
+    this.targetLang = options.targetLang || null;
+    this.translateToAllAllowed = options.translateToAllAllowed || false;
     this.keyNamespacePairs = [];
     this.keyTextNamespacePairs = [];
-    this.manualMode = false;
+    this.manualMode = options.manualMode || false;
     this.translatorService =
-      transService || process.env.TRANSLATOR_SERVICE || 'google';
+      options.transService || process.env.TRANSLATOR_SERVICE || 'google';
     this.openaiTranslationMethod =
-      settings.openaiTranslationMethod ||
+      options.openaiTranslationMethod ||
       process.env.OPENAI_TRANSLATION_METHOD ||
       'chat';
 
@@ -20,7 +21,7 @@ class Translator {
       this.translatorService === 'openai' &&
       process.env.OPENAI_API_KEY !== ''
     ) {
-    const { Configuration, OpenAIApi } = require('openai');
+      const { Configuration, OpenAIApi } = require('openai');
       this.configuration = new Configuration({
         apiKey: process.env.OPENAI_API_KEY,
       });
@@ -93,96 +94,45 @@ class Translator {
   }
 
   async translateAndWriteFiles() {
-    const translationDir = path.join(
-      __dirname,
-      'public',
-      'locales',
-      'translation',
-    );
+    this.translationsDir = path.join(__dirname, 'public', 'locales', 'ati18n');
 
-    if (fs.existsSync(translationDir)) {
-      fs.rmdirSync(translationDir, { recursive: true, force: true });
+    if (!fs.existsSync(this.translationsDir)) {
+      fs.mkdirSync(this.translationsDir);
     }
 
-    fs.mkdirSync(translationDir);
+    if (this.translateToAllAllowed) {
+      const allowedLocales = await this.detectAllowedLocales();
+      for (const locale of allowedLocales) {
+        this.targetLang = locale;
+        this.translationDir = path.join(this.translationsDir, locale);
 
-    await Promise.all(
-      this.keyNamespacePairs.map(async ({ key, namespace }) => {
-        const srcLangFilePath = path.join(
-          __dirname,
-          'public',
-          'locales',
-          this.srcLang,
-          `${namespace}.json`,
-        );
-        const targetLangFilePath = path.join(
-          translationDir,
-          `${namespace}.json`,
-        );
-        if (!fs.existsSync(targetLangFilePath)) {
-          fs.writeFileSync(targetLangFilePath, '{}');
+        if (fs.existsSync(this.translationDir)) {
+          fs.rmdirSync(this.translationDir, { recursive: true, force: true });
         }
 
-        const sourceTranslationValue = this.getTranslationValue(
-          srcLangFilePath,
-          key,
-          namespace
-        );
-        if (sourceTranslationValue !== '') {
-          const translatedValue = await this.translateText(
-            sourceTranslationValue,
-          );
-          this.writeTranslationFile(targetLangFilePath, key, translatedValue);
-        } else {
-          if (this.manualMode) {
-            rl.question(
-              `Would you like to manually enter the translation for the key ${key} on ${this.targetLang} language?`,
-              async (answer) => {
-                if (answer === 'yes' || answer === 'y') {
-                  rl.question(
-                    `Enter the translation for the key "${key}": `,
-                    (enteredTranslation) => {
-                      this.writeTranslationFile(
-                        targetLangFilePath,
-                        key,
-                        enteredTranslation
-                      );
-                      rl.close();
-                    },
-                  );
-                } else {
-                  this.writeTranslationFile(
-                    targetLangFilePath,
-                    key,
-                    'MISSING_TRANSLATION',
-                  );
-                  rl.close();
-                }
-              },
-            );
-          } else {
-            this.writeTranslationFile(
-              targetLangFilePath,
-              key,
-              'MISSING_TRANSLATION',
-            );
-          }
-        }
-      }),
-    );
+        fs.mkdirSync(this.translationDir);
 
-    if (this.keyTextNamespacePairs.length > 0) {
-      await Promise.all(
-        this.keyTextNamespacePairs.map(
-          async ({ key, defaultText, namespace }) => {
+        await Promise.all(
+          this.keyNamespacePairs.map(async ({ key, namespace }) => {
+            const srcLangFilePath = path.join(
+              __dirname,
+              'public',
+              'locales',
+              this.srcLang,
+              `${namespace}.json`,
+            );
             const targetLangFilePath = path.join(
-              translationDir,
+              this.translationDir,
               `${namespace}.json`,
             );
             if (!fs.existsSync(targetLangFilePath)) {
               fs.writeFileSync(targetLangFilePath, '{}');
             }
-            const sourceTranslationValue = defaultText;
+
+            const sourceTranslationValue = this.getTranslationValue(
+              srcLangFilePath,
+              key,
+            );
             if (sourceTranslationValue !== '') {
               const translatedValue = await this.translateText(
                 sourceTranslationValue,
@@ -193,21 +143,32 @@ class Translator {
                 translatedValue,
               );
             } else {
-              if (this.manualMode) {
-                rl.question(
-                  `Would you like to manually enter the translation for the key ${key} on ${this.targetLang} language?`,
-                  async (answer) => {
-                    if (answer === 'yes' || answer === 'y') {
-                      rl.question(
-                        `Enter the translation for the key "${key}": `,
-                        (enteredTranslation) => {
-                          this.writeTranslationFile(
-                            targetLangFilePath,
-                            key,
-                            enteredTranslation,
-                          );
-                          rl.close();
-                        },
+              this.writeTranslationFile(
+                targetLangFilePath,
+                key,
+                'MISSING_TRANSLATION',
+              );
+            }
+            if (this.keyTextNamespacePairs.length > 0) {
+              await Promise.all(
+                this.keyTextNamespacePairs.map(
+                  async ({ key, defaultText, namespace }) => {
+                    const targetLangFilePath = path.join(
+                      this.translationDir,
+                      `${namespace}.json`,
+                    );
+                    if (!fs.existsSync(targetLangFilePath)) {
+                      fs.writeFileSync(targetLangFilePath, '{}');
+                    }
+                    const sourceTranslationValue = defaultText;
+                    if (sourceTranslationValue !== '') {
+                      const translatedValue = await this.translateText(
+                        sourceTranslationValue,
+                      );
+                      this.writeTranslationFile(
+                        targetLangFilePath,
+                        key,
+                        translatedValue,
                       );
                     } else {
                       this.writeTranslationFile(
@@ -215,9 +176,85 @@ class Translator {
                         key,
                         'MISSING_TRANSLATION',
                       );
-                      rl.close();
                     }
                   },
+                ),
+              );
+            }
+          }),
+        );
+      }
+    } else {
+      this.translationDir = path.join(
+        __dirname,
+        'public',
+        'locales',
+        'ati18n',
+        this.targetLang,
+      );
+
+      if (fs.existsSync(this.translationDir)) {
+        fs.rmdirSync(this.translationDir, { recursive: true, force: true });
+      }
+
+      fs.mkdirSync(this.translationDir);
+
+      await Promise.all(
+        this.keyNamespacePairs.map(async ({ key, namespace }) => {
+          const srcLangFilePath = path.join(
+            __dirname,
+            'public',
+            'locales',
+            this.srcLang,
+            `${namespace}.json`,
+          );
+          const targetLangFilePath = path.join(
+            this.translationDir,
+            `${namespace}.json`,
+          );
+          if (!fs.existsSync(targetLangFilePath)) {
+            fs.writeFileSync(targetLangFilePath, '{}');
+          }
+
+          const sourceTranslationValue = this.getTranslationValue(
+            srcLangFilePath,
+            key,
+          );
+          if (sourceTranslationValue !== '') {
+            const translatedValue = await this.translateText(
+              sourceTranslationValue,
+            );
+            this.writeTranslationFile(targetLangFilePath, key, translatedValue);
+          } else {
+            this.writeTranslationFile(
+              targetLangFilePath,
+              key,
+              'MISSING_TRANSLATION',
+            );
+          }
+        }),
+      );
+
+      if (this.keyTextNamespacePairs.length > 0) {
+        await Promise.all(
+          this.keyTextNamespacePairs.map(
+            async ({ key, defaultText, namespace }) => {
+              const targetLangFilePath = path.join(
+                this.translationDir,
+                `${namespace}.json`,
+              );
+              if (!fs.existsSync(targetLangFilePath)) {
+                fs.writeFileSync(targetLangFilePath, '{}');
+              }
+              const sourceTranslationValue = defaultText;
+              if (sourceTranslationValue !== '') {
+                const translatedValue = await this.translateText(
+                  sourceTranslationValue,
+                );
+                this.writeTranslationFile(
+                  targetLangFilePath,
+                  key,
+                  translatedValue,
                 );
               } else {
                 this.writeTranslationFile(
@@ -225,35 +262,33 @@ class Translator {
                   key,
                   'MISSING_TRANSLATION',
                 );
+                rl.close();
               }
-            }
-          },
-        ),
-      );
+            },
+          ),
+        );
+      }
     }
   }
 
-  
-getTranslationValue(filePath, key, namespace) {
-  if (!fs.existsSync(filePath)) {
-    return '';
-  }
-  const content = fs.readFileSync(filePath, 'utf8');
-  const translations = JSON.parse(content);
-  const keys = key.split('.');
-  let value = translations;
-  for (const k of keys) {
-    if (value.hasOwnProperty(k)) {
-      value = value[k];
-    } else {
-      value = '';
-      break;
+  getTranslationValue(filePath, key) {
+    if (!fs.existsSync(filePath)) {
+      return '';
     }
+    const content = fs.readFileSync(filePath, 'utf8');
+    const translations = JSON.parse(content);
+    const keys = key.split('.');
+    let value = translations;
+    for (const k of keys) {
+      if (value.hasOwnProperty(k)) {
+        value = value[k];
+      } else {
+        value = '';
+        break;
+      }
+    }
+    return value;
   }
-  return value;
-}
-
-
 
   async translateText(sourceTranslationValue) {
     if (this.translatorService === 'google') {
@@ -280,6 +315,10 @@ getTranslationValue(filePath, key, namespace) {
   }
 
   writeTranslationFile(filePath, key, translatedValue) {
+    if (!fs.existsSync(this.translationDir)) {
+      fs.mkdirSync(this.translationDir, { recursive: true });
+    }
+
     const translation = { [key]: translatedValue };
 
     if (fs.existsSync(filePath)) {
@@ -310,75 +349,145 @@ getTranslationValue(filePath, key, namespace) {
     }
   }
 
-  async manageFolders() {
-  const allowedLocales = await this.detectAllowedLocales();
-  // Perform folder management operations based on the allowedLocales
-}
-
-async detectAllowedLocales() {
-  // Detect the allowed locales by analyzing the existing translation files
-  // and return an array of detected locales
-  return ["en", "de", "hu", "ja", "ko", "pt"]; // test
-}
-
-async translateProject() {
-  const allowedLocales = await this.detectAllowedLocales();
-  const sourceTranslationDir = path.join(
-    __dirname,
-    'public',
-    'locales',
-    'translation'
-  );
-
-  if (fs.existsSync(sourceTranslationDir)) {
-    const files = fs.readdirSync(sourceTranslationDir);
-    files.forEach(async (file) => {
-      const srcFilePath = path.join(sourceTranslationDir, file);
-      const stats = fs.statSync(srcFilePath);
-
-      if (stats.isFile()) {
-        const content = fs.readFileSync(srcFilePath, 'utf8');
-        const translations = JSON.parse(content);
-
-        for (const locale of allowedLocales) {
-          const targetDir = path.join(
-            __dirname,
-            'public',
-            'locales',
-            locale,
-            'translation'
-          );
-
-          if (!fs.existsSync(targetDir)) {
-            fs.mkdirSync(targetDir, { recursive: true });
-          }
-
-          const targetFilePath = path.join(targetDir, file);
-          const targetContent = await this.translateJSON(translations, locale);
-          fs.writeFileSync(targetFilePath, targetContent, 'utf8');
-        }
-      }
-    });
+  async detectAllowedLocales() {
+    // Detect the allowed locales by analyzing the i18n config file and then return an array of detected locales
+    return [
+      'br',
+      'de',
+      'es',
+      'fr',
+      'hi',
+      'hu',
+      'ja',
+      'ru',
+      'th',
+      'en',
+      'ko',
+      'pt',
+      'ar',
+      'id',
+      'it',
+      'uk',
+      'zh',
+      'vi',
+      'au',
+      'gb',
+      'lt',
+      'cs',
+      'el',
+      'sv',
+      'da',
+      'fi',
+      'no',
+      'tr',
+      'tw',
+      'bg',
+    ]; // test
   }
-}
 
-async translateJSON(json, locale) {
-  const translatedJson = {};
+  async suggestKeyAndNamespace(defaultText, fileName) {
+    if (
+      this.translatorService === 'openai' &&
+      this.openaiTranslationMethod === 'chat'
+    ) {
+      const MASTER_PROMPT = `As ATi18n, the translation integrator AI, you need to wait for the user to provide a default text and a file name. Once provided, you will suggest a KEY and NAMESPACE based on the given text.\n\nYou should respond only with a JSON-parseable object with the following syntax:\n\n{key: "THE_SUGGESTED_KEY", namespace: "the_suggested_namespace", default_text: "the_given_default_text"}`;
+      const USER_PROMPT = `The default text is: "${defaultText}"\nThe filename is: "${fileName}"`;
+      const result = await this.openai.createChatCompletion({
+        model: 'gpt-3.5-turbo',
+        temperature: 0.7,
+        max_tokens: 64,
+        top_p: 1,
+        frequency_penalty: 0,
+        presence_penalty: 0,
+        messages: [
+          { role: 'system', content: MASTER_PROMPT },
+          { role: 'user', content: USER_PROMPT },
+        ],
+      });
 
-  await Promise.all(
-    Object.entries(json).map(async ([key, value]) => {
-      if (typeof value === 'object') {
-        translatedJson[key] = await this.translateJSON(value, locale);
-      } else {
-        this.targetLang = locale;
-        const translatedValue = await this.translateText(value);
-        translatedJson[key] = translatedValue;
-      }
-    })
-  );
+      const suggestion = result.data.choices[0].message.content.trim();
+      const [key, namespace] = suggestion.split('|').map((part) => part.trim());
 
-  return JSON.stringify(translatedJson, null, 2);
-}
+      return { key, namespace };
+    } else if (
+      this.translatorService === 'openai' &&
+      this.openaiTranslationMethod === 'text'
+    ) {
+      const MASTER_PROMPT = `Suggest key and namespace for the following default text: "${defaultText}"\nFor the namespace suggestion analyze the following filename: "${fileName}"\nRespond only with a JSON-parseable object by the following syntax: {key: "capitalized_sneak_case_capitalized_suggestion_key", namespace: "suggested_namespace"`;
+      const result = await this.openai.createCompletion({
+        model: 'text-davinci-003',
+        MASTER_PROMPT,
+        temperature: 0.7,
+        max_tokens: 64,
+        top_p: 1,
+        frequency_penalty: 0,
+        presence_penalty: 0,
+      });
+
+      const suggestion = result.data.choices[0].text.trim();
+      const [key, namespace] = suggestion.split('|').map((part) => part.trim());
+
+      return { key, namespace };
+    } else {
+      throw new Error('Invalid translation service or translation method');
+    }
+  }
+
+  async generateLanguageSyntaxes(languages) {
+    if (
+      this.translatorService === 'openai' &&
+      this.openaiTranslationMethod === 'chat'
+    ) {
+      const MASTER_PROMPT = `As ATi18n, the translation integrator AI, you are tasked with generating the language syntax for a given set of languages. The languages array contains the language codes. You need to return the syntax for each language in the following format:\n\n{ code: '{languageCode}', name: '{languageName}', flag: '{languageFlag}' }\n\nPlease respond with a JSON-parseable array of language syntaxes based on the input languages.`;
+
+      console.log(languages);
+      const USER_PROMPT = JSON.stringify(languages);
+      console.log(USER_PROMPT);
+
+      const result = await this.openai.createChatCompletion({
+        model: 'gpt-3.5-turbo',
+        temperature: 0.7,
+        max_tokens: 64,
+        top_p: 1,
+        frequency_penalty: 0,
+        presence_penalty: 0,
+        messages: [
+          { role: 'system', content: MASTER_PROMPT },
+          { role: 'user', content: USER_PROMPT },
+        ],
+      });
+
+      const response = result.data.choices[0].message.content.trim();
+      const syntaxes = JSON.parse(response);
+
+      console.log(syntaxes);
+
+      return syntaxes;
+    } else if (
+      this.translatorService === 'openai' &&
+      this.openaiTranslationMethod === 'text'
+    ) {
+      const MASTER_PROMPT = `As ATi18n, the translation integrator AI, you are tasked with generating the language syntax for a given set of languages. The languages array contains the language codes. You need to return the syntax for each language in the following format:\n\n{ code: '{languageCode}', name: '{languageName}', flag: '{languageFlag}' }\n\nPlease respond with a JSON-parseable array of language syntaxes based on the input languages. The languages:  ${languages}`;
+
+      const prompt = MASTER_PROMPT;
+      const result = await this.openai.createCompletion({
+        model: 'text-davinci-003',
+        prompt,
+        temperature: 0.7,
+        max_tokens: 256,
+        top_p: 1,
+        frequency_penalty: 0,
+        presence_penalty: 0,
+      });
+
+      const suggestion = result.data.choices[0].text.trim();
+      const syntaxes = JSON.parse(suggestion);
+
+      console.log(syntaxes);
+
+      return syntaxes;
+    }
+  }
 
   // Services
   // GoogleTranslate
@@ -412,12 +521,15 @@ async translateJSON(json, locale) {
 
   // Translate via OpenAI ChatCompletion
   translateViaChatCompletion = async (USER_PROMPT) => {
-    const MASTER_PROMPT = "You are a professional translator named AT-i18n. You have to wait for the user to provide the translatable text and the target language's code. You have to respond ONLY with the translated text."
+    const MASTER_PROMPT =
+      "You are a professional translator named AT-i18n. You have to wait for the user to provide the translatable text and the target language's code. You have to respond ONLY with the translated text.";
     const translationResult = await this.openai.createChatCompletion({
       model: 'gpt-3.5-turbo',
       temperature: 1,
-      messages: [ {role: 'system', content: MASTER_PROMPT},
-        { role: 'user', content: USER_PROMPT }],
+      messages: [
+        { role: 'system', content: MASTER_PROMPT },
+        { role: 'user', content: USER_PROMPT },
+      ],
     });
     return translationResult.data.choices[0].message.content.replace(
       /^['",`]+|['",`]+$/g,
@@ -440,15 +552,16 @@ async translateJSON(json, locale) {
       .split('\n\n')[1]
       .replace(/^['",`]+|['",`]+$/g, '');
   };
-  
-  
+
   // main run
   async run(srcDirectory) {
+    console.log(
+      `[ATi18n]:> Starting translation process for ${this.srcDirectory} directory`,
+    );
     this.collectKeyNamespacePairs(srcDirectory);
     await this.translateAndWriteFiles();
-    console.log('Translation files generated successfully.');
+    console.log('[ATi18n]:> Translation files generated successfully.');
   }
-
 }
 
 const readline = require('readline');
@@ -457,14 +570,100 @@ const rl = readline.createInterface({
   output: process.stdout,
 });
 
-rl.question('Enter source language code: ', (srcLang) => {
-  srcLang === '' ? (srcLang = 'en') : (srcLang = srcLang);
-  rl.question('Enter target language code: ', (targetLang) => {
-    targetLang === ''
-      ? (targetLang = process.env.DEFAULT_TARGET_LANGUAGE || 'hu')
-      : (targetLang = targetLang);
-    const translator = new Translator(srcLang, targetLang);
-    translator.run('src');
-    rl.close();
-  });
-});
+rl.question(
+  '[ATi18n]:> Would you like me to translate the entire project automatically to all the locales you have enabled? (y/n) ',
+  (translate_entire_project) => {
+    if (
+      translate_entire_project === 'y' ||
+      translate_entire_project === 'yes'
+    ) {
+      rl.question(
+        '[ATi18n]:> Which kind of translation process would you like me to run?\n1. I have the translatable parts WITHOUT {key} and {namespace} declaration\n2. I have the translatable parts WITHOUT {default text} but the {key} and {namespace} are declared\n3. I have only the {default text} and the {namespace} declarations, but some parts contain only the {default text}\nChoose a number!\n',
+        async (translation_mode) => {
+          if (translation_mode === '1') {
+            console.log(
+              '[ATi18n]:> Translation mode 1 selected. I will create the keys and namespaces for you.',
+            );
+            if (
+              translate_entire_project === 'y' ||
+              translate_entire_project === 'yes'
+            ) {
+              const translator = new Translator({
+                translateToAllAllowed: true,
+                srcLang: 'en',
+              });
+              await translator.run('src');
+              rl.question(
+                '[ATi18n]:> Translation process completed successfully. Would you like me to create the flags for the created translation(s) and overwrite the corresponding file? (y/n)',
+                async (answer) => {
+                  if (answer === 'y' || answer === 'yes') {
+                    await translator.generateLanguageSyntaxes(
+                      translator.detectAllowedLocales(),
+                    );
+                    console.log(
+                      '[ATi18n]:> Translation flags created successfully.',
+                    );
+                  } else {
+                    console.log('[ATi18n]:> Translation flags NOT created.');
+                  }
+                  rl.close();
+                },
+              );
+            } else if (translation_mode === '2') {
+              console.log('[ATi18n]:> Translation mode 2 selected.');
+              // TODO:
+              rl.close();
+            } else if (translation_mode === '3') {
+              console.log('[ATi18n]:> Translation mode 3 selected.');
+              // TODO:
+              rl.close();
+            } else {
+              console.log('[ATi18n]:> Invalid translation mode selected.');
+              rl.close();
+            }
+          } else {
+            rl.question(
+              '[ATi18n]:> Which kind of translation process would you like me to run?\n1. I have the translatable parts WITHOUT {key} and {namespace} declaration\n2. I have the translatable parts WITHOUT {default text} but the {key} and {namespace} are declared\n3. I have only the {default text} and the {namespace} declarations, but some parts contain only the {default text}\nChoose a number!\n',
+              (translation_mode) => {
+                if (translation_mode === '1') {
+                  console.log(
+                    '[ATi18n]:> Translation mode 1 selected. I will create the keys and namespaces for you.',
+                  );
+                  rl.question(
+                    '[ATi18n]:> Enter source language code (Default: EN): ',
+                    (srcLang) => {
+                      srcLang === '' ? (srcLang = 'en') : null;
+                      rl.question(
+                        '[ATi18n]:> Enter target language code (Default: HU): ',
+                        (targetLang) => {
+                          targetLang === '' ? (targetLang = 'hu') : null;
+                          const translator = new Translator({
+                            srcLang,
+                            targetLang,
+                          });
+                          translator.run('src');
+                          rl.close();
+                        },
+                      );
+                    },
+                  );
+                } else if (translation_mode === '2') {
+                  console.log('[ATi18n]:> Translation mode 2 selected.');
+                  // TODO:
+                  rl.close();
+                } else if (translation_mode === '3') {
+                  console.log('[ATi18n]:> Translation mode 3 selected.');
+                  // TODO:
+                  rl.close();
+                } else {
+                  console.log('[ATi18n]:> Invalid translation mode selected.');
+                  rl.close();
+                }
+              },
+            );
+          }
+        },
+      );
+    }
+  },
+);

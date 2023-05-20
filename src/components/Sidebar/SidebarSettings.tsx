@@ -9,7 +9,7 @@ import { translate } from '../../utils/translate';
 import { useTheme } from 'next-themes';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
-import { availableLanguages } from '@/utils/languages';
+import { languages } from '@/utils/languages';
 
 export const SidebarSettings: FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -172,7 +172,7 @@ export const SidebarSettings: FC = () => {
                       setLanguage(event.target.value);
                     }}
                   >
-                    {availableLanguages.map((item, index) => (
+                    {languages.map((item, index) => (
                       <option key={index} value={item.code}>
                         {`${item.flag} ${item.name}`}
                       </option>

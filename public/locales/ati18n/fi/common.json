@@ -1,0 +1,22 @@
+{
+  "AGENT": "Agentti",
+  "DELETE": "Poistaa",
+  "DESCRIPTION_BABYAGI": "Tämä BabyAGI voi etsiä ja kaapia verkosta. ",
+  "FIRST_TASK": "Ensimmäinen tehtävä",
+  "FOR_MORE_DETAILS": "Lisätietoja...",
+  "ITERATION": "Iterointi",
+  "ITERATIONS": "Iteraatiot",
+  "LANGUAGE": "Kieli",
+  "MODEL": "Malli",
+  "NEW_OBJECTIVE": "Uusi tavoite",
+  "New": "Uusi",
+  "OPENAI_API_KEY": "OpenAI API-avain",
+  "REFER_TO_THE_ORIGINAL_PAPER": "Katso alkuperäistä paperia.",
+  "SAVE": "Tallentaa",
+  "SETTINGS": "asetukset",
+  "SET_OPENAI_API_KEY": "Aseta OpenAI API-avain",
+  "SUMMARY": "Yhteenveto",
+  "Stop": "Lopettaa",
+  "THEME": "Teema",
+  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 Sinun on asetettava OpenAI API -avain asetusvalikossa."
+}
