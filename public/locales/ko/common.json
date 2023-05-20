@@ -1,0 +1,22 @@
+{
+  "AGENT": "대리인",
+  "DELETE": "삭제",
+  "DESCRIPTION_BABYAGI": "이 BabyAGI는 웹을 검색하고 스크랩할 수 있습니다. ",
+  "FIRST_TASK": "첫 번째 작업",
+  "FOR_MORE_DETAILS": "상세 사항은...",
+  "ITERATION": "반복",
+  "ITERATIONS": "반복",
+  "LANGUAGE": "언어",
+  "MODEL": "모델",
+  "NEW_OBJECTIVE": "새로운 목표",
+  "New": "새로운",
+  "OPENAI_API_KEY": "OpenAI API 키",
+  "REFER_TO_THE_ORIGINAL_PAPER": "원문을 참고하시기 바랍니다.",
+  "SAVE": "구하다",
+  "SETTINGS": "설정",
+  "SET_OPENAI_API_KEY": "OpenAI API 키 설정",
+  "SUMMARY": "요약",
+  "Stop": "멈추다",
+  "THEME": "주제",
+  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 설정 메뉴에서 OpenAI API 키를 설정해야 합니다."
+}
