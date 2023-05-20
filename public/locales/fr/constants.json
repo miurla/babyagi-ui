@@ -1,5 +1,6 @@
 {
   "INFINITY": "Infini",
   "UNTIL_ALL_TASKS_COMPLETED": "Jusqu'à ce que toutes les tâches soient terminées",
-  "FEEDBACK_MESSAGE": "Ce bouton permet de partager les résultats de l'exécution avec le développeur."
+  "FEEDBACK_MESSAGE": "Ce bouton permet de partager les résultats de l'exécution avec le développeur.",
+  "FEEDBACK_SUBMITTED_TOAST": "Merci ! ✨"
 }

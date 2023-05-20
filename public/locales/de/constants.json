@@ -1,5 +1,6 @@
 {
   "INFINITY": "Unendlichkeit",
   "UNTIL_ALL_TASKS_COMPLETED": "Bis alle Aufgaben abgeschlossen sind",
-  "FEEDBACK_MESSAGE": "Diese Schaltfläche teilt die Ausführungsergebnisse mit dem Entwickler."
+  "FEEDBACK_MESSAGE": "Diese Schaltfläche teilt die Ausführungsergebnisse mit dem Entwickler.",
+  "FEEDBACK_SUBMITTED_TOAST": "Danke! ✨"
 }

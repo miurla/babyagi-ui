@@ -1,5 +1,6 @@
 {
   "INFINITY": "อินฟินิตี้",
   "UNTIL_ALL_TASKS_COMPLETED": "จนกว่างานทั้งหมดจะเสร็จสิ้น",
-  "FEEDBACK_MESSAGE": "ปุ่มนี้แชร์ผลการดำเนินการกับนักพัฒนา."
+  "FEEDBACK_MESSAGE": "ปุ่มนี้แชร์ผลการดำเนินการกับนักพัฒนา.",
+  "FEEDBACK_SUBMITTED_TOAST": "ขอบคุณ! ✨"
 }
