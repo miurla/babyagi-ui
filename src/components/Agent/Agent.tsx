@@ -229,8 +229,6 @@ export const Agent: FC = () => {
     const feedbackAgent = selectedExecution?.params.agent;
     const feedbackIterations = Number(selectedExecution?.params.iterations.id);
 
-    console.log(feedbackIterations);
-
     let lastResult = messages
       .filter(
         (message) =>

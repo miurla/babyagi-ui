@@ -9,7 +9,7 @@ export const ENGLISH = { code: 'en', name: 'English', flag: '🇺🇸' };
 export const availableLanguages: Language[] = [
   { code: 'br', name: 'Português (Brasil)', flag: '🇧🇷' },
   { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
-  { code: 'en', name: 'English', flag: '🇺🇸' },
+  ENGLISH,
   { code: 'es', name: 'Español', flag: '🇪🇸' },
   { code: 'fr', name: 'Français', flag: '🇫🇷' },
   { code: 'hi', name: 'हिन्दी', flag: '🇮🇳' },
