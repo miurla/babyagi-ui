@@ -23,6 +23,7 @@
     "@types/react": "18.0.33",
     "@types/react-dom": "18.0.11",
     "@vercel/analytics": "^1.0.0",
+    "airtable": "^0.12.1",
     "axios": "^1.4.0",
     "cheerio": "^1.0.0-rc.12",
     "clsx": "^1.2.1",

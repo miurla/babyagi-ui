@@ -21,6 +21,7 @@ export type Execution = {
   params: ExecutionParams;
   messages: Message[];
   date: string;
+  evaluation?: 'good' | 'bad';
 };
 
 export type ExecutionParams = {
