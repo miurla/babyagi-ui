@@ -1,0 +1,22 @@
+{
+  "AGENT": "Agente",
+  "DELETE": "Borrar",
+  "DESCRIPTION_BABYAGI": "Este BabyAGI puede buscar y recopilar información de la web. Sin embargo, dado que es una función experimental, es posible que no siempre funcione y sea lento.",
+  "FIRST_TASK": "Primera tarea",
+  "FOR_MORE_DETAILS": "Para más detalles...",
+  "ITERATION": "Iteración",
+  "ITERATIONS": "Iteraciones",
+  "LANGUAGE": "Idioma",
+  "MODEL": "Modelo",
+  "NEW_OBJECTIVE": "Nuevo objetivo",
+  "New": "Nuevo",
+  "OPENAI_API_KEY": "Clave de API de OpenAI",
+  "REFER_TO_THE_ORIGINAL_PAPER": "Por favor, consulte el documento original.",
+  "SAVE": "Guardar",
+  "SETTINGS": "Configuración",
+  "SET_OPENAI_API_KEY": "Establecer clave de la API de OpenAI",
+  "SUMMARY": "Resumen",
+  "Stop": "Detener",
+  "THEME": "Tema",
+  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 Debes establecer tu clave de API de OpenAI en el menú de configuración."
+}

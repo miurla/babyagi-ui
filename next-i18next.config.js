@@ -6,7 +6,7 @@ module.exports = {
   debug: false,
   i18n: {
     defaultLocale: 'en',
-    locales: ['br', 'de', 'en', 'es', 'fr', 'he', 'hi', 'hu', 'ja', 'ru', 'th'],
+    locales: ['br', 'de', 'en', 'es', 'fr', 'hi', 'hu', 'ja', 'ru', 'th'],
   },
   defaultNS: 'common',
   ns: ['agent', 'common', 'constants', 'message'],

@@ -7,14 +7,15 @@ import { UserSettings } from '@/types';
 import { SETTINGS_KEY, THEME } from '@/utils/constants';
 import { translate } from '../../utils/translate';
 import { useTheme } from 'next-themes';
-import { i18n } from 'next-i18next';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import { availableLanguages } from '@/utils/languages';
 
 export const SidebarSettings: FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [settings, setSettings] = useState<UserSettings | undefined>(undefined);
-  const [language, setLanguage] = useState(i18n?.language);
+  const { i18n } = useTranslation();
+  const [language, setLanguage] = useState(i18n.language);
   const { theme, setTheme } = useTheme();
   const router = useRouter();
 
@@ -45,6 +46,7 @@ export const SidebarSettings: FC = () => {
 
   const handleLanguage = (value: string) => {
     const { pathname, asPath, query } = router;
+    i18n.changeLanguage(value);
     router
       .push({ pathname, query }, asPath, {
         locale: value,

@@ -22,6 +22,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { useExecution } from '@/hooks/useExecution';
 import { useExecutionStatus } from '@/hooks/useExecutionStatus';
 import { translate } from '../../utils/translate';
+import { AgentMessageFooter } from './AgentMessageFooter';
+import axios from 'axios';
 
 export const Agent: FC = () => {
   const [model, setModel] = useState<SelectItem>(MODELS[0]);
@@ -215,6 +217,68 @@ export const Agent: FC = () => {
     element.click();
   };
 
+  const feedbackHandler = (isGood: boolean) => {
+    let selectedExecution = executions.find(
+      (exe) => exe.id === selectedExecutionId,
+    );
+    if (selectedExecution) {
+      setMessages(selectedExecution.messages);
+    }
+    const feedbackObjective = selectedExecution?.params.objective;
+    const feedbackModel = selectedExecution?.params.model.id;
+    const feedbackAgent = selectedExecution?.params.agent;
+    const feedbackIterations = Number(selectedExecution?.params.iterations.id);
+
+    let lastResult = messages
+      .filter(
+        (message) =>
+          message.type === 'task-output' || message.type === 'task-result',
+      )
+      .pop()?.text;
+    if (feedbackAgent === 'babybeeagi') {
+      lastResult = messages
+        .filter((message) => message.type === 'task-result-summary')
+        .pop()?.text;
+    }
+    const lastTaskList = messages
+      .filter((message) => message.type === 'task-list')
+      .pop()?.text;
+    const sessionSummary = messages
+      .filter((message) => message.type === 'session-summary')
+      .pop()?.text;
+    const iterationNumber = messages.filter(
+      (message) => message.type === 'done',
+    ).length;
+    const finished =
+      messages.filter(
+        (message) =>
+          message.type === 'complete' || message.type === 'end-of-iterations',
+      ).length > 0;
+    const output = getExportText(messages);
+
+    axios.post('/api/feedback', {
+      objective: feedbackObjective,
+      evaluation: isGood ? 'good' : 'bad',
+      model: feedbackModel,
+      agent: feedbackAgent,
+      iterations: feedbackIterations,
+      last_result: lastResult,
+      task_list: lastTaskList,
+      session_summary: sessionSummary,
+      iteration_number: iterationNumber,
+      finished: finished,
+      output: output,
+    });
+
+    toast.success(translate('FEEDBACK_SUBMITTED_TOAST', 'constants'));
+
+    // update execution
+    if (selectedExecution) {
+      selectedExecution.evaluation = isGood ? 'good' : 'bad';
+      updateExec(selectedExecution);
+    }
+  };
+
   const needSettingsAlert = () => {
     const useUserApiKey = process.env.NEXT_PUBLIC_USE_USER_API_KEY;
     if (useUserApiKey === 'false') {
@@ -229,6 +293,16 @@ export const Agent: FC = () => {
       }
     }
     return true;
+  };
+
+  const currentEvaluation = () => {
+    const selectedExecution = executions.find(
+      (exe) => exe.id === selectedExecutionId,
+    );
+    if (selectedExecution) {
+      return selectedExecution.evaluation;
+    }
+    return undefined;
   };
 
   return (
@@ -258,6 +332,7 @@ export const Agent: FC = () => {
           {isExecuting && (
             <AgentMessage message={loadingAgentMessage(agentStatus)} />
           )}
+          {!isExecuting && messages.length > 0 && <AgentMessageFooter />}
           <div
             className="h-[162px] bg-white dark:bg-[#343541]"
             ref={messagesEndRef}
@@ -272,9 +347,11 @@ export const Agent: FC = () => {
         onClear={clearHandler}
         onCopy={copyHandler}
         onDownload={downloadHandler}
+        onFeedback={feedbackHandler}
         isExecuting={isExecuting}
         hasMessages={messages.length > 0}
         agent={selectedAgent.id as AgentType}
+        evaluation={currentEvaluation()}
       />
     </div>
   );

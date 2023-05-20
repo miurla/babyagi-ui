@@ -2,6 +2,7 @@ import { AgentType } from '@/types';
 import { translate } from '@/utils/translate';
 import {
   ClipboardIcon,
+  DividerVerticalIcon,
   DotFilledIcon,
   DownloadIcon,
   PlayIcon,
@@ -9,6 +10,7 @@ import {
   StopIcon,
   UpdateIcon,
 } from '@radix-ui/react-icons';
+import { ThumbsUp, ThumbsDown } from 'react-feather';
 import { FC } from 'react';
 
 type InputProps = {
@@ -19,9 +21,11 @@ type InputProps = {
   onClear: () => void;
   onCopy: () => void;
   onDownload: () => void;
+  onFeedback: (value: boolean) => void;
   isExecuting: boolean;
   hasMessages: boolean;
   agent: AgentType;
+  evaluation?: 'good' | 'bad';
 };
 
 export const Input: FC<InputProps> = ({
@@ -32,9 +36,11 @@ export const Input: FC<InputProps> = ({
   onClear,
   onCopy,
   onDownload,
+  onFeedback,
   isExecuting,
   hasMessages,
   agent,
+  evaluation,
 }) => {
   return (
     <div className="dark:bg-vert-dark-gradient absolute bottom-0 left-0 w-full border-transparent bg-white from-[#343541] via-[#343541] to-[#343541]/0 pt-6 dark:border-white/20 dark:!bg-transparent dark:bg-[#444654] dark:bg-gradient-to-t md:pt-2">
@@ -66,19 +72,48 @@ export const Input: FC<InputProps> = ({
           </div>
           <div className="flex w-1/3 justify-end">
             {!isExecuting && hasMessages && (
-              <div className="flex gap-1">
-                <button
-                  className="w-fit rounded p-2 text-black hover:opacity-50 dark:text-white md:top-0"
-                  onClick={onCopy}
-                >
-                  <ClipboardIcon className="mb-[2px] inline-block" />
-                </button>
-                <button
-                  className="w-fit rounded p-2 text-black hover:opacity-50 dark:text-white md:top-0"
-                  onClick={onDownload}
-                >
-                  <DownloadIcon className="mb-[2px] inline-block" />
-                </button>
+              <div className="inline-flex items-center gap-2">
+                <div className="flex gap-1">
+                  {!evaluation || evaluation === 'good' ? (
+                    <button
+                      className="w-fit rounded p-2 text-black hover:opacity-50 disabled:opacity-30 dark:text-white md:top-0"
+                      onClick={() => {
+                        onFeedback(true);
+                      }}
+                      disabled={evaluation === 'good'}
+                    >
+                      <ThumbsUp className="mb-[2px] inline-block h-4 w-4" />
+                    </button>
+                  ) : null}
+                  {!evaluation || evaluation === 'bad' ? (
+                    <button
+                      className="w-fit rounded p-2 text-black hover:opacity-50 disabled:opacity-30 dark:text-white md:top-0"
+                      onClick={() => {
+                        onFeedback(false);
+                      }}
+                      disabled={evaluation === 'bad'}
+                    >
+                      <ThumbsDown className="mb-[2px] inline-block h-4 w-4" />
+                    </button>
+                  ) : null}
+                </div>
+                <div>
+                  <DividerVerticalIcon className="text-black opacity-30 dark:text-white" />
+                </div>
+                <div className="flex gap-1">
+                  <button
+                    className="w-fit rounded p-2 text-black hover:opacity-50 dark:text-white md:top-0"
+                    onClick={onCopy}
+                  >
+                    <ClipboardIcon className="mb-[2px] inline-block" />
+                  </button>
+                  <button
+                    className="w-fit rounded p-2 text-black hover:opacity-50 dark:text-white md:top-0"
+                    onClick={onDownload}
+                  >
+                    <DownloadIcon className="mb-[2px] inline-block" />
+                  </button>
+                </div>
               </div>
             )}
           </div>
