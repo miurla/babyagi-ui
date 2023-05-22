@@ -1,6 +1,10 @@
 {
+  "DARK": "Tmavý",
   "FEEDBACK_MESSAGE": "Toto tlačidlo zdieľa výsledky vykonávania s vývojárom.",
   "FEEDBACK_SUBMITTED_TOAST": "Ďakujem! ",
+  "GPT_4_WARNING": "🚨 POUŽÍVANIE GPT-4 JE POTENCIÁLNE DRAHÉ, TAK SI SLEDUJTE NÁKLADY!",
   "INFINITY": "Nekonečno",
+  "LIGHT": "Svetlo",
+  "SYSTEM": "Systém",
   "UNTIL_ALL_TASKS_COMPLETED": "Do dokončenia všetkých úloh"
 }

@@ -1,6 +1,10 @@
 {
+  "DARK": "Donker",
   "FEEDBACK_MESSAGE": "Deze knop deelt de uitvoeringsresultaten met de ontwikkelaar.",
   "FEEDBACK_SUBMITTED_TOAST": "Bedankt! ",
+  "GPT_4_WARNING": "🚨 HET GEBRUIK VAN GPT-4 IS MOGELIJK DUUR, DUS CONTROLEER UW KOSTEN!",
   "INFINITY": "Oneindigheid",
+  "LIGHT": "Licht",
+  "SYSTEM": "Systeem",
   "UNTIL_ALL_TASKS_COMPLETED": "Totdat alle taken zijn voltooid"
 }

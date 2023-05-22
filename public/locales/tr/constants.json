@@ -1,6 +1,10 @@
 {
+  "DARK": "Karanlık",
   "FEEDBACK_MESSAGE": "Bu buton yürütme sonuçlarını geliştirici ile paylaşır.",
   "FEEDBACK_SUBMITTED_TOAST": "Teşekkür ederim! ",
+  "GPT_4_WARNING": "🚨 GPT-4 KULLANIMI PAHALI OLABİLİR, BU NEDENLE MALİYETLERİNİZİ İZLEYİN!",
   "INFINITY": "Sonsuzluk",
+  "LIGHT": "Işık",
+  "SYSTEM": "sistem",
   "UNTIL_ALL_TASKS_COMPLETED": "Tüm görevler tamamlanana kadar"
 }

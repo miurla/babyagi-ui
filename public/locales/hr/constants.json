@@ -1,6 +1,10 @@
 {
+  "DARK": "tamno",
   "FEEDBACK_MESSAGE": "Ovaj gumb dijeli rezultate izvršenja s programerom.",
   "FEEDBACK_SUBMITTED_TOAST": "Hvala vam! ",
+  "GPT_4_WARNING": "🚨 KORIŠTENJE GPT-4 POTENCIJALNO JE SKUPO PA PRATITE SVOJE TROŠKOVE!",
   "INFINITY": "Beskonačnost",
+  "LIGHT": "Svjetlo",
+  "SYSTEM": "Sustav",
   "UNTIL_ALL_TASKS_COMPLETED": "Do završetka svih zadataka"
 }

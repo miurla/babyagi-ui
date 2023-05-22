@@ -1,6 +1,10 @@
 {
+  "DARK": "Temno",
   "FEEDBACK_MESSAGE": "Ta gumb deli rezultate izvajanja z razvijalcem.",
   "FEEDBACK_SUBMITTED_TOAST": "Hvala vam! ",
+  "GPT_4_WARNING": "🚨 UPORABA GPT-4 JE POTENCIALNO DRAGA, ZATO SPREMLJAJTE SVOJE STROŠKE!",
   "INFINITY": "neskončnost",
+  "LIGHT": "Svetloba",
+  "SYSTEM": "Sistem",
   "UNTIL_ALL_TASKS_COMPLETED": "Do dokončanja vseh nalog"
 }

@@ -1,6 +1,10 @@
 {
+  "DARK": "אפל",
   "FEEDBACK_MESSAGE": "כפתור זה משתף את תוצאות הביצוע עם המפתח.",
   "FEEDBACK_SUBMITTED_TOAST": "תודה! ",
+  "GPT_4_WARNING": "🚨 שימוש ב-GPT-4 שעלול להיות יקר אז עקוב אחר העלויות שלך!",
   "INFINITY": "אינסוף",
+  "LIGHT": "אוֹר",
+  "SYSTEM": "מערכת",
   "UNTIL_ALL_TASKS_COMPLETED": "עד להשלמת כל המשימות"
 }

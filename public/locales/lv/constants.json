@@ -1,6 +1,10 @@
 {
+  "DARK": "Tumšs",
   "FEEDBACK_MESSAGE": "Šī poga koplieto izpildes rezultātus ar izstrādātāju.",
   "FEEDBACK_SUBMITTED_TOAST": "Paldies! ",
+  "GPT_4_WARNING": "🚨 IZMANTOJOT GPT-4 POTENCIĀLI DĀRGI, TĀPĒC PĀRSKATIET SAVAS IZMAKSAS!",
   "INFINITY": "Bezgalība",
+  "LIGHT": "Gaisma",
+  "SYSTEM": "Sistēma",
   "UNTIL_ALL_TASKS_COMPLETED": "Līdz visi uzdevumi ir pabeigti"
 }

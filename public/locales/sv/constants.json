@@ -1,6 +1,10 @@
 {
+  "DARK": "Mörk",
   "FEEDBACK_MESSAGE": "Den här knappen delar körningsresultaten med utvecklaren.",
   "FEEDBACK_SUBMITTED_TOAST": "Tack! ",
+  "GPT_4_WARNING": "🚨 ATT ANVÄNDA GPT-4 POTENTIELLT DYRT SÅ ÖVERVAK DINA KOSTNADER!",
   "INFINITY": "Oändlighet",
+  "LIGHT": "Ljus",
+  "SYSTEM": "Systemet",
   "UNTIL_ALL_TASKS_COMPLETED": "Tills alla uppgifter är klara"
 }

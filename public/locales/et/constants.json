@@ -1,6 +1,10 @@
 {
+  "DARK": "Tume",
   "FEEDBACK_MESSAGE": "See nupp jagab täitmistulemusi arendajaga.",
   "FEEDBACK_SUBMITTED_TOAST": "Aitäh! ",
+  "GPT_4_WARNING": "🚨 GPT-4 KASUTAMINE POTENTSIAALSELT KALLIS, NII JÄLGIGE OMA KULUD!",
   "INFINITY": "Lõpmatus",
+  "LIGHT": "Valgus",
+  "SYSTEM": "Süsteem",
   "UNTIL_ALL_TASKS_COMPLETED": "Kuni Kõik ülesanded on täidetud"
 }

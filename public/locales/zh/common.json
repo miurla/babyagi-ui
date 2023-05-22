@@ -18,5 +18,5 @@
   "SUMMARY": "概括",
   "Stop": "停止",
   "THEME": "主题",
-  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉您必须在设置菜单中设置您的 OpenAI API 密钥。"
+  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 您必须在设置菜单中设置您的 OpenAI API 密钥。"
 }
