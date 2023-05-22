@@ -9,11 +9,10 @@ import { appWithTranslation } from 'next-i18next';
 import nextI18NextConfig from '../../next-i18next.config.js';
 
 const App = ({ Component, pageProps }: AppProps) => {
-  const locale = pageProps._nextI18Next.initialLocale as string;
+  const locale =
+    (pageProps?._nextI18Next?.initialLocale as string) || ('en' as string);
 
-  console.log(locale);
-
-  const dir = locale === 'ar' || 'fa' || 'ur' || 'he' ? 'rtl' : 'ltr';
+  const dir = locale === ('ar' || 'fa' || 'ur' || 'he') ? 'rtl' : 'ltr';
 
   return (
     <ThemeProvider attribute="class" defaultTheme="light">
