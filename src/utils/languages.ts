@@ -34,7 +34,8 @@ export const availableLanguages: Language[] = [
   { code: 'fi', name: 'Suomi', flag: '🇫🇮' },
   { code: 'no', name: 'Norsk', flag: '🇳🇴' },
   { code: 'tr', name: 'TÜRKİSH', flag: '🇹🇷' },
-  { code: 'zh-tw', name: '中文(台灣)', flag: '🇹🇼' },
+  { code: "pl", name: "Polski", flag: "🇵🇱" },
+  { code: 'zhtw', name: '中文(台灣)', flag: '🇹🇼' },
   { code: 'bg', name: 'бълежи', flag: '🇧🇬' },
 ];
 
