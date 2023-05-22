@@ -21,7 +21,6 @@ export const availableLanguages: Language[] = [
   { code: 'pt', name: 'Português', flag: '🇵🇹' },
   { code: 'id', name: 'Indonesia', flag: '🇮🇩' },
   { code: 'it', name: 'Italiano', flag: '🇮🇹' },
-  { code: 'uk', name: 'Українська', flag: '🇺🇦' },
   { code: 'zh', name: '中文', flag: '🇨🇳' },
   { code: 'vi', name: 'Tiếng Việt', flag: '🇻🇳' },
   { code: 'au', name: 'Australian', flag: '🇦🇺' },
