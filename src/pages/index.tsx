@@ -5,7 +5,6 @@ import Head from 'next/head';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import type { GetStaticProps } from 'next';
-import { useTranslation, Trans } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import nextI18NextConfig from '../../next-i18next.config.js';
 import { languages } from '../utils/languages';
@@ -53,7 +52,9 @@ function Home() {
         />
         <meta name="twitter:image" content="/og-image.png" />
       </Head>
-      <main className="flex h-screen w-screen flex-col text-sm text-white dark:text-white">
+      <main
+        className={`flex h-screen w-screen flex-col text-sm text-white dark:text-white`}
+      >
         <div className="fixed top-0 w-full sm:hidden">
           <Navbar onMenuClick={menuClickHandler} />
         </div>
