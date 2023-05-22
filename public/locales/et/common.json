@@ -1,0 +1,22 @@
+{
+  "AGENT": "Agent",
+  "DELETE": "Kustuta",
+  "DESCRIPTION_BABYAGI": "See BabyAGI suudab veebist otsida ja kraapida. ",
+  "FIRST_TASK": "Esimene ülesanne",
+  "FOR_MORE_DETAILS": "Lisateabe saamiseks...",
+  "ITERATION": "Iteratsioon",
+  "ITERATIONS": "Iteratsioonid",
+  "LANGUAGE": "Keel",
+  "MODEL": "Mudel",
+  "NEW_OBJECTIVE": "Uus eesmärk",
+  "New": "Uus",
+  "OPENAI_API_KEY": "OpenAI API võti",
+  "REFER_TO_THE_ORIGINAL_PAPER": "Palun vaadake originaalpaberit.",
+  "SAVE": "Salvesta",
+  "SETTINGS": "Seaded",
+  "SET_OPENAI_API_KEY": "Määrake OpenAI API võti",
+  "SUMMARY": "Kokkuvõte",
+  "Stop": "Peatus",
+  "THEME": "Teema",
+  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 Peate seadistusmenüüs määrama oma OpenAI API võtme."
+}

@@ -7,10 +7,10 @@ export type Language = {
 export const ENGLISH = { code: 'en', name: 'English', flag: '🇺🇸' };
 
 export const availableLanguages: Language[] = [
+  ENGLISH,
   { code: 'br', name: 'Português (Brasil)', flag: '🇧🇷' },
   { code: 'ar', name: 'Arabian', flag: '🇦🇪' },
   { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
-  ENGLISH,
   { code: 'es', name: 'Español', flag: '🇪🇸' },
   { code: 'fr', name: 'Français', flag: '🇫🇷' },
   { code: 'hi', name: 'हिन्दी', flag: '🇮🇳' },
@@ -35,9 +35,31 @@ export const availableLanguages: Language[] = [
   { code: 'fi', name: 'Suomi', flag: '🇫🇮' },
   { code: 'no', name: 'Norsk', flag: '🇳🇴' },
   { code: 'tr', name: 'TÜRKİSH', flag: '🇹🇷' },
-  { code: "pl", name: "Polski", flag: "🇵🇱" },
+  { code: 'pl', name: 'Polski', flag: '🇵🇱' },
   { code: 'zhtw', name: '中文(台灣)', flag: '🇹🇼' },
   { code: 'bg', name: 'бълежи', flag: '🇧🇬' },
+  { code: 'nl', name: 'Nederlands', flag: '🇳🇱' },
+  { code: 'sk', name: 'Slovenčina', flag: '🇸🇰' },
+  { code: 'ro', name: 'Română', flag: '🇷🇴' },
+  { code: 'lv', name: 'Latviešu', flag: '🇱🇻' },
+  { code: 'et', name: 'Eesti', flag: '🇪🇪' },
+  { code: 'hr', name: 'Hrvatski', flag: '🇭🇷' },
+  { code: 'sl', name: 'Slovenščina', flag: '🇸🇮' },
+  { code: 'el', name: 'Ελληνικά', flag: '🇬🇷' },
+  { code: 'ru', name: 'Русский', flag: '🇷🇺' },
+  { code: 'uk', name: 'Українська', flag: '🇺🇦' },
+  { code: 'sr', name: 'Српски', flag: '🇷🇸' },
+  { code: 'he', name: 'עברית', flag: '🇮🇱' },
+  { code: 'ar', name: 'العربية', flag: '🇸🇦' },
+  { code: 'fa', name: 'فارسی', flag: '🇮🇷' },
+  { code: 'ur', name: 'اردو', flag: '🇵🇰' },
+  { code: 'hi', name: 'हिन्दी', flag: '🇮🇳' },
+  { code: 'bn', name: 'বাংলা', flag: '🇧🇩' },
+  { code: 'gu', name: 'ગુજરાતી', flag: '🇮🇳' },
+  { code: 'ta', name: 'தமிழ்', flag: '🇮🇳' },
+  { code: 'te', name: 'తెలుగు', flag: '🇮🇳' },
+  { code: 'kn', name: 'ಕನ್ನಡ', flag: '🇮🇳' },
+  { code: 'ml', name: 'മലയാളം', flag: '🇮🇳' }
 ];
 
 export const languages: Language[] = availableLanguages.sort((a, b) =>

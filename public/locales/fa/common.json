@@ -1,0 +1,22 @@
+{
+  "AGENT": "عامل",
+  "DELETE": "حذف",
+  "DESCRIPTION_BABYAGI": "این BabyAGI می تواند وب را جستجو و خراش دهد. ",
+  "FIRST_TASK": "اولین وظیفه",
+  "FOR_MORE_DETAILS": "برای جزئیات بیشتر...",
+  "ITERATION": "تکرار",
+  "ITERATIONS": "تکرارها",
+  "LANGUAGE": "زبان",
+  "MODEL": "مدل",
+  "NEW_OBJECTIVE": "هدف جدید",
+  "New": "جدید",
+  "OPENAI_API_KEY": "کلید OpenAI API",
+  "REFER_TO_THE_ORIGINAL_PAPER": "لطفا به اصل مقاله مراجعه کنید.",
+  "SAVE": "صرفه جویی",
+  "SETTINGS": "تنظیمات",
+  "SET_OPENAI_API_KEY": "کلید OpenAI API را تنظیم کنید",
+  "SUMMARY": "خلاصه",
+  "Stop": "متوقف کردن",
+  "THEME": "موضوع",
+  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 باید کلید OpenAI API خود را در منوی تنظیمات تنظیم کنید."
+}

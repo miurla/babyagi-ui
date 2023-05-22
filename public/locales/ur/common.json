@@ -1,0 +1,22 @@
+{
+  "AGENT": "ایجنٹ",
+  "DELETE": "حذف کریں۔",
+  "DESCRIPTION_BABYAGI": "یہ BabyAGI ویب کو تلاش اور سکریپ کر سکتا ہے۔ ",
+  "FIRST_TASK": "پہلا کام",
+  "FOR_MORE_DETAILS": "مزید تفصیلات کے لیے...",
+  "ITERATION": "تکرار",
+  "ITERATIONS": "تکرار",
+  "LANGUAGE": "زبان",
+  "MODEL": "ماڈل",
+  "NEW_OBJECTIVE": "نیا مقصد",
+  "New": "نئی",
+  "OPENAI_API_KEY": "OpenAI API کلید",
+  "REFER_TO_THE_ORIGINAL_PAPER": "براہ کرم اصل کاغذ کا حوالہ دیں۔",
+  "SAVE": "محفوظ کریں۔",
+  "SETTINGS": "ترتیبات",
+  "SET_OPENAI_API_KEY": "OpenAI API کلید سیٹ کریں۔",
+  "SUMMARY": "خلاصہ",
+  "Stop": "رک جاؤ",
+  "THEME": "خیالیہ",
+  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 آپ کو اپنی OpenAI API کی سیٹنگ مینو میں سیٹ کرنی ہوگی۔"
+}

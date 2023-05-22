@@ -1,0 +1,22 @@
+{
+  "AGENT": "סוֹכֵן",
+  "DELETE": "לִמְחוֹק",
+  "DESCRIPTION_BABYAGI": "BabyAGI זה יכול לחפש ולגרד את האינטרנט. ",
+  "FIRST_TASK": "משימה ראשונה",
+  "FOR_MORE_DETAILS": "לפרטים נוספים...",
+  "ITERATION": "איטרציה",
+  "ITERATIONS": "איטרציות",
+  "LANGUAGE": "שפה",
+  "MODEL": "דֶגֶם",
+  "NEW_OBJECTIVE": "מטרה חדשה",
+  "New": "חָדָשׁ",
+  "OPENAI_API_KEY": "מפתח API של OpenAI",
+  "REFER_TO_THE_ORIGINAL_PAPER": "נא לעיין במסמך המקורי.",
+  "SAVE": "להציל",
+  "SETTINGS": "הגדרות",
+  "SET_OPENAI_API_KEY": "הגדר מפתח API של OpenAI",
+  "SUMMARY": "סיכום",
+  "Stop": "תפסיק",
+  "THEME": "נושא",
+  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 עליך להגדיר את מפתח ה-API של OpenAI בתפריט ההגדרות."
+}

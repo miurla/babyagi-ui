@@ -1,9 +1,6 @@
 {
-  "DARK": "مظلم",
   "FEEDBACK_MESSAGE": "يشارك هذا الزر نتائج التنفيذ مع المطور.",
   "FEEDBACK_SUBMITTED_TOAST": "شكرًا لك! ",
   "INFINITY": "ما لا نهاية",
-  "LIGHT": "ضوء",
-  "SYSTEM": "نظام",
   "UNTIL_ALL_TASKS_COMPLETED": "حتى تكتمل جميع المهام"
 }

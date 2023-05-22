@@ -13,7 +13,7 @@ const App = ({ Component, pageProps }: AppProps) => {
 
   console.log(locale);
 
-  const dir = locale === 'ar' ? 'rtl' : 'ltr';
+  const dir = locale === 'ar' || 'fa' || 'ur' || 'he' ? 'rtl' : 'ltr';
 
   return (
     <ThemeProvider attribute="class" defaultTheme="light">
