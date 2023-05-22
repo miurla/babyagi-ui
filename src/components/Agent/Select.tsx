@@ -18,9 +18,9 @@ interface Props {
 
 export const Select: FC<Props> = ({ label, item, items, onChange }) => {
   const imageExtensions = /\.(jpg|jpeg|png|gif|svg)$/i;
-  const alertMessage = /EXPENSIVE/i;
+  const alertMessage = 'GPT_4_WARNING';
   const isImage = imageExtensions.test(item.icon ?? '');
-  const isAlert = alertMessage.test(item.message ?? '');
+  const isAlert = alertMessage === item.message;
   const iconLabel = (item: SelectItem) => {
     const label = isImage ? (
       <Image
@@ -104,7 +104,9 @@ export const Select: FC<Props> = ({ label, item, items, onChange }) => {
                 : 'text-right text-neutral-500 dark:text-neutral-400'
             }`}
           >
-            {`${translate(item.message as string, '', 'constants')}`}
+            {isAlert
+              ? `${translate(item.message as string, 'constants')} `
+              : `${item.message}`}
           </span>
         )}
       </div>

@@ -1,0 +1,22 @@
+{
+  "AGENT": "Agen",
+  "DELETE": "Menghapus",
+  "DESCRIPTION_BABYAGI": "BabyAGI ini dapat mencari dan mengikis web. ",
+  "FIRST_TASK": "Tugas Pertama",
+  "FOR_MORE_DETAILS": "Untuk lebih jelasnya...",
+  "ITERATION": "Pengulangan",
+  "ITERATIONS": "Iterasi",
+  "LANGUAGE": "Bahasa",
+  "MODEL": "Model",
+  "NEW_OBJECTIVE": "Tujuan baru",
+  "New": "Baru",
+  "OPENAI_API_KEY": "Kunci API OpenAI",
+  "REFER_TO_THE_ORIGINAL_PAPER": "Silakan lihat kertas aslinya.",
+  "SAVE": "Menyimpan",
+  "SETTINGS": "Pengaturan",
+  "SET_OPENAI_API_KEY": "Tetapkan kunci OpenAI API",
+  "SUMMARY": "Ringkasan",
+  "Stop": "Berhenti",
+  "THEME": "Tema",
+  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 Anda harus mengatur kunci OpenAI API Anda di menu pengaturan."
+}

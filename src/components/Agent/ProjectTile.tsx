@@ -21,7 +21,7 @@ export const ProjectTile: FC = () => {
       {showMessage && (
         <div className="inline-flex items-center gap-2">
           <span className="rounded px-1 text-sm font-normal md:text-base">
-            {translate('TITLE_INSTRUCTION_OPENAI_API_KEY', 'common')}
+            {translate('TITLE_INSTRUCTION_OPENAI_API_KEY')}
           </span>
         </div>
       )}

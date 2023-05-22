@@ -1,0 +1,22 @@
+{
+  "AGENT": "Ajan",
+  "DELETE": "Silmek",
+  "DESCRIPTION_BABYAGI": "Bu BabyAGI, web'de arama yapabilir ve kazıyabilir. ",
+  "FIRST_TASK": "İlk Görev",
+  "FOR_MORE_DETAILS": "Daha fazla ayrıntı için...",
+  "ITERATION": "yineleme",
+  "ITERATIONS": "Yinelemeler",
+  "LANGUAGE": "Dil",
+  "MODEL": "modeli",
+  "NEW_OBJECTIVE": "yeni hedef",
+  "New": "Yeni",
+  "OPENAI_API_KEY": "OpenAI API Anahtarı",
+  "REFER_TO_THE_ORIGINAL_PAPER": "Lütfen orijinal kağıda bakın.",
+  "SAVE": "Kaydetmek",
+  "SETTINGS": "Ayarlar",
+  "SET_OPENAI_API_KEY": "OpenAI API anahtarını ayarla",
+  "SUMMARY": "Özet",
+  "Stop": "Durmak",
+  "THEME": "Tema",
+  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉Ayarlar menüsünde OpenAI API anahtarınızı belirlemelisiniz."
+}

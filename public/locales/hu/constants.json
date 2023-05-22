@@ -2,7 +2,6 @@
   "GPT_4_WARNING": "🚨 A GPT-4 HASZNÁLATA POTENCIÁLISAN DRÁGA, EZÉRT FIGYELJE A KÖLTSÉGEIT!",
   "INFINITY": "Végtelen",
   "UNTIL_ALL_TASKS_COMPLETED": "Amíg az összes feladat el nem készül",
-  "TOOLS: 🤖/🔎+📄": "ESZKÖZÖK: 🤖/🔎+📄",
-  "TOOLS: 🤖/🔎/📄": "ESZKÖZÖK: 🤖/🔎/📄",
-  "TOOLS: 🤖": "ESZKÖZÖK: 🤖"
+  "FEEDBACK_MESSAGE": "Ez a gomb megosztja a végrehajtási eredményeket a fejlesztővel.",
+  "FEEDBACK_SUBMITTED_TOAST": "Köszönöm! ✨"
 }
