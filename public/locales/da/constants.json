@@ -1,6 +1,10 @@
 {
+  "DARK": "Mørk",
   "FEEDBACK_MESSAGE": "Denne knap deler udførelsesresultaterne med udvikleren.",
   "FEEDBACK_SUBMITTED_TOAST": "Tak skal du have! ",
+  "GPT_4_WARNING": "🚨 BRUG AF GPT-4 POTENTIELT DYRT SÅ OVERVÅG DINE OMKOSTNINGER!",
   "INFINITY": "Uendelighed",
+  "LIGHT": "Lys",
+  "SYSTEM": "System",
   "UNTIL_ALL_TASKS_COMPLETED": "Indtil alle opgaver er udført"
 }

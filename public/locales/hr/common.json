@@ -1,0 +1,22 @@
+{
+  "AGENT": "Agent",
+  "DELETE": "Izbrisati",
+  "DESCRIPTION_BABYAGI": "Ovaj BabyAGI može pretraživati ​​i strugati web. ",
+  "FIRST_TASK": "Prvi zadatak",
+  "FOR_MORE_DETAILS": "Za više detalja...",
+  "ITERATION": "Ponavljanje",
+  "ITERATIONS": "Ponavljanja",
+  "LANGUAGE": "Jezik",
+  "MODEL": "Model",
+  "NEW_OBJECTIVE": "Novi cilj",
+  "New": "Novi",
+  "OPENAI_API_KEY": "OpenAI API ključ",
+  "REFER_TO_THE_ORIGINAL_PAPER": "Molimo pogledajte izvorni rad.",
+  "SAVE": "Uštedjeti",
+  "SETTINGS": "postavke",
+  "SET_OPENAI_API_KEY": "Postavite OpenAI API ključ",
+  "SUMMARY": "Sažetak",
+  "Stop": "Stop",
+  "THEME": "Tema",
+  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 Morate postaviti svoj OpenAI API ključ u izborniku postavki."
+}

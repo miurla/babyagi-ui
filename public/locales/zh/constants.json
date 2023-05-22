@@ -1,6 +1,10 @@
 {
+  "DARK": "黑暗的",
   "FEEDBACK_MESSAGE": "此按钮与开发人员共享执行结果。",
   "FEEDBACK_SUBMITTED_TOAST": "谢谢你！ ",
+  "GPT_4_WARNING": "🚨 使用 GPT-4 可能很昂贵，因此请监控您的成本！",
   "INFINITY": "无穷",
+  "LIGHT": "光",
+  "SYSTEM": "系统",
   "UNTIL_ALL_TASKS_COMPLETED": "直到所有任务完成"
 }

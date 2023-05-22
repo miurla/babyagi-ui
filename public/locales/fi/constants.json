@@ -1,6 +1,10 @@
 {
+  "DARK": "Tumma",
   "FEEDBACK_MESSAGE": "Tämä painike jakaa suoritustulokset kehittäjän kanssa.",
   "FEEDBACK_SUBMITTED_TOAST": "Kiitos! ",
+  "GPT_4_WARNING": "🚨 GPT-4:N KÄYTTÄMINEN MAHDOLLISESTI KALLISIA, JOTEN SEURAA KUSTANNUKSIASI!",
   "INFINITY": "ääretön",
+  "LIGHT": "Kevyt",
+  "SYSTEM": "Järjestelmä",
   "UNTIL_ALL_TASKS_COMPLETED": "Kunnes Kaikki tehtävät on suoritettu"
 }

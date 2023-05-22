@@ -9,12 +9,19 @@ import { appWithTranslation } from 'next-i18next';
 import nextI18NextConfig from '../../next-i18next.config.js';
 
 const App = ({ Component, pageProps }: AppProps) => {
+  const locale =
+    (pageProps?._nextI18Next?.initialLocale as string) || ('en' as string);
+
+  const dir = locale === ('ar' || 'fa' || 'ur' || 'he') ? 'rtl' : 'ltr';
+
   return (
     <ThemeProvider attribute="class" defaultTheme="light">
       <ExecutionProvider>
         <ExecutionStatusProvider>
-          <Component {...pageProps} />
-          <Toaster theme="dark" />
+          <div dir={dir}>
+            <Component {...pageProps} />
+            <Toaster theme="dark" />
+          </div>
           <Analytics />
         </ExecutionStatusProvider>
       </ExecutionProvider>

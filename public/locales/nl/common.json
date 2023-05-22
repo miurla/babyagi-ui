@@ -1,0 +1,22 @@
+{
+  "AGENT": "Tussenpersoon",
+  "DELETE": "Verwijderen",
+  "DESCRIPTION_BABYAGI": "Deze BabyAGI kan het web doorzoeken en schrapen. ",
+  "FIRST_TASK": "Eerste taak",
+  "FOR_MORE_DETAILS": "Voor meer details...",
+  "ITERATION": "Iteratie",
+  "ITERATIONS": "Iteraties",
+  "LANGUAGE": "Taal",
+  "MODEL": "Model",
+  "NEW_OBJECTIVE": "Nieuw doel",
+  "New": "Nieuw",
+  "OPENAI_API_KEY": "OpenAI API-sleutel",
+  "REFER_TO_THE_ORIGINAL_PAPER": "Raadpleeg het originele papier.",
+  "SAVE": "Redden",
+  "SETTINGS": "Instellingen",
+  "SET_OPENAI_API_KEY": "Stel OpenAI API-sleutel in",
+  "SUMMARY": "Samenvatting",
+  "Stop": "Stop",
+  "THEME": "Thema",
+  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 U moet uw OpenAI API-sleutel instellen in het instellingenmenu."
+}

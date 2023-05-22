@@ -1,7 +1,7 @@
 {
   "AGENT": "Agent",
   "DELETE": "Löschen",
-  "DESCRIPTION_BABYAGI": "Dieses BabyAGI kann das Internet durchsuchen.",
+  "DESCRIPTION_BABYAGI": "Dieses BabyAGI kann das Internet durchsuchen und durchsuchen. ",
   "FIRST_TASK": "Erste Aufgabe",
   "FOR_MORE_DETAILS": "Für mehr Details...",
   "ITERATION": "Wiederholung",

@@ -1,6 +1,10 @@
 {
+  "DARK": "Tamsus",
   "FEEDBACK_MESSAGE": "Šis mygtukas bendrina vykdymo rezultatus su kūrėju.",
   "FEEDBACK_SUBMITTED_TOAST": "Ačiū! ",
+  "GPT_4_WARNING": "🚨 GPT-4 NAUDOJIMAS POTENCIALIAI BRANGI, TODĖL STEBĖKITE SAVO IŠLAIDAS!",
   "INFINITY": "Begalybė",
+  "LIGHT": "Šviesa",
+  "SYSTEM": "Sistema",
   "UNTIL_ALL_TASKS_COMPLETED": "Kol visos užduotys bus baigtos"
 }

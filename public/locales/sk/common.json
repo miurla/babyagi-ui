@@ -1,0 +1,22 @@
+{
+  "AGENT": "agent",
+  "DELETE": "Odstrániť",
+  "DESCRIPTION_BABYAGI": "Toto BabyAGI dokáže vyhľadávať a zoškrabovať web. ",
+  "FIRST_TASK": "Prvá úloha",
+  "FOR_MORE_DETAILS": "Pre viac detailov...",
+  "ITERATION": "Iterácia",
+  "ITERATIONS": "Iterácie",
+  "LANGUAGE": "Jazyk",
+  "MODEL": "Model",
+  "NEW_OBJECTIVE": "Nový cieľ",
+  "New": "Nový",
+  "OPENAI_API_KEY": "OpenAI API kľúč",
+  "REFER_TO_THE_ORIGINAL_PAPER": "Pozrite si prosím originálny papier.",
+  "SAVE": "Uložiť",
+  "SETTINGS": "nastavenie",
+  "SET_OPENAI_API_KEY": "Nastaviť kľúč OpenAI API",
+  "SUMMARY": "Zhrnutie",
+  "Stop": "Stop",
+  "THEME": "Téma",
+  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 Svoj kľúč OpenAI API musíte nastaviť v ponuke nastavení."
+}

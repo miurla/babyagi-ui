@@ -1,0 +1,22 @@
+{
+  "AGENT": "عامل",
+  "DELETE": "يمسح",
+  "DESCRIPTION_BABYAGI": "يمكن لـ BabyAGI البحث وكشط الويب. ",
+  "FIRST_TASK": "المهمة الأولى",
+  "FOR_MORE_DETAILS": "لمزيد من التفاصيل...",
+  "ITERATION": "تكرار",
+  "ITERATIONS": "التكرارات",
+  "LANGUAGE": "لغة",
+  "MODEL": "نموذج",
+  "NEW_OBJECTIVE": "هدف جديد",
+  "New": "جديد",
+  "OPENAI_API_KEY": "مفتاح OpenAI API",
+  "REFER_TO_THE_ORIGINAL_PAPER": "يرجى الرجوع إلى الورقة الأصلية.",
+  "SAVE": "يحفظ",
+  "SETTINGS": "إعدادات",
+  "SET_OPENAI_API_KEY": "قم بتعيين مفتاح OpenAI API",
+  "SUMMARY": "ملخص",
+  "Stop": "قف",
+  "THEME": "سمة",
+  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 يجب عليك تعيين مفتاح OpenAI API الخاص بك في قائمة الإعدادات."
+}
