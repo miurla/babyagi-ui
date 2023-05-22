@@ -1,0 +1,22 @@
+{
+  "AGENT": "Agent",
+  "DELETE": "Șterge",
+  "DESCRIPTION_BABYAGI": "Acest BabyAGI poate căuta și răzui pe web. ",
+  "FIRST_TASK": "Prima sarcină",
+  "FOR_MORE_DETAILS": "Pentru mai multe detalii...",
+  "ITERATION": "Repetare",
+  "ITERATIONS": "Iterații",
+  "LANGUAGE": "Limba",
+  "MODEL": "Model",
+  "NEW_OBJECTIVE": "Obiectiv nou",
+  "New": "Nou",
+  "OPENAI_API_KEY": "Cheia API OpenAI",
+  "REFER_TO_THE_ORIGINAL_PAPER": "Vă rugăm să consultați documentul original.",
+  "SAVE": "Salvați",
+  "SETTINGS": "Setări",
+  "SET_OPENAI_API_KEY": "Setați cheia API OpenAI",
+  "SUMMARY": "rezumat",
+  "Stop": "Stop",
+  "THEME": "Temă",
+  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 Trebuie să setați cheia API OpenAI în meniul de setări."
+}

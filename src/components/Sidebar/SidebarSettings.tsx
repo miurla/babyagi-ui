@@ -201,7 +201,7 @@ export const SidebarSettings: FC = () => {
                   >
                     {THEME.map((item, index) => (
                       <option key={index} value={item.id}>
-                        {`${item.icon} ${item.name}`}
+                        {`${item.icon} ${translate(item.name, 'constants')}`}
                       </option>
                     ))}
                   </select>

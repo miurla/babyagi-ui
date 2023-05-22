@@ -1,0 +1,22 @@
+{
+  "AGENT": "Aģents",
+  "DELETE": "Dzēst",
+  "DESCRIPTION_BABYAGI": "Šis BabyAGI var meklēt un nokasīt tīmeklī. ",
+  "FIRST_TASK": "Pirmais uzdevums",
+  "FOR_MORE_DETAILS": "Sīkāka informācija...",
+  "ITERATION": "Iterācija",
+  "ITERATIONS": "Iterācijas",
+  "LANGUAGE": "Valoda",
+  "MODEL": "Modelis",
+  "NEW_OBJECTIVE": "Jauns mērķis",
+  "New": "Jauns",
+  "OPENAI_API_KEY": "OpenAI API atslēga",
+  "REFER_TO_THE_ORIGINAL_PAPER": "Lūdzu, skatiet oriģinālo papīru.",
+  "SAVE": "Saglabāt",
+  "SETTINGS": "Iestatījumi",
+  "SET_OPENAI_API_KEY": "Iestatiet OpenAI API atslēgu",
+  "SUMMARY": "Kopsavilkums",
+  "Stop": "Stop",
+  "THEME": "Tēma",
+  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 Iestatījumu izvēlnē jāiestata sava OpenAI API atslēga."
+}

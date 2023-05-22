@@ -17,6 +17,6 @@
   "SET_OPENAI_API_KEY": "Nustatykite OpenAI API raktą",
   "SUMMARY": "Santrauka",
   "Stop": "Sustabdyti",
-  "THEME": "tema",
+  "THEME": "Tema",
   "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 Nustatymų meniu turite nustatyti OpenAI API raktą."
 }
