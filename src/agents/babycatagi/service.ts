@@ -1,14 +1,13 @@
 import { OpenAI, OpenAIChat } from 'langchain/llms/openai';
 import { relevantInfoExtractionChain } from './chains/relevantInfoExtraction';
 import { TaskCreationChain } from './chains/taskCreation';
-import { AgentTask } from '@/types';
-import { stringifyTasks } from '@/utils/task';
 
 export const taskCreationAgent = async (
   objective: string,
   websearchVar: string,
   modelName: string,
   openAIApiKey?: string,
+  callback?: (token: string) => void,
 ) => {
   const model = new OpenAIChat({
     openAIApiKey,
@@ -18,6 +17,16 @@ export const taskCreationAgent = async (
     topP: 1,
     frequencyPenalty: 0,
     presencePenalty: 0,
+    streaming: true,
+    callbacks: [
+      {
+        handleLLMNewToken(token: string) {
+          if (callback) {
+            callback(token);
+          }
+        },
+      },
+    ],
   });
   const chain = TaskCreationChain.fromLLM({ llm: model });
 

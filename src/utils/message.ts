@@ -120,6 +120,7 @@ export const loadingAgentMessage = (status: AgentStatus) => {
     text: text,
     type: 'loading',
     bgColor: 'bg-gray-100 dark:bg-gray-600/10',
+    status: status,
   } as Message;
 };
 

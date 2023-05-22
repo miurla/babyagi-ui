@@ -7,6 +7,7 @@ import remarkGfm from 'remark-gfm';
 import { translate } from '../../utils/translate';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { oneDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import { AgentCollapsible } from './AgentCollapsible';
 
 interface AgentMessageProps {
   message: Message;
@@ -61,6 +62,10 @@ const AgentMessage: FC<AgentMessageProps> = ({ message }) => {
             </summary>
             {contents}
           </details>
+        ) : message.status?.type === 'creating' ? (
+          <AgentCollapsible title={'Task creating...'}>
+            {contents}
+          </AgentCollapsible>
         ) : (
           contents
         )}

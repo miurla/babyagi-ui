@@ -19,6 +19,7 @@ export class BabyCatAGI {
   statusCallback: (status: AgentStatus) => void;
   cancelCallback: () => void;
   abortController?: AbortController;
+  chunk: string = '';
 
   constructor(
     objective: string,
@@ -350,6 +351,12 @@ export class BabyCatAGI {
 
     const websearchVar = process.env.SEARP_API_KEY ? '[web-search] ' : ''; // if search api key is not set, don't add [web-search] to the task description
 
+    this.chunk = '````';
+    const callback = (token: string) => {
+      this.chunk += token;
+      this.statusCallback({ type: 'creating', message: this.chunk });
+    };
+
     let result = '';
     if (getUserApiKey()) {
       result = await taskCreationAgent(
@@ -357,6 +364,7 @@ export class BabyCatAGI {
         websearchVar,
         this.modelName,
         getUserApiKey(),
+        callback,
       );
     } else {
       // Server side call
