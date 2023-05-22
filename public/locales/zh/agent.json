@@ -1,0 +1,6 @@
+{
+  "ALERT_SET_UP_API_KEY": "请从设置菜单中设置您的 OpenAI API 密钥。",
+  "ALL_TASKS_COMPLETED_TOAST": "所有任务完成！",
+  "COPIED_TO_CLIPBOARD": "复制到剪贴板",
+  "TASK_COMPLETED_TOAST": "任务完成！"
+}

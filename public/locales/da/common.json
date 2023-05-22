@@ -1,0 +1,22 @@
+{
+  "AGENT": "Agent",
+  "DELETE": "Slet",
+  "DESCRIPTION_BABYAGI": "Denne BabyAGI kan søge og skrabe på nettet. ",
+  "FIRST_TASK": "Første opgave",
+  "FOR_MORE_DETAILS": "For flere detaljer...",
+  "ITERATION": "Gentagelse",
+  "ITERATIONS": "Gentagelser",
+  "LANGUAGE": "Sprog",
+  "MODEL": "Model",
+  "NEW_OBJECTIVE": "Nyt mål",
+  "New": "Ny",
+  "OPENAI_API_KEY": "OpenAI API nøgle",
+  "REFER_TO_THE_ORIGINAL_PAPER": "Se venligst det originale papir.",
+  "SAVE": "Gemme",
+  "SETTINGS": "Indstillinger",
+  "SET_OPENAI_API_KEY": "Indstil OpenAI API-nøgle",
+  "SUMMARY": "Resumé",
+  "Stop": "Hold op",
+  "THEME": "Tema",
+  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 Du skal indstille din OpenAI API-nøgle i indstillingsmenuen."
+}

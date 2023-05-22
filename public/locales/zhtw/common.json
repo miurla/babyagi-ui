@@ -1,0 +1,22 @@
+{
+  "AGENT": "代理人",
+  "DELETE": "刪除",
+  "DESCRIPTION_BABYAGI": "這個 BabyAGI 可以搜索和抓取網絡。",
+  "FIRST_TASK": "第一個任務",
+  "FOR_MORE_DETAILS": "更多細節...",
+  "ITERATION": "迭代",
+  "ITERATIONS": "迭代",
+  "LANGUAGE": "語言",
+  "MODEL": "模型",
+  "NEW_OBJECTIVE": "新目標",
+  "New": "新的",
+  "OPENAI_API_KEY": "OpenAI API 密鑰",
+  "REFER_TO_THE_ORIGINAL_PAPER": "請參考原論文。",
+  "SAVE": "節省",
+  "SETTINGS": "設置",
+  "SET_OPENAI_API_KEY": "設置 OpenAI API 密鑰",
+  "SUMMARY": "概括",
+  "Stop": "停止",
+  "THEME": "主題",
+  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉您必須在設置菜單中設置您的 OpenAI API 密鑰。"
+}

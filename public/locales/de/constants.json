@@ -1,7 +1,6 @@
 {
-  "GPT_4_WARNING": "🚨 GPT-4 KANN TEUER SEIN, ÜBERWACHEN SIE IHRE KOSTEN!",
+  "FEEDBACK_MESSAGE": "Über diese Schaltfläche werden die Ausführungsergebnisse mit dem Entwickler geteilt.",
+  "FEEDBACK_SUBMITTED_TOAST": "Danke schön! ",
   "INFINITY": "Unendlichkeit",
-  "UNTIL_ALL_TASKS_COMPLETED": "Bis alle Aufgaben abgeschlossen sind",
-  "FEEDBACK_MESSAGE": "Diese Schaltfläche teilt die Ausführungsergebnisse mit dem Entwickler.",
-  "FEEDBACK_SUBMITTED_TOAST": "Danke! ✨"
+  "UNTIL_ALL_TASKS_COMPLETED": "Bis alle Aufgaben abgeschlossen sind"
 }

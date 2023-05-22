@@ -1,6 +1,6 @@
 {
-  "ALERT_SET_UP_API_KEY": "Configure sua chave de API da OpenAI no menu de configurações, por favor",
-  "ALL_TASKS_COMPLETED_TOAST": "Todas as tarefas concluídas!",
-  "COPIED_TO_CLIPBOARD": "Kopiet da vezañ dre hizivadenn",
-  "TASK_COMPLETED_TOAST": "Tarefa Concluída!"
+  "ALERT_SET_UP_API_KEY": "",
+  "ALL_TASKS_COMPLETED_TOAST": "",
+  "COPIED_TO_CLIPBOARD": "",
+  "TASK_COMPLETED_TOAST": ""
 }

@@ -1,0 +1,22 @@
+{
+  "AGENT": "Ombud",
+  "DELETE": "Radera",
+  "DESCRIPTION_BABYAGI": "Denna BabyAGI kan söka och skrapa på webben. ",
+  "FIRST_TASK": "Första uppgiften",
+  "FOR_MORE_DETAILS": "För mer detaljer...",
+  "ITERATION": "Iteration",
+  "ITERATIONS": "Iterationer",
+  "LANGUAGE": "Språk",
+  "MODEL": "Modell",
+  "NEW_OBJECTIVE": "Nytt mål",
+  "New": "Ny",
+  "OPENAI_API_KEY": "OpenAI API-nyckel",
+  "REFER_TO_THE_ORIGINAL_PAPER": "Se originalpapperet.",
+  "SAVE": "Spara",
+  "SETTINGS": "inställningar",
+  "SET_OPENAI_API_KEY": "Ställ in OpenAI API-nyckel",
+  "SUMMARY": "Sammanfattning",
+  "Stop": "Sluta",
+  "THEME": "Tema",
+  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 Du måste ställa in din OpenAI API-nyckel i inställningsmenyn."
+}
