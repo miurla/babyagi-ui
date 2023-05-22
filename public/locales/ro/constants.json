@@ -1,6 +1,10 @@
 {
+  "DARK": "Întuneric",
   "FEEDBACK_MESSAGE": "Acest buton partajează rezultatele execuției dezvoltatorului.",
   "FEEDBACK_SUBMITTED_TOAST": "Mulțumesc! ",
+  "GPT_4_WARNING": "🚨 UTILIZAREA GPT-4 POTENȚIAL SCUMPĂ, DECI MONITORIZAȚI-VĂ COSTURILE!",
   "INFINITY": "Infinit",
+  "LIGHT": "Ușoară",
+  "SYSTEM": "Sistem",
   "UNTIL_ALL_TASKS_COMPLETED": "Până la finalizarea tuturor sarcinilor"
 }

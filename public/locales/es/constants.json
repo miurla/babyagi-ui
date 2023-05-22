@@ -1,6 +1,10 @@
 {
+  "DARK": "Oscuro",
   "FEEDBACK_MESSAGE": "Este botón comparte los resultados de la ejecución con el desarrollador.",
   "FEEDBACK_SUBMITTED_TOAST": "¡Gracias! ",
+  "GPT_4_WARNING": "🚨 ¡EL USO DE GPT-4 POTENCIALMENTE CARO, ASÍ QUE CONTROLA TUS COSTOS!",
   "INFINITY": "Infinidad",
+  "LIGHT": "Luz",
+  "SYSTEM": "Sistema",
   "UNTIL_ALL_TASKS_COMPLETED": "Hasta Todas las tareas completadas"
 }

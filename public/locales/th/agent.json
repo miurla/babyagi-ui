@@ -2,5 +2,5 @@
   "ALERT_SET_UP_API_KEY": "โปรดตั้งค่าคีย์ OpenAI API ของคุณจากเมนูการตั้งค่า",
   "ALL_TASKS_COMPLETED_TOAST": "เสร็จสิ้นภารกิจทั้งหมด!",
   "COPIED_TO_CLIPBOARD": "คัดลอกไปที่คลิปบอร์ดแล้ว",
-  "TASK_COMPLETED_TOAST": "เสร็จสิ้นภารกิจ!"
+  "TASK_COMPLETED_TOAST": "ภารกิจเสร็จสิ้น!"
 }

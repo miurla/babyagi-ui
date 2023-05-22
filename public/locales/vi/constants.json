@@ -1,6 +1,10 @@
 {
+  "DARK": "Tối tăm",
   "FEEDBACK_MESSAGE": "Nút này chia sẻ kết quả thực hiện với nhà phát triển.",
   "FEEDBACK_SUBMITTED_TOAST": "Cảm ơn! ",
+  "GPT_4_WARNING": "🚨 SỬ DỤNG GPT-4 CÓ ​​KHẢ NĂNG Đắt VÌ VÌ VẬY THEO DÕI CHI PHÍ CỦA BẠN!",
   "INFINITY": "vô cực",
+  "LIGHT": "Ánh sáng",
+  "SYSTEM": "Hệ thống",
   "UNTIL_ALL_TASKS_COMPLETED": "Cho đến khi tất cả các nhiệm vụ hoàn thành"
 }

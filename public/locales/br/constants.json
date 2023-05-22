@@ -1,6 +1,10 @@
 {
+  "DARK": "",
   "FEEDBACK_MESSAGE": "",
   "FEEDBACK_SUBMITTED_TOAST": "",
+  "GPT_4_WARNING": "",
   "INFINITY": "",
+  "LIGHT": "",
+  "SYSTEM": "",
   "UNTIL_ALL_TASKS_COMPLETED": ""
 }

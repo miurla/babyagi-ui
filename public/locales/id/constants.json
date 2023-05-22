@@ -1,6 +1,10 @@
 {
+  "DARK": "Gelap",
   "FEEDBACK_MESSAGE": "Tombol ini membagikan hasil eksekusi dengan pengembang.",
   "FEEDBACK_SUBMITTED_TOAST": "Terima kasih! ",
+  "GPT_4_WARNING": "🚨 MENGGUNAKAN GPT-4 BERPOTENSI MAHAL JADI PANTAU BIAYA ANDA!",
   "INFINITY": "Ketakterbatasan",
+  "LIGHT": "Lampu",
+  "SYSTEM": "Sistem",
   "UNTIL_ALL_TASKS_COMPLETED": "Sampai Semua tugas selesai"
 }
