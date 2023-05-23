@@ -60,7 +60,9 @@ export type AgentStatusType =
   | 'closing'
   | 'updating'
   | 'summarizing'
-  | 'managing';
+  | 'managing'
+  | 'creating-stream' // for babycatagi
+  | 'executing-stream'; // for babycatagi
 
 export type UserSettings = {
   openAIApiKey?: string;

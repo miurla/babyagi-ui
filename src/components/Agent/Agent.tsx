@@ -24,6 +24,7 @@ import { useExecutionStatus } from '@/hooks/useExecutionStatus';
 import { translate } from '../../utils/translate';
 import { AgentMessageFooter } from './AgentMessageFooter';
 import axios from 'axios';
+import { AgentCollapsible } from './AgentCollapsible';
 
 export const Agent: FC = () => {
   const [model, setModel] = useState<SelectItem>(MODELS[0]);

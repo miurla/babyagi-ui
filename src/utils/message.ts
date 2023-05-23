@@ -87,6 +87,13 @@ export const setupMessage = (
 };
 
 export const getMessageText = (message: Message): string => {
+  if (
+    message.status?.type === 'creating-stream' ||
+    message.status?.type === 'executing-stream'
+  ) {
+    return message.text;
+  }
+
   if (message.title) return `### ${message.title}\n\n ${message.text}`;
 
   return message.text;
@@ -94,9 +101,9 @@ export const getMessageText = (message: Message): string => {
 
 export const loadingAgentMessage = (status: AgentStatus) => {
   let text =
-    status.type === 'creating'
+    status.type === 'creating' || status.type === 'creating-stream'
       ? translate('CREATING', 'message')
-      : status.type === 'executing'
+      : status.type === 'executing' || status.type === 'executing-stream'
       ? translate('EXECUTING', 'message')
       : status.type === 'prioritizing'
       ? translate('PRIORITIZING', 'message')
@@ -114,12 +121,20 @@ export const loadingAgentMessage = (status: AgentStatus) => {
       ? translate('MANAGING', 'message')
       : translate('THINKING', 'message');
 
-  if (status.message) text += `\n\n${status.message}`;
+  let title = undefined;
+  if (status.type === 'creating-stream' || status.type === 'executing-stream') {
+    title = text;
+    text = status.message ?? '';
+  } else if (status.message) {
+    text += `\n\n${status.message}`;
+  }
 
   return {
     text: text,
+    title: title,
     type: 'loading',
     bgColor: 'bg-gray-100 dark:bg-gray-600/10',
+    status: status,
   } as Message;
 };
 
