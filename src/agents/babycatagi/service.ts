@@ -10,8 +10,6 @@ export const taskCreationAgent = async (
   openAIApiKey?: string,
   callback?: (token: string) => void,
 ) => {
-  console.log('abortSignal', signal);
-
   const model = new OpenAIChat(
     {
       openAIApiKey,
@@ -44,7 +42,6 @@ export const taskCreationAgent = async (
     return response.text;
   } catch (error: any) {
     if (error.name === 'AbortError') {
-      console.log('abort error');
       return null;
     }
     console.log('error: ', error);

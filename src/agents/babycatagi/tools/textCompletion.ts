@@ -35,7 +35,6 @@ export const textCompletion = async (
     return response;
   } catch (error: any) {
     if (error.name === 'AbortError') {
-      console.log('abort error');
       return null;
     }
     console.log('error: ', error);
