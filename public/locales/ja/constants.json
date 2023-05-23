@@ -1,9 +1,9 @@
 {
-  "DARK": "暗い",
+  "DARK": "ダーク",
   "FEEDBACK_MESSAGE": "このボタンは実行結果を開発者と共有します。",
   "FEEDBACK_SUBMITTED_TOAST": "ありがとう！ ",
   "GPT_4_WARNING": "🚨 GPT-4 の使用は高価になる可能性があるため、コストを監視してください。",
-  "INFINITY": "無限大",
+  "INFINITY": "無限",
   "LIGHT": "ライト",
   "SYSTEM": "システム",
   "UNTIL_ALL_TASKS_COMPLETED": "すべてのタスクが完了するまで"
