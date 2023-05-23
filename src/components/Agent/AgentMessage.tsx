@@ -1,7 +1,7 @@
 import { Message } from '@/types';
 import { getMessageText } from '@/utils/message';
 import { UpdateIcon } from '@radix-ui/react-icons';
-import { FC, use } from 'react';
+import { FC, useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { translate } from '../../utils/translate';
@@ -19,8 +19,15 @@ interface AgentMessageProps {
 
 const AgentMessage: FC<AgentMessageProps> = ({ message }) => {
   const simpleTitle = message.title?.split('(')[0] ?? ''; // ex: 'Creating tasks... (*This process takes time. Please wait...*)'
-  const theme = useTheme();
-  const highlightStyle = theme.theme === 'dark' ? vscDarkPlus : oneLight;
+  const { theme, systemTheme } = useTheme();
+  const [highlightStyle, setHighlightStyle] = useState(oneLight);
+
+  useEffect(() => {
+    const isDark =
+      theme === 'system' ? systemTheme === 'dark' : theme === 'dark';
+    const style = isDark ? vscDarkPlus : oneLight;
+    setHighlightStyle(style);
+  }, [theme, systemTheme]);
 
   const contents = (
     <div className="prose dark:prose-invert prose-pre:bg-neutral-200 prose-pre:text-black dark:prose-pre:bg-neutral-800 dark:prose-pre:text-white">
