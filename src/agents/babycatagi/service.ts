@@ -6,35 +6,50 @@ export const taskCreationAgent = async (
   objective: string,
   websearchVar: string,
   modelName: string,
+  signal?: AbortSignal,
   openAIApiKey?: string,
   callback?: (token: string) => void,
 ) => {
-  const model = new OpenAIChat({
-    openAIApiKey,
-    modelName,
-    temperature: 0,
-    maxTokens: 1500,
-    topP: 1,
-    frequencyPenalty: 0,
-    presencePenalty: 0,
-    streaming: true,
-    callbacks: [
-      {
-        handleLLMNewToken(token: string) {
-          if (callback) {
-            callback(token);
-          }
+  console.log('abortSignal', signal);
+
+  const model = new OpenAIChat(
+    {
+      openAIApiKey,
+      modelName,
+      temperature: 0,
+      maxTokens: 1500,
+      topP: 1,
+      frequencyPenalty: 0,
+      presencePenalty: 0,
+      streaming: true,
+      callbacks: [
+        {
+          handleLLMNewToken(token: string) {
+            if (callback) {
+              callback(token);
+            }
+          },
         },
-      },
-    ],
-  });
+      ],
+    },
+    { baseOptions: { signal: signal } },
+  );
   const chain = TaskCreationChain.fromLLM({ llm: model });
 
-  const response = await chain.call({
-    objective,
-    websearch_var: websearchVar,
-  });
-  return response.text;
+  try {
+    const response = await chain.call({
+      objective,
+      websearch_var: websearchVar,
+    });
+    return response.text;
+  } catch (error: any) {
+    if (error.name === 'AbortError') {
+      console.log('abort error');
+      return null;
+    }
+    console.log('error: ', error);
+    return error;
+  }
 };
 
 export const extractRelevantInfoAgent = async (

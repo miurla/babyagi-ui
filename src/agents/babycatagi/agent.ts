@@ -142,8 +142,25 @@ export class BabyCatAGI {
 
   // Tools functions
   async textCompletionTool(prompt: string) {
+    this.abortController = new AbortController();
+    this.statusCallback({ type: 'executing' });
+
+    this.chunk = '```markdown\n';
+    const callback = (token: string) => {
+      this.chunk += token;
+      this.statusCallback({ type: 'executing-stream', message: this.chunk });
+    };
+
     if (getUserApiKey()) {
-      return await textCompletion(prompt, 'gpt-3.5-turbo', getUserApiKey());
+      this.statusCallback({ type: 'executing-stream' });
+
+      return await textCompletion(
+        prompt,
+        'gpt-3.5-turbo',
+        this.abortController?.signal,
+        getUserApiKey(),
+        callback,
+      );
     }
 
     const response = await axios
@@ -152,6 +169,7 @@ export class BabyCatAGI {
         {
           prompt,
           apiKey: getUserApiKey(),
+          callback,
         },
         {
           signal: this.abortController?.signal,
@@ -214,8 +232,8 @@ export class BabyCatAGI {
 
   async callbackSearchStatus(message: string) {
     this.statusCallback({
-      type: 'executing',
-      message: '```\n' + message + '\n```',
+      type: 'executing-stream',
+      message: '```markdown\n' + message + '\n```',
     });
   }
 
@@ -277,11 +295,12 @@ export class BabyCatAGI {
       index++;
     }
 
+    if (!this.isRunning) return;
+
     // callback to search logs
     this.messageCallback(
       setupMessage('search-logs', '```markdown\n' + statusMessage + '\n```'),
     );
-    console.log('Search logs: %s', '```markdown\n' + statusMessage + '\n```');
 
     return result;
   }
@@ -347,22 +366,24 @@ export class BabyCatAGI {
 
   // Agent functions
   async taskCreationAgent() {
-    this.statusCallback({ type: 'creating' });
-
+    this.abortController = new AbortController();
     const websearchVar = process.env.SEARP_API_KEY ? '[web-search] ' : ''; // if search api key is not set, don't add [web-search] to the task description
 
-    this.chunk = '````';
+    this.chunk = '```json\n';
     const callback = (token: string) => {
       this.chunk += token;
-      this.statusCallback({ type: 'creating', message: this.chunk });
+      this.statusCallback({ type: 'creating-stream', message: this.chunk });
     };
 
     let result = '';
     if (getUserApiKey()) {
+      this.statusCallback({ type: 'creating-stream' });
+
       result = await taskCreationAgent(
         this.objective,
         websearchVar,
         this.modelName,
+        this.abortController?.signal,
         getUserApiKey(),
         callback,
       );
