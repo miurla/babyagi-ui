@@ -43,11 +43,9 @@ export const availableLanguages: Language[] = [
   { code: 'hr', name: 'Hrvatski', flag: '🇭🇷' },
   { code: 'sl', name: 'Slovenščina', flag: '🇸🇮' },
   { code: 'el', name: 'Ελληνικά', flag: '🇬🇷' },
-  { code: 'ru', name: 'Русский', flag: '🇷🇺' },
   { code: 'uk', name: 'Українська', flag: '🇺🇦' },
   { code: 'sr', name: 'Српски', flag: '🇷🇸' },
   { code: 'he', name: 'עברית', flag: '🇮🇱' },
-  { code: 'ar', name: 'العربية', flag: '🇸🇦' },
   { code: 'fa', name: 'فارسی', flag: '🇮🇷' },
   { code: 'ur', name: 'اردو', flag: '🇵🇰' },
   { code: 'hi', name: 'हिन्दी', flag: '🇮🇳' },
@@ -56,7 +54,7 @@ export const availableLanguages: Language[] = [
   { code: 'ta', name: 'தமிழ்', flag: '🇮🇳' },
   { code: 'te', name: 'తెలుగు', flag: '🇮🇳' },
   { code: 'kn', name: 'ಕನ್ನಡ', flag: '🇮🇳' },
-  { code: 'ml', name: 'മലയാളം', flag: '🇮🇳' }
+  { code: 'ml', name: 'മലയാളം', flag: '🇮🇳' },
 ];
 
 export const languages: Language[] = availableLanguages.sort((a, b) =>
