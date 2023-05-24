@@ -8,6 +8,8 @@ import * as SelectPrimitive from '@radix-ui/react-select';
 import { FC } from 'react';
 import Image from 'next/image';
 import { translate } from '../../utils/translate';
+import { InfoCard } from './InfoCard';
+import Link from 'next/link';
 
 interface Props {
   label: string;
@@ -42,6 +44,22 @@ export const Select: FC<Props> = ({ label, item, items, onChange }) => {
       </span>
     ) : null;
     return badge;
+  };
+  const linkMessage = () => {
+    return (
+      <label className="text-xs text-neutral-400 dark:text-neutral-400">
+        {translate('DESCRIPTION_BABYAGI')} {translate('FOR_MORE_DETAILS')}
+        <Link
+          href={'https://twitter.com/yoheinakajima/status/1657448504112091136'}
+          passHref
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline"
+        >
+          {translate('REFER_TO_THE_ORIGINAL_PAPER')}
+        </Link>
+      </label>
+    );
   };
 
   return (
@@ -96,19 +114,32 @@ export const Select: FC<Props> = ({ label, item, items, onChange }) => {
             </SelectPrimitive.ScrollDownButton>
           </SelectPrimitive.Content>
         </SelectPrimitive.Root>
-        {item.message && (
-          <span
-            className={`p-1 font-mono text-xs ${
-              isAlert
-                ? 'text-red-400 dark:text-red-600'
-                : 'text-right text-neutral-500 dark:text-neutral-400'
-            }`}
-          >
-            {isAlert
-              ? `${translate(item.message as string, 'constants')} `
-              : `${item.message}`}
-          </span>
-        )}
+        <div className="flex items-center justify-between">
+          {item.message && item.id !== 'babyagi' ? (
+            <InfoCard alert={isAlert}>
+              <span
+                className={`p-1 font-mono text-xs ${
+                  isAlert
+                    ? 'text-red-400 dark:text-red-600'
+                    : 'text-right text-neutral-500 dark:text-neutral-400'
+                }`}
+              >
+                {isAlert
+                  ? `${translate(item.message as string, 'constants')} `
+                  : item.id !== 'babyagi'
+                  ? linkMessage()
+                  : `${item.message}`}
+              </span>
+            </InfoCard>
+          ) : (
+            <div></div>
+          )}
+          {item.message && !isAlert && (
+            <span className="p-1 font-mono text-xs text-neutral-500 dark:text-neutral-400">
+              {item.message}
+            </span>
+          )}
+        </div>
       </div>
     </div>
   );
