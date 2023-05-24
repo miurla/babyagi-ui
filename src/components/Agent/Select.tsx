@@ -65,9 +65,28 @@ export const Select: FC<Props> = ({ label, item, items, onChange }) => {
   return (
     <div className="relative w-full">
       <div className="flex w-full flex-col text-left text-xs">
-        <label className="mb-1 text-neutral-600 dark:text-neutral-400">
-          {label}
-        </label>
+        <div className="mb-0.5 flex items-center">
+          <label className="text-neutral-600 dark:text-neutral-400">
+            {label}
+          </label>
+          {item.message && item.id !== 'babyagi' ? (
+            <InfoCard alert={isAlert}>
+              <span
+                className={`p-1 font-mono text-xs ${
+                  isAlert
+                    ? 'text-red-400 dark:text-red-600'
+                    : 'text-right text-neutral-500 dark:text-neutral-400'
+                }`}
+              >
+                {isAlert
+                  ? `${translate(item.message as string, 'constants')} `
+                  : item.id !== 'babyagi'
+                  ? linkMessage()
+                  : `${item.message}`}
+              </span>
+            </InfoCard>
+          ) : null}
+        </div>
         <SelectPrimitive.Root onValueChange={onChange} defaultValue={item.id}>
           <SelectPrimitive.Trigger className="focus:shadow-outline inline-flex w-full cursor-pointer appearance-none items-center justify-between rounded-lg border border-neutral-200 p-3 text-xs text-neutral-600 focus:outline-none dark:border-neutral-600 dark:bg-[#343541] dark:text-white">
             <SelectPrimitive.Value>
@@ -114,26 +133,7 @@ export const Select: FC<Props> = ({ label, item, items, onChange }) => {
             </SelectPrimitive.ScrollDownButton>
           </SelectPrimitive.Content>
         </SelectPrimitive.Root>
-        <div className="flex items-center justify-between">
-          {item.message && item.id !== 'babyagi' ? (
-            <InfoCard alert={isAlert}>
-              <span
-                className={`p-1 font-mono text-xs ${
-                  isAlert
-                    ? 'text-red-400 dark:text-red-600'
-                    : 'text-right text-neutral-500 dark:text-neutral-400'
-                }`}
-              >
-                {isAlert
-                  ? `${translate(item.message as string, 'constants')} `
-                  : item.id !== 'babyagi'
-                  ? linkMessage()
-                  : `${item.message}`}
-              </span>
-            </InfoCard>
-          ) : (
-            <div></div>
-          )}
+        <div className="flex items-center justify-end">
           {item.message && !isAlert && (
             <span className="p-1 font-mono text-xs text-neutral-500 dark:text-neutral-400">
               {item.message}
