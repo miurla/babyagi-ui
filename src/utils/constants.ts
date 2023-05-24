@@ -56,5 +56,5 @@ export const AGENT = [
 export const THEME = [
   { id: 'system', name: 'SYSTEM', icon: '🖥️' },
   { id: 'light', name: 'LIGHT', icon: '🌞' },
-  { id: 'dark', name:  'DARK', icon: '🌚' },
+  { id: 'dark', name: 'DARK', icon: '🌚' },
 ];

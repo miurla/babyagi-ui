@@ -6,5 +6,10 @@
   "FEEDBACK_SUBMITTED_TOAST": "Thank you! ✨",
   "DARK": "Dark",
   "LIGHT": "Light",
-  "SYSTEM": "System"
+  "SYSTEM": "System",
+  "NOTIFICATION": "Notification",
+  "NOTIFICATION_LABEL": "🔔 All task completed",
+  "NOTIFICATION_TITLE": "Task completed!",
+  "NOTIFICATION_NOT_SUPPORTED": "This browser does not support desktop notifications.",
+  "NOTIFICATION_DINIED": "You denied the notification permission. Please allow it in the browser settings."
 }

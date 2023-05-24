@@ -20,6 +20,7 @@
     "@radix-ui/react-label": "^2.0.1",
     "@radix-ui/react-popover": "^1.0.5",
     "@radix-ui/react-select": "^1.2.1",
+    "@radix-ui/react-switch": "^1.0.2",
     "@tailwindcss/typography": "^0.5.9",
     "@types/node": "18.15.11",
     "@types/react": "18.0.33",

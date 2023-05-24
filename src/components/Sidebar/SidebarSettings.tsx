@@ -10,6 +10,7 @@ import { useTheme } from 'next-themes';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import { languages } from '@/utils/languages';
+import Switch from './Switch';
 
 export const SidebarSettings: FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,6 +19,14 @@ export const SidebarSettings: FC = () => {
   const [language, setLanguage] = useState(i18n.language);
   const { theme, setTheme } = useTheme();
   const router = useRouter();
+
+  useEffect(() => {
+    const userSettings = localStorage.getItem(SETTINGS_KEY);
+    if (userSettings) {
+      const parsedUserSettings: UserSettings = JSON.parse(userSettings);
+      setSettings(parsedUserSettings);
+    }
+  }, []);
 
   const handleValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
@@ -36,7 +45,10 @@ export const SidebarSettings: FC = () => {
     if (userSettings) {
       // If there is already a value, parse it and merge the new value
       const parsedUserSettings = JSON.parse(userSettings);
-      const mergedSettings = { ...parsedUserSettings, ...settings };
+      const mergedSettings = {
+        ...parsedUserSettings,
+        ...settings,
+      };
       localStorage.setItem(SETTINGS_KEY, JSON.stringify(mergedSettings));
       return;
     }
@@ -54,16 +66,49 @@ export const SidebarSettings: FC = () => {
       .catch(console.error);
   };
 
-  useEffect(() => {
+  const handleNotification = (value: boolean) => {
+    if (!('Notification' in window)) {
+      alert(translate('NOTIFICATION_NOT_SUPPORTED', 'constants'));
+      return;
+    }
+
+    if (Notification.permission === 'denied') {
+      alert(translate('NOTIFICATION_DENIED', 'constants'));
+    }
+
+    if (value) {
+      Notification.requestPermission().then((permission) => {
+        if (permission === 'granted') {
+          setSettings((prev) => ({ ...prev, notifications: value }));
+        }
+      });
+    } else {
+      setSettings((prev) => ({ ...prev, notifications: value }));
+    }
+  };
+
+  const saveNotification = (open: boolean) => {
+    if (open) return;
+
     const userSettings = localStorage.getItem(SETTINGS_KEY);
     if (userSettings) {
-      const parsedUserSettings = JSON.parse(userSettings);
-      setSettings(parsedUserSettings);
+      const parsedUserSettings: UserSettings = JSON.parse(userSettings);
+      const updatedSettings = {
+        ...parsedUserSettings,
+        notifications: settings?.notifications,
+      };
+      localStorage.setItem(SETTINGS_KEY, JSON.stringify(updatedSettings));
     }
-  }, []);
+  };
 
   return (
-    <DialogPrimitive.Root open={isOpen} onOpenChange={setIsOpen}>
+    <DialogPrimitive.Root
+      open={isOpen}
+      onOpenChange={(open) => {
+        setIsOpen(open);
+        saveNotification(open);
+      }}
+    >
       <DialogPrimitive.Trigger asChild>
         <div className="flex w-full cursor-pointer items-center gap-3 rounded-md px-3 py-3 text-white transition-colors duration-200 hover:bg-gray-500/10">
           <div>
@@ -205,6 +250,21 @@ export const SidebarSettings: FC = () => {
                       </option>
                     ))}
                   </select>
+                </fieldset>
+                <fieldset className="flex flex-col items-start space-y-1">
+                  <label
+                    htmlFor="notification"
+                    className="mb-1 text-xs font-medium text-gray-700 dark:text-gray-400"
+                  >
+                    {translate('NOTIFICATION', 'constants')}
+                  </label>
+                  <div className="w-full">
+                    <Switch
+                      label={translate('NOTIFICATION_LABEL', 'constants')}
+                      checked={settings?.notifications ?? false}
+                      onCheckedChange={(checked) => handleNotification(checked)}
+                    />
+                  </div>
                 </fieldset>
               </form>
               <DialogPrimitive.Close

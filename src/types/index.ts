@@ -66,6 +66,7 @@ export type AgentStatusType =
 
 export type UserSettings = {
   openAIApiKey?: string;
+  notifications?: boolean;
 };
 
 export type ToolType = 'web-scrape' | 'web-search' | 'text-completion';
