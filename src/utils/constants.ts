@@ -41,20 +41,20 @@ export const AGENT = [
     id: 'babycatagi',
     name: 'BabyCatAGI',
     icon: '🐱',
-    message: 'TOOLS: 🤖/🔎+📄',
+    message: '🤖/🔎+📄',
     badge: 'NEW',
   },
   {
     id: 'babybeeagi',
     name: 'BabyBeeAGI',
     icon: '🐝',
-    message: 'TOOLS: 🤖/🔎/📄',
+    message: '🤖/🔎/📄',
   },
-  { id: 'babyagi', name: 'BabyAGI', icon: '👶', message: 'TOOLS: 🤖' },
+  { id: 'babyagi', name: 'BabyAGI', icon: '👶', message: '🤖' },
 ];
 
 export const THEME = [
   { id: 'system', name: 'SYSTEM', icon: '🖥️' },
   { id: 'light', name: 'LIGHT', icon: '🌞' },
-  { id: 'dark', name:  'DARK', icon: '🌚' },
+  { id: 'dark', name: 'DARK', icon: '🌚' },
 ];
