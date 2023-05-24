@@ -82,24 +82,6 @@ export const AgentParameter: FC<AgentParameterProps> = ({
           ></input>
         </div>
       )}
-      {agent.id !== 'babyagi' && (
-        <div className="flex w-full flex-col rounded bg-neutral-50 p-2 dark:bg-neutral-600 dark:bg-opacity-20">
-          <label className="pl-1 text-xs text-neutral-400 dark:text-neutral-400">
-            {translate('DESCRIPTION_BABYAGI')} {translate('FOR_MORE_DETAILS')}
-            <Link
-              href={
-                'https://twitter.com/yoheinakajima/status/1657448504112091136'
-              }
-              passHref
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline"
-            >
-              {translate('REFER_TO_THE_ORIGINAL_PAPER')}
-            </Link>
-          </label>
-        </div>
-      )}
     </div>
   );
 };
