@@ -352,11 +352,38 @@ class Translator {
   async detectAllowedLocales() {
     // Detect the allowed locales by analyzing the i18n config file and then return an array of detected locales
     return [
-      'pt',
+      'br',
       'de',
       'es',
       'fr',
-      'hi'
+      'hi',
+      'hu',
+      'ja',
+      'ru',
+      'th',
+      'en',
+      'ko',
+      'pt',
+      'pt-BR',
+      'ar',
+      'ar-SA',
+      'id',
+      'it',
+      'uk',
+      'zh',
+      'vi',
+      'au',
+      'gb',
+      'lt',
+      'cs',
+      'el',
+      'sv',
+      'da',
+      'fi',
+      'no',
+      'tr',
+      'tw',
+      'bg',
     ]; // test
   }
 
