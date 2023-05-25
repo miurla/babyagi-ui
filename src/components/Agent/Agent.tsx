@@ -215,8 +215,6 @@ export const Agent: FC = () => {
   };
 
   const copyHandler = () => {
-    taskCompletedNotification(objective);
-
     navigator.clipboard.writeText(getExportText(messages));
     toast.success(translate('COPIED_TO_CLIPBOARD', 'agent'));
 
