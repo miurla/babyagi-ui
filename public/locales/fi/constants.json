@@ -6,5 +6,10 @@
   "INFINITY": "ääretön",
   "LIGHT": "Kevyt",
   "SYSTEM": "Järjestelmä",
-  "UNTIL_ALL_TASKS_COMPLETED": "Kunnes Kaikki tehtävät on suoritettu"
+  "UNTIL_ALL_TASKS_COMPLETED": "Kunnes Kaikki tehtävät on suoritettu",
+  "NOTIFICATION": "Ilmoitus",
+  "NOTIFICATION_LABEL": "🔔 Kaikki tehtävät suoritettu",
+  "NOTIFICATION_TITLE": "Tehtävä suoritettu!",
+  "NOTIFICATION_NOT_SUPPORTED": "Tämä selain ei tue työpöytäilmoituksia.",
+  "NOTIFICATION_DINIED": "Kielsit ilmoitusluvan. Salli se selaimen asetuksissa."
 }

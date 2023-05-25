@@ -6,5 +6,10 @@
   "INFINITY": "Sonsuzluk",
   "LIGHT": "Işık",
   "SYSTEM": "sistem",
-  "UNTIL_ALL_TASKS_COMPLETED": "Tüm görevler tamamlanana kadar"
+  "UNTIL_ALL_TASKS_COMPLETED": "Tüm görevler tamamlanana kadar",
+  "NOTIFICATION": "Bildirim",
+  "NOTIFICATION_LABEL": "🔔 Tüm görevler tamamlandı",
+  "NOTIFICATION_TITLE": "Görev tamamlandı!",
+  "NOTIFICATION_NOT_SUPPORTED": "Bu tarayıcı masaüstü bildirimlerini desteklemiyor.",
+  "NOTIFICATION_DINIED": "Bildirim iznini reddettiniz. Lütfen tarayıcı ayarlarında izin verin."
 }

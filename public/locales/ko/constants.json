@@ -6,5 +6,10 @@
   "INFINITY": "무한대",
   "LIGHT": "빛",
   "SYSTEM": "체계",
-  "UNTIL_ALL_TASKS_COMPLETED": "모든 작업이 완료될 때까지"
+  "UNTIL_ALL_TASKS_COMPLETED": "모든 작업이 완료될 때까지",
+  "NOTIFICATION": "알림",
+  "NOTIFICATION_LABEL": "🔔 모든 작업 완료",
+  "NOTIFICATION_TITLE": "작업 완료!",
+  "NOTIFICATION_NOT_SUPPORTED": "이 브라우저는 데스크톱 알림을 지원하지 않습니다.",
+  "NOTIFICATION_DINIED": "알림 권한을 거부���습니다. 브라우저 설정에서 허용해 주세요."
 }

@@ -6,5 +6,10 @@
   "INFINITY": "Uendelighed",
   "LIGHT": "Lys",
   "SYSTEM": "System",
-  "UNTIL_ALL_TASKS_COMPLETED": "Indtil alle opgaver er udført"
+  "UNTIL_ALL_TASKS_COMPLETED": "Indtil alle opgaver er udført",
+  "NOTIFICATION": "Notifikation",
+  "NOTIFICATION_LABEL": "🔔 Alle opgaver er fuldført",
+  "NOTIFICATION_TITLE": "Opgave fuldført!",
+  "NOTIFICATION_NOT_SUPPORTED": "Denne browser understøtter ikke skrivebordsnotifikationer.",
+  "NOTIFICATION_DINIED": "Du nægtede notifikationstilladelsen. Tillad det venligst i browserindstillingerne."
 }

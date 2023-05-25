@@ -1,10 +1,11 @@
 {
-  "DARK": "",
-  "FEEDBACK_MESSAGE": "",
-  "FEEDBACK_SUBMITTED_TOAST": "",
-  "GPT_4_WARNING": "",
-  "INFINITY": "",
-  "LIGHT": "",
-  "SYSTEM": "",
-  "UNTIL_ALL_TASKS_COMPLETED": ""
+  "FEEDBACK_MESSAGE": "Este botão compartilha os resultados de execução com o desenvolvedor.",
+  "FEEDBACK_SUBMITTED_TOAST": "Obrigado! ✨",
+  "INFINITY": "Infinito.",
+  "NOTIFICATION": "Notificação",
+  "NOTIFICATION_DENIED": "MISSING_TRANSLATION",
+  "NOTIFICATION_LABEL": "Todas as tarefas completas 🔔",
+  "NOTIFICATION_NOT_SUPPORTED": "Este navegador não suporta notificações na área de trabalho.",
+  "NOTIFICATION_TITLE": "Tarefa concluída!",
+  "UNTIL_ALL_TASKS_COMPLETED": "Até que todas as tarefas sejam concluídas."
 }

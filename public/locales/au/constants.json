@@ -6,5 +6,10 @@
   "INFINITY": "Infinity",
   "LIGHT": "Light",
   "SYSTEM": "System",
-  "UNTIL_ALL_TASKS_COMPLETED": "Until All tasks completed"
+  "UNTIL_ALL_TASKS_COMPLETED": "Until All tasks completed",
+  "NOTIFICATION": "Notification",
+  "NOTIFICATION_LABEL": "🔔 All task completed",
+  "NOTIFICATION_TITLE": "Task completed!",
+  "NOTIFICATION_NOT_SUPPORTED": "This browser does not support desktop notifications.",
+  "NOTIFICATION_DINIED": "You denied the notification permission. Please allow it in the browser settings."
 }

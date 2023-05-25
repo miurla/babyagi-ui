@@ -6,5 +6,10 @@
   "INFINITY": "无穷",
   "LIGHT": "光",
   "SYSTEM": "系统",
-  "UNTIL_ALL_TASKS_COMPLETED": "直到所有任务完成"
+  "UNTIL_ALL_TASKS_COMPLETED": "直到所有任务完成",
+  "NOTIFICATION": "通知",
+  "NOTIFICATION_LABEL": "🔔 所有任务已完成",
+  "NOTIFICATION_TITLE": "任务完成！",
+  "NOTIFICATION_NOT_SUPPORTED": "此浏览器不支持桌面通知。",
+  "NOTIFICATION_DINIED": "您拒绝了通知权限。请在浏览器设置中允许。"
 }

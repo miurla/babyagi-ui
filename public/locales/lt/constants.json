@@ -6,5 +6,10 @@
   "INFINITY": "Begalybė",
   "LIGHT": "Šviesa",
   "SYSTEM": "Sistema",
-  "UNTIL_ALL_TASKS_COMPLETED": "Kol visos užduotys bus baigtos"
+  "UNTIL_ALL_TASKS_COMPLETED": "Kol visos užduotys bus baigtos",
+  "NOTIFICATION": "Pranešimas",
+  "NOTIFICATION_LABEL": "🔔 Visos užduotys atliktos",
+  "NOTIFICATION_TITLE": "Užduotis atlikta!",
+  "NOTIFICATION_NOT_SUPPORTED": "Ši naršyklė nepalaiko darbalaukio pranešimų.",
+  "NOTIFICATION_DINIED": "Jūs atmetėte pranešimo leidimą. Prašome leisti tai naršyklės nustatymuose."
 }

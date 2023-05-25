@@ -6,5 +6,10 @@
   "INFINITY": "אינסוף",
   "LIGHT": "אוֹר",
   "SYSTEM": "מערכת",
-  "UNTIL_ALL_TASKS_COMPLETED": "עד להשלמת כל המשימות"
+  "UNTIL_ALL_TASKS_COMPLETED": "עד להשלמת כל המשימות",
+  "NOTIFICATION": "התראה",
+  "NOTIFICATION_LABEL": "🔔 כל המשימות הושלמו",
+  "NOTIFICATION_TITLE": "המשימה הושלמה!",
+  "NOTIFICATION_NOT_SUPPORTED": "דפדפן זה אינו תומך בהתראות שולחן העבודה.",
+  "NOTIFICATION_DINIED": "דחית את הרשאת ההתראה. אנא אפשר זאת בהגדרות הדפדפן."
 }

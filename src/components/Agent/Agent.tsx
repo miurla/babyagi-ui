@@ -24,7 +24,7 @@ import { useExecutionStatus } from '@/hooks/useExecutionStatus';
 import { translate } from '../../utils/translate';
 import { AgentMessageFooter } from './AgentMessageFooter';
 import axios from 'axios';
-import { AgentCollapsible } from './AgentCollapsible';
+import { taskCompletedNotification } from '@/utils/notification';
 
 export const Agent: FC = () => {
   const [model, setModel] = useState<SelectItem>(MODELS[0]);
@@ -118,8 +118,9 @@ export const Agent: FC = () => {
     setMessages((messages) => [...messages, message]);
 
     // show toast notification
-    if (message.type === 'complete') {
+    if (message.type === 'complete' || message.type === 'end-of-iterations') {
       toast.success(translate('ALL_TASKS_COMPLETED_TOAST', 'agent'));
+      taskCompletedNotification(objective);
     } else if (message.type === 'done') {
       toast.success(translate('TASK_COMPLETED_TOAST', 'agent'));
     }
@@ -203,6 +204,8 @@ export const Agent: FC = () => {
   };
 
   const copyHandler = () => {
+    taskCompletedNotification(objective);
+
     navigator.clipboard.writeText(getExportText(messages));
     toast.success(translate('COPIED_TO_CLIPBOARD', 'agent'));
   };

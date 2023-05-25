@@ -6,5 +6,10 @@
   "INFINITY": "Nekonečno",
   "LIGHT": "Svetlo",
   "SYSTEM": "Systém",
-  "UNTIL_ALL_TASKS_COMPLETED": "Do dokončenia všetkých úloh"
+  "UNTIL_ALL_TASKS_COMPLETED": "Do dokončenia všetkých úloh",
+  "NOTIFICATION": "Oznámenie",
+  "NOTIFICATION_LABEL": "🔔 Všetky úlohy dokončené",
+  "NOTIFICATION_TITLE": "Úloha dokončená!",
+  "NOTIFICATION_NOT_SUPPORTED": "Tento prehliadač nepodporuje oznámenia na pracovnej ploche.",
+  "NOTIFICATION_DINIED": "Odmietli ste povolenie oznámenia. Povolte ho v nastaveniach prehliadača."
 }

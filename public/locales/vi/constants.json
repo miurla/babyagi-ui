@@ -6,5 +6,10 @@
   "INFINITY": "vô cực",
   "LIGHT": "Ánh sáng",
   "SYSTEM": "Hệ thống",
-  "UNTIL_ALL_TASKS_COMPLETED": "Cho đến khi tất cả các nhiệm vụ hoàn thành"
+  "UNTIL_ALL_TASKS_COMPLETED": "Cho đến khi tất cả các nhiệm vụ hoàn thành",
+  "NOTIFICATION": "Thông báo",
+  "NOTIFICATION_LABEL": "🔔 Tất cả các nhiệm vụ đã hoàn thành",
+  "NOTIFICATION_TITLE": "Nhiệm vụ hoàn thành!",
+  "NOTIFICATION_NOT_SUPPORTED": "Trình duyệt này không hỗ trợ thông báo máy tính để bàn.",
+  "NOTIFICATION_DINIED": "Bạn đã từ chối quyền thông báo. Vui lòng cho phép trong cài đặt trình duyệt."
 }

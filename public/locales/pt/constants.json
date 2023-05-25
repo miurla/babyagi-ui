@@ -6,5 +6,10 @@
   "INFINITY": "Infinidade",
   "LIGHT": "Luz",
   "SYSTEM": "Sistema",
-  "UNTIL_ALL_TASKS_COMPLETED": "Até que todas as tarefas sejam concluídas"
+  "UNTIL_ALL_TASKS_COMPLETED": "Até que todas as tarefas sejam concluídas",
+  "NOTIFICATION": "Notificação",
+  "NOTIFICATION_LABEL": "🔔 Todas as tarefas concluídas",
+  "NOTIFICATION_TITLE": "Tarefa concluída!",
+  "NOTIFICATION_NOT_SUPPORTED": "Este navegador não suporta notificações de desktop.",
+  "NOTIFICATION_DINIED": "Você negou a permissão de notificação. Por favor, permita nas configurações do navegador."
 }

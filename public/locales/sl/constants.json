@@ -6,5 +6,10 @@
   "INFINITY": "neskončnost",
   "LIGHT": "Svetloba",
   "SYSTEM": "Sistem",
-  "UNTIL_ALL_TASKS_COMPLETED": "Do dokončanja vseh nalog"
+  "UNTIL_ALL_TASKS_COMPLETED": "Do dokončanja vseh nalog",
+  "NOTIFICATION": "Obvestilo",
+  "NOTIFICATION_LABEL": "🔔 Vse naloge dokončane",
+  "NOTIFICATION_TITLE": "Naloga dokončana!",
+  "NOTIFICATION_NOT_SUPPORTED": "Ta brskalnik ne podpira obvestil na namizju.",
+  "NOTIFICATION_DINIED": "Zavrnili ste dovoljenje za obvestila. Dovolite to v nastavitvah brskalnika."
 }

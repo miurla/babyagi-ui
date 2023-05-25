@@ -6,5 +6,10 @@
   "INFINITY": "Unendlichkeit",
   "LIGHT": "Hell",
   "SYSTEM": "System",
-  "UNTIL_ALL_TASKS_COMPLETED": "Bis alle Aufgaben abgeschlossen sind"
+  "UNTIL_ALL_TASKS_COMPLETED": "Bis alle Aufgaben abgeschlossen sind",
+  "NOTIFICATION": "Benachrichtigung",
+  "NOTIFICATION_LABEL": "🔔 Alle Aufgaben abgeschlossen",
+  "NOTIFICATION_TITLE": "Aufgabe abgeschlossen!",
+  "NOTIFICATION_NOT_SUPPORTED": "Dieser Browser unterstützt keine Desktop-Benachrichtigungen.",
+  "NOTIFICATION_DINIED": "Sie haben die Benachrichtigungserlaubnis verweigert. Bitte erlauben Sie es in den Browsereinstellungen."
 }

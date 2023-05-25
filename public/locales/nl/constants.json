@@ -6,5 +6,10 @@
   "INFINITY": "Oneindigheid",
   "LIGHT": "Licht",
   "SYSTEM": "Systeem",
-  "UNTIL_ALL_TASKS_COMPLETED": "Totdat alle taken zijn voltooid"
+  "UNTIL_ALL_TASKS_COMPLETED": "Totdat alle taken zijn voltooid",
+  "NOTIFICATION": "Melding",
+  "NOTIFICATION_LABEL": "🔔 Alle taken voltooid",
+  "NOTIFICATION_TITLE": "Taak voltooid!",
+  "NOTIFICATION_NOT_SUPPORTED": "Deze browser ondersteunt geen desktopmeldingen.",
+  "NOTIFICATION_DINIED": "U heeft de meldingstoestemming geweigerd. Sta dit toe in de browserinstellingen."
 }

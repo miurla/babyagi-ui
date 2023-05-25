@@ -6,5 +6,10 @@
   "INFINITY": "Bezgalība",
   "LIGHT": "Gaisma",
   "SYSTEM": "Sistēma",
-  "UNTIL_ALL_TASKS_COMPLETED": "Līdz visi uzdevumi ir pabeigti"
+  "UNTIL_ALL_TASKS_COMPLETED": "Līdz visi uzdevumi ir pabeigti",
+  "NOTIFICATION": "Paziņojums",
+  "NOTIFICATION_LABEL": "🔔 Visi uzdevumi pabeigti",
+  "NOTIFICATION_TITLE": "Uzdevums pabeigts!",
+  "NOTIFICATION_NOT_SUPPORTED": "Šī pārlūkprogramma neatbalsta darbvirsmas paziņojumus.",
+  "NOTIFICATION_DINIED": "Jūs atteicāties no paziņojumu atļaujas. Lūdzu, atļaujiet to pārlūkprogrammas iestatījumos."
 }
