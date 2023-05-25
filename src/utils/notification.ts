@@ -1,5 +1,6 @@
 import { SETTINGS_KEY } from './constants';
 import { translate } from './translate';
+import va from '@vercel/analytics';
 
 export const showNotification = (
   title: string,
@@ -29,4 +30,5 @@ export const taskCompletedNotification = (objective: string) => {
     body: `🎯 ${objective}`,
     icon: '/images/complete.png',
   });
+  va.track('Notification', { type: 'taskCompleted' });
 };
