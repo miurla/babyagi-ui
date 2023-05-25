@@ -1,4 +1,5 @@
 import { FC, useCallback, useEffect, useRef, useState } from 'react';
+import va from '@vercel/analytics';
 import {
   AgentStatus,
   AgentType,
@@ -190,17 +191,27 @@ export const Agent: FC = () => {
     }
     setAgent(agent);
     agent?.start();
+
+    va.track('start', {
+      model: model.id,
+      agent: selectedAgent.id,
+      iterations: iterations.id,
+    });
   };
 
   const stopHandler = () => {
     setExecuting(false);
     agent?.stop();
+
+    va.track('stop');
   };
 
   const clearHandler = () => {
     setMessages([]);
     selectExecution(undefined);
     setAgentStatus({ type: 'ready' });
+
+    va.track('New');
   };
 
   const copyHandler = () => {
@@ -208,6 +219,8 @@ export const Agent: FC = () => {
 
     navigator.clipboard.writeText(getExportText(messages));
     toast.success(translate('COPIED_TO_CLIPBOARD', 'agent'));
+
+    va.track('CopyToClipboard');
   };
 
   const downloadHandler = () => {
@@ -219,6 +232,8 @@ export const Agent: FC = () => {
     element.download = `${objective.replace(/\s/g, '_')}.txt`;
     document.body.appendChild(element);
     element.click();
+
+    va.track('Download');
   };
 
   const feedbackHandler = (isGood: boolean) => {
