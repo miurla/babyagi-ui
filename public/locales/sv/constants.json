@@ -6,5 +6,10 @@
   "INFINITY": "Oändlighet",
   "LIGHT": "Ljus",
   "SYSTEM": "Systemet",
-  "UNTIL_ALL_TASKS_COMPLETED": "Tills alla uppgifter är klara"
+  "UNTIL_ALL_TASKS_COMPLETED": "Tills alla uppgifter är klara",
+  "NOTIFICATION": "Notifikation",
+  "NOTIFICATION_LABEL": "🔔 Alla uppgifter slutförda",
+  "NOTIFICATION_TITLE": "Uppgift slutförd!",
+  "NOTIFICATION_NOT_SUPPORTED": "Denna webbläsare stöder inte skrivbordsaviseringar.",
+  "NOTIFICATION_DINIED": "Du nekade aviseringstillståndet. Vänligen tillåt det i webbläsarinställningarna."
 }

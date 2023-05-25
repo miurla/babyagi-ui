@@ -6,5 +6,10 @@
   "INFINITY": "Infinito",
   "LIGHT": "Leggero",
   "SYSTEM": "Sistema",
-  "UNTIL_ALL_TASKS_COMPLETED": "Fino al completamento di tutte le attività"
+  "UNTIL_ALL_TASKS_COMPLETED": "Fino al completamento di tutte le attività",
+  "NOTIFICATION": "Notifica",
+  "NOTIFICATION_LABEL": "🔔 Tutti i compiti completati",
+  "NOTIFICATION_TITLE": "Compito completato!",
+  "NOTIFICATION_NOT_SUPPORTED": "Questo browser non supporta le notifiche desktop.",
+  "NOTIFICATION_DINIED": "Hai negato il permesso di notifica. Si prega di consentirlo nelle impostazioni del browser."
 }

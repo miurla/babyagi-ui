@@ -6,5 +6,10 @@
   "INFINITY": "Infini",
   "LIGHT": "Lumière",
   "SYSTEM": "Système",
-  "UNTIL_ALL_TASKS_COMPLETED": "Jusqu'à ce que toutes les tâches soient terminées"
+  "UNTIL_ALL_TASKS_COMPLETED": "Jusqu'à ce que toutes les tâches soient terminées",
+  "NOTIFICATION": "Notification",
+  "NOTIFICATION_LABEL": "🔔 Toutes les tâches terminées",
+  "NOTIFICATION_TITLE": "Tâche terminée !",
+  "NOTIFICATION_NOT_SUPPORTED": "Ce navigateur ne prend pas en charge les notifications de bureau.",
+  "NOTIFICATION_DINIED": "Vous avez refusé l'autorisation de notification. Veuillez l'autoriser dans les paramètres du navigateur."
 }

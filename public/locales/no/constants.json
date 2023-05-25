@@ -6,5 +6,10 @@
   "INFINITY": "evighet",
   "LIGHT": "Lys",
   "SYSTEM": "System",
-  "UNTIL_ALL_TASKS_COMPLETED": "Inntil alle oppgaver er fullført"
+  "UNTIL_ALL_TASKS_COMPLETED": "Inntil alle oppgaver er fullført",
+  "NOTIFICATION": "Varsel",
+  "NOTIFICATION_LABEL": "🔔 Alle oppgaver fullført",
+  "NOTIFICATION_TITLE": "Oppgave fullført!",
+  "NOTIFICATION_NOT_SUPPORTED": "Denne nettleseren støtter ikke skrivebordsvarsler.",
+  "NOTIFICATION_DINIED": "Du nektet varslingsrettigheten. Vennligst tillat det i nettleserinnstillingene."
 }

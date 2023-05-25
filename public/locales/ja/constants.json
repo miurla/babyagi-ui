@@ -6,5 +6,11 @@
   "INFINITY": "無限",
   "LIGHT": "ライト",
   "SYSTEM": "システム",
-  "UNTIL_ALL_TASKS_COMPLETED": "すべてのタスクが完了するまで"
+  "UNTIL_ALL_TASKS_COMPLETED": "すべてのタスクが完了するまで",
+  "NOTIFICATION": "通知",
+  "NOTIFICATION_LABEL": "🔔 すべてのタスクが完了しました",
+  "NOTIFICATION_TITLE": "タスクが完了しました",
+  "NOTIFICATION_MESSAGE": "すべてのタスクが完了しました。",
+  "NOTIFICATION_NOT_SUPPORTED": "このブラウザはデスクトップ通知に対応していません。",
+  "NOTIFICATION_DINIED": "通知の許可が拒否されました。ブラウザの設定で許可してください。"
 }

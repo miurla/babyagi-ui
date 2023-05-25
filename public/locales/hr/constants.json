@@ -6,5 +6,10 @@
   "INFINITY": "Beskonačnost",
   "LIGHT": "Svjetlo",
   "SYSTEM": "Sustav",
-  "UNTIL_ALL_TASKS_COMPLETED": "Do završetka svih zadataka"
+  "UNTIL_ALL_TASKS_COMPLETED": "Do završetka svih zadataka",
+  "NOTIFICATION": "Obavijest",
+  "NOTIFICATION_LABEL": "🔔 Svi zadaci završeni",
+  "NOTIFICATION_TITLE": "Zadatak završen!",
+  "NOTIFICATION_NOT_SUPPORTED": "Ovaj preglednik ne podržava obavijesti na radnoj površini.",
+  "NOTIFICATION_DINIED": "Odbili ste dopuštenje za obavijesti. Dopustite to u postavkama preglednika."
 }

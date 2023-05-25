@@ -6,5 +6,10 @@
   "INFINITY": "Nieskończoność",
   "LIGHT": "Światło",
   "SYSTEM": "System",
-  "UNTIL_ALL_TASKS_COMPLETED": "Do zakończenia wszystkich zadań"
+  "UNTIL_ALL_TASKS_COMPLETED": "Do zakończenia wszystkich zadań",
+  "NOTIFICATION": "Powiadomienie",
+  "NOTIFICATION_LABEL": "🔔 Wszystkie zadania zakończone",
+  "NOTIFICATION_TITLE": "Zadanie zakończone!",
+  "NOTIFICATION_NOT_SUPPORTED": "Ta przeglądarka nie obsługuje powiadomień na pulpicie.",
+  "NOTIFICATION_DINIED": "Odmówiłeś zgody na powiadomienia. Proszę zezwolić na to w ustawieniach przeglądarki."
 }

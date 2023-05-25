@@ -6,5 +6,10 @@
   "FEEDBACK_SUBMITTED_TOAST": "Köszönöm! ✨",
   "DARK": "Sötét",
   "LIGHT": "Világos",
-  "SYSTEM": "Rendszer"
+  "SYSTEM": "Rendszer",
+  "NOTIFICATION": "Értesítés",
+  "NOTIFICATION_LABEL": "🔔 Az összes feladat befejeződött",
+  "NOTIFICATION_TITLE": "Feladat befejezve!",
+  "NOTIFICATION_NOT_SUPPORTED": "Ez a böngésző nem támogatja az asztali értesítéseket.",
+  "NOTIFICATION_DINIED": "Elutasította az értesítési engedélyt. Kérjük, engedélyezze azt a böngésző beállításaiban."
 }

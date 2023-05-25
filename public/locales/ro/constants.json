@@ -6,5 +6,10 @@
   "INFINITY": "Infinit",
   "LIGHT": "Ușoară",
   "SYSTEM": "Sistem",
-  "UNTIL_ALL_TASKS_COMPLETED": "Până la finalizarea tuturor sarcinilor"
+  "UNTIL_ALL_TASKS_COMPLETED": "Până la finalizarea tuturor sarcinilor",
+  "NOTIFICATION": "Notificare",
+  "NOTIFICATION_LABEL": "🔔 Toate sarcinile finalizate",
+  "NOTIFICATION_TITLE": "Sarcină finalizată!",
+  "NOTIFICATION_NOT_SUPPORTED": "Acest browser nu suportă notificări pe desktop.",
+  "NOTIFICATION_DINIED": "Ați refuzat permisiunea de notificare. Vă rugăm să o permiteți în setările browserului."
 }
