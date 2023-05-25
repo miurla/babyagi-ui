@@ -13,7 +13,7 @@ export const InfoCard: React.FC<HoverCardProps> = ({ children, alert }) => {
       <HoverCard.Trigger>
         <div
           className={clsx(
-            'inline-flex cursor-pointer items-center justify-center rounded p-2',
+            'inline-flex cursor-pointer items-center justify-center rounded p-1',
           )}
         >
           <InfoCircledIcon
@@ -29,7 +29,7 @@ export const InfoCard: React.FC<HoverCardProps> = ({ children, alert }) => {
         align="start"
         sideOffset={4}
         className={clsx(
-          'w-72 rounded p-2',
+          'z-30 w-72 rounded p-2',
           'bg-neutral-50 dark:bg-neutral-800',
         )}
       >

@@ -41,16 +41,16 @@ export const AGENT = [
     id: 'babycatagi',
     name: 'BabyCatAGI',
     icon: '🐱',
-    message: 'TOOLS: 🤖/🔎+📄',
+    message: '🤖/🔎+📄',
     badge: 'NEW',
   },
   {
     id: 'babybeeagi',
     name: 'BabyBeeAGI',
     icon: '🐝',
-    message: 'TOOLS: 🤖/🔎/📄',
+    message: '🤖/🔎/📄',
   },
-  { id: 'babyagi', name: 'BabyAGI', icon: '👶', message: 'TOOLS: 🤖' },
+  { id: 'babyagi', name: 'BabyAGI', icon: '👶', message: '🤖' },
 ];
 
 export const THEME = [
