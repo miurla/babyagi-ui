@@ -66,7 +66,7 @@ export const Select: FC<Props> = ({ label, item, items, onChange }) => {
     <div className="relative w-full">
       <div className="flex w-full flex-col text-left text-xs">
         <div className="mb-0.5 flex items-center">
-          <label className="text-neutral-600 dark:text-neutral-400">
+          <label className="text-neutral-400 dark:text-neutral-500">
             {label}
           </label>
           {item.message && item.id !== 'babyagi' ? (
