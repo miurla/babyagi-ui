@@ -38,7 +38,7 @@ export const AgentParameter: FC<AgentParameterProps> = ({
 
   return (
     <div className="mx-auto flex flex-col items-start space-y-3 p-4 pt-12 lg:w-2/3 xl:w-2/4">
-      <div className="z-10 flex w-full items-start justify-center gap-2">
+      <div className="z-20 flex w-full items-start justify-center gap-2">
         <Select
           label={translate('MODEL')}
           item={model}
@@ -57,7 +57,7 @@ export const AgentParameter: FC<AgentParameterProps> = ({
         />
       </div>
       {agent.id === 'babyagi' && (
-        <div className="z-20 flex w-1/2 items-start pr-1 pt-2">
+        <div className="z-10 flex w-1/2 items-start pr-1">
           <Select
             label={translate('ITERATIONS')}
             item={iterations}
@@ -72,7 +72,7 @@ export const AgentParameter: FC<AgentParameterProps> = ({
       )}
       {agent.id !== 'babycatagi' && (
         <div className="flex w-full flex-col">
-          <label className="mb-2 text-left text-xs text-neutral-700 dark:text-neutral-400">
+          <label className="mb-2 text-left text-xs text-neutral-400 dark:text-neutral-500">
             {translate('FIRST_TASK')}
           </label>
           <input
