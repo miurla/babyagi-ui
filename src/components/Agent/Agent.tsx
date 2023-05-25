@@ -192,7 +192,7 @@ export const Agent: FC = () => {
     setAgent(agent);
     agent?.start();
 
-    va.track('start', {
+    va.track('Start', {
       model: model.id,
       agent: selectedAgent.id,
       iterations: iterations.id,
@@ -203,7 +203,7 @@ export const Agent: FC = () => {
     setExecuting(false);
     agent?.stop();
 
-    va.track('stop');
+    va.track('Stop');
   };
 
   const clearHandler = () => {
