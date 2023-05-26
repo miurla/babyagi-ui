@@ -372,7 +372,7 @@ export const Agent: FC = () => {
         evaluation={currentEvaluation()}
       />
       {isExecuting && messages.length > 0 && (
-        <div className="invisible fixed right-10 top-10 z-50 md:visible">
+        <div className="invisible fixed right-10 top-10 z-10 md:visible">
           <MessageSummaryCard messages={messages} />
         </div>
       )}
