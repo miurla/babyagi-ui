@@ -11,7 +11,7 @@ export const ProjectTile: FC = () => {
   }, []);
 
   return (
-    <div className="flex h-full select-none flex-col items-center justify-center gap-2 text-3xl font-semibold text-neutral-300 dark:text-neutral-500 md:text-4xl">
+    <div className="flex h-full select-none flex-col items-center justify-center gap-2 p-2 text-3xl font-semibold text-neutral-300 dark:text-neutral-500 md:text-4xl">
       <div className="inline-flex items-center gap-2">
         BabyAGI{' '}
         <span className="rounded bg-blue-200 px-1 text-lg text-blue-600 dark:bg-blue-500 dark:bg-opacity-30 dark:text-blue-300 md:text-2xl">

@@ -20,5 +20,7 @@
   "TASK_RESULT_SUMMARY": "Tehtävän tulosten yhteenveto",
   "TERMINATING": "Lopetetaan...",
   "THINKING": "Ajattelu...",
-  "UPDATING": "♻️ Tehtävää päivitetään..."
+  "UPDATING": "♻️ Tehtävää päivitetään...",
+  "CURRENT_TASK": "Current Task\" in Finnish is \"Nykyinen tehtävä\".",
+  "CURRENT_TASK_LIST": "Nykyinen tehtäväluettelo"
 }

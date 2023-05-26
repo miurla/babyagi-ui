@@ -157,3 +157,17 @@ export const getExportText = (messages: Message[]) => {
     .join('\n\n');
   return text;
 };
+
+export const getMessageSummaryTitle = (message?: Message) => {
+  if (!message) return '';
+
+  if (message.type === 'next-task') {
+    return translate('CURRENT_TASK', 'message');
+  } else if (message.type === 'task-list') {
+    return translate('CURRENT_TASK_LIST', 'message');
+  } else if (message.type === 'objective') {
+    return translate('OBJECTIVE', 'message');
+  } else {
+    return '';
+  }
+};

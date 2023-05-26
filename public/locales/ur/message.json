@@ -20,5 +20,7 @@
   "TASK_RESULT_SUMMARY": "ٹاسک کے نتائج کا خلاصہ",
   "TERMINATING": "ختم ہو رہا ہے...",
   "THINKING": "سوچنا...",
-  "UPDATING": "♻️ ٹاسک اپ ڈیٹ ہو رہا ہے..."
+  "UPDATING": "♻️ ٹاسک اپ ڈیٹ ہو رہا ہے...",
+  "CURRENT_TASK": "موجودہ کام",
+  "CURRENT_TASK_LIST": "فعلی ٹاسک کی فہرست"
 }

@@ -20,5 +20,7 @@
   "TASK_RESULT_SUMMARY": "Rezumatul rezultatelor sarcinii",
   "TERMINATING": "Se încheie...",
   "THINKING": "Gândire...",
-  "UPDATING": "♻️ Actualizarea sarcinilor..."
+  "UPDATING": "♻️ Actualizarea sarcinilor...",
+  "CURRENT_TASK": "Sarcina curentă.",
+  "CURRENT_TASK_LIST": "Lista actuală de sarcini."
 }

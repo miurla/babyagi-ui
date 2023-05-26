@@ -19,5 +19,8 @@
   "TASK_RESULT_SUMMARY": "任務結果摘要",
   "TERMINATING": "正在終止...",
   "THINKING": "思考中...",
-  "UPDATING": "♻️ 任務正在更新中…"
+  "UPDATING": "♻️ 任務正在更新中…",
+  "OBJECTIVE": "目標",
+  "CURRENT_TASK": "目前任務",
+  "CURRENT_TASK_LIST": "當前任務清單"
 }

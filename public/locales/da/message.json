@@ -20,5 +20,7 @@
   "TASK_RESULT_SUMMARY": "Opgaveresultatoversigt",
   "TERMINATING": "Afslutter...",
   "THINKING": "Tænker...",
-  "UPDATING": "♻️ Opgaveopdatering..."
+  "UPDATING": "♻️ Opgaveopdatering...",
+  "CURRENT_TASK": "Nuværende opgave",
+  "CURRENT_TASK_LIST": "Nuværende opgaveliste"
 }

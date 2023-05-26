@@ -19,5 +19,7 @@
   "SUMMARY": "總結",
   "Stop": "停止",
   "THEME": "主題",
-  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 您必須在設置菜單中設置OpenAI API金鑰。"
+  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 您必須在設置菜單中設置OpenAI API金鑰。",
+  "DARK_MODE": "暗黑模式",
+  "LIGHT_MODE": "明亮模式"
 }

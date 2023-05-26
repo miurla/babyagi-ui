@@ -20,5 +20,7 @@
   "TASK_RESULT_SUMMARY": "Riepilogo dei risultati dell'attività",
   "TERMINATING": "Chiusura...",
   "THINKING": "Pensiero...",
-  "UPDATING": "♻️ Aggiornamento attività..."
+  "UPDATING": "♻️ Aggiornamento attività...",
+  "CURRENT_TASK": "Compito Attuale",
+  "CURRENT_TASK_LIST": "Elenco Attività Corrente"
 }

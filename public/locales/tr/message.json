@@ -20,5 +20,7 @@
   "TASK_RESULT_SUMMARY": "Görev Sonuç Özeti",
   "TERMINATING": "Sonlandırılıyor...",
   "THINKING": "Düşünüyorum...",
-  "UPDATING": "♻️ Görev Güncelleniyor..."
+  "UPDATING": "♻️ Görev Güncelleniyor...",
+  "CURRENT_TASK": "Mevcut Görev",
+  "CURRENT_TASK_LIST": "Mevcut Görev Listesi"
 }

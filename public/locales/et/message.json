@@ -20,5 +20,7 @@
   "TASK_RESULT_SUMMARY": "Ülesande tulemuste kokkuvõte",
   "TERMINATING": "Lõpetamine...",
   "THINKING": "Mõeldes...",
-  "UPDATING": "♻️ Ülesande värskendamine..."
+  "UPDATING": "♻️ Ülesande värskendamine...",
+  "CURRENT_TASK": "Praegune ülesanne",
+  "CURRENT_TASK_LIST": "Aktiivsete ülesannete nimekiri"
 }

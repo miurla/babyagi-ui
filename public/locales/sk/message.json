@@ -20,5 +20,7 @@
   "TASK_RESULT_SUMMARY": "Zhrnutie výsledkov úlohy",
   "TERMINATING": "Ukončenie...",
   "THINKING": "Premýšľanie...",
-  "UPDATING": "♻️ Aktualizácia úlohy..."
+  "UPDATING": "♻️ Aktualizácia úlohy...",
+  "CURRENT_TASK": "Aktuálne úlohy",
+  "CURRENT_TASK_LIST": "Aktuálny zoznam úloh"
 }

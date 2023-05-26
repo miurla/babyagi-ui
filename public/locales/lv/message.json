@@ -20,5 +20,7 @@
   "TASK_RESULT_SUMMARY": "Uzdevuma rezultātu kopsavilkums",
   "TERMINATING": "Notiek darbības pārtraukšana...",
   "THINKING": "Domājot...",
-  "UPDATING": "♻️ Notiek uzdevuma atjaunināšana..."
+  "UPDATING": "♻️ Notiek uzdevuma atjaunināšana...",
+  "CURRENT_TASK": "Pašreizējā uzdevums",
+  "CURRENT_TASK_LIST": "Aktuālais uzdevumu saraksts"
 }

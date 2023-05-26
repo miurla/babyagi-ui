@@ -20,5 +20,7 @@
   "TASK_RESULT_SUMMARY": "สรุปผลการปฏิบัติงาน",
   "TERMINATING": "กำลังยุติ...",
   "THINKING": "กำลังคิด...",
-  "UPDATING": "♻️ กำลังอัพเดทงาน..."
+  "UPDATING": "♻️ กำลังอัพเดทงาน...",
+  "CURRENT_TASK": "งานปัจจุบัน",
+  "CURRENT_TASK_LIST": "รายการงานปัจจุบัน"
 }

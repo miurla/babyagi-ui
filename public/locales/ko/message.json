@@ -20,5 +20,7 @@
   "TASK_RESULT_SUMMARY": "작업 결과 요약",
   "TERMINATING": "종료 중...",
   "THINKING": "생각...",
-  "UPDATING": "♻️ 작업 업데이트 중..."
+  "UPDATING": "♻️ 작업 업데이트 중...",
+  "CURRENT_TASK": "현재 작업",
+  "CURRENT_TASK_LIST": "현재 작업 목록"
 }

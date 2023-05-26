@@ -20,5 +20,7 @@
   "TASK_RESULT_SUMMARY": "Podsumowanie wyników zadania",
   "TERMINATING": "Zakończenie...",
   "THINKING": "Myślący...",
-  "UPDATING": "♻️ Zadanie Aktualizuję..."
+  "UPDATING": "♻️ Zadanie Aktualizuję...",
+  "CURRENT_TASK": "Obecne zadanie",
+  "CURRENT_TASK_LIST": "Aktualna lista zadań"
 }

@@ -20,5 +20,7 @@
   "TASK_RESULT_SUMMARY": "Rangkuman Hasil Tugas",
   "TERMINATING": "Mengakhiri...",
   "THINKING": "Pemikiran...",
-  "UPDATING": "♻️ Pembaruan Tugas..."
+  "UPDATING": "♻️ Pembaruan Tugas...",
+  "CURRENT_TASK": "Tugas Saat Ini",
+  "CURRENT_TASK_LIST": "Daftar Tugas Saat Ini"
 }

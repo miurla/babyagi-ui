@@ -20,5 +20,7 @@
   "TASK_RESULT_SUMMARY": "Samenvatting taakresultaat",
   "TERMINATING": "Beëindigen...",
   "THINKING": "denken...",
-  "UPDATING": "♻️ Taak bijwerken..."
+  "UPDATING": "♻️ Taak bijwerken...",
+  "CURRENT_TASK": "Huidige Taak",
+  "CURRENT_TASK_LIST": "Huidige Taaklijst"
 }
