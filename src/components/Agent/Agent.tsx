@@ -26,7 +26,7 @@ import { translate } from '../../utils/translate';
 import { AgentMessageFooter } from './AgentMessageFooter';
 import axios from 'axios';
 import { taskCompletedNotification } from '@/utils/notification';
-import { MessageSummaryCard } from '../SummarySidebar/MessageSummaryCard';
+import { MessageSummaryCard } from './MessageSummaryCard';
 
 export const Agent: FC = () => {
   const [model, setModel] = useState<SelectItem>(MODELS[0]);
