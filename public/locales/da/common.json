@@ -18,5 +18,7 @@
   "SUMMARY": "Resumé",
   "Stop": "Hold op",
   "THEME": "Tema",
-  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 Du skal indstille din OpenAI API-nøgle i indstillingsmenuen."
+  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 Du skal indstille din OpenAI API-nøgle i indstillingsmenuen.",
+  "DARK_MODE": "Mørk tilstand",
+  "LIGHT_MODE": "Lys tilstand"
 }

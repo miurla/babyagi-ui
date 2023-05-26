@@ -18,5 +18,7 @@
   "SUMMARY": "Yhteenveto",
   "Stop": "Lopettaa",
   "THEME": "Teema",
-  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 Sinun on asetettava OpenAI API -avain asetusvalikossa."
+  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 Sinun on asetettava OpenAI API -avain asetusvalikossa.",
+  "DARK_MODE": "Pimeä tila",
+  "LIGHT_MODE": "Valotila"
 }

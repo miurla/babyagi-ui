@@ -1,0 +1,23 @@
+{
+  "CREATING": "建立任務中...（🤖💬：*此過程需要時間。請稍候...*）",
+  "DONE": "完成了",
+  "END_OF_ITERATIONS": "迭代結束",
+  "EXECUTING": "⚒️ 執行任務中...",
+  "FINISHED": "已完成",
+  "LOADING": "載入中",
+  "MANAGING": "🗂️ 任務管理進行中... (🤖💬：*此過程需要時間。請等待...*)",
+  "NEXT_TASK": "下一個任務",
+  "PREPARING": "準備中...",
+  "PRIORITIZING": "優先處理任務...",
+  "SAVING": "儲存任務中...",
+  "SEARCH_LOGS": "搜尋日誌",
+  "SESSION_SUMMARY": "會議摘要",
+  "SUMMARIZING": "✍️ 總結一下…",
+  "TASK_LIST": "任務清單",
+  "TASK_OUTPUT": "任務輸出",
+  "TASK_RESULT": "任務結果",
+  "TASK_RESULT_SUMMARY": "任務結果摘要",
+  "TERMINATING": "正在終止...",
+  "THINKING": "思考中...",
+  "UPDATING": "♻️ 任務正在更新中…"
+}

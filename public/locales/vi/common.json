@@ -18,5 +18,7 @@
   "SUMMARY": "Bản tóm tắt",
   "Stop": "Dừng lại",
   "THEME": "chủ đề",
-  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 Bạn phải đặt khóa API OpenAI của mình trong menu cài đặt."
+  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 Bạn phải đặt khóa API OpenAI của mình trong menu cài đặt.",
+  "DARK_MODE": "Chế độ tối",
+  "LIGHT_MODE": "Chế độ ánh sáng"
 }

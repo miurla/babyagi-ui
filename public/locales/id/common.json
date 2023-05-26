@@ -18,5 +18,7 @@
   "SUMMARY": "Ringkasan",
   "Stop": "Berhenti",
   "THEME": "Tema",
-  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 Anda harus mengatur kunci OpenAI API Anda di menu pengaturan."
+  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 Anda harus mengatur kunci OpenAI API Anda di menu pengaturan.",
+  "DARK_MODE": "Mode Gelap",
+  "LIGHT_MODE": "Mode Terang"
 }
