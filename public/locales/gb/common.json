@@ -18,5 +18,7 @@
   "SUMMARY": "Summary",
   "Stop": "Stop",
   "THEME": "Theme",
-  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 You must set your OpenAI API key in the settings menu."
+  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 You must set your OpenAI API key in the settings menu.",
+  "DARK_MODE": "The translation of \"Dark mode\" to language code gb is \"Dark mode\" (This language code is invalid. Please provide a valid language code for me to translate.)",
+  "LIGHT_MODE": "Light mode\" translated into British English (gb) is \"Light mode\"."
 }

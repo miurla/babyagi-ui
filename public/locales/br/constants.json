@@ -7,5 +7,10 @@
   "NOTIFICATION_LABEL": "Todas as tarefas completas 🔔",
   "NOTIFICATION_NOT_SUPPORTED": "Este navegador não suporta notificações na área de trabalho.",
   "NOTIFICATION_TITLE": "Tarefa concluída!",
-  "UNTIL_ALL_TASKS_COMPLETED": "Até que todas as tarefas sejam concluídas."
+  "UNTIL_ALL_TASKS_COMPLETED": "Até que todas as tarefas sejam concluídas.",
+  "GPT_4_WARNING": "🚨 O USO DE GPT-4 PODE SER POTENCIALMENTE CARO, PORTANTO, MONITORE SEUS CUSTOS!",
+  "DARK": "Escuro",
+  "LIGHT": "A luz.",
+  "SYSTEM": "O sistema",
+  "NOTIFICATION_DINIED": "Você negou a permissão de notificação. Por favor, permita-a nas configurações do seu navegador."
 }

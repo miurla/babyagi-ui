@@ -18,5 +18,7 @@
   "SUMMARY": "Özet",
   "Stop": "Durmak",
   "THEME": "Tema",
-  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉Ayarlar menüsünde OpenAI API anahtarınızı belirlemelisiniz."
+  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉Ayarlar menüsünde OpenAI API anahtarınızı belirlemelisiniz.",
+  "DARK_MODE": "Karanlık modu",
+  "LIGHT_MODE": "Gündüz modu"
 }

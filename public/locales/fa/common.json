@@ -18,5 +18,7 @@
   "SUMMARY": "خلاصه",
   "Stop": "متوقف کردن",
   "THEME": "موضوع",
-  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 باید کلید OpenAI API خود را در منوی تنظیمات تنظیم کنید."
+  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 باید کلید OpenAI API خود را در منوی تنظیمات تنظیم کنید.",
+  "DARK_MODE": "حالت تاریک",
+  "LIGHT_MODE": "حالت روشن"
 }

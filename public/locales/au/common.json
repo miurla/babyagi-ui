@@ -18,5 +18,7 @@
   "SUMMARY": "Summary",
   "Stop": "Stop",
   "THEME": "Theme",
-  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 You must set your OpenAI API key in the settings menu."
+  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 You must set your OpenAI API key in the settings menu.",
+  "DARK_MODE": "Dark mode",
+  "LIGHT_MODE": "Light mode"
 }

@@ -1,0 +1,11 @@
+{
+  "FEEDBACK_MESSAGE": "這個按鈕可以與開發人員分享執行結果。",
+  "FEEDBACK_SUBMITTED_TOAST": "謝謝您！✨",
+  "INFINITY": "無限大",
+  "NOTIFICATION": "通知",
+  "NOTIFICATION_DENIED": "MISSING_TRANSLATION",
+  "NOTIFICATION_LABEL": "🔔 所有任務已完成",
+  "NOTIFICATION_NOT_SUPPORTED": "這個瀏覽器不支援桌面通知。",
+  "NOTIFICATION_TITLE": "任務完成！",
+  "UNTIL_ALL_TASKS_COMPLETED": "直到所有任務完成"
+}

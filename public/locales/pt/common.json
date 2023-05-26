@@ -18,5 +18,7 @@
   "SUMMARY": "Resumo",
   "Stop": "Parar",
   "THEME": "Tema",
-  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 Você deve definir sua chave de API OpenAI no menu de configurações."
+  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 Você deve definir sua chave de API OpenAI no menu de configurações.",
+  "DARK_MODE": "Modo Escuro",
+  "LIGHT_MODE": "Modo de luz"
 }
