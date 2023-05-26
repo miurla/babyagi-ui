@@ -26,7 +26,7 @@ import { translate } from '../../utils/translate';
 import { AgentMessageFooter } from './AgentMessageFooter';
 import axios from 'axios';
 import { taskCompletedNotification } from '@/utils/notification';
-import { SummarySidebar } from '../SummarySidebar/SummarySidebar';
+import { MessageSummaryCard } from '../SummarySidebar/MessageSummaryCard';
 
 export const Agent: FC = () => {
   const [model, setModel] = useState<SelectItem>(MODELS[0]);
@@ -326,58 +326,58 @@ export const Agent: FC = () => {
   };
 
   return (
-    <div className="flex w-full flex-row">
-      <div className="overflow-none relative flex-1 bg-white dark:bg-[#343541]">
-        {messages.length === 0 ? (
-          <>
-            <AgentParameter
-              model={model}
-              setModel={setModel}
-              iterations={iterations}
-              setIterations={setIterations}
-              firstTask={firstTask}
-              setFirstTask={setFirstTask}
-              agent={selectedAgent}
-              setAgent={setSelectedAgent}
-            />
-            <div className="h-[calc(100vh-450px)]">
-              <ProjectTile />
-            </div>
-          </>
-        ) : (
-          <div className="max-h-full overflow-scroll">
-            <AgentMessageHeader model={model} iterations={iterations} />
-            {messages.map((message, index) => (
-              <AgentMessage key={index} message={message} />
-            ))}
-            {isExecuting && (
-              <AgentMessage message={loadingAgentMessage(agentStatus)} />
-            )}
-            {!isExecuting && messages.length > 0 && <AgentMessageFooter />}
-            <div
-              className="h-[162px] bg-white dark:bg-[#343541]"
-              ref={messagesEndRef}
-            />
+    <div className="overflow-none relative flex-1 bg-white dark:bg-[#343541]">
+      {messages.length === 0 ? (
+        <>
+          <AgentParameter
+            model={model}
+            setModel={setModel}
+            iterations={iterations}
+            setIterations={setIterations}
+            firstTask={firstTask}
+            setFirstTask={setFirstTask}
+            agent={selectedAgent}
+            setAgent={setSelectedAgent}
+          />
+          <div className="h-[calc(100vh-450px)]">
+            <ProjectTile />
           </div>
-        )}
-        <Input
-          value={objective}
-          onChange={inputHandler}
-          onStart={startHandler}
-          onStop={stopHandler}
-          onClear={clearHandler}
-          onCopy={copyHandler}
-          onDownload={downloadHandler}
-          onFeedback={feedbackHandler}
-          isExecuting={isExecuting}
-          hasMessages={messages.length > 0}
-          agent={selectedAgent.id as AgentType}
-          evaluation={currentEvaluation()}
-        />
-      </div>
-      <div>
-        <SummarySidebar messages={messages} />
-      </div>
+        </>
+      ) : (
+        <div className="max-h-full overflow-scroll">
+          <AgentMessageHeader model={model} iterations={iterations} />
+          {messages.map((message, index) => (
+            <AgentMessage key={index} message={message} />
+          ))}
+          {isExecuting && (
+            <AgentMessage message={loadingAgentMessage(agentStatus)} />
+          )}
+          {!isExecuting && messages.length > 0 && <AgentMessageFooter />}
+          <div
+            className="h-[162px] bg-white dark:bg-[#343541]"
+            ref={messagesEndRef}
+          />
+        </div>
+      )}
+      <Input
+        value={objective}
+        onChange={inputHandler}
+        onStart={startHandler}
+        onStop={stopHandler}
+        onClear={clearHandler}
+        onCopy={copyHandler}
+        onDownload={downloadHandler}
+        onFeedback={feedbackHandler}
+        isExecuting={isExecuting}
+        hasMessages={messages.length > 0}
+        agent={selectedAgent.id as AgentType}
+        evaluation={currentEvaluation()}
+      />
+      {isExecuting && messages.length > 0 && (
+        <div className="invisible fixed right-10 top-10 z-50 md:visible">
+          <MessageSummaryCard messages={messages} />
+        </div>
+      )}
     </div>
   );
 };
