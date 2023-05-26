@@ -352,36 +352,53 @@ class Translator {
   async detectAllowedLocales() {
     // Detect the allowed locales by analyzing the i18n config file and then return an array of detected locales
     return [
-      'br',
-      'de',
-      'es',
-      'fr',
-      'hi',
-      'hu',
-      'ja',
-      'ru',
-      'th',
-      'en',
-      'ko',
-      'pt',
       'ar',
+      'au',
+      'bg',
+      'bn',
+      'br',
+      'cs',
+      'da',
+      'de',
+      'el',
+      'es',
+      'et',
+      'fa',
+      'fi',
+      'fr',
+      'gb',
+      'gu',
+      'he',
+      'hi',
+      'hr',
+      'hu',
       'id',
       'it',
-      'uk',
-      'zh',
-      'vi',
-      'au',
-      'gb',
+      'ja',
+      'kn',
+      'ko',
       'lt',
-      'cs',
-      'el',
-      'sv',
-      'da',
-      'fi',
+      'lv',
+      'ml',
+      'nl',
       'no',
+      'pl',
+      'pt',
+      'ro',
+      'ru',
+      'sk',
+      'sl',
+      'sr',
+      'sv',
+      'ta',
+      'te',
+      'th',
       'tr',
-      'tw',
-      'bg',
+      'uk',
+      'ur',
+      'vi',
+      'zh',
+      'zhtw',
     ]; // test
   }
 
@@ -553,6 +570,86 @@ class Translator {
       .replace(/^['",`]+|['",`]+$/g, '');
   };
 
+  async synchronizeTranslations() {
+    const sourceTranslationsDir = path.join(
+      __dirname,
+      'public',
+      'locales',
+      this.srcLang,
+    );
+    const sourceTranslations = this.getTranslationsFromDir(
+      sourceTranslationsDir,
+    );
+
+    const targetTranslationsDir = path.join(__dirname, 'public', 'locales');
+    const targetLocales = await this.detectAllowedLocales();
+
+    for (const targetLocale of targetLocales) {
+      const targetTranslationsDirForLocale = path.join(
+        targetTranslationsDir,
+        targetLocale,
+      );
+      const targetTranslations = this.getTranslationsFromDir(
+        targetTranslationsDirForLocale,
+      );
+
+      for (const namespace in sourceTranslations) {
+        const sourceKeys = Object.keys(sourceTranslations[namespace]);
+        const targetKeys = targetTranslations.hasOwnProperty(namespace)
+          ? Object.keys(targetTranslations[namespace])
+          : [];
+
+        const missingKeys = sourceKeys.filter(
+          (key) => !targetKeys.includes(key),
+        );
+
+        if (missingKeys.length > 0) {
+          const sourceNamespaceTranslations = sourceTranslations[namespace];
+          const targetNamespaceTranslations =
+            targetTranslations[namespace] || {};
+
+          for (const missingKey of missingKeys) {
+            const sourceValue = sourceNamespaceTranslations[missingKey];
+            this.targetLang = targetLocale;
+            const translatedValue = await this.translateText(sourceValue);
+
+            targetNamespaceTranslations[missingKey] = translatedValue;
+          }
+
+          targetTranslations[namespace] = targetNamespaceTranslations;
+
+          const targetTranslationsFile = path.join(
+            targetTranslationsDirForLocale,
+            `${namespace}.json`,
+          );
+          fs.writeFileSync(
+            targetTranslationsFile,
+            JSON.stringify(targetTranslations[namespace], null, 2),
+            'utf8',
+          );
+        }
+      }
+    }
+  }
+
+  getTranslationsFromDir(translationsDir) {
+    const translations = {};
+
+    const files = fs.readdirSync(translationsDir);
+    for (const file of files) {
+      const filePath = path.join(translationsDir, file);
+      const stats = fs.statSync(filePath);
+
+      if (stats.isFile() && file.endsWith('.json')) {
+        const namespace = file.slice(0, -5);
+        const content = fs.readFileSync(filePath, 'utf8');
+        translations[namespace] = JSON.parse(content);
+      }
+    }
+
+    return translations;
+  }
+
   // main run
   async run(srcDirectory) {
     console.log(
@@ -661,6 +758,32 @@ rl.question(
                 }
               },
             );
+          }
+        },
+      );
+    } else if (
+      translate_entire_project === 'n' ||
+      translate_entire_project === 'no'
+    ) {
+      rl.question(
+        '[ATi18n]:> Would you like to synchronize translations? (y/n) ',
+        async (synchronize) => {
+          if (synchronize === 'y' || synchronize === 'yes') {
+            rl.question(
+              '[ATi18n]:> Enter the source language code: ',
+              async (srcLang) => {
+                const translator = new Translator({
+                  srcLang: srcLang,
+                });
+                await translator.synchronizeTranslations();
+                console.log(
+                  '[ATi18n]:> Synchronization completed successfully.',
+                );
+                rl.close();
+              },
+            );
+          } else {
+            rl.close();
           }
         },
       );

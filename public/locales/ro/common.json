@@ -18,5 +18,7 @@
   "SUMMARY": "rezumat",
   "Stop": "Stop",
   "THEME": "Temă",
-  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 Trebuie să setați cheia API OpenAI în meniul de setări."
+  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 Trebuie să setați cheia API OpenAI în meniul de setări.",
+  "DARK_MODE": "Modul întunecat",
+  "LIGHT_MODE": "Modul de lumină"
 }

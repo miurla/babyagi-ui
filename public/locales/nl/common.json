@@ -18,5 +18,7 @@
   "SUMMARY": "Samenvatting",
   "Stop": "Stop",
   "THEME": "Thema",
-  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 U moet uw OpenAI API-sleutel instellen in het instellingenmenu."
+  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 U moet uw OpenAI API-sleutel instellen in het instellingenmenu.",
+  "DARK_MODE": "Donkere modus",
+  "LIGHT_MODE": "Lichte modus"
 }

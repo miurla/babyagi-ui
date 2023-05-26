@@ -18,5 +18,7 @@
   "SUMMARY": "Zusammenfassung",
   "Stop": "Stoppen",
   "THEME": "Thema",
-  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 Sie müssen Ihren OpenAI-API-Schlüssel im Einstellungsmenü festlegen."
+  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 Sie müssen Ihren OpenAI-API-Schlüssel im Einstellungsmenü festlegen.",
+  "DARK_MODE": "Dunkler Modus",
+  "LIGHT_MODE": "Heller Modus"
 }

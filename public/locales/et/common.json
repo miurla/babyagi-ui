@@ -18,5 +18,7 @@
   "SUMMARY": "Kokkuvõte",
   "Stop": "Peatus",
   "THEME": "Teema",
-  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 Peate seadistusmenüüs määrama oma OpenAI API võtme."
+  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 Peate seadistusmenüüs määrama oma OpenAI API võtme.",
+  "DARK_MODE": "Tume režiim",
+  "LIGHT_MODE": "Valge režiim"
 }

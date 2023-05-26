@@ -18,5 +18,7 @@
   "SUMMARY": "خلاصہ",
   "Stop": "رک جاؤ",
   "THEME": "خیالیہ",
-  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 آپ کو اپنی OpenAI API کی سیٹنگ مینو میں سیٹ کرنی ہوگی۔"
+  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 آپ کو اپنی OpenAI API کی سیٹنگ مینو میں سیٹ کرنی ہوگی۔",
+  "DARK_MODE": "ڈارک موڈ",
+  "LIGHT_MODE": "لائٹ موڈ"
 }

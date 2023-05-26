@@ -1,0 +1,23 @@
+{
+  "(": "MISSING_TRANSLATION",
+  "AGENT": "代理人",
+  "DELETE": "刪除",
+  "DESCRIPTION_BABYAGI": "這個BabyAGI能夠搜索和爬取網絡。但由於這是一個實驗性功能，可能不總是可用並且可能會變慢。",
+  "FIRST_TASK": "首要任務",
+  "FOR_MORE_DETAILS": "更多詳情",
+  "ITERATION": "迭代",
+  "ITERATIONS": "迭代",
+  "LANGUAGE": "語言",
+  "MODEL": "模型",
+  "NEW_OBJECTIVE": "新目標",
+  "New": "新的",
+  "OPENAI_API_KEY": "OpenAI API 金鑰",
+  "REFER_TO_THE_ORIGINAL_PAPER": "請參閱原稿。",
+  "SAVE": "儲存",
+  "SETTINGS": "設定",
+  "SET_OPENAI_API_KEY": "設定OpenAI API金鑰。",
+  "SUMMARY": "總結",
+  "Stop": "停止",
+  "THEME": "主題",
+  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 您必須在設置菜單中設置OpenAI API金鑰。"
+}

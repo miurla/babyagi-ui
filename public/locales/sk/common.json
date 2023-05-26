@@ -18,5 +18,7 @@
   "SUMMARY": "Zhrnutie",
   "Stop": "Stop",
   "THEME": "Téma",
-  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 Svoj kľúč OpenAI API musíte nastaviť v ponuke nastavení."
+  "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 Svoj kľúč OpenAI API musíte nastaviť v ponuke nastavení.",
+  "DARK_MODE": "Tmavý režim",
+  "LIGHT_MODE": "Svetlý mód"
 }
