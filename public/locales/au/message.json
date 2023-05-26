@@ -20,5 +20,7 @@
   "TASK_RESULT_SUMMARY": "Task Result Summary",
   "TERMINATING": "Terminating...",
   "THINKING": "Thinking...",
-  "UPDATING": "♻️ Task Updating..."
+  "UPDATING": "♻️ Task Updating...",
+  "CURRENT_TASK": "Current Task\" translates to \"Tâche en cours\" in Australian French (au).",
+  "CURRENT_TASK_LIST": "Current Task List\" in AU language code is \"Liste derzeitiger Aufgaben\"."
 }

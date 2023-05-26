@@ -20,5 +20,7 @@
   "TASK_RESULT_SUMMARY": "Feladat eredményének összefoglalása",
   "TERMINATING": "Befejezés...",
   "THINKING": "Gondolkodás...",
-  "UPDATING": "♻️ Feladat frissítése..."
+  "UPDATING": "♻️ Feladat frissítése...",
+  "CURRENT_TASK": "Jelenlegi feladat",
+  "CURRENT_TASK_LIST": "Jelenlegi feladatok listája"
 }

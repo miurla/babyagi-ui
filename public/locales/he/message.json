@@ -20,5 +20,7 @@
   "TASK_RESULT_SUMMARY": "סיכום תוצאות משימה",
   "TERMINATING": "מסיים...",
   "THINKING": "חושב...",
-  "UPDATING": "♻️ עדכון משימות..."
+  "UPDATING": "♻️ עדכון משימות...",
+  "CURRENT_TASK": "המשימה הנוכחית",
+  "CURRENT_TASK_LIST": "רשימת משימות נוכחית"
 }

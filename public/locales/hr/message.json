@@ -20,5 +20,7 @@
   "TASK_RESULT_SUMMARY": "Sažetak rezultata zadatka",
   "TERMINATING": "Ukidanje...",
   "THINKING": "razmišljanje...",
-  "UPDATING": "♻️ Ažuriranje zadatka..."
+  "UPDATING": "♻️ Ažuriranje zadatka...",
+  "CURRENT_TASK": "Trenutni zadatak",
+  "CURRENT_TASK_LIST": "Trenutni popis zadatka"
 }

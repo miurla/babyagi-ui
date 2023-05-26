@@ -20,5 +20,7 @@
   "TASK_RESULT_SUMMARY": "টাস্ক ফলাফল সারাংশ",
   "TERMINATING": "সমাপ্ত করা হচ্ছে...",
   "THINKING": "ভাবছে...",
-  "UPDATING": "♻️ টাস্ক আপডেট করা হচ্ছে..."
+  "UPDATING": "♻️ টাস্ক আপডেট করা হচ্ছে...",
+  "CURRENT_TASK": "বর্তমান কাজ",
+  "CURRENT_TASK_LIST": "বর্তমান কাজের তালিকা"
 }

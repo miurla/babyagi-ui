@@ -20,5 +20,7 @@
   "TASK_RESULT_SUMMARY": "Povzetek rezultatov naloge",
   "TERMINATING": "Prekinitev ...",
   "THINKING": "Razmišljam ...",
-  "UPDATING": "♻️ Posodabljanje naloge..."
+  "UPDATING": "♻️ Posodabljanje naloge...",
+  "CURRENT_TASK": "Trenutna naloga",
+  "CURRENT_TASK_LIST": "Trenutni seznam nalog"
 }

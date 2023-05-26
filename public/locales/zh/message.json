@@ -20,5 +20,7 @@
   "TASK_RESULT_SUMMARY": "任务结果摘要",
   "TERMINATING": "正在终止...",
   "THINKING": "思维...",
-  "UPDATING": "♻️ 任务更新中..."
+  "UPDATING": "♻️ 任务更新中...",
+  "CURRENT_TASK": "当前任务",
+  "CURRENT_TASK_LIST": "当前任务列表"
 }

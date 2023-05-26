@@ -20,5 +20,7 @@
   "TASK_RESULT_SUMMARY": "خلاصه نتیجه کار",
   "TERMINATING": "خاتمه ...",
   "THINKING": "فكر كردن...",
-  "UPDATING": "♻️ به روز رسانی وظایف..."
+  "UPDATING": "♻️ به روز رسانی وظایف...",
+  "CURRENT_TASK": "وظیفه فعلی",
+  "CURRENT_TASK_LIST": "لیست وظایف فعلی"
 }

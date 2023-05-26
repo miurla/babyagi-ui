@@ -20,5 +20,7 @@
   "TASK_RESULT_SUMMARY": "ಕಾರ್ಯ ಫಲಿತಾಂಶದ ಸಾರಾಂಶ",
   "TERMINATING": "ಮುಕ್ತಾಯಗೊಳಿಸಲಾಗುತ್ತಿದೆ...",
   "THINKING": "ಆಲೋಚನೆ...",
-  "UPDATING": "♻️ ಕಾರ್ಯವನ್ನು ನವೀಕರಿಸಲಾಗುತ್ತಿದೆ..."
+  "UPDATING": "♻️ ಕಾರ್ಯವನ್ನು ನವೀಕರಿಸಲಾಗುತ್ತಿದೆ...",
+  "CURRENT_TASK": "ಪ್ರಸ್ತುತ ಕಾರ್ಯ\" (transliteration: \"Prasthuta karya\")",
+  "CURRENT_TASK_LIST": "ಪ್ರಸ್ತುತ ಕಾರ್ಯ ಪಟ್ಟಿ"
 }

@@ -20,5 +20,7 @@
   "TASK_RESULT_SUMMARY": "Užduoties rezultatų suvestinė",
   "TERMINATING": "Nutraukiama...",
   "THINKING": "Galvoju...",
-  "UPDATING": "♻️ Užduotis atnaujinama..."
+  "UPDATING": "♻️ Užduotis atnaujinama...",
+  "CURRENT_TASK": "Dabartinė užduotis",
+  "CURRENT_TASK_LIST": "Esama užduočių sąrašas"
 }

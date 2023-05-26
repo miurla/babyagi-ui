@@ -20,5 +20,7 @@
   "TASK_RESULT_SUMMARY": "Sammanfattning av uppgiftsresultat",
   "TERMINATING": "Avslutar...",
   "THINKING": "Tänkande...",
-  "UPDATING": "♻️ Uppgiftsuppdatering..."
+  "UPDATING": "♻️ Uppgiftsuppdatering...",
+  "CURRENT_TASK": "Aktuell uppgift",
+  "CURRENT_TASK_LIST": "Aktuell uppgiftslista"
 }

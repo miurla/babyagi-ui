@@ -20,5 +20,7 @@
   "TASK_RESULT_SUMMARY": "Resumen de resultados de la tarea",
   "TERMINATING": "Terminando...",
   "THINKING": "Pensamiento...",
-  "UPDATING": "♻️ Actualización de tareas..."
+  "UPDATING": "♻️ Actualización de tareas...",
+  "CURRENT_TASK": "Tarea actual",
+  "CURRENT_TASK_LIST": "Lista de tareas actuales"
 }

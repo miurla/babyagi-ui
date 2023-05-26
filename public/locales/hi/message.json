@@ -20,5 +20,7 @@
   "TASK_RESULT_SUMMARY": "कार्य परिणाम सारांश",
   "TERMINATING": "समाप्त हो रहा है...",
   "THINKING": "विचार...",
-  "UPDATING": "♻️ टास्क अपडेट हो रहा है..."
+  "UPDATING": "♻️ टास्क अपडेट हो रहा है...",
+  "CURRENT_TASK": "वर्तमान कार्य",
+  "CURRENT_TASK_LIST": "वर्तमान कार्य सूची"
 }

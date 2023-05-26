@@ -20,5 +20,7 @@
   "TASK_RESULT_SUMMARY": "Résumé des résultats de la tâche",
   "TERMINATING": "Résiliation...",
   "THINKING": "Pensée...",
-  "UPDATING": "♻️ Mise à jour des tâches..."
+  "UPDATING": "♻️ Mise à jour des tâches...",
+  "CURRENT_TASK": "Tâche en cours",
+  "CURRENT_TASK_LIST": "Liste des tâches en cours"
 }

@@ -7,5 +7,10 @@
   "NOTIFICATION_LABEL": "🔔 所有任務已完成",
   "NOTIFICATION_NOT_SUPPORTED": "這個瀏覽器不支援桌面通知。",
   "NOTIFICATION_TITLE": "任務完成！",
-  "UNTIL_ALL_TASKS_COMPLETED": "直到所有任務完成"
+  "UNTIL_ALL_TASKS_COMPLETED": "直到所有任務完成",
+  "GPT_4_WARNING": "🚨使用GPT-4可能很昂貴，所以要監控你的成本!",
+  "DARK": "黑暗",
+  "LIGHT": "光",
+  "SYSTEM": "系統",
+  "NOTIFICATION_DINIED": "你拒絕了通知權限。請在瀏覽器設置中允許它。"
 }

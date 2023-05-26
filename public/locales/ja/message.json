@@ -1,6 +1,6 @@
 {
   "CREATING": "タスクを作成しています... (🤖💬: *このプロセスには時間がかかります。お待ちください...*)",
-  "DONE": "終わり",
+  "DONE": "完了",
   "END_OF_ITERATIONS": "反復の終了",
   "EXECUTING": "⚒️ タスクを実行中...",
   "FINISHED": "終了した",
@@ -20,5 +20,7 @@
   "TASK_RESULT_SUMMARY": "タスク結果の概要",
   "TERMINATING": "終了中...",
   "THINKING": "考え中...",
-  "UPDATING": "♻️ タスクを更新中..."
+  "UPDATING": "♻️ タスクを更新中...",
+  "CURRENT_TASK": "現在のタスク",
+  "CURRENT_TASK_LIST": "現在のタスクリスト"
 }
