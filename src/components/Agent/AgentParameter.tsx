@@ -70,7 +70,7 @@ export const AgentParameter: FC<AgentParameterProps> = ({
           />
         </div>
       )}
-      {agent.id !== 'babycatagi' && (
+      {agent.id !== 'babycatagi' && agent.id !== 'babyagiui-mod' && (
         <div className="flex w-full flex-col">
           <label className="mb-2 text-left text-xs text-neutral-400 dark:text-neutral-500">
             {translate('FIRST_TASK')}

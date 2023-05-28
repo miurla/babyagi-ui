@@ -37,16 +37,3 @@ export const deleteExecution = (executionId: string) => {
   saveExecutions(executions);
   return executions;
 };
-
-export const iconFromExecutionType = (type: AgentType) => {
-  switch (type) {
-    case 'babyagi':
-      return '👶';
-    case 'babybeeagi':
-      return '🐝';
-    case 'babycatagi':
-      return '🐱';
-    default:
-      return '🤖';
-  }
-};
