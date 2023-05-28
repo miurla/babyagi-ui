@@ -35,3 +35,7 @@ export const parseTasks = (jsonString: string): AgentTask[] => {
   const camelCaseObj = convertKeys(parsedObj, snakeToCamelCase);
   return camelCaseObj;
 };
+
+export const getTaskById = (taskList: AgentTask[], id: number) => {
+  return taskList.find((task) => task.id === id);
+};

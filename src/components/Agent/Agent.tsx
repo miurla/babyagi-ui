@@ -27,6 +27,7 @@ import { AgentMessageFooter } from './AgentMessageFooter';
 import axios from 'axios';
 import { taskCompletedNotification } from '@/utils/notification';
 import { MessageSummaryCard } from './MessageSummaryCard';
+import { BUIExecuter } from '@/agents/babyagiui-mod/executer';
 
 export const Agent: FC = () => {
   const [model, setModel] = useState<SelectItem>(MODELS[0]);
@@ -37,9 +38,9 @@ export const Agent: FC = () => {
   const [agentStatus, setAgentStatus] = useState<AgentStatus>({
     type: 'ready',
   });
-  const [agent, setAgent] = useState<BabyAGI | BabyBeeAGI | BabyCatAGI | null>(
-    null,
-  );
+  const [agent, setAgent] = useState<
+    BabyAGI | BabyBeeAGI | BabyCatAGI | BUIExecuter | null
+  >(null);
   const [modeChecked, setModeChecked] = useState<boolean>(false);
   const [selectedAgent, setSelectedAgent] = useState<SelectItem>(AGENT[0]);
 
@@ -132,6 +133,11 @@ export const Agent: FC = () => {
     setObjective(value);
   };
 
+  const cancelHandle = () => {
+    setAgent(null);
+    setExecuting(false);
+  };
+
   const startHandler = async () => {
     if (needSettingsAlert()) {
       alert(translate('ALERT_SET_UP_API_KEY', 'agent'));
@@ -155,10 +161,7 @@ export const Agent: FC = () => {
           execution.id,
           messageHandler,
           setAgentStatus,
-          () => {
-            setAgent(null);
-            setExecuting(false);
-          },
+          cancelHandle,
           verbose,
         );
         break;
@@ -169,10 +172,7 @@ export const Agent: FC = () => {
           firstTask,
           messageHandler,
           setAgentStatus,
-          () => {
-            setAgent(null);
-            setExecuting(false);
-          },
+          cancelHandle,
           verbose,
         );
         break;
@@ -182,10 +182,17 @@ export const Agent: FC = () => {
           model.id,
           messageHandler,
           setAgentStatus,
-          () => {
-            setAgent(null);
-            setExecuting(false);
-          },
+          cancelHandle,
+          verbose,
+        );
+        break;
+      case 'babyagiui-mod':
+        agent = new BUIExecuter(
+          objective,
+          model.id,
+          messageHandler,
+          setAgentStatus,
+          cancelHandle,
           verbose,
         );
         break;
