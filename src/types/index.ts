@@ -54,6 +54,9 @@ export type AgentStatusType =
   | 'executing'
   | 'prioritizing'
   | 'saving'
+  | 'running'
+  | 'task-started'
+  | 'task-completed'
   | 'terminating'
   | 'finished'
   | 'ready'
@@ -85,6 +88,7 @@ export interface AgentTask {
 }
 
 export type AgentStatus = {
+  taskId?: null | undefined | number;
   type: AgentStatusType;
   message?: string;
 };
