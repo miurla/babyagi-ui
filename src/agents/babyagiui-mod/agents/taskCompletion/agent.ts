@@ -29,7 +29,7 @@ export const taskCompletionAgent = async (
         {
           handleLLMNewToken(token: string) {
             chunk += token;
-            statusCallback?.({ type: 'executing-stream', message: token });
+            statusCallback?.({ type: 'executing-stream', message: chunk });
           },
         },
       ],

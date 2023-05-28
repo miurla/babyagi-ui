@@ -90,7 +90,7 @@ export class BUIExecuter extends AgentExecuter {
   async prepare() {
     super.prepare();
     // 1. Create task list
-    this.taskCreation();
+    await this.taskCreation();
   }
 
   async loop() {
@@ -116,7 +116,6 @@ export class BUIExecuter extends AgentExecuter {
       this.taskIdCounter += 1;
       this.statusCallback({ type: 'closing' });
       this.printer.printTaskList(this.taskList);
-      this.printer.printAllTaskCompleted();
     }
   }
 }
