@@ -21,6 +21,10 @@
   "TERMINATING": "Terminating...",
   "THINKING": "Thinking...",
   "UPDATING": "♻️ Task Updating...",
-  "CURRENT_TASK": "Current Task\" translates to \"Tâche en cours\" in Australian French (au).",
-  "CURRENT_TASK_LIST": "Current Task List\" in AU language code is \"Liste derzeitiger Aufgaben\"."
+  "CURRENT_TASK": "Current Task",
+  "CURRENT_TASK_LIST": "Current Task List",
+  "TASK_FAILED": "Task Failed",
+  "TASK_FAILED_MESSAGE": "Task execution failed. Please check the task log.",
+  "OUTPUT_SUFFICIENCY": "Output Adequacy",
+  "SUFFICIENCY": "Checking task output sufficiency..."
 }

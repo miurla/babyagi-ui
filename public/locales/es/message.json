@@ -22,5 +22,9 @@
   "THINKING": "Pensamiento...",
   "UPDATING": "♻️ Actualización de tareas...",
   "CURRENT_TASK": "Tarea actual",
-  "CURRENT_TASK_LIST": "Lista de tareas actuales"
+  "CURRENT_TASK_LIST": "Lista de tareas actuales",
+  "TASK_FAILED": "Fallo en la tarea",
+  "TASK_FAILED_MESSAGE": "Fallo al ejecutar la tarea. Por favor revise el registro de la tarea.",
+  "OUTPUT_SUFFICIENCY": "Suficiencia de salida",
+  "SUFFICIENCY": "Comprobando la suficiencia de la salida de la tarea..."
 }

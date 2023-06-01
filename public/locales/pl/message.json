@@ -22,5 +22,9 @@
   "THINKING": "Myślący...",
   "UPDATING": "♻️ Zadanie Aktualizuję...",
   "CURRENT_TASK": "Obecne zadanie",
-  "CURRENT_TASK_LIST": "Aktualna lista zadań"
+  "CURRENT_TASK_LIST": "Aktualna lista zadań",
+  "TASK_FAILED": "Nie udało się wykonać zadania.",
+  "TASK_FAILED_MESSAGE": "Niepowodzenie podczas wykonywania zadania. Proszę sprawdzić dziennik zadania.",
+  "OUTPUT_SUFFICIENCY": "Wystarczalność wyjścia",
+  "SUFFICIENCY": "Sprawdzanie wystarczalności wyników zadania..."
 }

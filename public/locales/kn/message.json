@@ -22,5 +22,9 @@
   "THINKING": "ಆಲೋಚನೆ...",
   "UPDATING": "♻️ ಕಾರ್ಯವನ್ನು ನವೀಕರಿಸಲಾಗುತ್ತಿದೆ...",
   "CURRENT_TASK": "ಪ್ರಸ್ತುತ ಕಾರ್ಯ\" (transliteration: \"Prasthuta karya\")",
-  "CURRENT_TASK_LIST": "ಪ್ರಸ್ತುತ ಕಾರ್ಯ ಪಟ್ಟಿ"
+  "CURRENT_TASK_LIST": "ಪ್ರಸ್ತುತ ಕಾರ್ಯ ಪಟ್ಟಿ",
+  "TASK_FAILED": "ಕಾರ್ಯ ವಿಫಲವಾಗಿದೆ",
+  "TASK_FAILED_MESSAGE": "ಕಾರ್ಯವನ್ನು ನಿರ್ವಹಿಸಲು ವಿಫಲವಾಗಿದೆ. ದಯವಿಟ್ಟು ಕಾರ್ಯ ದಾಖಲೆಯನ್ನು ಪರಿಶೀಲಿಸಿ.",
+  "OUTPUT_SUFFICIENCY": "ಆಉಟ್‌ಪುಟ್ ಸಾಮರ್ಥ್ಯ",
+  "SUFFICIENCY": "ಕಾರ್ಯ ಆಉಟ್‌ಪುಟ್ ಸಾಕ್ಷತ್ತೆಯನ್ನು ಪರಿಶೀಲಿಸುತ್ತಿದೆ..."
 }

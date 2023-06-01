@@ -22,5 +22,9 @@
   "THINKING": "Mõeldes...",
   "UPDATING": "♻️ Ülesande värskendamine...",
   "CURRENT_TASK": "Praegune ülesanne",
-  "CURRENT_TASK_LIST": "Aktiivsete ülesannete nimekiri"
+  "CURRENT_TASK_LIST": "Aktiivsete ülesannete nimekiri",
+  "TASK_FAILED": "Ülesanne ebaõnnestus",
+  "TASK_FAILED_MESSAGE": "Ebaõnnestus ülesande täitmisel. Kontrolli ülesande logi.",
+  "OUTPUT_SUFFICIENCY": "Väljundpiisavus",
+  "SUFFICIENCY": "Ülesande väljundi piisavuse kontrollimine..."
 }

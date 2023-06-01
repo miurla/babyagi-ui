@@ -22,5 +22,9 @@
   "THINKING": "denken...",
   "UPDATING": "♻️ Taak bijwerken...",
   "CURRENT_TASK": "Huidige Taak",
-  "CURRENT_TASK_LIST": "Huidige Taaklijst"
+  "CURRENT_TASK_LIST": "Huidige Taaklijst",
+  "TASK_FAILED": "Mislukte Taak",
+  "TASK_FAILED_MESSAGE": "Mislukt om taak uit te voeren. Controleer het taaklogboek alstublieft.",
+  "OUTPUT_SUFFICIENCY": "Voldoende uitvoer",
+  "SUFFICIENCY": "Controleren van de voldoende output van de taak..."
 }

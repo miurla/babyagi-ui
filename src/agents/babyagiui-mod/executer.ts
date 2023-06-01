@@ -149,7 +149,7 @@ export class BUIExecuter extends AgentExecuter {
       await this.executeTask(task);
 
       // Failed to complete the task
-      if (this.retryCounter >= 3) {
+      if (this.retryCounter > 3) {
         const message = translate('TASK_FAILED_MESSAGE', 'message');
         this.messageCallback(setupMessage('failed', message));
         this.stop();

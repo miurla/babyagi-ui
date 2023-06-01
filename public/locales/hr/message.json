@@ -22,5 +22,9 @@
   "THINKING": "razmišljanje...",
   "UPDATING": "♻️ Ažuriranje zadatka...",
   "CURRENT_TASK": "Trenutni zadatak",
-  "CURRENT_TASK_LIST": "Trenutni popis zadatka"
+  "CURRENT_TASK_LIST": "Trenutni popis zadatka",
+  "TASK_FAILED": "Zadatak nije uspio",
+  "TASK_FAILED_MESSAGE": "Nije uspjelo izvršavanje zadatka. Provjerite zapisnik zadatka.",
+  "OUTPUT_SUFFICIENCY": "Izlazna dovoljnost",
+  "SUFFICIENCY": "Provjeravanje zadovoljivosti zadataka izlaza..."
 }

@@ -22,5 +22,9 @@
   "THINKING": "Pensamento...",
   "UPDATING": "♻️ Atualização de tarefas...",
   "CURRENT_TASK": "Tarefa atual",
-  "CURRENT_TASK_LIST": "Lista de Tarefas Atuais"
+  "CURRENT_TASK_LIST": "Lista de Tarefas Atuais",
+  "TASK_FAILED": "Tarefa falhou",
+  "TASK_FAILED_MESSAGE": "Não foi possível executar a tarefa. Por favor, verifique o registro da tarefa.",
+  "OUTPUT_SUFFICIENCY": "Suficiência de saída",
+  "SUFFICIENCY": "Verificando a suficiência da saída da tarefa..."
 }

@@ -22,5 +22,9 @@
   "THINKING": "Pemikiran...",
   "UPDATING": "♻️ Pembaruan Tugas...",
   "CURRENT_TASK": "Tugas Saat Ini",
-  "CURRENT_TASK_LIST": "Daftar Tugas Saat Ini"
+  "CURRENT_TASK_LIST": "Daftar Tugas Saat Ini",
+  "TASK_FAILED": "Gagal menyelesaikan tugas",
+  "TASK_FAILED_MESSAGE": "Gagal mengeksekusi tugas. Harap periksa log tugas.",
+  "OUTPUT_SUFFICIENCY": "Keluaran Yang Cukup",
+  "SUFFICIENCY": "Mengecek keluaran tugas yang memadai..."
 }

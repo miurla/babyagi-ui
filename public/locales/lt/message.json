@@ -22,5 +22,9 @@
   "THINKING": "Galvoju...",
   "UPDATING": "♻️ Užduotis atnaujinama...",
   "CURRENT_TASK": "Dabartinė užduotis",
-  "CURRENT_TASK_LIST": "Esama užduočių sąrašas"
+  "CURRENT_TASK_LIST": "Esama užduočių sąrašas",
+  "TASK_FAILED": "Užduotis nepavyko",
+  "TASK_FAILED_MESSAGE": "Nepavyko vykdyti užduoties. Prašome patikrinti užduoties žurnalą.",
+  "OUTPUT_SUFFICIENCY": "Pridėtinio rodiklio pakankamumas",
+  "SUFFICIENCY": "Tikrinamas užduoties rezultatų pakankamumas..."
 }

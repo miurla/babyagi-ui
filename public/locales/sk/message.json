@@ -22,5 +22,9 @@
   "THINKING": "Premýšľanie...",
   "UPDATING": "♻️ Aktualizácia úlohy...",
   "CURRENT_TASK": "Aktuálne úlohy",
-  "CURRENT_TASK_LIST": "Aktuálny zoznam úloh"
+  "CURRENT_TASK_LIST": "Aktuálny zoznam úloh",
+  "TASK_FAILED": "Zadanie zlyhalo.",
+  "TASK_FAILED_MESSAGE": "Zlyhalo sa pri vykonávaní úlohy. Skontrolujte prosím protokol úlohy.",
+  "OUTPUT_SUFFICIENCY": "Výstupná dostačujúcnosť",
+  "SUFFICIENCY": "Kontrola dostatočnosti výstupu úlohy..."
 }

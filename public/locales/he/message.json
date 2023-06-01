@@ -22,5 +22,9 @@
   "THINKING": "חושב...",
   "UPDATING": "♻️ עדכון משימות...",
   "CURRENT_TASK": "המשימה הנוכחית",
-  "CURRENT_TASK_LIST": "רשימת משימות נוכחית"
+  "CURRENT_TASK_LIST": "רשימת משימות נוכחית",
+  "TASK_FAILED": "המשימה נכשלה",
+  "TASK_FAILED_MESSAGE": "נכשל בביצוע המשימה. יש לבדוק את לוג המשימה.",
+  "OUTPUT_SUFFICIENCY": "כדיון פליטה",
+  "SUFFICIENCY": "בודק את המספיקות של פלט המשימה..."
 }

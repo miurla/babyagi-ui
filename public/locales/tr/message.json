@@ -22,5 +22,9 @@
   "THINKING": "Düşünüyorum...",
   "UPDATING": "♻️ Görev Güncelleniyor...",
   "CURRENT_TASK": "Mevcut Görev",
-  "CURRENT_TASK_LIST": "Mevcut Görev Listesi"
+  "CURRENT_TASK_LIST": "Mevcut Görev Listesi",
+  "TASK_FAILED": "Görev Başarısız Oldu",
+  "TASK_FAILED_MESSAGE": "Görev yürütülemedi. Lütfen görev kaydını kontrol edin.",
+  "OUTPUT_SUFFICIENCY": "Çıktı Yeterliliği",
+  "SUFFICIENCY": "İş çıktısı yeterliliği kontrol ediliyor..."
 }

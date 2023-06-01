@@ -22,5 +22,9 @@
   "THINKING": "فكر كردن...",
   "UPDATING": "♻️ به روز رسانی وظایف...",
   "CURRENT_TASK": "وظیفه فعلی",
-  "CURRENT_TASK_LIST": "لیست وظایف فعلی"
+  "CURRENT_TASK_LIST": "لیست وظایف فعلی",
+  "TASK_FAILED": "کار ناموفق بود.",
+  "TASK_FAILED_MESSAGE": "اجرای وظیفه با شکست مواجه شد. لطفاً ورودی‌های وظیفه را بررسی کنید.",
+  "OUTPUT_SUFFICIENCY": "كفايت خروجی.",
+  "SUFFICIENCY": "بررسی کافی بودن خروجی وظیفه..."
 }

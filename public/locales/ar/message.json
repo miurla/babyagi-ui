@@ -22,5 +22,9 @@
   "THINKING": "التفكير ...",
   "UPDATING": "♻️ تحديث المهمة ...",
   "CURRENT_TASK": "المهمة الحالية",
-  "CURRENT_TASK_LIST": "قائمة المهام الحالية"
+  "CURRENT_TASK_LIST": "قائمة المهام الحالية",
+  "TASK_FAILED": "فشلت المهمة",
+  "TASK_FAILED_MESSAGE": "فشل تنفيذ المهمة. يرجى التحقق من سجل المهمة.",
+  "OUTPUT_SUFFICIENCY": "الكفاية الانتاجية",
+  "SUFFICIENCY": "التحقق من كفاية نتائج المهمة..."
 }

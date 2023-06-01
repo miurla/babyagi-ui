@@ -22,5 +22,9 @@
   "THINKING": "Tænker...",
   "UPDATING": "♻️ Opgaveopdatering...",
   "CURRENT_TASK": "Nuværende opgave",
-  "CURRENT_TASK_LIST": "Nuværende opgaveliste"
+  "CURRENT_TASK_LIST": "Nuværende opgaveliste",
+  "TASK_FAILED": "Opdgave mislykkedes",
+  "TASK_FAILED_MESSAGE": "Mislykkedes at udføre opgaven. Kontroller venligst opgaveloggen.",
+  "OUTPUT_SUFFICIENCY": "Udskriftstilstrækkelighed",
+  "SUFFICIENCY": "Tjekker tilstrækkeligheden af opgaveoutput..."
 }

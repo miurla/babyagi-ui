@@ -22,5 +22,9 @@
   "THINKING": "Thinking...",
   "UPDATING": "♻️ Task Updating...",
   "CURRENT_TASK": "Current Task",
-  "CURRENT_TASK_LIST": "Current Task List"
+  "CURRENT_TASK_LIST": "Current Task List",
+  "TASK_FAILED": "Task Failed",
+  "TASK_FAILED_MESSAGE": "Failed to execute task. Please check the task log.",
+  "OUTPUT_SUFFICIENCY": "Output Sufficiency",
+  "SUFFICIENCY": "Checking task output sufficiency..."
 }

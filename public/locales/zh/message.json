@@ -22,5 +22,9 @@
   "THINKING": "思维...",
   "UPDATING": "♻️ 任务更新中...",
   "CURRENT_TASK": "当前任务",
-  "CURRENT_TASK_LIST": "当前任务列表"
+  "CURRENT_TASK_LIST": "当前任务列表",
+  "TASK_FAILED": "任务失败。",
+  "TASK_FAILED_MESSAGE": "任务执行失败。请检查任务日志。",
+  "OUTPUT_SUFFICIENCY": "输出充足性",
+  "SUFFICIENCY": "检查任务输出是否充足..."
 }
