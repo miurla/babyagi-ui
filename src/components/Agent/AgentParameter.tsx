@@ -4,6 +4,7 @@ import { SelectItem } from '@/types';
 import { AGENT, ITERATIONS, MODELS } from '@/utils/constants';
 import Link from 'next/link';
 import { translate } from '../../utils/translate';
+import { getUserApiKey } from '@/utils/settings';
 
 interface AgentParameterProps {
   model: SelectItem;
@@ -30,6 +31,9 @@ export const AgentParameter: FC<AgentParameterProps> = ({
   useEffect(() => {
     if (model.id !== 'gpt-4') {
       setAgentOption(AGENT.filter((agent) => agent.id === 'babyagi'));
+    } else if (!getUserApiKey()) {
+      // bui-mod-1 is only available for using client api key
+      setAgentOption(AGENT.filter((agent) => agent.id !== 'bui-mod-1'));
     } else {
       setAgentOption(AGENT);
     }
