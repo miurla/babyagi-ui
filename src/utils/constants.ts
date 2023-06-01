@@ -38,18 +38,18 @@ export const BABYBEEAGI_ITERATIONS = [
 
 export const AGENT = [
   {
-    id: 'bui-mod-1',
-    name: 'BabyCatAGI(mod)',
-    icon: '🧪',
-    message: '🤖/🔎+📄',
-    badge: 'EXPERIMENTAL',
-  },
-  {
     id: 'babycatagi',
     name: 'BabyCatAGI',
     icon: '🐱',
     message: '🤖/🔎+📄',
     badge: 'ORIGINAL',
+  },
+  {
+    id: 'bui-mod-1',
+    name: 'BabyCatAGI(mod)',
+    icon: '🧪',
+    message: '🤖/🔎+📄',
+    badge: 'EXPERIMENTAL',
   },
   {
     id: 'babybeeagi',
