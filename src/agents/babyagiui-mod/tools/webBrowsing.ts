@@ -28,10 +28,10 @@ export const webBrowsing = async (
   const sinmplifiedSearchResults = simplifySearchResults(searchResults);
   if (verbose) {
     console.log(
-      'Completed search (query: ${searchQuery}). \nNow scraping results.\n',
+      `Completed search (query: ${trimmedQuery}). \nNow scraping results.\n`,
     );
   }
-  let statusMessage = `Completed search (query: ${searchQuery}). \nNow scraping results.\n`;
+  let statusMessage = `Completed search (query: ${trimmedQuery}). \nNow scraping results.\n`;
   callbackSearchStatus(statusMessage, statusCallback);
 
   if (!isRunningRef.current) return;
