@@ -22,5 +22,9 @@
   "THINKING": "考え中...",
   "UPDATING": "♻️ タスクを更新中...",
   "CURRENT_TASK": "現在のタスク",
-  "CURRENT_TASK_LIST": "現在のタスクリスト"
+  "CURRENT_TASK_LIST": "現在のタスクリスト",
+  "TASK_FAILED": "タスク失敗",
+  "TASK_FAILED_MESSAGE": "タスクの実行に失敗しました。タスクログを確認してください。",
+  "OUTPUT_SUFFICIENCY": "タスク結果の精査",
+  "SUFFICIENCY": "タスク結果を精査しています..."
 }

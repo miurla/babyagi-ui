@@ -22,5 +22,9 @@
   "THINKING": "생각...",
   "UPDATING": "♻️ 작업 업데이트 중...",
   "CURRENT_TASK": "현재 작업",
-  "CURRENT_TASK_LIST": "현재 작업 목록"
+  "CURRENT_TASK_LIST": "현재 작업 목록",
+  "TASK_FAILED": "작업 실패했습니다.",
+  "TASK_FAILED_MESSAGE": "작업 실행에 실패했습니다. 작업 로그를 확인해주십시오.",
+  "OUTPUT_SUFFICIENCY": "출력 충분성",
+  "SUFFICIENCY": "작업 출력물 충분성 확인 중..."
 }

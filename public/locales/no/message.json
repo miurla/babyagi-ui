@@ -22,5 +22,9 @@
   "THINKING": "Tenker...",
   "UPDATING": "♻️ Oppgaveoppdatering...",
   "CURRENT_TASK": "Nåværende oppgave",
-  "CURRENT_TASK_LIST": "Gjeldende Oppgaveliste"
+  "CURRENT_TASK_LIST": "Gjeldende Oppgaveliste",
+  "TASK_FAILED": "Oppgave mislyktes",
+  "TASK_FAILED_MESSAGE": "Klarte ikke å utføre oppgaven. Vennligst sjekk oppgaveloggen.",
+  "OUTPUT_SUFFICIENCY": "Utgangstilstrekkelighet",
+  "SUFFICIENCY": "Sjekker om oppgaveutdataene er tilstrekkelige..."
 }

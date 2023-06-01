@@ -22,5 +22,9 @@
   "THINKING": "Pensée...",
   "UPDATING": "♻️ Mise à jour des tâches...",
   "CURRENT_TASK": "Tâche en cours",
-  "CURRENT_TASK_LIST": "Liste des tâches en cours"
+  "CURRENT_TASK_LIST": "Liste des tâches en cours",
+  "TASK_FAILED": "La tâche a échoué.",
+  "TASK_FAILED_MESSAGE": "Impossible d'exécuter la tâche. Veuillez vérifier le journal des tâches.",
+  "OUTPUT_SUFFICIENCY": "Suffisance de la production",
+  "SUFFICIENCY": "Vérification de la suffisance de sortie de tâche..."
 }

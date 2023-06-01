@@ -1,5 +1,5 @@
 import { AgentStatus, AgentTask } from '@/types';
-import { taskCompletionPrompt } from './prompt';
+import { searchQueryGenerationPrompt } from './searchQueryGenerationQuery';
 import { OpenAIChat } from 'langchain/llms/openai';
 import { getUserApiKey } from '@/utils/settings';
 import { LLMChain } from 'langchain/chains';
@@ -7,16 +7,12 @@ import { LLMChain } from 'langchain/chains';
 // TODO: Only client-side requests are allowed.
 // To use the environment variable API key, the request must be implemented from the server side.
 
-export const taskCompletionAgent = async (
+export const searchQueryGenerationAgent = async (
   task: AgentTask,
-  taskList: AgentTask[],
-  objective: string,
   modelName: string,
   signal?: AbortSignal,
-  statusCallback?: (status: AgentStatus) => void,
 ) => {
-  let chunk = '```json\n';
-  const prompt = taskCompletionPrompt(taskList, task);
+  const prompt = searchQueryGenerationPrompt();
   const openAIApiKey = getUserApiKey();
   const llm = new OpenAIChat(
     {
@@ -28,14 +24,6 @@ export const taskCompletionAgent = async (
       frequencyPenalty: 0,
       presencePenalty: 0,
       streaming: true,
-      callbacks: [
-        {
-          handleLLMNewToken(token: string) {
-            chunk += token;
-            statusCallback?.({ type: 'executing-stream', message: chunk });
-          },
-        },
-      ],
     },
     { baseOptions: { signal: signal } },
   );
@@ -43,7 +31,6 @@ export const taskCompletionAgent = async (
   const chain = new LLMChain({ llm: llm, prompt });
   try {
     const response = await chain.call({
-      objective,
       task: task.task,
     });
     return response.text;

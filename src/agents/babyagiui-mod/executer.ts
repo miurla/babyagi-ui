@@ -4,6 +4,9 @@ import { taskCreationAgent } from './agents/taskCreation/agent';
 import { AgentTask } from '@/types';
 import { getTaskById } from '@/utils/task';
 import { webBrowsing } from './tools/webBrowsing';
+import { sufficiencyAgent } from './agents/sufficiency/sufficiencyAgent';
+import { setupMessage } from '@/utils/message';
+import { translate } from '@/utils/translate';
 
 export class BUIExecuter extends AgentExecuter {
   // Create task list by agent
@@ -16,9 +19,6 @@ export class BUIExecuter extends AgentExecuter {
         this.abortController?.signal,
         this.statusCallback,
       )) ?? [];
-    if (this.taskList.length === 0) {
-      throw new Error('Task list is empty');
-    }
 
     this.printer.printTaskList(this.taskList);
   }
@@ -44,7 +44,7 @@ export class BUIExecuter extends AgentExecuter {
             task,
             this.messageCallback,
             this.statusCallback,
-            this.isRunning,
+            this.isRunningRef,
             this.verbose,
             this.abortController?.signal,
           )) ?? '';
@@ -68,22 +68,57 @@ export class BUIExecuter extends AgentExecuter {
       }
     }
 
-    if (!this.isRunning) return;
+    if (!this.isRunningRef.current) return;
 
     // Execute the task
     this.statusCallback({ type: 'executing' });
     this.printer.printNextTask(task);
     const taskOutput = await this.taskOutputWithTool(task);
 
+    // print the task output
+    this.printer.printTaskOutput(taskOutput, task);
+
+    if (!this.isRunningRef.current) return;
+
+    this.statusCallback({ type: 'sufficiency' });
+    // Sufficiency agent
+    const sufficiencyResult = await sufficiencyAgent(
+      task,
+      this.taskList,
+      taskOutput,
+      this.objective,
+      this.modelName,
+      this.abortController?.signal,
+    );
+
+    if (!this.isRunningRef.current) return;
+
     // Find the task index in the task list
     const taskIndex = this.taskList.findIndex((t) => t.id === task.id);
 
-    // Matk task as complete and update the output
-    this.taskList[taskIndex].status = 'complete';
-    this.taskList[taskIndex].output = taskOutput;
+    if (sufficiencyResult?.status === 'incomplete') {
+      // If the task is not complete, update the output
+      this.taskList[taskIndex].task =
+        sufficiencyResult?.updated_task ?? task.task;
+      this.retryCounter += 1;
+    } else {
+      // Matk task as complete and update the output
+      this.taskList[taskIndex].status = 'complete';
+      this.taskList[taskIndex].output = taskOutput;
+      this.retryCounter = 0;
+    }
 
-    // print the task output
-    this.printer.printTaskOutput(taskOutput, task);
+    const icon = sufficiencyResult?.status === 'complete' ? '🙆‍♂️' : '🙅‍♀️';
+    const retry =
+      this.retryCounter > 0 ? ` (🔁 RetryCount: ${this.retryCounter - 1})` : '';
+    this.messageCallback(
+      setupMessage(
+        'sufficiency-result',
+        '```json\n' + JSON.stringify(sufficiencyResult) + '\n```\n' + retry,
+        undefined,
+        icon,
+      ),
+    );
   }
 
   // Override AgentExecuter
@@ -96,10 +131,10 @@ export class BUIExecuter extends AgentExecuter {
   async loop() {
     // Continue the loop while there are incomplete tasks
     while (
-      this.isRunning &&
+      this.isRunningRef.current &&
       this.taskList.some((task) => task.status === 'incomplete')
     ) {
-      if (!this.isRunning) {
+      if (!this.isRunningRef.current) {
         break;
       }
 
@@ -112,6 +147,14 @@ export class BUIExecuter extends AgentExecuter {
       const task = incompleteTasks[0];
       // 2. Execute the task
       await this.executeTask(task);
+
+      // Failed to complete the task
+      if (this.retryCounter > 3) {
+        const message = translate('TASK_FAILED_MESSAGE', 'message');
+        this.messageCallback(setupMessage('failed', message));
+        this.stop();
+        break;
+      }
 
       this.taskIdCounter += 1;
       this.statusCallback({ type: 'closing' });

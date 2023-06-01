@@ -22,5 +22,9 @@
   "THINKING": "Domājot...",
   "UPDATING": "♻️ Notiek uzdevuma atjaunināšana...",
   "CURRENT_TASK": "Pašreizējā uzdevums",
-  "CURRENT_TASK_LIST": "Aktuālais uzdevumu saraksts"
+  "CURRENT_TASK_LIST": "Aktuālais uzdevumu saraksts",
+  "TASK_FAILED": "Uzdevums neizdevās",
+  "TASK_FAILED_MESSAGE": "Neizdevās izpildīt uzdevumu. Lūdzu, pārbaudiet uzdevuma žurnālu.",
+  "OUTPUT_SUFFICIENCY": "Izvades pietiekamība",
+  "SUFFICIENCY": "Pārbauda uzdevuma izvades pietiekamību..."
 }

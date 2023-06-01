@@ -22,5 +22,9 @@
   "THINKING": "Gândire...",
   "UPDATING": "♻️ Actualizarea sarcinilor...",
   "CURRENT_TASK": "Sarcina curentă.",
-  "CURRENT_TASK_LIST": "Lista actuală de sarcini."
+  "CURRENT_TASK_LIST": "Lista actuală de sarcini.",
+  "TASK_FAILED": "Misiune Eșuată",
+  "TASK_FAILED_MESSAGE": "Eșec la executarea sarcinii. Vă rugăm să verificați jurnalul sarcinii.",
+  "OUTPUT_SUFFICIENCY": "Suficiența ieșirii",
+  "SUFFICIENCY": "Verificând suficiența rezultatelor sarcinii..."
 }

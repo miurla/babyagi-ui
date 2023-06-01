@@ -22,5 +22,9 @@
   "THINKING": "ఆలోచిస్తూ...",
   "UPDATING": "♻️ టాస్క్ అప్‌డేట్ అవుతోంది...",
   "CURRENT_TASK": "ప్రస్తుత పని",
-  "CURRENT_TASK_LIST": "ప్రస్తుత పని జాబితా"
+  "CURRENT_TASK_LIST": "ప్రస్తుత పని జాబితా",
+  "TASK_FAILED": "పని విఫలమయింది (Pani viphalamayindi)",
+  "TASK_FAILED_MESSAGE": "టాస్క్ ను నిష్ఫలమైంది. దయచేసి టాస్క్ లాగ్ ని తనిఖీ చేయండి.",
+  "OUTPUT_SUFFICIENCY": "ఔట్పుట్ సరాసరిత",
+  "SUFFICIENCY": "టాస్క్ అవుట్‌పుట్ పూర్తిగా తనిఖీ చెయ్యడం..."
 }

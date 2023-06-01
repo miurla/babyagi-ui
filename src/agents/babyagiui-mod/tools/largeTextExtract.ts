@@ -2,12 +2,13 @@ import { AgentTask } from '@/types';
 import { getUserApiKey } from '@/utils/settings';
 import { relevantInfoExtractionAgent } from '../agents/relevantInfoExtraction/agent';
 import axios from 'axios';
+import React from 'react';
 
 export const largeTextExtract = async (
   objective: string,
   largeString: string,
   task: AgentTask,
-  isRunning: boolean,
+  isRunningRef: React.MutableRefObject<boolean>,
   signal?: AbortSignal,
 ) => {
   const chunkSize = 1500;
@@ -15,7 +16,7 @@ export const largeTextExtract = async (
   let notes = '';
 
   for (let i = 0; i < largeString.length; i += chunkSize - overlap) {
-    if (!isRunning) break;
+    if (!isRunningRef.current) break;
 
     const chunk = largeString.slice(i, i + chunkSize);
     // Client side call

@@ -22,5 +22,9 @@
   "THINKING": "Suy nghĩ...",
   "UPDATING": "♻️ Đang cập nhật nhiệm vụ...",
   "CURRENT_TASK": "Nhiệm vụ hiện tại",
-  "CURRENT_TASK_LIST": "Danh sách tác vụ hiện tại"
+  "CURRENT_TASK_LIST": "Danh sách tác vụ hiện tại",
+  "TASK_FAILED": "Nhiệm vụ thất bại",
+  "TASK_FAILED_MESSAGE": "Thất bại khi thực hiện tác vụ. Vui lòng kiểm tra nhật ký tác vụ.",
+  "OUTPUT_SUFFICIENCY": "Đầu Ra Đầy Đủ",
+  "SUFFICIENCY": "Đang kiểm tra tính đầy đủ của đầu ra nhiệm vụ..."
 }

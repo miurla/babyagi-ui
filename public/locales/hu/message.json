@@ -22,5 +22,9 @@
   "THINKING": "Gondolkodás...",
   "UPDATING": "♻️ Feladat frissítése...",
   "CURRENT_TASK": "Jelenlegi feladat",
-  "CURRENT_TASK_LIST": "Jelenlegi feladatok listája"
+  "CURRENT_TASK_LIST": "Jelenlegi feladatok listája",
+  "TASK_FAILED": "A feladat sikertelen volt",
+  "TASK_FAILED_MESSAGE": "Sikertelen a feladat végrehajtása. Kérjük, ellenőrizze a feladatnaplót.",
+  "OUTPUT_SUFFICIENCY": "Kimeneti elegendőség",
+  "SUFFICIENCY": "A feladat kimenetének ellenőrzése elegendősége szempontjából..."
 }

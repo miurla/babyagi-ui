@@ -5,6 +5,9 @@ import { AgentStatus, AgentTask } from '@/types';
 import { getUserApiKey } from '@/utils/settings';
 import { parseTasks } from '@/utils/task';
 
+// TODO: Only client-side requests are allowed.
+// To use the environment variable API key, the request must be implemented from the server side.
+
 export const taskCreationAgent = async (
   objective: string,
   modelName: string,
