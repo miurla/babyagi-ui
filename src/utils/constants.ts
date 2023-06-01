@@ -37,19 +37,19 @@ export const BABYBEEAGI_ITERATIONS = [
 ];
 
 export const AGENT = [
-  // {
-  //   id: 'babyagiui-mod',
-  //   name: 'BabyAGIUI Mod',
-  //   icon: '🧪',
-  //   message: '🤖/🔎+📄',
-  //   badge: 'EXPERIMENTAL',
-  // },
+  {
+    id: 'bui-mod-1',
+    name: 'BabyCatAGI(mod)',
+    icon: '🧪',
+    message: '🤖/🔎+📄',
+    badge: 'EXPERIMENTAL',
+  },
   {
     id: 'babycatagi',
     name: 'BabyCatAGI',
     icon: '🐱',
     message: '🤖/🔎+📄',
-    badge: 'NEW',
+    badge: 'ORIGINAL',
   },
   {
     id: 'babybeeagi',

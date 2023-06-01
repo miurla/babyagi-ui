@@ -186,7 +186,7 @@ export const Agent: FC = () => {
           verbose,
         );
         break;
-      case 'babyagiui-mod':
+      case 'bui-mod-1':
         agent = new BUIExecuter(
           objective,
           model.id,

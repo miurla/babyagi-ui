@@ -1,5 +1,6 @@
+// sufficiencyAgent.ts //
 import { AgentStatus, AgentTask } from '@/types';
-import { taskCompletionPrompt } from './prompt';
+import { sufficiencyPrompt } from './sufficiencyPrompt';
 import { OpenAIChat } from 'langchain/llms/openai';
 import { getUserApiKey } from '@/utils/settings';
 import { LLMChain } from 'langchain/chains';
@@ -7,35 +8,26 @@ import { LLMChain } from 'langchain/chains';
 // TODO: Only client-side requests are allowed.
 // To use the environment variable API key, the request must be implemented from the server side.
 
-export const taskCompletionAgent = async (
+export const sufficiencyAgent = async (
   task: AgentTask,
   taskList: AgentTask[],
+  taskResult: string,
   objective: string,
   modelName: string,
   signal?: AbortSignal,
-  statusCallback?: (status: AgentStatus) => void,
 ) => {
-  let chunk = '```json\n';
-  const prompt = taskCompletionPrompt(taskList, task);
+  const prompt = sufficiencyPrompt(taskList, task, taskResult);
   const openAIApiKey = getUserApiKey();
   const llm = new OpenAIChat(
     {
       openAIApiKey: openAIApiKey,
       modelName: modelName,
-      temperature: 0.2,
+      temperature: 0,
       maxTokens: 1500,
       topP: 1,
       frequencyPenalty: 0,
       presencePenalty: 0,
-      streaming: true,
-      callbacks: [
-        {
-          handleLLMNewToken(token: string) {
-            chunk += token;
-            statusCallback?.({ type: 'executing-stream', message: chunk });
-          },
-        },
-      ],
+      streaming: false,
     },
     { baseOptions: { signal: signal } },
   );
@@ -46,7 +38,12 @@ export const taskCompletionAgent = async (
       objective,
       task: task.task,
     });
-    return response.text;
+    const parsedResponse = JSON.parse(response.text);
+    return {
+      status: parsedResponse.status || 'incomplete',
+      reason: parsedResponse.reason || '',
+      updated_task: parsedResponse.updated_task || '',
+    };
   } catch (error: any) {
     if (error.name === 'AbortError') {
       return null;

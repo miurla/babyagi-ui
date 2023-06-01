@@ -8,11 +8,12 @@ export class AgentExecuter {
   statusCallback: (status: AgentStatus) => void;
   cancelCallback: () => void;
   verbose: boolean = false;
-  //
+
   taskIdCounter: number = 0;
+  retryCounter: number = 0;
   taskList: AgentTask[] = [];
-  isRunning: boolean = false;
-  //
+  isRunningRef = { current: false };
+
   abortController?: AbortController;
   printer: Printer;
 
@@ -34,8 +35,9 @@ export class AgentExecuter {
   }
 
   async start() {
-    this.isRunning = true;
+    this.isRunningRef.current = true;
     this.taskIdCounter = 0;
+    this.retryCounter = 0;
     this.taskList = [];
     await this.prepare();
     await this.loop();
@@ -43,13 +45,13 @@ export class AgentExecuter {
   }
 
   async stop() {
-    this.isRunning = false;
+    this.isRunningRef.current = false;
     this.cancelCallback();
     this.abortController?.abort();
   }
 
   async finishup() {
-    if (!this.isRunning) {
+    if (!this.isRunningRef.current) {
       this.statusCallback({ type: 'finished' });
       return;
     }
@@ -58,7 +60,7 @@ export class AgentExecuter {
     this.printer.printAllTaskCompleted();
     this.statusCallback({ type: 'finished' });
     this.cancelCallback();
-    this.isRunning = false;
+    this.isRunningRef.current = false;
   }
 
   // prepare() is called before loop()

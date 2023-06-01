@@ -3,34 +3,42 @@ import { AgentStatus, AgentTask, Message } from '@/types';
 import { setupMessage } from '@/utils/message';
 import axios from 'axios';
 import { largeTextExtract } from './largeTextExtract';
+import { searchQueryGenerationAgent } from '../agents/searchQueryGeneration/searchQueryGenerationAgent';
 
 export const webBrowsing = async (
   objective: string,
   task: AgentTask,
   messageCallback: (message: Message) => void,
   statusCallback: (status: AgentStatus) => void,
-  isRunning: boolean,
+  isRunningRef: React.MutableRefObject<boolean>,
   verbose: boolean,
   signal?: AbortSignal,
 ) => {
-  const searchResults = await webSearchTool(task.task, signal);
+  const searchQuery = await searchQueryGenerationAgent(
+    task,
+    'gpt-3.5-turbo',
+    signal,
+  );
+  const searchResults = await webSearchTool(searchQuery, signal);
 
-  if (!isRunning) return;
+  if (!isRunningRef.current) return;
 
   const sinmplifiedSearchResults = simplifySearchResults(searchResults);
   if (verbose) {
-    console.log('Completed search. Now scraping results.\n');
+    console.log(
+      'Completed search (query: ${searchQuery}). \nNow scraping results.\n',
+    );
   }
-  let statusMessage = 'Completed search. Now scraping results.\n';
+  let statusMessage = `Completed search (query: ${searchQuery}). \nNow scraping results.\n`;
   callbackSearchStatus(statusMessage, statusCallback);
 
-  if (!isRunning) return;
+  if (!isRunningRef.current) return;
 
   let result = '';
   let index = 1;
   // Loop through search results
   for (const searchResult of sinmplifiedSearchResults) {
-    if (!isRunning) break;
+    if (!isRunningRef.current) return;
 
     // Extract the URL from the search result
     const url = searchResult.link;
@@ -40,8 +48,8 @@ export const webBrowsing = async (
     statusMessage += `${index}. Scraping: ${url} ...\n`;
     callbackSearchStatus(statusMessage, statusCallback);
 
-    const content = await webScrapeTool(url, signal);
-    if (!content) continue;
+    const searchContent = `${searchResult.title}. ${searchResult.snippet} ${url}. \n`;
+    const content = (await webScrapeTool(url, signal)) ?? '';
 
     if (verbose) {
       console.log(
@@ -49,17 +57,18 @@ export const webBrowsing = async (
         content.length,
       );
     }
+
     statusMessage += `  - Scrape completed. Length:${content.length}. Now extracting relevant info... \n`;
     callbackSearchStatus(statusMessage, statusCallback);
 
-    if (!isRunning) break;
+    if (!isRunningRef.current) return;
 
     // extract relevant text from the scraped text
     const info = await largeTextExtract(
       objective,
-      content,
+      `${searchContent} \n ${content}`,
       task,
-      isRunning,
+      isRunningRef,
       signal,
     );
     // combine search result and scraped text
@@ -74,7 +83,7 @@ export const webBrowsing = async (
     index++;
   }
 
-  if (!isRunning) return;
+  if (!isRunningRef.current) return;
 
   // callback to search logs
   messageCallback(

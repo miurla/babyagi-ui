@@ -46,7 +46,9 @@ export type MessageType =
   | 'end-of-iterations'
   | 'session-summary'
   | 'done'
-  | 'complete';
+  | 'complete'
+  | 'failed'
+  | 'sufficiency-result';
 
 export type AgentStatusType =
   | 'preparing'
@@ -62,7 +64,8 @@ export type AgentStatusType =
   | 'summarizing'
   | 'managing'
   | 'creating-stream' // for babycatagi
-  | 'executing-stream'; // for babycatagi
+  | 'executing-stream' // for babycatagi
+  | 'sufficiency'; // for mod
 
 export type UserSettings = {
   openAIApiKey?: string;

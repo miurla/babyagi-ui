@@ -26,6 +26,10 @@ type SearchResult = {
 };
 
 export const simplifySearchResults = (searchResults: SearchResult[]) => {
+  if (!Array.isArray(searchResults)) {
+    return [];
+  }
+
   const simplifiedResults = [];
   for (const result of searchResults) {
     simplifiedResults.push({

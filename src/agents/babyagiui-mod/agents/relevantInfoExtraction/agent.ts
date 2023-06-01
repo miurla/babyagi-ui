@@ -1,8 +1,10 @@
 import { getUserApiKey } from '@/utils/settings';
-import { LLM } from 'langchain/dist/llms/base';
 import { OpenAIChat } from 'langchain/llms/openai';
 import { relevantInfoExtractionPrompt } from './prompt';
 import { LLMChain } from 'langchain';
+
+// TODO: Only client-side requests are allowed.
+// To use the environment variable API key, the request must be implemented from the server side.
 
 export const relevantInfoExtractionAgent = async (
   objective: string,
@@ -10,17 +12,21 @@ export const relevantInfoExtractionAgent = async (
   notes: string,
   chunk: string,
   modelName: string,
+  signal?: AbortSignal,
 ) => {
   const openAIApiKey = getUserApiKey();
   const prompt = relevantInfoExtractionPrompt();
-  const llm = new OpenAIChat({
-    openAIApiKey,
-    modelName: modelName,
-    temperature: 0.7,
-    maxTokens: 800,
-    topP: 1,
-    stop: ['###'],
-  });
+  const llm = new OpenAIChat(
+    {
+      openAIApiKey,
+      modelName: modelName,
+      temperature: 0.7,
+      maxTokens: 800,
+      topP: 1,
+      stop: ['###'],
+    },
+    { baseOptions: { signal: signal } },
+  );
   const chain = new LLMChain({ llm: llm, prompt });
   try {
     const response = await chain.call({
