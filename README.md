@@ -25,6 +25,7 @@ This is a port of [babyagi](https://github.com/yoheinakajima/babyagi) with [Lang
 - [x] Improv UX for task creation (only BabyCatAGI🐱 & Client request)
 - [x] Notification that all tasks have been completed. 🔔
 - [x] Display the current task and task list. 📌
+- [x] Added our experimental agent. [🧪 BabyCatAGI (mod)]: Generate search queries, Check the sufficiency of task results.
 - [ ] Other LLM models support
 
 and more ...

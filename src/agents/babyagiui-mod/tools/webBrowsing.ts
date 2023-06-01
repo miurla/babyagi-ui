@@ -19,7 +19,9 @@ export const webBrowsing = async (
     'gpt-3.5-turbo',
     signal,
   );
-  const searchResults = await webSearchTool(searchQuery, signal);
+
+  const trimmedQuery = searchQuery.replace(/^"|"$/g, '');
+  const searchResults = await webSearchTool(trimmedQuery, signal);
 
   if (!isRunningRef.current) return;
 

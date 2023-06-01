@@ -76,7 +76,7 @@ export const setupMessage = (
       : type === 'failed'
       ? translate('TASK_FAILED', 'message')
       : type === 'sufficiency-result'
-      ? translate('SUFFICIENCY_RESULT', 'message')
+      ? translate('OUTPUT_SUFFICIENCY', 'message')
       : '';
 
   const bgColor =

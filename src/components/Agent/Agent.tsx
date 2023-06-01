@@ -350,7 +350,7 @@ export const Agent: FC = () => {
         </>
       ) : (
         <div className="max-h-full overflow-scroll">
-          <AgentMessageHeader model={model} iterations={iterations} />
+          <AgentMessageHeader model={model} agent={selectedAgent} />
           {messages.map((message, index) => (
             <AgentMessage key={index} message={message} />
           ))}

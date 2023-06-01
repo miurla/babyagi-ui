@@ -46,7 +46,7 @@ export const AGENT = [
   },
   {
     id: 'bui-mod-1',
-    name: 'BabyCatAGI(mod)',
+    name: 'BabyCatAGI (mod)',
     icon: '🧪',
     message: '🤖/🔎+📄',
     badge: 'EXPERIMENTAL',
