@@ -79,6 +79,13 @@ This script is designed to be run continuously as part of a task management syst
 
 [original](https://github.com/yoheinakajima/babyagi#warning)
 
+## 🎗️ Official Sponsor
+
+[![SerpAPI](./public/images/serpapi-logo.png)](https://serpapi.com/)
+
+- The SerpAPI team is providing the search API credits for requests made on the demo site of this project. ⭐️
+- 🔍 [SerpAPI](https://serpapi.com/): Scrape Google and other search engines from our fast, easy, and complete API.
+
 ## Credit
 
 ### BabyAGI
