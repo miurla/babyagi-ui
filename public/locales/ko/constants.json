@@ -12,5 +12,6 @@
   "NOTIFICATION_TITLE": "작업 완료!",
   "NOTIFICATION_NOT_SUPPORTED": "이 브라우저는 데스크톱 알림을 지원하지 않습니다.",
   "NOTIFICATION_DINIED": "알림 권한을 거부���습니다. 브라우저 설정에서 허용해 주세요.",
-  "FIRST_TASK_PLACEHOLDER": "할 일 목록 개발"
+  "FIRST_TASK_PLACEHOLDER": "할 일 목록 개발",
+  "ALERT_GPT_4_DISABLED": "귀하의 API 키는 GPT-4에 대한 액세스 권한이 없습니다. GPT-4가 아닌 다른 모델을 선택하고 실행하십시오."
 }

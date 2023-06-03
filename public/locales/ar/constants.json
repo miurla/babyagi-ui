@@ -12,5 +12,6 @@
   "NOTIFICATION_TITLE": "اكتملت المهمة!",
   "NOTIFICATION_NOT_SUPPORTED": "لا يدعم متصفح الويب هذا إشعارات سطح المكتب.",
   "NOTIFICATION_DINIED": "رفضت إذن الإشعار. يرجى السماح به في إعدادات المتصفح.",
-  "FIRST_TASK_PLACEHOLDER": "تطوير قائمة المهام."
+  "FIRST_TASK_PLACEHOLDER": "تطوير قائمة المهام.",
+  "ALERT_GPT_4_DISABLED": "لا يحتوي مفتاح واجهة برمجة التطبيقات الخاص بك على حقوق الوصول إلى GPT-4. يرجى اختيار طراز آخر غير GPT-4 وتشغيله."
 }

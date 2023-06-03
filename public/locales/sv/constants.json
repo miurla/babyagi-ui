@@ -12,5 +12,6 @@
   "NOTIFICATION_TITLE": "Uppgift slutförd!",
   "NOTIFICATION_NOT_SUPPORTED": "Denna webbläsare stöder inte skrivbordsaviseringar.",
   "NOTIFICATION_DINIED": "Du nekade aviseringstillståndet. Vänligen tillåt det i webbläsarinställningarna.",
-  "FIRST_TASK_PLACEHOLDER": "Upprätta en uppgiftslista"
+  "FIRST_TASK_PLACEHOLDER": "Upprätta en uppgiftslista",
+  "ALERT_GPT_4_DISABLED": "Din API-nyckel har inte åtkomstbehörighet till GPT-4. Välj ett annat modell än GPT-4 och kör det."
 }

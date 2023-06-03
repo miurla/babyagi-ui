@@ -12,5 +12,6 @@
   "NOTIFICATION_TITLE": "המשימה הושלמה!",
   "NOTIFICATION_NOT_SUPPORTED": "דפדפן זה אינו תומך בהתראות שולחן העבודה.",
   "NOTIFICATION_DINIED": "דחית את הרשאת ההתראה. אנא אפשר זאת בהגדרות הדפדפן.",
-  "FIRST_TASK_PLACEHOLDER": "פיתוח רשימת משימות"
+  "FIRST_TASK_PLACEHOLDER": "פיתוח רשימת משימות",
+  "ALERT_GPT_4_DISABLED": "המפתח של ה- API שלך אינו מכיל הרשאות גישה ל-GPT-4. אנא בחר דגם אחר מלבד GPT-4 והריץ אותו."
 }

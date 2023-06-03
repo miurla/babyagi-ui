@@ -12,5 +12,6 @@
   "NOTIFICATION_TITLE": "Uzdevums pabeigts!",
   "NOTIFICATION_NOT_SUPPORTED": "Šī pārlūkprogramma neatbalsta darbvirsmas paziņojumus.",
   "NOTIFICATION_DINIED": "Jūs atteicāties no paziņojumu atļaujas. Lūdzu, atļaujiet to pārlūkprogrammas iestatījumos.",
-  "FIRST_TASK_PLACEHOLDER": "Izveidot uzdevumu sarakstu."
+  "FIRST_TASK_PLACEHOLDER": "Izveidot uzdevumu sarakstu.",
+  "ALERT_GPT_4_DISABLED": "Jūsu API atslēga nav piekļuves tiesību GPT-4. Lūdzu, izvēlieties citu modeli nekā GPT-4 un palaist to."
 }

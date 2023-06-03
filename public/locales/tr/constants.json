@@ -12,5 +12,6 @@
   "NOTIFICATION_TITLE": "Görev tamamlandı!",
   "NOTIFICATION_NOT_SUPPORTED": "Bu tarayıcı masaüstü bildirimlerini desteklemiyor.",
   "NOTIFICATION_DINIED": "Bildirim iznini reddettiniz. Lütfen tarayıcı ayarlarında izin verin.",
-  "FIRST_TASK_PLACEHOLDER": "Görev listesi oluşturun"
+  "FIRST_TASK_PLACEHOLDER": "Görev listesi oluşturun",
+  "ALERT_GPT_4_DISABLED": "API anahtarınızın GPT-4'e erişim hakları yok. Lütfen GPT-4'den farklı bir model seçin ve çalıştırın."
 }

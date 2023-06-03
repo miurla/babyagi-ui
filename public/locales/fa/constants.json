@@ -12,5 +12,6 @@
   "NOTIFICATION_TITLE": "کار انجام شد!",
   "NOTIFICATION_NOT_SUPPORTED": "این مرورگر از اعلان‌های دسکتاپ پشتیبانی نمی‌کند.",
   "NOTIFICATION_DINIED": "شما اجازه اعلان را رد کردید. لطفاً آن را در تنظیمات مرورگر مجاز کنید.",
-  "FIRST_TASK_PLACEHOLDER": "تهیه لیست وظایف"
+  "FIRST_TASK_PLACEHOLDER": "تهیه لیست وظایف",
+  "ALERT_GPT_4_DISABLED": "کلید API شما دسترسی لازم برای GPT-4 را ندارد. لطفاً یک مدل دیگر از GPT-4 انتخاب کنید و آن را اجرا کنید."
 }

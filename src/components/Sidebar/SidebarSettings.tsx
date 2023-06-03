@@ -11,6 +11,9 @@ import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import { languages } from '@/utils/languages';
 import Switch from './Switch';
+import axios from 'axios';
+import { get } from 'http';
+import { getUserApiKey, setEnabledGPT4 } from '@/utils/settings';
 
 export const SidebarSettings: FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -54,6 +57,8 @@ export const SidebarSettings: FC = () => {
     }
 
     localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
+
+    setGPT4Permission();
   };
 
   const handleLanguage = (value: string) => {
@@ -99,6 +104,18 @@ export const SidebarSettings: FC = () => {
       };
       localStorage.setItem(SETTINGS_KEY, JSON.stringify(updatedSettings));
     }
+  };
+
+  const setGPT4Permission = async () => {
+    const openAIApiKey = getUserApiKey();
+    const res = await axios.get('https://api.openai.com/v1/models/gpt-4', {
+      headers: {
+        Authorization: `Bearer ${openAIApiKey}`,
+      },
+    });
+    const data = res.data;
+    const enabled = data !== undefined;
+    setEnabledGPT4(enabled);
   };
 
   return (

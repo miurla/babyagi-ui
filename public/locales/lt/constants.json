@@ -12,5 +12,6 @@
   "NOTIFICATION_TITLE": "Užduotis atlikta!",
   "NOTIFICATION_NOT_SUPPORTED": "Ši naršyklė nepalaiko darbalaukio pranešimų.",
   "NOTIFICATION_DINIED": "Jūs atmetėte pranešimo leidimą. Prašome leisti tai naršyklės nustatymuose.",
-  "FIRST_TASK_PLACEHOLDER": "Sukurkite užduočių sąrašą."
+  "FIRST_TASK_PLACEHOLDER": "Sukurkite užduočių sąrašą.",
+  "ALERT_GPT_4_DISABLED": "Jūsų API raktas neturi prieigos teisių prie GPT-4. Prašome pasirinkti kitą modelį nei GPT-4 ir paleisti jį."
 }
