@@ -29,6 +29,7 @@ import { taskCompletedNotification } from '@/utils/notification';
 import { MessageSummaryCard } from './MessageSummaryCard';
 import { BUIExecuter } from '@/agents/babyagiui-mod/executer';
 import { useTranslation } from 'next-i18next';
+import { setEnabledGPT4 } from '@/utils/settings';
 
 export const Agent: FC = () => {
   const [model, setModel] = useState<SelectItem>(MODELS[0]);
@@ -146,6 +147,13 @@ export const Agent: FC = () => {
     if (needSettingsAlert()) {
       alert(translate('ALERT_SET_UP_API_KEY', 'agent'));
       return;
+    }
+    if (model.id === 'gpt-4') {
+      const enabled = await enabledGPT4();
+      if (!enabled) {
+        alert(translate('ALERT_GPT_4_DISABLED', 'constants'));
+        return;
+      }
     }
 
     setMessages([]);
@@ -326,6 +334,20 @@ export const Agent: FC = () => {
       }
     }
     return true;
+  };
+
+  const enabledGPT4 = async () => {
+    const userSettings = localStorage.getItem(SETTINGS_KEY);
+    if (!userSettings) {
+      return false;
+    }
+
+    const { enabledGPT4 } = JSON.parse(userSettings) as UserSettings;
+    if (enabledGPT4 === undefined) {
+      return true; // If no value is given, its enabled by default
+    }
+
+    return enabledGPT4;
   };
 
   const currentEvaluation = () => {
