@@ -5,6 +5,7 @@ import { getToolIcon, setupMessage } from '@/utils/message';
 import axios from 'axios';
 import { parseTasks } from '@/utils/task';
 import { getUserApiKey } from '@/utils/settings';
+import { t } from 'i18next';
 
 export interface AgentTask {
   id: number;
@@ -25,6 +26,7 @@ export class BabyBeeAGI {
   taskIdCounter: number = 1;
   isRunning: boolean;
   verbose: boolean;
+  language: string = 'en';
   messageCallback: (message: Message) => void;
   statusCallback: (status: AgentStatus) => void;
   cancelCallback: () => void;
@@ -37,11 +39,13 @@ export class BabyBeeAGI {
     messageCallback: (message: Message) => void,
     statusCallback: (status: AgentStatus) => void,
     cancel: () => void,
+    language: string = 'en',
     verbose: boolean = false,
   ) {
     this.objective = objective;
     this.taskList = [];
     this.verbose = verbose;
+    this.language = language;
     this.modelName = modelName;
     this.firstTask = firstTask;
     this.cancelCallback = cancel;
@@ -256,7 +260,7 @@ export class BabyBeeAGI {
     const text = value.length > 4000 ? value.slice(0, 4000) + '...' : value;
 
     if (getUserApiKey()) {
-      return await summarizerAgent(text, getUserApiKey());
+      return await summarizerAgent(text, this.language, getUserApiKey());
     }
 
     const response = await axios
@@ -264,7 +268,7 @@ export class BabyBeeAGI {
         '/api/agents/summarize',
         {
           text,
-          apiKey: getUserApiKey(),
+          language: this.language,
         },
         {
           signal: this.abortController?.signal,
@@ -347,6 +351,7 @@ export class BabyBeeAGI {
         res,
         websearchVar,
         this.modelName,
+        this.language,
         getUserApiKey(),
       );
     } else {
@@ -359,6 +364,7 @@ export class BabyBeeAGI {
             result: res,
             websearch_var: websearchVar,
             model_name: this.modelName,
+            language: this.language,
           },
           {
             signal: this.abortController?.signal,

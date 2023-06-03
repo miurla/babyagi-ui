@@ -178,6 +178,7 @@ export const Agent: FC = () => {
           messageHandler,
           setAgentStatus,
           cancelHandle,
+          language,
           verbose,
         );
         break;

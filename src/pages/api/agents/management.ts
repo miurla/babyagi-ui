@@ -7,14 +7,21 @@ export const config = {
 
 const handler = async (req: NextRequest) => {
   try {
-    const { minified_task_list, objective, result, websearch_var, model_name } =
-      await req.json();
+    const {
+      minified_task_list,
+      objective,
+      result,
+      websearch_var,
+      model_name,
+      language,
+    } = await req.json();
     const response = await taskManagementAgent(
       minified_task_list,
       objective,
       result,
       websearch_var,
       model_name,
+      language,
     );
     return NextResponse.json({ response: response });
   } catch (error) {
