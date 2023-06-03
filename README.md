@@ -5,8 +5,6 @@
 ![Twitter Follow](https://img.shields.io/twitter/follow/miiura?style=social)
 ![GitHub Repo stars](https://img.shields.io/github/stars/miurla/babyagi-ui?style=social)
 
-<iframe src="https://ghbtns.com/github-btn.html?user=miurla&repo=babyagi-ui&type=star&count=true" frameborder="0" scrolling="0" width="150" height="20" title="GitHub"></iframe>
-
 BabyAGI UI is designed to make it easier to run and develop with [babyagi](https://github.com/yoheinakajima/babyagi) in a web app, like a ChatGPT.
 This is a port of [babyagi](https://github.com/yoheinakajima/babyagi) with [Langchain.js](https://github.com/hwchase17/langchainjs) and build a user interface.
 
