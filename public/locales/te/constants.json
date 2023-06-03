@@ -12,5 +12,6 @@
   "NOTIFICATION_TITLE": "పని పూర్తయింది!",
   "NOTIFICATION_NOT_SUPPORTED": "ఈ బ్రౌజర్ డెస్క్‌టాప్ నోటిఫికేషన్‌లను మద్దతు చేయడు.",
   "NOTIFICATION_DINIED": "మీరు నోటిఫికేషన్ అనుమతిని నిరాకరించారు. బ్రౌజర్ సెట్టింగ్‌లలో దయచేసి అనుమతించండి.",
-  "FIRST_TASK_PLACEHOLDER": "ఒక పని జాబితా అభివృద్ధించండి (Develop a task list)"
+  "FIRST_TASK_PLACEHOLDER": "ఒక పని జాబితా అభివృద్ధించండి (Develop a task list)",
+  "ALERT_GPT_4_DISABLED": "మీ API కీకు GPT-4 ప్రవేశ హక్కులు లేవు. దయచేసి GPT-4 కంటే ఇతర మోడల్‌ను ఎంచుకోండి మరియు ప్రవేశించండి."
 }

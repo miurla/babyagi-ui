@@ -12,5 +12,6 @@
   "NOTIFICATION_TITLE": "Feladat befejezve!",
   "NOTIFICATION_NOT_SUPPORTED": "Ez a böngésző nem támogatja az asztali értesítéseket.",
   "NOTIFICATION_DINIED": "Elutasította az értesítési engedélyt. Kérjük, engedélyezze azt a böngésző beállításaiban.",
-  "FIRST_TASK_PLACEHOLDER": "A feladatlista kidolgozása"
+  "FIRST_TASK_PLACEHOLDER": "A feladatlista kidolgozása",
+  "ALERT_GPT_4_DISABLED": "Az API-kulcsodnak nincsenek hozzáférési jogai a GPT-4-hez. Kérlek válassz egy másik modellt, majd futtasd újra."
 }

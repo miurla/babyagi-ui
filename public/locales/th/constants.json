@@ -12,5 +12,6 @@
   "NOTIFICATION_TITLE": "งานเสร็จสิ้น!",
   "NOTIFICATION_NOT_SUPPORTED": "เบราว์เซอร์นี้ไม่รองรับการแจ้งเตือนเดสก์ท็อป",
   "NOTIFICATION_DINIED": "คุณปฏิเสธสิทธิ์ในการแจ้งเตือน กรุณาอนุญาตในการตั้งค่าเบราว์เซอร์",
-  "FIRST_TASK_PLACEHOLDER": "พัฒนารายการงาน"
+  "FIRST_TASK_PLACEHOLDER": "พัฒนารายการงาน",
+  "ALERT_GPT_4_DISABLED": "คีย์ API ของคุณไม่มีสิทธิ์เข้าถึง GPT-4 โปรดเลือกโมเดลอื่นๆนอกเหนือจาก GPT-4 และรันต่อไป"
 }

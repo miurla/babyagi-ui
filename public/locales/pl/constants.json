@@ -12,5 +12,6 @@
   "NOTIFICATION_TITLE": "Zadanie zakończone!",
   "NOTIFICATION_NOT_SUPPORTED": "Ta przeglądarka nie obsługuje powiadomień na pulpicie.",
   "NOTIFICATION_DINIED": "Odmówiłeś zgody na powiadomienia. Proszę zezwolić na to w ustawieniach przeglądarki.",
-  "FIRST_TASK_PLACEHOLDER": "Przygotuj listę zadań"
+  "FIRST_TASK_PLACEHOLDER": "Przygotuj listę zadań",
+  "ALERT_GPT_4_DISABLED": "Twój klucz API nie ma praw dostępu do GPT-4. Proszę wybrać inny model niż GPT-4 i uruchomić go."
 }

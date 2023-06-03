@@ -12,5 +12,6 @@
   "NOTIFICATION_TITLE": "Compito completato!",
   "NOTIFICATION_NOT_SUPPORTED": "Questo browser non supporta le notifiche desktop.",
   "NOTIFICATION_DINIED": "Hai negato il permesso di notifica. Si prega di consentirlo nelle impostazioni del browser.",
-  "FIRST_TASK_PLACEHOLDER": "Sviluppare un elenco di attività."
+  "FIRST_TASK_PLACEHOLDER": "Sviluppare un elenco di attività.",
+  "ALERT_GPT_4_DISABLED": "La tua chiave API non ha i diritti di accesso per GPT-4. Scegli un altro modello diverso da GPT-4 e avvialo."
 }

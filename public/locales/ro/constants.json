@@ -12,5 +12,6 @@
   "NOTIFICATION_TITLE": "Sarcină finalizată!",
   "NOTIFICATION_NOT_SUPPORTED": "Acest browser nu suportă notificări pe desktop.",
   "NOTIFICATION_DINIED": "Ați refuzat permisiunea de notificare. Vă rugăm să o permiteți în setările browserului.",
-  "FIRST_TASK_PLACEHOLDER": "Elaborați o listă de activități."
+  "FIRST_TASK_PLACEHOLDER": "Elaborați o listă de activități.",
+  "ALERT_GPT_4_DISABLED": "Cheia API nu are drepturi de acces la GPT-4. Vă rugăm să selectați un alt model decât GPT-4 și să-l rulați."
 }
