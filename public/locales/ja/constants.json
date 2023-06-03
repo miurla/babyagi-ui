@@ -12,5 +12,6 @@
   "NOTIFICATION_TITLE": "タスクが完了しました",
   "NOTIFICATION_MESSAGE": "すべてのタスクが完了しました。",
   "NOTIFICATION_NOT_SUPPORTED": "このブラウザはデスクトップ通知に対応していません。",
-  "NOTIFICATION_DINIED": "通知の許可が拒否されました。ブラウザの設定で許可してください。"
+  "NOTIFICATION_DINIED": "通知の許可が拒否されました。ブラウザの設定で許可してください。",
+  "FIRST_TASK_PLACEHOLDER": "タスクリストを作成する"
 }

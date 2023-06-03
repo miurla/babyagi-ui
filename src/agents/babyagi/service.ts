@@ -48,6 +48,7 @@ export const taskCreationAgent = async (
   incomplete_tasks: string,
   objective: string,
   modelName: string,
+  language: string,
   openAIApiKey?: string,
 ) => {
   const model = new OpenAI({ openAIApiKey, modelName, temperature: 0.5 });
@@ -57,6 +58,7 @@ export const taskCreationAgent = async (
     result,
     task_description,
     incomplete_tasks,
+    language,
   });
 
   const newTasks = (response.text as string).split('\n');
