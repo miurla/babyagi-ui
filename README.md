@@ -1,11 +1,9 @@
 # 👶🤖🖥️ BabyAGI UI
 
-![GitHub last commit](https://img.shields.io/github/last-commit/miurla/babyagi-ui)
-![Discord](https://img.shields.io/discord/1111177037055529012)
-![Twitter Follow](https://img.shields.io/twitter/follow/miiura?style=social)
-![GitHub Repo stars](https://img.shields.io/github/stars/miurla/babyagi-ui?style=social)
-
-<iframe src="https://ghbtns.com/github-btn.html?user=miurla&repo=babyagi-ui&type=star&count=true" frameborder="0" scrolling="0" width="150" height="20" title="GitHub"></iframe>
+[![GitHub last commit](https://img.shields.io/github/last-commit/miurla/babyagi-ui)](https://github.com/miurla/babyagi-ui/commit/main)
+[![Discord](https://img.shields.io/discord/1111177037055529012)](https://discord.gg/8nMD4X6RJm)
+[![Twitter Follow](https://img.shields.io/twitter/follow/miiura?style=social)](https://twitter.com/miiura)
+[![GitHub Repo stars](https://img.shields.io/github/stars/miurla/babyagi-ui?style=social)](https://github.com/miurla/babyagi-ui/stargazers)
 
 BabyAGI UI is designed to make it easier to run and develop with [babyagi](https://github.com/yoheinakajima/babyagi) in a web app, like a ChatGPT.
 This is a port of [babyagi](https://github.com/yoheinakajima/babyagi) with [Langchain.js](https://github.com/hwchase17/langchainjs) and build a user interface.
@@ -15,7 +13,7 @@ This is a port of [babyagi](https://github.com/yoheinakajima/babyagi) with [Lang
 
 ## 💡 Get help
 
-- [Discord](https://discord.gg/hCszj79pRP) 💬
+- [Discord](https://discord.gg/8nMD4X6RJm) 💬
 
 ## 🧰 Stack
 
