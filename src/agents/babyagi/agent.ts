@@ -186,6 +186,7 @@ export class BabyAGI {
           task_description: taskDescription,
           incomplete_tasks: taskNames,
           model_name: this.modelName,
+          language: this.language,
         },
         { signal: this.abortController?.signal },
       )

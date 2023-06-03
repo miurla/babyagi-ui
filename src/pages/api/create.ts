@@ -13,6 +13,7 @@ const handler = async (req: NextRequest) => {
       incomplete_tasks,
       objective,
       model_name,
+      language,
     } = await req.json();
     const response = await taskCreationAgent(
       objective,
@@ -20,6 +21,7 @@ const handler = async (req: NextRequest) => {
       result,
       incomplete_tasks,
       model_name,
+      language,
     );
     return NextResponse.json({ response: response });
   } catch (error) {
