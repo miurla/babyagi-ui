@@ -44,7 +44,6 @@ export const Agent: FC = () => {
   const [agent, setAgent] = useState<
     BabyAGI | BabyBeeAGI | BabyCatAGI | BUIExecuter | null
   >(null);
-  const [modeChecked, setModeChecked] = useState<boolean>(false);
   const [selectedAgent, setSelectedAgent] = useState<SelectItem>(AGENT[0]);
   const { i18n } = useTranslation();
   const [language, setLanguage] = useState(i18n.language);
@@ -189,6 +188,7 @@ export const Agent: FC = () => {
           messageHandler,
           setAgentStatus,
           cancelHandle,
+          language,
           verbose,
         );
         break;

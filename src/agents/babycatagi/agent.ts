@@ -15,6 +15,7 @@ export class BabyCatAGI {
   taskIdCounter: number = 1;
   isRunning: boolean;
   verbose: boolean;
+  language: string = 'en';
   messageCallback: (message: Message) => void;
   statusCallback: (status: AgentStatus) => void;
   cancelCallback: () => void;
@@ -27,12 +28,14 @@ export class BabyCatAGI {
     messageCallback: (message: Message) => void,
     statusCallback: (status: AgentStatus) => void,
     cancel: () => void,
+    language: string = 'en',
     verbose: boolean = false,
   ) {
     this.objective = objective;
     this.taskList = [];
     this.verbose = verbose;
     this.modelName = modelName;
+    this.language = language;
     this.cancelCallback = cancel;
     this.messageCallback = messageCallback;
     this.statusCallback = statusCallback;
@@ -306,7 +309,7 @@ export class BabyCatAGI {
   }
 
   async extractRelevantInfo(largeString: string, task: AgentTask) {
-    const chunkSize = 3000;
+    const chunkSize = 2800; //3000;
     const overlap = 500;
     let notes = '';
 
@@ -383,6 +386,7 @@ export class BabyCatAGI {
         this.objective,
         websearchVar,
         this.modelName,
+        this.language,
         this.abortController?.signal,
         getUserApiKey(),
         callback,
