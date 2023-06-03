@@ -11,6 +11,7 @@ import { parseTasks } from '@/utils/task';
 export const taskCreationAgent = async (
   objective: string,
   modelName: string,
+  language: string,
   signal?: AbortSignal,
   statusCallback?: (status: AgentStatus) => void,
 ) => {
@@ -46,6 +47,7 @@ export const taskCreationAgent = async (
     const response = await chain.call({
       objective,
       websearch_var: websearchVar,
+      language: language,
     });
     result = response.text;
   } catch (error: any) {

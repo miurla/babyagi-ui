@@ -11,5 +11,6 @@
   "NOTIFICATION_LABEL": "🔔 Alle opgaver er fuldført",
   "NOTIFICATION_TITLE": "Opgave fuldført!",
   "NOTIFICATION_NOT_SUPPORTED": "Denne browser understøtter ikke skrivebordsnotifikationer.",
-  "NOTIFICATION_DINIED": "Du nægtede notifikationstilladelsen. Tillad det venligst i browserindstillingerne."
+  "NOTIFICATION_DINIED": "Du nægtede notifikationstilladelsen. Tillad det venligst i browserindstillingerne.",
+  "FIRST_TASK_PLACEHOLDER": "Udvikle en opgaveliste."
 }

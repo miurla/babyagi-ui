@@ -11,5 +11,6 @@
   "NOTIFICATION_LABEL": "🔔 Visos užduotys atliktos",
   "NOTIFICATION_TITLE": "Užduotis atlikta!",
   "NOTIFICATION_NOT_SUPPORTED": "Ši naršyklė nepalaiko darbalaukio pranešimų.",
-  "NOTIFICATION_DINIED": "Jūs atmetėte pranešimo leidimą. Prašome leisti tai naršyklės nustatymuose."
+  "NOTIFICATION_DINIED": "Jūs atmetėte pranešimo leidimą. Prašome leisti tai naršyklės nustatymuose.",
+  "FIRST_TASK_PLACEHOLDER": "Sukurkite užduočių sąrašą."
 }

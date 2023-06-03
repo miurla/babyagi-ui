@@ -6,6 +6,7 @@ export const taskCreationAgent = async (
   objective: string,
   websearchVar: string,
   modelName: string,
+  language: string,
   signal?: AbortSignal,
   openAIApiKey?: string,
   callback?: (token: string) => void,
@@ -38,6 +39,7 @@ export const taskCreationAgent = async (
     const response = await chain.call({
       objective,
       websearch_var: websearchVar,
+      language,
     });
     return response.text;
   } catch (error: any) {

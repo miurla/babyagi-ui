@@ -2,7 +2,6 @@ import { FC, use, useEffect, useState } from 'react';
 import { Select } from './Select';
 import { SelectItem } from '@/types';
 import { AGENT, ITERATIONS, MODELS } from '@/utils/constants';
-import Link from 'next/link';
 import { translate } from '../../utils/translate';
 import { getUserApiKey } from '@/utils/settings';
 
@@ -37,8 +36,7 @@ export const AgentParameter: FC<AgentParameterProps> = ({
     } else {
       setAgentOption(AGENT);
     }
-    setAgent(agentOption[0]);
-  }, [agentOption, model, setAgent]);
+  }, [agentOption, model]);
 
   return (
     <div className="mx-auto flex flex-col items-start space-y-3 p-4 pt-12 lg:w-2/3 xl:w-2/4">

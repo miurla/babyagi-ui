@@ -11,5 +11,6 @@
   "NOTIFICATION_LABEL": "🔔 Alle Aufgaben abgeschlossen",
   "NOTIFICATION_TITLE": "Aufgabe abgeschlossen!",
   "NOTIFICATION_NOT_SUPPORTED": "Dieser Browser unterstützt keine Desktop-Benachrichtigungen.",
-  "NOTIFICATION_DINIED": "Sie haben die Benachrichtigungserlaubnis verweigert. Bitte erlauben Sie es in den Browsereinstellungen."
+  "NOTIFICATION_DINIED": "Sie haben die Benachrichtigungserlaubnis verweigert. Bitte erlauben Sie es in den Browsereinstellungen.",
+  "FIRST_TASK_PLACEHOLDER": "Entwickeln Sie eine Aufgabenliste"
 }

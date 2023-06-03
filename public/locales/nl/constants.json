@@ -11,5 +11,6 @@
   "NOTIFICATION_LABEL": "🔔 Alle taken voltooid",
   "NOTIFICATION_TITLE": "Taak voltooid!",
   "NOTIFICATION_NOT_SUPPORTED": "Deze browser ondersteunt geen desktopmeldingen.",
-  "NOTIFICATION_DINIED": "U heeft de meldingstoestemming geweigerd. Sta dit toe in de browserinstellingen."
+  "NOTIFICATION_DINIED": "U heeft de meldingstoestemming geweigerd. Sta dit toe in de browserinstellingen.",
+  "FIRST_TASK_PLACEHOLDER": "Maak een takenlijst"
 }

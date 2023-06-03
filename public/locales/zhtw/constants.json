@@ -12,5 +12,6 @@
   "DARK": "黑暗",
   "LIGHT": "光",
   "SYSTEM": "系統",
-  "NOTIFICATION_DINIED": "你拒絕了通知權限。請在瀏覽器設置中允許它。"
+  "NOTIFICATION_DINIED": "你拒絕了通知權限。請在瀏覽器設置中允許它。",
+  "FIRST_TASK_PLACEHOLDER": "制定任務清單"
 }

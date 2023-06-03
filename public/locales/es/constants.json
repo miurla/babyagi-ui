@@ -11,5 +11,6 @@
   "NOTIFICATION_LABEL": "🔔 Todas las tareas completadas",
   "NOTIFICATION_TITLE": "¡Tarea completada!",
   "NOTIFICATION_NOT_SUPPORTED": "Este navegador no admite notificaciones de escritorio.",
-  "NOTIFICATION_DINIED": "Denegó el permiso de notificación. Por favor, permítalo en la configuración del navegador."
+  "NOTIFICATION_DINIED": "Denegó el permiso de notificación. Por favor, permítalo en la configuración del navegador.",
+  "FIRST_TASK_PLACEHOLDER": "Desarrollar una lista de tareas."
 }

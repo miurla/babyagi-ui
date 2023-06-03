@@ -28,12 +28,15 @@ import axios from 'axios';
 import { taskCompletedNotification } from '@/utils/notification';
 import { MessageSummaryCard } from './MessageSummaryCard';
 import { BUIExecuter } from '@/agents/babyagiui-mod/executer';
+import { useTranslation } from 'next-i18next';
 
 export const Agent: FC = () => {
   const [model, setModel] = useState<SelectItem>(MODELS[0]);
   const [iterations, setIterations] = useState<SelectItem>(ITERATIONS[0]);
   const [objective, setObjective] = useState<string>('');
-  const [firstTask, setFirstTask] = useState<string>('Develop a task list');
+  const [firstTask, setFirstTask] = useState<string>(
+    translate('FIRST_TASK_PLACEHOLDER', 'constants'),
+  );
   const [messages, setMessages] = useState<Message[]>([]);
   const [agentStatus, setAgentStatus] = useState<AgentStatus>({
     type: 'ready',
@@ -41,8 +44,9 @@ export const Agent: FC = () => {
   const [agent, setAgent] = useState<
     BabyAGI | BabyBeeAGI | BabyCatAGI | BUIExecuter | null
   >(null);
-  const [modeChecked, setModeChecked] = useState<boolean>(false);
   const [selectedAgent, setSelectedAgent] = useState<SelectItem>(AGENT[0]);
+  const { i18n } = useTranslation();
+  const [language, setLanguage] = useState(i18n.language);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const {
@@ -162,6 +166,7 @@ export const Agent: FC = () => {
           messageHandler,
           setAgentStatus,
           cancelHandle,
+          language,
           verbose,
         );
         break;
@@ -173,6 +178,7 @@ export const Agent: FC = () => {
           messageHandler,
           setAgentStatus,
           cancelHandle,
+          language,
           verbose,
         );
         break;
@@ -183,6 +189,7 @@ export const Agent: FC = () => {
           messageHandler,
           setAgentStatus,
           cancelHandle,
+          language,
           verbose,
         );
         break;
@@ -193,6 +200,7 @@ export const Agent: FC = () => {
           messageHandler,
           setAgentStatus,
           cancelHandle,
+          language,
           verbose,
         );
         break;

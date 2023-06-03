@@ -11,5 +11,6 @@
   "NOTIFICATION_LABEL": "🔔 Kõik ülesanded on lõpetatud",
   "NOTIFICATION_TITLE": "Ülesanne lõpetatud!",
   "NOTIFICATION_NOT_SUPPORTED": "See brauser ei toeta töölauateateid.",
-  "NOTIFICATION_DINIED": "Te keeldusite teavitamisõigusest. Palun lubage see brauseri seadetes."
+  "NOTIFICATION_DINIED": "Te keeldusite teavitamisõigusest. Palun lubage see brauseri seadetes.",
+  "FIRST_TASK_PLACEHOLDER": "Arendage ülesandeloend"
 }

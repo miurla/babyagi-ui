@@ -29,6 +29,7 @@ export class BabyAGI {
   tableName: string;
   namespace?: string;
   abortController?: AbortController;
+  language: string = 'en';
 
   constructor(
     objective: string,
@@ -39,6 +40,7 @@ export class BabyAGI {
     messageCallback: (message: Message) => void,
     statusCallback: (status: AgentStatus) => void,
     cancel: () => void,
+    language: string = 'en',
     verbose: boolean = false,
   ) {
     this.objective = objective;
@@ -46,6 +48,7 @@ export class BabyAGI {
     this.maxIterations = maxIterations;
     this.firstTask = firstTask;
     this.verbose = verbose;
+    this.language = language;
     this.taskList = [];
     this.taskIDCounter = 1;
     this.cancelCallback = cancel;
@@ -169,6 +172,7 @@ export class BabyAGI {
         result,
         objective,
         this.modelName,
+        this.language,
         userApiKey,
       );
     }
@@ -182,6 +186,7 @@ export class BabyAGI {
           task_description: taskDescription,
           incomplete_tasks: taskNames,
           model_name: this.modelName,
+          language: this.language,
         },
         { signal: this.abortController?.signal },
       )
@@ -395,8 +400,6 @@ export class BabyAGI {
 
         this.statusCallback({ type: 'prioritizing' });
         this.taskList = await this.taskPrioritization(this.objective, taskID);
-
-        // console.log('iteration: ', iteration);
 
         iteration++;
       }

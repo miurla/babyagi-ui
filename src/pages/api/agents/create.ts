@@ -7,11 +7,12 @@ export const config = {
 
 const handler = async (req: NextRequest) => {
   try {
-    const { objective, websearch_var, model_name } = await req.json();
+    const { objective, websearch_var, model_name, language } = await req.json();
     const response = await taskCreationAgent(
       objective,
       websearch_var,
       model_name,
+      language,
     );
     return NextResponse.json({ response: response });
   } catch (error) {

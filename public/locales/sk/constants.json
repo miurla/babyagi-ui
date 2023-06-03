@@ -11,5 +11,6 @@
   "NOTIFICATION_LABEL": "🔔 Všetky úlohy dokončené",
   "NOTIFICATION_TITLE": "Úloha dokončená!",
   "NOTIFICATION_NOT_SUPPORTED": "Tento prehliadač nepodporuje oznámenia na pracovnej ploche.",
-  "NOTIFICATION_DINIED": "Odmietli ste povolenie oznámenia. Povolte ho v nastaveniach prehliadača."
+  "NOTIFICATION_DINIED": "Odmietli ste povolenie oznámenia. Povolte ho v nastaveniach prehliadača.",
+  "FIRST_TASK_PLACEHOLDER": "Vypracujte zoznam úloh\" (sk)"
 }
