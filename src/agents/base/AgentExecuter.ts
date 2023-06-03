@@ -1,5 +1,6 @@
 import { AgentStatus, AgentTask, Message } from '@/types';
 import { Printer } from '@/utils/print';
+import { t } from 'i18next';
 
 export class AgentExecuter {
   objective: string;
@@ -7,6 +8,7 @@ export class AgentExecuter {
   messageCallback: (message: Message) => void;
   statusCallback: (status: AgentStatus) => void;
   cancelCallback: () => void;
+  language: string = 'en';
   verbose: boolean = false;
 
   taskIdCounter: number = 0;
@@ -23,6 +25,7 @@ export class AgentExecuter {
     messageCallback: (message: Message) => void,
     statusCallback: (status: AgentStatus) => void,
     cancelCallback: () => void,
+    language: string = 'en',
     verbose: boolean = false,
   ) {
     this.objective = objective;
@@ -30,6 +33,7 @@ export class AgentExecuter {
     this.messageCallback = messageCallback;
     this.statusCallback = statusCallback;
     this.cancelCallback = cancelCallback;
+    this.language = language;
     this.verbose = verbose;
     this.printer = new Printer(messageCallback, verbose);
   }

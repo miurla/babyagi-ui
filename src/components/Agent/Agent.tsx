@@ -28,6 +28,7 @@ import axios from 'axios';
 import { taskCompletedNotification } from '@/utils/notification';
 import { MessageSummaryCard } from './MessageSummaryCard';
 import { BUIExecuter } from '@/agents/babyagiui-mod/executer';
+import { useTranslation } from 'next-i18next';
 
 export const Agent: FC = () => {
   const [model, setModel] = useState<SelectItem>(MODELS[0]);
@@ -43,6 +44,8 @@ export const Agent: FC = () => {
   >(null);
   const [modeChecked, setModeChecked] = useState<boolean>(false);
   const [selectedAgent, setSelectedAgent] = useState<SelectItem>(AGENT[0]);
+  const { i18n } = useTranslation();
+  const [language, setLanguage] = useState(i18n.language);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const {
@@ -193,6 +196,7 @@ export const Agent: FC = () => {
           messageHandler,
           setAgentStatus,
           cancelHandle,
+          language,
           verbose,
         );
         break;
