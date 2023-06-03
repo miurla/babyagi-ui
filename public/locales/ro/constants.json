@@ -11,5 +11,6 @@
   "NOTIFICATION_LABEL": "🔔 Toate sarcinile finalizate",
   "NOTIFICATION_TITLE": "Sarcină finalizată!",
   "NOTIFICATION_NOT_SUPPORTED": "Acest browser nu suportă notificări pe desktop.",
-  "NOTIFICATION_DINIED": "Ați refuzat permisiunea de notificare. Vă rugăm să o permiteți în setările browserului."
+  "NOTIFICATION_DINIED": "Ați refuzat permisiunea de notificare. Vă rugăm să o permiteți în setările browserului.",
+  "FIRST_TASK_PLACEHOLDER": "Elaborați o listă de activități."
 }

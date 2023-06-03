@@ -11,5 +11,6 @@
   "NOTIFICATION_LABEL": "🔔 Semua tugas selesai",
   "NOTIFICATION_TITLE": "Tugas selesai!",
   "NOTIFICATION_NOT_SUPPORTED": "Browser ini tidak mendukung notifikasi desktop.",
-  "NOTIFICATION_DINIED": "Anda menolak izin notifikasi. Silakan izinkan di pengaturan browser."
+  "NOTIFICATION_DINIED": "Anda menolak izin notifikasi. Silakan izinkan di pengaturan browser.",
+  "FIRST_TASK_PLACEHOLDER": "Membuat daftar tugas."
 }

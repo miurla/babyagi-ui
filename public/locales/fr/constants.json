@@ -11,5 +11,6 @@
   "NOTIFICATION_LABEL": "🔔 Toutes les tâches terminées",
   "NOTIFICATION_TITLE": "Tâche terminée !",
   "NOTIFICATION_NOT_SUPPORTED": "Ce navigateur ne prend pas en charge les notifications de bureau.",
-  "NOTIFICATION_DINIED": "Vous avez refusé l'autorisation de notification. Veuillez l'autoriser dans les paramètres du navigateur."
+  "NOTIFICATION_DINIED": "Vous avez refusé l'autorisation de notification. Veuillez l'autoriser dans les paramètres du navigateur.",
+  "FIRST_TASK_PLACEHOLDER": "Développer une liste de tâches."
 }

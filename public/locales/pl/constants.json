@@ -11,5 +11,6 @@
   "NOTIFICATION_LABEL": "🔔 Wszystkie zadania zakończone",
   "NOTIFICATION_TITLE": "Zadanie zakończone!",
   "NOTIFICATION_NOT_SUPPORTED": "Ta przeglądarka nie obsługuje powiadomień na pulpicie.",
-  "NOTIFICATION_DINIED": "Odmówiłeś zgody na powiadomienia. Proszę zezwolić na to w ustawieniach przeglądarki."
+  "NOTIFICATION_DINIED": "Odmówiłeś zgody na powiadomienia. Proszę zezwolić na to w ustawieniach przeglądarki.",
+  "FIRST_TASK_PLACEHOLDER": "Przygotuj listę zadań"
 }

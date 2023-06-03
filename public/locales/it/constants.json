@@ -11,5 +11,6 @@
   "NOTIFICATION_LABEL": "🔔 Tutti i compiti completati",
   "NOTIFICATION_TITLE": "Compito completato!",
   "NOTIFICATION_NOT_SUPPORTED": "Questo browser non supporta le notifiche desktop.",
-  "NOTIFICATION_DINIED": "Hai negato il permesso di notifica. Si prega di consentirlo nelle impostazioni del browser."
+  "NOTIFICATION_DINIED": "Hai negato il permesso di notifica. Si prega di consentirlo nelle impostazioni del browser.",
+  "FIRST_TASK_PLACEHOLDER": "Sviluppare un elenco di attività."
 }

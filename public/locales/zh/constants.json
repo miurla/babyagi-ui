@@ -11,5 +11,6 @@
   "NOTIFICATION_LABEL": "🔔 所有任务已完成",
   "NOTIFICATION_TITLE": "任务完成！",
   "NOTIFICATION_NOT_SUPPORTED": "此浏览器不支持桌面通知。",
-  "NOTIFICATION_DINIED": "您拒绝了通知权限。请在浏览器设置中允许。"
+  "NOTIFICATION_DINIED": "您拒绝了通知权限。请在浏览器设置中允许。",
+  "FIRST_TASK_PLACEHOLDER": "开发任务列表"
 }

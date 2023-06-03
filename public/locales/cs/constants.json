@@ -11,5 +11,6 @@
   "NOTIFICATION_LABEL": "🔔 Všechny úkoly dokončeny",
   "NOTIFICATION_TITLE": "Úkol dokončen!",
   "NOTIFICATION_NOT_SUPPORTED": "Tento prohlížeč nepodporuje oznámení na ploše.",
-  "NOTIFICATION_DINIED": "Odmítli jste povolení oznámení. Povolte jej v nastavení prohlížeče."
+  "NOTIFICATION_DINIED": "Odmítli jste povolení oznámení. Povolte jej v nastavení prohlížeče.",
+  "FIRST_TASK_PLACEHOLDER": "Vypracujte seznam úkolů"
 }

@@ -11,5 +11,6 @@
   "NOTIFICATION_LABEL": "🔔 Svi zadaci završeni",
   "NOTIFICATION_TITLE": "Zadatak završen!",
   "NOTIFICATION_NOT_SUPPORTED": "Ovaj preglednik ne podržava obavijesti na radnoj površini.",
-  "NOTIFICATION_DINIED": "Odbili ste dopuštenje za obavijesti. Dopustite to u postavkama preglednika."
+  "NOTIFICATION_DINIED": "Odbili ste dopuštenje za obavijesti. Dopustite to u postavkama preglednika.",
+  "FIRST_TASK_PLACEHOLDER": "Razvijte popis zadataka."
 }
