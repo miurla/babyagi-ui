@@ -2,6 +2,7 @@ import { FC, use, useEffect, useState } from 'react';
 import { Select } from './Select';
 import { SelectItem } from '@/types';
 import { AGENT, ITERATIONS, MODELS } from '@/utils/constants';
+import Link from 'next/link';
 import { translate } from '../../utils/translate';
 import { getUserApiKey } from '@/utils/settings';
 
@@ -36,10 +37,11 @@ export const AgentParameter: FC<AgentParameterProps> = ({
     } else {
       setAgentOption(AGENT);
     }
-  }, [agentOption, model]);
+    setAgent(agentOption[0]);
+  }, [agentOption, model, setAgent]);
 
   return (
-    <div className="mx-auto flex flex-col items-start space-y-3 p-4 pt-12 lg:w-2/3 xl:w-2/4">
+    <div className="mx-auto flex flex-col items-start space-y-3 p-4 pt-14 lg:w-2/3 xl:w-2/4">
       <div className="z-20 flex w-full items-start justify-center gap-2">
         <Select
           label={translate('MODEL')}

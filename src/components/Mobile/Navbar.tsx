@@ -1,5 +1,5 @@
-import { HamburgerMenuIcon } from '@radix-ui/react-icons';
 import { FC } from 'react';
+import { CollapsedButton } from '../Sidebar/CollapsedButton';
 
 interface NavbarProps {
   onMenuClick: () => void;
@@ -7,10 +7,8 @@ interface NavbarProps {
 
 export const Navbar: FC<NavbarProps> = ({ onMenuClick }) => {
   return (
-    <nav className="flex w-full bg-[#202123] px-4 py-3">
-      <button className="p-2" onClick={onMenuClick}>
-        <HamburgerMenuIcon />
-      </button>
+    <nav className="flex h-12 w-full bg-[#202123] p-2">
+      <CollapsedButton onClick={onMenuClick} isWhite={true} isLeft={true} />
     </nav>
   );
 };
