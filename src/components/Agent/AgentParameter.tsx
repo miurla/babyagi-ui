@@ -36,7 +36,6 @@ export const AgentParameter: FC<AgentParameterProps> = ({
     } else {
       setAgentOption(AGENT);
     }
-    setAgent(agentOption[0]);
   }, [agentOption, model, setAgent]);
 
   return (
