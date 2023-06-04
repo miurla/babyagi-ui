@@ -108,14 +108,18 @@ export const SidebarSettings: FC = () => {
 
   const setGPT4Permission = async () => {
     const openAIApiKey = getUserApiKey();
-    const res = await axios.get('https://api.openai.com/v1/models/gpt-4', {
-      headers: {
-        Authorization: `Bearer ${openAIApiKey}`,
-      },
-    });
-    const data = res.data;
-    const enabled = data !== undefined;
-    setEnabledGPT4(enabled);
+    try {
+      const res = await axios.get('https://api.openai.com/v1/models/gpt-4', {
+        headers: {
+          Authorization: `Bearer ${openAIApiKey}`,
+        },
+      });
+      const data = res.data;
+      const enabled = data !== undefined;
+      setEnabledGPT4(enabled);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
