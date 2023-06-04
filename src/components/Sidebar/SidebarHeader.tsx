@@ -1,8 +1,9 @@
 import { useExecution } from '@/hooks/useExecution';
 import { useExecutionStatus } from '@/hooks/useExecutionStatus';
-import { Cross2Icon, PlusIcon } from '@radix-ui/react-icons';
+import { PlusIcon } from '@radix-ui/react-icons';
 import { FC } from 'react';
 import { translate } from '../../utils/translate';
+import { CollapsedButton } from './CollapsedButton';
 
 interface SidebarHeaderProps {
   onMenuClick: () => void;
@@ -26,9 +27,7 @@ export const SidebarHeader: FC<SidebarHeaderProps> = ({ onMenuClick }) => {
         <PlusIcon />
         {translate('NEW_OBJECTIVE')}
       </button>
-      <button className="p-3 sm:hidden" onClick={onMenuClick}>
-        <Cross2Icon />
-      </button>
+      <CollapsedButton onClick={onMenuClick} isWhite={true} />
     </header>
   );
 };

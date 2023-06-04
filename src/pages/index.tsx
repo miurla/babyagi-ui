@@ -1,27 +1,46 @@
 import { Agent } from '@/components/Agent/Agent';
-import { Navbar } from '@/components/Mobile/Navbar';
 import { Sidebar } from '@/components/Sidebar/Sidebar';
 import Head from 'next/head';
-import { useState } from 'react';
-import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import type { GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import nextI18NextConfig from '../../next-i18next.config.js';
 import { languages } from '../utils/languages';
+import { STATE_KEY } from '@/utils/constants';
+import { UIState } from '@/types/index.js';
+import { CollapsedButton } from '@/components/Sidebar/CollapsedButton';
 
 function Home() {
-  const [showSidebar, setShowSidebar] = useState<boolean>(true);
-  const [newObjectiveClicked, setNewObjectiveClicked] = useState(false);
+  const [showSidebar, setShowSidebar] = useState<boolean>(false);
+
+  useEffect(() => {
+    const item = localStorage.getItem(STATE_KEY);
+    let show = false;
+    if (!item) {
+      if (window.innerWidth <= 768) {
+        show = false;
+      } else {
+        show = true;
+      }
+    } else {
+      const state = JSON.parse(item) as UIState;
+      if (state?.showSidebar === undefined) {
+      } else {
+        show = state.showSidebar;
+      }
+    }
+    setShowSidebar(show);
+    saveSidebarState(show);
+  }, []);
+
+  const saveSidebarState = (show: boolean) => {
+    const state: UIState = { showSidebar: show };
+    localStorage.setItem(STATE_KEY, JSON.stringify(state));
+  };
 
   const menuClickHandler = () => {
     setShowSidebar(!showSidebar);
-  };
-
-  const newObjectiveClickHandler = () => {
-    setNewObjectiveClicked(true);
-    setTimeout(() => {
-      setNewObjectiveClicked(false);
-    }, 100);
+    saveSidebarState(!showSidebar);
   };
 
   return (
@@ -55,16 +74,20 @@ function Home() {
       <main
         className={`flex h-screen w-screen flex-col text-sm text-white dark:text-white`}
       >
-        <div className="fixed top-0 w-full sm:hidden">
-          <Navbar onMenuClick={menuClickHandler} />
-        </div>
-        <div className="flex h-full w-full pt-12 sm:pt-0">
+        <div className="flex h-full w-full">
           {showSidebar && (
             <div>
               <Sidebar onMenuClick={menuClickHandler} />
             </div>
           )}
           <Agent />
+        </div>
+        <div className="absolute left-2 top-2">
+          <CollapsedButton
+            onClick={menuClickHandler}
+            isWhite={false}
+            isLeft={false}
+          />
         </div>
       </main>
     </>
