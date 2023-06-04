@@ -2,7 +2,6 @@ import { FC, use, useEffect, useState } from 'react';
 import { Select } from './Select';
 import { SelectItem } from '@/types';
 import { AGENT, ITERATIONS, MODELS } from '@/utils/constants';
-import Link from 'next/link';
 import { translate } from '../../utils/translate';
 import { getUserApiKey } from '@/utils/settings';
 
