@@ -29,10 +29,9 @@ import { taskCompletedNotification } from '@/utils/notification';
 import { MessageSummaryCard } from './MessageSummaryCard';
 import { BUIExecuter } from '@/agents/babyagiui-mod/executer';
 import { useTranslation } from 'next-i18next';
-import { setEnabledGPT4 } from '@/utils/settings';
 
 export const Agent: FC = () => {
-  const [model, setModel] = useState<SelectItem>(MODELS[0]);
+  const [model, setModel] = useState<SelectItem>(MODELS[1]);
   const [iterations, setIterations] = useState<SelectItem>(ITERATIONS[0]);
   const [objective, setObjective] = useState<string>('');
   const [firstTask, setFirstTask] = useState<string>(
