@@ -28,15 +28,18 @@ export const AgentParameter: FC<AgentParameterProps> = ({
 }) => {
   const [agentOption, setAgentOption] = useState<SelectItem[]>(AGENT);
   useEffect(() => {
+    let option: SelectItem[] = [];
     if (model.id !== 'gpt-4') {
-      setAgentOption(AGENT.filter((agent) => agent.id === 'babyagi'));
+      option = AGENT.filter((agent) => agent.id === 'babyagi');
     } else if (!getUserApiKey()) {
       // bui-mod-1 is only available for using client api key
-      setAgentOption(AGENT.filter((agent) => agent.id !== 'bui-mod-1'));
+      option = AGENT.filter((agent) => agent.id !== 'bui-mod-1');
     } else {
-      setAgentOption(AGENT);
+      option = AGENT;
     }
-  }, [agentOption, model, setAgent]);
+    setAgent(option[0]);
+    setAgentOption(option);
+  }, [model]);
 
   return (
     <div className="mx-auto flex flex-col items-start space-y-3 p-4 pt-14 lg:w-2/3 xl:w-2/4">
