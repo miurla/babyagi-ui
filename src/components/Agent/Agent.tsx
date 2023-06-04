@@ -95,6 +95,10 @@ export const Agent: FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [messages]);
 
+  useEffect(() => {
+    setLanguage(i18n.language);
+  }, [i18n]);
+
   // manage data
   const saveNewData = async () => {
     const execution: Execution = {
