@@ -27,7 +27,6 @@ import { AgentMessageFooter } from './AgentMessageFooter';
 import axios from 'axios';
 import { taskCompletedNotification } from '@/utils/notification';
 import { MessageSummaryCard } from './MessageSummaryCard';
-import { BUIExecuter } from '@/agents/babyagiui-mod/executer';
 import { useTranslation } from 'next-i18next';
 
 export const Agent: FC = () => {
@@ -41,9 +40,9 @@ export const Agent: FC = () => {
   const [agentStatus, setAgentStatus] = useState<AgentStatus>({
     type: 'ready',
   });
-  const [agent, setAgent] = useState<
-    BabyAGI | BabyBeeAGI | BabyCatAGI | BUIExecuter | null
-  >(null);
+  const [agent, setAgent] = useState<BabyAGI | BabyBeeAGI | BabyCatAGI | null>(
+    null,
+  );
   const [selectedAgent, setSelectedAgent] = useState<SelectItem>(AGENT[0]);
   const { i18n } = useTranslation();
   const [language, setLanguage] = useState(i18n.language);
@@ -195,17 +194,6 @@ export const Agent: FC = () => {
         break;
       case 'babycatagi':
         agent = new BabyCatAGI(
-          objective,
-          model.id,
-          messageHandler,
-          setAgentStatus,
-          cancelHandle,
-          language,
-          verbose,
-        );
-        break;
-      case 'bui-mod-1':
-        agent = new BUIExecuter(
           objective,
           model.id,
           messageHandler,
