@@ -5,7 +5,11 @@ import { AgentTask } from './agent';
 import { OpenAI, OpenAIChat } from 'langchain/llms/openai';
 import { stringifyTasks } from '@/utils/task';
 
-export const summarizerAgent = async (text: string, openAIApiKey?: string) => {
+export const summarizerAgent = async (
+  text: string,
+  language: string,
+  openAIApiKey?: string,
+) => {
   const model = new OpenAI({
     openAIApiKey,
     modelName: 'gpt-3.5-turbo',
@@ -18,6 +22,7 @@ export const summarizerAgent = async (text: string, openAIApiKey?: string) => {
   const chain = TaskSummarizeChain.fromLLM({ llm: model });
   const response = await chain.call({
     text,
+    language,
   });
   return response.text;
 };
@@ -54,6 +59,7 @@ export const taskManagementAgent = async (
   result: string,
   websearchVar: string,
   modelName: string,
+  language: string,
   openAIApiKey?: string,
 ) => {
   const model = new OpenAIChat({
@@ -72,6 +78,7 @@ export const taskManagementAgent = async (
     objective,
     result,
     websearch_var: websearchVar,
+    language,
   });
   return response.text;
 };

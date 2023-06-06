@@ -7,8 +7,8 @@ export const config = {
 
 const handler = async (req: NextRequest) => {
   try {
-    const { text } = await req.json();
-    const response = await summarizerAgent(text);
+    const { text, language } = await req.json();
+    const response = await summarizerAgent(text, language);
     return NextResponse.json({ response: response });
   } catch (error) {
     return NextResponse.error();

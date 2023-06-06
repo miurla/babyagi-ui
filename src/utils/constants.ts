@@ -2,6 +2,7 @@ import { translate } from './translate';
 
 export const SETTINGS_KEY = 'BABYAGIUI_SETTINGS';
 export const EXECUTIONS_KEY = 'BABYAGIUI_EXECUTIONS';
+export const STATE_KEY = 'BABYAGIUI_STATE';
 
 export const MODELS = [
   {

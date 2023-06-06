@@ -44,7 +44,7 @@ export const Input: FC<InputProps> = ({
 }) => {
   return (
     <div className="dark:bg-vert-dark-gradient absolute bottom-0 left-0 w-full border-transparent bg-white from-[#343541] via-[#343541] to-[#343541]/0 pt-6 dark:border-white/20 dark:!bg-transparent dark:bg-[#444654] dark:bg-gradient-to-t md:pt-2">
-      <div className="stretch mx-2 flex flex-col gap-3 last:mb-2 md:mx-4 md:last:mb-6 lg:mx-auto lg:max-w-3xl">
+      <div className="stretch last:mb-2md:last:mb-6 mx-4 flex flex-col gap-3 lg:mx-auto lg:max-w-3xl">
         <div className="flex-cols flex justify-between">
           <div className="w-1/3"></div>
           <div className="flex w-1/3 justify-center">

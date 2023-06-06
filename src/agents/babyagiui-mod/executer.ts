@@ -16,6 +16,7 @@ export class BUIExecuter extends AgentExecuter {
       (await taskCreationAgent(
         this.objective,
         this.modelName,
+        this.language,
         this.abortController?.signal,
         this.statusCallback,
       )) ?? [];
@@ -74,6 +75,8 @@ export class BUIExecuter extends AgentExecuter {
     this.statusCallback({ type: 'executing' });
     this.printer.printNextTask(task);
     const taskOutput = await this.taskOutputWithTool(task);
+
+    if (!this.isRunningRef.current) return;
 
     // print the task output
     this.printer.printTaskOutput(taskOutput, task);
@@ -153,6 +156,10 @@ export class BUIExecuter extends AgentExecuter {
         const message = translate('TASK_FAILED_MESSAGE', 'message');
         this.messageCallback(setupMessage('failed', message));
         this.stop();
+        break;
+      }
+
+      if (!this.isRunningRef.current) {
         break;
       }
 

@@ -11,5 +11,7 @@
   "NOTIFICATION_LABEL": "🔔 Vse naloge dokončane",
   "NOTIFICATION_TITLE": "Naloga dokončana!",
   "NOTIFICATION_NOT_SUPPORTED": "Ta brskalnik ne podpira obvestil na namizju.",
-  "NOTIFICATION_DINIED": "Zavrnili ste dovoljenje za obvestila. Dovolite to v nastavitvah brskalnika."
+  "NOTIFICATION_DINIED": "Zavrnili ste dovoljenje za obvestila. Dovolite to v nastavitvah brskalnika.",
+  "FIRST_TASK_PLACEHOLDER": "Razvijte seznam opravil.",
+  "ALERT_GPT_4_DISABLED": "Vaš ključ API-ja nima pravic do dostopa do GPT-4. Izberite drug model in ga zaženite."
 }

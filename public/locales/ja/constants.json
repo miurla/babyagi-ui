@@ -8,9 +8,11 @@
   "SYSTEM": "システム",
   "UNTIL_ALL_TASKS_COMPLETED": "すべてのタスクが完了するまで",
   "NOTIFICATION": "通知",
-  "NOTIFICATION_LABEL": "🔔 すべてのタスクが完了しました",
+  "NOTIFICATION_LABEL": "🔔 すべてのタスクの完了",
   "NOTIFICATION_TITLE": "タスクが完了しました",
   "NOTIFICATION_MESSAGE": "すべてのタスクが完了しました。",
   "NOTIFICATION_NOT_SUPPORTED": "このブラウザはデスクトップ通知に対応していません。",
-  "NOTIFICATION_DINIED": "通知の許可が拒否されました。ブラウザの設定で許可してください。"
+  "NOTIFICATION_DINIED": "通知の許可が拒否されました。ブラウザの設定で許可してください。",
+  "FIRST_TASK_PLACEHOLDER": "タスクリストを作成する",
+  "ALERT_GPT_4_DISABLED": "「あなたのAPIキーにはGPT-4へのアクセス権がありません。GPT-4以外のモデルを選択して実行してください。」"
 }

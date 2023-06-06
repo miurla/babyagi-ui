@@ -11,5 +11,7 @@
   "NOTIFICATION_LABEL": "🔔 Alle oppgaver fullført",
   "NOTIFICATION_TITLE": "Oppgave fullført!",
   "NOTIFICATION_NOT_SUPPORTED": "Denne nettleseren støtter ikke skrivebordsvarsler.",
-  "NOTIFICATION_DINIED": "Du nektet varslingsrettigheten. Vennligst tillat det i nettleserinnstillingene."
+  "NOTIFICATION_DINIED": "Du nektet varslingsrettigheten. Vennligst tillat det i nettleserinnstillingene.",
+  "FIRST_TASK_PLACEHOLDER": "Utvikle en oppgaveliste",
+  "ALERT_GPT_4_DISABLED": "Din API-nøkkel har ikke tilgangsrettigheter til GPT-4. Vennligst velg en annen modell enn GPT-4 og kjør den."
 }

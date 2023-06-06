@@ -11,5 +11,7 @@
   "NOTIFICATION_LABEL": "🔔 Kaikki tehtävät suoritettu",
   "NOTIFICATION_TITLE": "Tehtävä suoritettu!",
   "NOTIFICATION_NOT_SUPPORTED": "Tämä selain ei tue työpöytäilmoituksia.",
-  "NOTIFICATION_DINIED": "Kielsit ilmoitusluvan. Salli se selaimen asetuksissa."
+  "NOTIFICATION_DINIED": "Kielsit ilmoitusluvan. Salli se selaimen asetuksissa.",
+  "FIRST_TASK_PLACEHOLDER": "Kehitä tehtäväluettelo.",
+  "ALERT_GPT_4_DISABLED": "API-avaimellasi ei ole käyttöoikeuksia GPT-4:ään. Valitse toinen malli ja suorita se."
 }

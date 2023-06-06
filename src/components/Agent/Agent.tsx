@@ -28,12 +28,15 @@ import axios from 'axios';
 import { taskCompletedNotification } from '@/utils/notification';
 import { MessageSummaryCard } from './MessageSummaryCard';
 import { BUIExecuter } from '@/agents/babyagiui-mod/executer';
+import { useTranslation } from 'next-i18next';
 
 export const Agent: FC = () => {
-  const [model, setModel] = useState<SelectItem>(MODELS[0]);
+  const [model, setModel] = useState<SelectItem>(MODELS[1]);
   const [iterations, setIterations] = useState<SelectItem>(ITERATIONS[0]);
   const [objective, setObjective] = useState<string>('');
-  const [firstTask, setFirstTask] = useState<string>('Develop a task list');
+  const [firstTask, setFirstTask] = useState<string>(
+    translate('FIRST_TASK_PLACEHOLDER', 'constants'),
+  );
   const [messages, setMessages] = useState<Message[]>([]);
   const [agentStatus, setAgentStatus] = useState<AgentStatus>({
     type: 'ready',
@@ -41,8 +44,9 @@ export const Agent: FC = () => {
   const [agent, setAgent] = useState<
     BabyAGI | BabyBeeAGI | BabyCatAGI | BUIExecuter | null
   >(null);
-  const [modeChecked, setModeChecked] = useState<boolean>(false);
   const [selectedAgent, setSelectedAgent] = useState<SelectItem>(AGENT[0]);
+  const { i18n } = useTranslation();
+  const [language, setLanguage] = useState(i18n.language);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const {
@@ -90,6 +94,10 @@ export const Agent: FC = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [messages]);
+
+  useEffect(() => {
+    setLanguage(i18n.language);
+  }, [i18n]);
 
   // manage data
   const saveNewData = async () => {
@@ -143,6 +151,13 @@ export const Agent: FC = () => {
       alert(translate('ALERT_SET_UP_API_KEY', 'agent'));
       return;
     }
+    if (model.id === 'gpt-4') {
+      const enabled = await enabledGPT4();
+      if (!enabled) {
+        alert(translate('ALERT_GPT_4_DISABLED', 'constants'));
+        return;
+      }
+    }
 
     setMessages([]);
     setExecuting(true);
@@ -162,6 +177,7 @@ export const Agent: FC = () => {
           messageHandler,
           setAgentStatus,
           cancelHandle,
+          language,
           verbose,
         );
         break;
@@ -173,6 +189,7 @@ export const Agent: FC = () => {
           messageHandler,
           setAgentStatus,
           cancelHandle,
+          language,
           verbose,
         );
         break;
@@ -183,6 +200,7 @@ export const Agent: FC = () => {
           messageHandler,
           setAgentStatus,
           cancelHandle,
+          language,
           verbose,
         );
         break;
@@ -193,6 +211,7 @@ export const Agent: FC = () => {
           messageHandler,
           setAgentStatus,
           cancelHandle,
+          language,
           verbose,
         );
         break;
@@ -318,6 +337,20 @@ export const Agent: FC = () => {
       }
     }
     return true;
+  };
+
+  const enabledGPT4 = async () => {
+    const userSettings = localStorage.getItem(SETTINGS_KEY);
+    if (!userSettings) {
+      return false;
+    }
+
+    const { enabledGPT4 } = JSON.parse(userSettings) as UserSettings;
+    if (enabledGPT4 === undefined) {
+      return true; // If no value is given, its enabled by default
+    }
+
+    return enabledGPT4;
   };
 
   const currentEvaluation = () => {

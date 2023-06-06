@@ -11,5 +11,7 @@
   "NOTIFICATION_LABEL": "🔔 All task completed",
   "NOTIFICATION_TITLE": "Task completed!",
   "NOTIFICATION_NOT_SUPPORTED": "This browser does not support desktop notifications.",
-  "NOTIFICATION_DINIED": "You denied the notification permission. Please allow it in the browser settings."
+  "NOTIFICATION_DINIED": "You denied the notification permission. Please allow it in the browser settings.",
+  "FIRST_TASK_PLACEHOLDER": "Develop a task list",
+  "ALERT_GPT_4_DISABLED": "Sorry, gb is not a valid language code. Can you please provide the correct language code for me to translate the text?"
 }

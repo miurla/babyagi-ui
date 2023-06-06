@@ -1,10 +1,19 @@
 # 👶🤖🖥️ BabyAGI UI
 
+[![GitHub last commit](https://img.shields.io/github/last-commit/miurla/babyagi-ui)](https://github.com/miurla/babyagi-ui/commit/main)
+[![Discord](https://img.shields.io/discord/1111177037055529012)](https://discord.gg/8nMD4X6RJm)
+[![Twitter Follow](https://img.shields.io/twitter/follow/miiura?style=social)](https://twitter.com/miiura)
+[![GitHub Repo stars](https://img.shields.io/github/stars/miurla/babyagi-ui?style=social)](https://github.com/miurla/babyagi-ui/stargazers)
+
 BabyAGI UI is designed to make it easier to run and develop with [babyagi](https://github.com/yoheinakajima/babyagi) in a web app, like a ChatGPT.
 This is a port of [babyagi](https://github.com/yoheinakajima/babyagi) with [Langchain.js](https://github.com/hwchase17/langchainjs) and build a user interface.
 
 ![](./public/images/screenshot-230525.png)
 [Demo](https://twitter.com/miiura/status/1653026609606320130)
+
+## 💡 Get help
+
+- [Discord](https://discord.gg/8nMD4X6RJm) 💬
 
 ## 🧰 Stack
 
@@ -26,6 +35,7 @@ This is a port of [babyagi](https://github.com/yoheinakajima/babyagi) with [Lang
 - [x] Notification that all tasks have been completed. 🔔
 - [x] Display the current task and task list. 📌
 - [x] Added our experimental agent. [🧪 BabyCatAGI (mod)]: Generate search queries, Check the sufficiency of task results.
+- [x] Collapsible Sidebar ⏩️
 - [ ] Other LLM models support
 
 and more ...
