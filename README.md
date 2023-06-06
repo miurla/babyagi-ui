@@ -91,7 +91,7 @@ This script is designed to be run continuously as part of a task management syst
 
 ## 🎗️ Official Sponsor
 
-[<img src="./public/images/serpapi-logo.svg" width=33% />
+[<img src="./public/images/serpapi-logo.svg" width=25% />
 ](https://serpapi.com/)
 
 - The SerpApi team is providing the search API credits for requests made on [the demo site](https://babyagi-ui.vercel.app/) of this project! ⭐️
