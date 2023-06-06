@@ -81,10 +81,11 @@ This script is designed to be run continuously as part of a task management syst
 
 ## 🎗️ Official Sponsor
 
-[![SerpAPI](./public/images/serpapi-logo.png)](https://serpapi.com/)
+[<img src="./public/images/serpapi-logo.svg" width=33% />
+](https://serpapi.com/)
 
-- The SerpAPI team is providing the search API credits for requests made on [the demo site](https://babyagi-ui.vercel.app/) of this project! ⭐️
-- 🔍 [SerpAPI](https://serpapi.com/): Scrape Google and other search engines from our fast, easy, and complete API.
+- The SerpApi team is providing the search API credits for requests made on [the demo site](https://babyagi-ui.vercel.app/) of this project! ⭐️
+- 🔍 [SerpApi](https://serpapi.com/): Scrape Google and other search engines from our fast, easy, and complete API.
 
 ## Credit
 
