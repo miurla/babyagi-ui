@@ -7,7 +7,6 @@ export const webSearch = async (query: string) => {
         api_key: process.env.SEARP_API_KEY,
         engine: 'google',
         q: query,
-        num: 5,
       },
     });
 
@@ -39,5 +38,12 @@ export const simplifySearchResults = (searchResults: SearchResult[]) => {
       snippet: result.snippet,
     });
   }
+
+  // count the number of results
+  const maxCount = 3;
+  if (simplifiedResults.length > maxCount) {
+    return simplifiedResults.slice(0, maxCount);
+  }
+
   return simplifiedResults;
 };

@@ -17,6 +17,7 @@ import { getExportText, loadingAgentMessage } from '../../utils/message';
 import { BabyAGI } from '@/agents/babyagi';
 import { BabyBeeAGI } from '@/agents/babybeeagi/agent';
 import { BabyCatAGI } from '@/agents/babycatagi/agent';
+import { BabyDeerAGI } from '@/agents/babydeeragi/executer';
 import { AGENT, ITERATIONS, MODELS, SETTINGS_KEY } from '@/utils/constants';
 import { toast } from 'sonner';
 import { v4 as uuidv4 } from 'uuid';
@@ -40,9 +41,9 @@ export const Agent: FC = () => {
   const [agentStatus, setAgentStatus] = useState<AgentStatus>({
     type: 'ready',
   });
-  const [agent, setAgent] = useState<BabyAGI | BabyBeeAGI | BabyCatAGI | null>(
-    null,
-  );
+  const [agent, setAgent] = useState<
+    BabyAGI | BabyBeeAGI | BabyCatAGI | BabyDeerAGI | null
+  >(null);
   const [selectedAgent, setSelectedAgent] = useState<SelectItem>(AGENT[0]);
   const { i18n } = useTranslation();
   const [language, setLanguage] = useState(i18n.language);
@@ -194,6 +195,17 @@ export const Agent: FC = () => {
         break;
       case 'babycatagi':
         agent = new BabyCatAGI(
+          objective,
+          model.id,
+          messageHandler,
+          setAgentStatus,
+          cancelHandle,
+          language,
+          verbose,
+        );
+        break;
+      case 'babydeeragi':
+        agent = new BabyDeerAGI(
           objective,
           model.id,
           messageHandler,

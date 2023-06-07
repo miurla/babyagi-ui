@@ -77,7 +77,11 @@ export type UIState = {
   showSidebar: boolean;
 };
 
-export type ToolType = 'web-scrape' | 'web-search' | 'text-completion';
+export type ToolType =
+  | 'web-scrape'
+  | 'web-search'
+  | 'text-completion'
+  | 'user-input';
 export type TaskStatus = 'complete' | 'incomplete';
 
 export interface AgentTask {
