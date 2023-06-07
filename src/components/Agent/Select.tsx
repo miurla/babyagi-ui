@@ -100,7 +100,7 @@ export const Select: FC<Props> = ({ label, item, items, onChange }) => {
               <ChevronDownIcon />
             </SelectPrimitive.Icon>
           </SelectPrimitive.Trigger>
-          <SelectPrimitive.Content>
+          <SelectPrimitive.Content className="z-10">
             <SelectPrimitive.ScrollUpButton className="flex items-center justify-center text-gray-700 dark:text-gray-300">
               <ChevronUpIcon />
             </SelectPrimitive.ScrollUpButton>
