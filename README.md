@@ -35,6 +35,7 @@ This is a port of [babyagi](https://github.com/yoheinakajima/babyagi) with [Lang
 - [x] Notification that all tasks have been completed. 🔔
 - [x] Display the current task and task list. 📌
 - [x] Collapsible Sidebar ⏩️
+- [x] User input & parallel tasking. ([🦌 BabyDeerAGI](https://twitter.com/yoheinakajima/status/1666313838868992001))
 - [ ] Other LLM models support
 
 and more ...
@@ -90,7 +91,7 @@ This script is designed to be run continuously as part of a task management syst
 
 ## 🎗️ Official Sponsor
 
-[<img src="./public/images/serpapi-logo.svg" width=25% />
+[<img src="./public/images/serpapi-logo.svg" width=20% />
 ](https://serpapi.com/)
 
 - The SerpApi team is providing the search API credits for requests made on [the demo site](https://babyagi-ui.vercel.app/) of this project! ⭐️
