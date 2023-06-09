@@ -137,15 +137,29 @@ export const Agent: FC = () => {
 
   // handler functions
   const messageHandler = (message: Message) => {
-    setMessages((messages) => [...messages, message]);
+    setMessages((currentMessages) => {
+      // if the message.type and id are the same, overwrite the message
+      const index = currentMessages.findIndex(
+        (msg) => msg.type === message.type && msg.id === message.id,
+      );
+      if (index !== -1) {
+        const newMessages = [...currentMessages];
+        newMessages[index] = message;
+        return newMessages;
+      }
 
-    // show toast notification
-    if (message.type === 'complete' || message.type === 'end-of-iterations') {
-      toast.success(translate('ALL_TASKS_COMPLETED_TOAST', 'agent'));
-      taskCompletedNotification(objective);
-    } else if (message.type === 'done') {
-      toast.success(translate('TASK_COMPLETED_TOAST', 'agent'));
-    }
+      const updatedMessages = [...currentMessages, message];
+
+      // show toast notification
+      if (message.type === 'complete' || message.type === 'end-of-iterations') {
+        toast.success(translate('ALL_TASKS_COMPLETED_TOAST', 'agent'));
+        taskCompletedNotification(objective);
+      } else if (message.type === 'done') {
+        toast.success(translate('TASK_COMPLETED_TOAST', 'agent'));
+      }
+
+      return updatedMessages;
+    });
   };
 
   const inputHandler = (value: string) => {

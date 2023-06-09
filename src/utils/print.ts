@@ -33,7 +33,7 @@ export class Printer {
     console.log(task);
   }
 
-  printTaskList(taskList: AgentTask[]) {
+  printTaskList(taskList: AgentTask[], id?: number) {
     let message =
       '| ID | Status | Task  | Tool | Dependency | \n | :-: | :-: | - | :-: | :-: | \n';
     taskList.forEach((task) => {
@@ -46,7 +46,9 @@ export class Printer {
       )} | ${dependentTask} |\n`;
     });
 
-    this.messageCallback(setupMessage('task-list', message));
+    this.messageCallback(
+      setupMessage('task-list', message, undefined, `📝`, id),
+    );
 
     if (!this.verbose) return;
     console.log('%c*****TASK LIST*****\n\n%c', 'color:fuchsia', '');

@@ -1,9 +1,10 @@
 import { OpenAIChat } from 'langchain/llms/openai';
 import { taskCreationPrompt } from './prompt';
 import { LLMChain } from 'langchain';
-import { AgentStatus, AgentTask } from '@/types';
+import { AgentTask, Message } from '@/types';
 import { getUserApiKey } from '@/utils/settings';
 import { parseTasks } from '@/utils/task';
+import { translate } from '@/utils/translate';
 
 // TODO: Only client-side requests are allowed.
 // To use the environment variable API key, the request must be implemented from the server side.
@@ -13,7 +14,7 @@ export const taskCreationAgent = async (
   modelName: string,
   language: string,
   signal?: AbortSignal,
-  statusCallback?: (status: AgentStatus) => void,
+  messageCallback?: (message: Message) => void,
 ) => {
   let chunk = '```json\n';
   const websearchVar = process.env.SEARP_API_KEY ? '[web-search] ' : ''; // if search api key is not set, don't add [web-search] to the task description
@@ -34,7 +35,14 @@ export const taskCreationAgent = async (
         {
           handleLLMNewToken(token: string) {
             chunk += token;
-            statusCallback?.({ type: 'creating-stream', message: chunk });
+            const message: Message = {
+              type: 'task-execute',
+              title: translate('CREATING', 'message'),
+              text: chunk,
+              icon: '📝',
+              id: 0,
+            };
+            messageCallback?.(message);
           },
         },
       ],

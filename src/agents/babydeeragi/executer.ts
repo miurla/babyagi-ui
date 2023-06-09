@@ -14,6 +14,7 @@ export class BabyDeerAGI extends AgentExecuter {
 
   // Create task list by agent
   async taskCreation() {
+    this.statusCallback({ type: 'creating' });
     this.abortController = new AbortController();
     this.taskList =
       (await taskCreationAgent(
@@ -21,10 +22,10 @@ export class BabyDeerAGI extends AgentExecuter {
         this.modelName,
         this.language,
         this.abortController?.signal,
-        this.statusCallback,
+        this.messageCallback,
       )) ?? [];
 
-    this.printer.printTaskList(this.taskList);
+    this.printer.printTaskList(this.taskList, 0);
   }
 
   async taskOutputWithTool(task: AgentTask) {
@@ -50,6 +51,8 @@ export class BabyDeerAGI extends AgentExecuter {
           prompt,
           this.modelName,
           this.abortController?.signal,
+          task.id,
+          this.messageCallback,
         );
         break;
       case 'web-search':

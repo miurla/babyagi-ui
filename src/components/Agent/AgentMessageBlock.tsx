@@ -13,7 +13,7 @@ export const AgentMessageBlock: FC<AgentMessageBlockProps> = ({
   userInputCallback,
 }) => {
   return (
-    <div className="flex w-full flex-col gap-8 border-b border-black/10  bg-neutral-50 p-4 dark:bg-[#444654]  md:p-6">
+    <div className="flex w-full flex-col gap-8 border-b border-black/10  bg-neutral-50 p-6 dark:bg-[#444654]  md:p-8">
       {block.messages.map((message, index) =>
         message.type === `user-input` ? (
           <AgentMessageInput

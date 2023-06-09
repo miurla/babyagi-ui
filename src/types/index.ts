@@ -20,6 +20,7 @@ export type Message = {
   title?: string;
   bgColor?: string;
   status?: AgentStatus;
+  collapsible?: boolean;
 };
 
 export type Execution = {
@@ -55,8 +56,9 @@ export type MessageType =
   | 'done'
   | 'complete'
   | 'failed'
+  | 'sufficiency-result' // for mod
   | 'user-input' // for babydeeragi
-  | 'sufficiency-result';
+  | 'task-execute'; // for babydeeragi;
 
 export type AgentStatusType =
   | 'preparing'

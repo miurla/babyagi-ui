@@ -6,6 +6,7 @@ import { getTaskById } from '@/utils/task';
 import { analystPrompt, searchQueryPrompt } from '../prompt';
 import { textCompletionTool } from '../../common/tools/textCompletionTool';
 import { largeTextExtract } from './largeTextExtract';
+import { translate } from '@/utils/translate';
 
 export const webBrowsing = async (
   objective: string,
@@ -19,6 +20,8 @@ export const webBrowsing = async (
   language: string,
   signal?: AbortSignal,
 ) => {
+  statusCallback({ type: 'executing' });
+
   let dependentTasksOutput = '';
   if (task.dependentTaskIds) {
     for (const dependentTaskId of task.dependentTaskIds) {
@@ -45,7 +48,7 @@ export const webBrowsing = async (
   }
 
   let statusMessage = message;
-  callbackSearchStatus(statusMessage, statusCallback);
+  callbackSearchStatus(statusMessage, task, messageCallback);
 
   if (!isRunningRef.current) return;
 
@@ -63,7 +66,7 @@ export const webBrowsing = async (
       console.log(message);
     }
     statusMessage += message;
-    callbackSearchStatus(statusMessage, statusCallback);
+    callbackSearchStatus(statusMessage, task, messageCallback);
 
     const content = (await webScrapeTool(url, signal)) ?? '';
 
@@ -73,13 +76,13 @@ export const webBrowsing = async (
     }
 
     statusMessage += message;
-    callbackSearchStatus(statusMessage, statusCallback);
+    callbackSearchStatus(statusMessage, task, messageCallback);
 
     if (content.length === 0) {
       let message = `  - Content too short. Skipped. \n`;
       if (verbose) console.log(message);
       statusMessage += message;
-      callbackSearchStatus(statusMessage, statusCallback);
+      callbackSearchStatus(statusMessage, task, messageCallback);
       index += 1;
       continue;
     }
@@ -92,11 +95,11 @@ export const webBrowsing = async (
         console.log(message);
       }
       statusMessage = `${statusMessage}${message}`;
-      callbackSearchStatus(statusMessage, statusCallback);
+      callbackSearchStatus(statusMessage, task, messageCallback);
     };
 
     statusMessage += `  - Extracting relevant information\n`;
-    callbackSearchStatus(statusMessage, statusCallback);
+    callbackSearchStatus(statusMessage, task, messageCallback);
     const info = await largeTextExtract(
       objective,
       content,
@@ -113,7 +116,7 @@ export const webBrowsing = async (
       console.log(message);
     }
     statusMessage += message;
-    callbackSearchStatus(statusMessage, statusCallback);
+    callbackSearchStatus(statusMessage, task, messageCallback);
 
     results += `${info}. `;
     index += 1;
@@ -121,9 +124,20 @@ export const webBrowsing = async (
 
   if (!isRunningRef.current) return;
 
-  callbackSearchStatus(`${statusMessage}Analyze results...`, statusCallback);
+  callbackSearchStatus(
+    `${statusMessage}Analyze results...`,
+    task,
+    messageCallback,
+  );
+
   const ap = analystPrompt(results, language);
-  const analyzedResults = await textCompletionTool(ap, modelName, signal);
+  const analyzedResults = await textCompletionTool(
+    ap,
+    modelName,
+    signal,
+    task.id,
+    messageCallback,
+  );
 
   // callback to search logs
   messageCallback(
@@ -140,11 +154,15 @@ export const webBrowsing = async (
 
 const callbackSearchStatus = (
   message: string,
-  statusCallback: (status: AgentStatus) => void,
+  task: AgentTask,
+  messageCallback: (message: Message) => void,
 ) => {
-  statusCallback({
-    type: 'executing-stream',
-    message: '```markdown\n' + message + '\n```',
+  messageCallback({
+    type: 'task-execute',
+    title: translate('SEARCH_LOGS', 'message'),
+    text: '```markdown\n' + message + '\n```',
+    id: task.id,
+    icon: '🌐',
   });
 };
 

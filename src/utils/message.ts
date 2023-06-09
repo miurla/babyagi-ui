@@ -109,7 +109,8 @@ export const getMessageText = (message: Message): string => {
   if (
     message.status?.type === 'creating-stream' ||
     message.status?.type === 'executing-stream' ||
-    message.type === 'search-logs'
+    message.type === 'search-logs' ||
+    message.type === 'task-execute'
   ) {
     return message.text;
   }
@@ -204,7 +205,7 @@ export const getMessageBlocks = (messages: Message[]) => {
 
   let currentMessageBlock: MessageBlock | null = null;
   messages.forEach((message) => {
-    if (!message.id) {
+    if (message.id === undefined) {
       currentMessageBlock = { messages: [message] } as MessageBlock;
       messageBlocks.push(currentMessageBlock);
       return;
@@ -227,16 +228,30 @@ export const getMessageBlocks = (messages: Message[]) => {
     messageBlocks.push(currentMessageBlock);
   });
 
-  // If user-input and task-output are in the same messageBlock, exclude user-input
+  // If (user-input/task-execute) and task-output are in the same messageBlock, exclude user-input
   messageBlocks.forEach((messageBlock) => {
-    const userInputIndex = messageBlock.messages.findIndex(
-      (message) => message.type === 'user-input',
+    const excludeIndex = messageBlock.messages.findIndex(
+      (message) =>
+        message.type === 'user-input' || message.type === 'task-execute',
     );
     const taskOutputIndex = messageBlock.messages.findIndex(
       (message) => message.type === 'task-output',
     );
-    if (userInputIndex >= 0 && taskOutputIndex >= 0) {
-      messageBlock.messages.splice(userInputIndex, 1);
+    if (excludeIndex >= 0 && taskOutputIndex >= 0) {
+      messageBlock.messages.splice(excludeIndex, 1);
+    }
+  });
+
+  // If task-execute and task-output are in the same messageBlock, exclude task-execute
+  messageBlocks.forEach((messageBlock) => {
+    const taskExecuteIndex = messageBlock.messages.findIndex(
+      (message) => message.type === 'task-execute',
+    );
+    const taskOutputIndex = messageBlock.messages.findIndex(
+      (message) => message.type === 'task-list',
+    );
+    if (taskExecuteIndex >= 0 && taskOutputIndex >= 0) {
+      messageBlock.messages.splice(taskExecuteIndex, 1);
     }
   });
 

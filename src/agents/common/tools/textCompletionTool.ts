@@ -2,12 +2,17 @@ import { getUserApiKey } from '@/utils/settings';
 import { OpenAIChat } from 'langchain/llms/openai';
 import { LLMChain } from 'langchain/chains';
 import { PromptTemplate } from 'langchain';
+import { Message } from '@/types';
+import { setupMessage } from '@/utils/message';
 
 export const textCompletionTool = async (
   prompt: string,
   modelName: string,
   signal?: AbortSignal,
+  id?: number,
+  messageCallnback?: (message: Message) => void,
 ) => {
+  let chunk = '';
   const openAIApiKey = getUserApiKey();
   const llm = new OpenAIChat(
     {
@@ -18,6 +23,17 @@ export const textCompletionTool = async (
       topP: 1,
       frequencyPenalty: 0,
       presencePenalty: 0,
+      streaming: true,
+      callbacks: [
+        {
+          handleLLMNewToken(token: string) {
+            chunk += token;
+            messageCallnback?.(
+              setupMessage('task-output', chunk, undefined, '🤖', id),
+            );
+          },
+        },
+      ],
     },
     { baseOptions: { signal: signal } },
   );
