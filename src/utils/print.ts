@@ -25,7 +25,7 @@ export class Printer {
       task.tool
     }]**`;
     this.messageCallback(
-      setupMessage('next-task', nextTask, undefined, undefined, task.id),
+      setupMessage('next-task', nextTask, task.tool, undefined, task.id),
     );
 
     if (!this.verbose) return;

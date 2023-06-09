@@ -6,6 +6,8 @@ import { webBrowsing } from './tools/webBrowsing';
 import { textCompletionToolPrompt } from './prompt';
 import { textCompletionTool } from '../common/tools/textCompletionTool';
 import { setupMessage } from '@/utils/message';
+import { toast } from 'sonner';
+import { translate } from '@/utils/translate';
 
 export class BabyDeerAGI extends AgentExecuter {
   sessionSummary = `OBJECTIVE: ${this.objective}\n\n`;
@@ -166,6 +168,7 @@ export class BabyDeerAGI extends AgentExecuter {
     this.messageCallback(
       setupMessage('user-input', task.task, task.tool, undefined, task.id),
     );
+    toast.message(translate('USER_INPUT_WAITING', 'message'));
     this.statusCallback({ type: 'user-input' });
     this.userInputPromise = new Promise((resolve) => {
       this.userInputResolver = resolve;
