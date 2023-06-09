@@ -69,7 +69,7 @@ export const Agent: FC = () => {
     const behavior = isExecuting ? 'smooth' : 'auto';
     messagesEndRef.current?.scrollIntoView({ behavior: behavior });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [messages, messageBlocks]);
+  }, [messageBlocks]);
 
   useEffect(() => {
     scrollToBottom();
