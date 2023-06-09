@@ -41,6 +41,6 @@ export const relevantInfoExtractionAgent = async (
       return null;
     }
     console.log('error: ', error);
-    return error;
+    return 'Failed to extract relevant information.';
   }
 };

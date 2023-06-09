@@ -137,12 +137,6 @@ export class BabyDeerAGI extends AgentExecuter {
 
       // Execute all executable tasks in parallel
       await Promise.all(executableTasks.map((task) => this.executeTask(task)));
-
-      if (!this.isRunningRef.current) {
-        break;
-      }
-
-      this.statusCallback({ type: 'closing' });
     }
   }
 
