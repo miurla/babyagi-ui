@@ -5,6 +5,7 @@ import {
   AgentType,
   Execution,
   Message,
+  MessageBlock,
   SelectItem,
   UserSettings,
 } from '@/types';
@@ -13,7 +14,11 @@ import AgentMessage from './AgentMessage';
 import { AgentParameter } from './AgentParameter';
 import { ProjectTile } from './ProjectTile';
 import { AgentMessageHeader } from './AgentMessageHeader';
-import { getExportText, loadingAgentMessage } from '../../utils/message';
+import {
+  getExportText,
+  getMessageBlocks,
+  loadingAgentMessage,
+} from '../../utils/message';
 import { BabyAGI } from '@/agents/babyagi';
 import { BabyBeeAGI } from '@/agents/babybeeagi/agent';
 import { BabyCatAGI } from '@/agents/babycatagi/agent';
@@ -29,6 +34,7 @@ import axios from 'axios';
 import { taskCompletedNotification } from '@/utils/notification';
 import { MessageSummaryCard } from './MessageSummaryCard';
 import { useTranslation } from 'next-i18next';
+import { AgentMessageBlock } from './AgentMessageBlock';
 
 export const Agent: FC = () => {
   const [model, setModel] = useState<SelectItem>(MODELS[1]);
@@ -38,6 +44,7 @@ export const Agent: FC = () => {
     translate('FIRST_TASK_PLACEHOLDER', 'constants'),
   );
   const [messages, setMessages] = useState<Message[]>([]);
+  const [messageBlocks, setMessageBlocks] = useState<MessageBlock[]>([]);
   const [agentStatus, setAgentStatus] = useState<AgentStatus>({
     type: 'ready',
   });
@@ -62,7 +69,7 @@ export const Agent: FC = () => {
     const behavior = isExecuting ? 'smooth' : 'auto';
     messagesEndRef.current?.scrollIntoView({ behavior: behavior });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [messages]);
+  }, [messages, messageBlocks]);
 
   useEffect(() => {
     scrollToBottom();
@@ -92,6 +99,10 @@ export const Agent: FC = () => {
       };
       updateExec(updatedExecution);
     }
+
+    const blocks = getMessageBlocks(messages);
+    setMessageBlocks(blocks);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [messages]);
 
@@ -323,6 +334,12 @@ export const Agent: FC = () => {
     }
   };
 
+  const userInputHandler = async (text: string) => {
+    if (agent instanceof BabyDeerAGI) {
+      agent.userInput(text);
+    }
+  };
+
   const needSettingsAlert = () => {
     const useUserApiKey = process.env.NEXT_PUBLIC_USE_USER_API_KEY;
     if (useUserApiKey === 'false') {
@@ -365,7 +382,7 @@ export const Agent: FC = () => {
 
   return (
     <div className="overflow-none relative flex-1 bg-white dark:bg-[#343541]">
-      {messages.length === 0 ? (
+      {messageBlocks.length === 0 ? (
         <>
           <AgentParameter
             model={model}
@@ -384,8 +401,12 @@ export const Agent: FC = () => {
       ) : (
         <div className="max-h-full overflow-scroll">
           <AgentMessageHeader model={model} agent={selectedAgent} />
-          {messages.map((message, index) => (
-            <AgentMessage key={index} message={message} />
+          {messageBlocks.map((block, index) => (
+            <AgentMessageBlock
+              block={block}
+              key={index}
+              userInputCallback={userInputHandler}
+            />
           ))}
           {isExecuting && (
             <AgentMessage message={loadingAgentMessage(agentStatus)} />

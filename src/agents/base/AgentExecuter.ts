@@ -1,6 +1,5 @@
 import { AgentStatus, AgentTask, Message } from '@/types';
 import { Printer } from '@/utils/print';
-import { t } from 'i18next';
 
 export class AgentExecuter {
   objective: string;
@@ -72,4 +71,6 @@ export class AgentExecuter {
     this.printer.printObjective(this.objective);
   }
   async loop() {}
+
+  async userInput(message: string) {}
 }

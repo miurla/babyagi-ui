@@ -1,4 +1,10 @@
-import { AgentStatus, Message, MessageType, ToolType } from '@/types';
+import {
+  AgentStatus,
+  Message,
+  MessageBlock,
+  MessageType,
+  ToolType,
+} from '@/types';
 import { translate } from './translate';
 
 export const setupMessage = (
@@ -6,6 +12,7 @@ export const setupMessage = (
   text?: string,
   tool?: ToolType,
   icon?: string,
+  id?: number,
 ): Message => {
   const defaultIcon =
     type === 'objective'
@@ -46,6 +53,8 @@ export const setupMessage = (
       ? '🤔'
       : type === 'failed'
       ? '❌'
+      : type === 'user-input'
+      ? '🧑‍💻'
       : '🤖';
 
   const title =
@@ -80,11 +89,11 @@ export const setupMessage = (
       : '';
 
   const bgColor =
-    type === 'loading'
-      ? 'bg-gray-100 dark:bg-gray-600/10'
-      : type === 'objective' || type === 'next-task'
-      ? 'bg-white dark:bg-gray-600/50'
-      : 'bg-gray-50 dark:bg-[#444654]';
+    // type === 'loading'
+    // ? 'bg-gray-100 dark:bg-gray-600/10'
+    // : // : type === 'objective' || type === 'next-task'
+    // ? 'bg-white dark:bg-gray-600/50'
+    'bg-gray-50 dark:bg-[#444654]';
 
   return {
     text: text ?? '',
@@ -92,6 +101,7 @@ export const setupMessage = (
     icon: icon ?? defaultIcon,
     title: title,
     bgColor: bgColor,
+    id: id,
   };
 };
 
@@ -130,6 +140,8 @@ export const loadingAgentMessage = (status: AgentStatus) => {
       ? translate('MANAGING', 'message')
       : status.type === 'sufficiency'
       ? translate('SUFFICIENCY', 'message')
+      : status.type === 'user-input'
+      ? translate('USER_INPUT_WAITING', 'message')
       : translate('THINKING', 'message');
 
   let title = undefined;
@@ -157,6 +169,8 @@ export const getToolIcon = (tool: ToolType) => {
       return '📄';
     case 'text-completion':
       return '🤖';
+    case 'user-input':
+      return '🧑‍💻';
     default:
       return '🤖';
   }
@@ -181,4 +195,36 @@ export const getMessageSummaryTitle = (message?: Message) => {
   } else {
     return '';
   }
+};
+
+// create messageBlock array from message array
+export const getMessageBlocks = (messages: Message[]) => {
+  const messageBlocks: MessageBlock[] = [];
+
+  let currentMessageBlock: MessageBlock | null = null;
+  messages.forEach((message) => {
+    if (!message.id) {
+      currentMessageBlock = { messages: [message] } as MessageBlock;
+      messageBlocks.push(currentMessageBlock);
+      return;
+    }
+
+    // message.id と同一の messageBlock があればそこに追加
+    const messageBlock = messageBlocks.find(
+      (messageBlock) => messageBlock.id === message.id,
+    );
+    if (messageBlock) {
+      messageBlock.messages.push(message);
+      return;
+    }
+
+    // message.id と同一の messageBlock がなければ新規作成
+    currentMessageBlock = {
+      messages: [message],
+      id: message.id,
+    } as MessageBlock;
+    messageBlocks.push(currentMessageBlock);
+  });
+
+  return messageBlocks;
 };

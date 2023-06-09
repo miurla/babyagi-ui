@@ -21,10 +21,9 @@ export const taskCreationPrompt = () => {
     EXAMPLE OBJECTIVE=Look up AI news from today (May 27, 2023) and write a poem.
     TASK LIST=[
   {{\"id\":1,\"task\":\"AI news today\",\"tool\":\"web-search\",\"dependent_task_ids\":[],\"status\":\"incomplete\",\"result\":null,\"result_summary\":null}},
-  {{\"id\":2,\"task\":\"Extract key points from AI news articles\",\"tool\":\"text-completion\",\"dependent_task_ids\":[1],\"status\":\"incomplete\",\"result\":null,\"result_summary\":null}},
-  {{\"id\":3,\"task\":\"Generate a list of AI-related words and phrases\",\"tool\":\"text-completion\",\"dependent_task_ids\":[2],\"status\":\"incomplete\",\"result\":null,\"result_summary\":null}},
-  {{\"id\":4,\"task\":\"Write a poem using AI-related words and phrases\",\"tool\":\"text-completion\",\"dependent_task_ids\":[3],\"status\":\"incomplete\",\"result\":null,\"result_summary\":null}},
-  {{\"id\":5,\"task\":\"Final summary report\",\"tool\":\"text-completion\",\"dependent_task_ids\":[1,2,3,4],\"status\":\"incomplete\",\"result\":null,\"result_summary\":null}}
+  {{\"id\":2,\"task\":\"Summarize a news article\",\"tool\":\"text-completion\",\"dependent_task_ids\":[1],\"status\":\"incomplete\",\"result\":null,\"result_summary\":null}},
+  {{\"id\":3,\"task\":\"Pick up important news\",\"tool\":\"text-completion\",\"dependent_task_ids\":[2],\"status\":\"incomplete\",\"result\":null,\"result_summary\":null}},
+  {{\"id\":4,\"task\":\"Final summary report\",\"tool\":\"text-completion\",\"dependent_task_ids\":[1,2,3],\"status\":\"incomplete\",\"result\":null,\"result_summary\":null}}
     ]
     OBJECTIVE={objective}
     TASK LIST=

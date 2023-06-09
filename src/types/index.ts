@@ -6,7 +6,14 @@ export type SelectItem = {
   badge?: string;
 };
 
+export type MessageBlock = {
+  id?: number;
+  messages: Message[];
+  status?: 'complete' | 'incomplete' | 'running';
+};
+
 export type Message = {
+  id?: number;
   text: string;
   type: MessageType;
   icon?: string;
@@ -48,6 +55,7 @@ export type MessageType =
   | 'done'
   | 'complete'
   | 'failed'
+  | 'user-input' // for babydeeragi
   | 'sufficiency-result';
 
 export type AgentStatusType =
@@ -65,7 +73,8 @@ export type AgentStatusType =
   | 'managing'
   | 'creating-stream' // for babycatagi
   | 'executing-stream' // for babycatagi
-  | 'sufficiency'; // for mod
+  | 'sufficiency' // for mod
+  | 'user-input'; // for babydeeragi
 
 export type UserSettings = {
   openAIApiKey?: string;

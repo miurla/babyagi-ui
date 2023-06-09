@@ -60,7 +60,7 @@ const AgentMessage: FC<AgentMessageProps> = ({ message }) => {
 
   return (
     <div
-      className={`border-b border-black/10 text-gray-800 dark:border-gray-900/50 dark:text-gray-100 ${message.bgColor}`}
+      className={`text-gray-800 dark:border-gray-900/50 dark:text-gray-100 ${message.bgColor}`}
     >
       <div className="relative m-auto flex gap-4 p-4 text-base md:max-w-2xl md:gap-6 md:py-6 lg:max-w-2xl lg:px-0 xl:max-w-3xl">
         {message.type === 'loading' ? (

@@ -5,9 +5,12 @@ import { getTaskById } from '@/utils/task';
 import { webBrowsing } from './tools/webBrowsing';
 import { textCompletionToolPrompt } from './prompt';
 import { textCompletionTool } from '../common/tools/textCompletionTool';
+import { setupMessage } from '@/utils/message';
 
 export class BabyDeerAGI extends AgentExecuter {
   sessionSummary = `OBJECTIVE: ${this.objective}\n\n`;
+  userInputResolver: ((message: string) => void) | null = null;
+  userInputPromise: Promise<string> | null = null;
 
   // Create task list by agent
   async taskCreation() {
@@ -65,7 +68,7 @@ export class BabyDeerAGI extends AgentExecuter {
           )) ?? '';
         break;
       case 'user-input':
-        taskOutput = "User's input";
+        // taskOutput = "User's input";
         break;
       default:
         break;
@@ -107,6 +110,12 @@ export class BabyDeerAGI extends AgentExecuter {
     // Find the task index in the task list
     const taskIndex = this.taskList.findIndex((t) => t.id === task.id);
 
+    if (task.tool === 'user-input') {
+      this.statusCallback({ type: 'user-input' });
+      const userInput = await this.getUserInput();
+      this.taskList[taskIndex].output = userInput;
+    }
+
     // Update the task status
     this.taskList[taskIndex].status = 'complete';
     this.taskList[taskIndex].output = taskOutput;
@@ -145,7 +154,33 @@ export class BabyDeerAGI extends AgentExecuter {
 
       this.taskIdCounter += 1;
       this.statusCallback({ type: 'closing' });
-      this.printer.printTaskList(this.taskList);
     }
+  }
+
+  async finishup() {
+    if (!this.isRunningRef.current) {
+      this.statusCallback({ type: 'finished' });
+      return;
+    }
+    this.printer.printTaskList(this.taskList);
+
+    super.finishup();
+  }
+
+  async userInput(message: string): Promise<void> {
+    console.log(message);
+
+    if (this.userInputResolver) {
+      this.userInputResolver(message);
+      this.userInputResolver = null;
+      this.userInputPromise = null;
+    }
+  }
+
+  getUserInput() {
+    this.userInputPromise = new Promise((resolve) => {
+      this.userInputResolver = resolve;
+    });
+    return this.userInputPromise;
   }
 }
