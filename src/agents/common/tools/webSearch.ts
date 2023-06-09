@@ -40,7 +40,7 @@ export const simplifySearchResults = (searchResults: SearchResult[]) => {
   }
 
   // count the number of results
-  const maxCount = 3;
+  const maxCount = 5; // 3
   if (simplifiedResults.length > maxCount) {
     return simplifiedResults.slice(0, maxCount);
   }

@@ -102,7 +102,7 @@ export const webBrowsing = async (
     callbackSearchStatus(statusMessage, task, messageCallback);
     const info = await largeTextExtract(
       objective,
-      content,
+      content.slice(0, 5000),
       task,
       isRunningRef,
       callback,
@@ -140,15 +140,16 @@ export const webBrowsing = async (
   );
 
   // callback to search logs
-  messageCallback(
-    setupMessage(
-      'search-logs',
-      '```markdown\n' + statusMessage + '\n```',
-      task.tool,
-      '🌐',
-      task.id,
-    ),
-  );
+  const msg: Message = {
+    type: 'search-logs',
+    text: '```markdown\n' + statusMessage + '\n```',
+    title: translate('SEARCH_LOGS', 'message'),
+    id: task.id,
+    icon: '🌐',
+    open: false,
+  };
+  messageCallback(msg);
+
   return analyzedResults;
 };
 

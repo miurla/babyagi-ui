@@ -20,7 +20,7 @@ export type Message = {
   title?: string;
   bgColor?: string;
   status?: AgentStatus;
-  collapsible?: boolean;
+  open?: boolean;
 };
 
 export type Execution = {

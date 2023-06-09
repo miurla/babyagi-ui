@@ -1,4 +1,4 @@
-import { FC, use, useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import * as Collapsible from '@radix-ui/react-collapsible';
 import { ChevronDownIcon, ChevronUpIcon } from '@radix-ui/react-icons';
 import React from 'react';
@@ -6,16 +6,18 @@ import React from 'react';
 export interface AgentCollapsibleProps {
   children: React.ReactNode;
   title: string;
+  isOpen?: boolean;
 }
 
 export const AgentCollapsible: FC<AgentCollapsibleProps> = ({
   children,
   title,
+  isOpen = true,
 }) => {
   const [open, setOpen] = React.useState(false);
 
   useEffect(() => {
-    setOpen(false);
+    setOpen(isOpen);
   }, []);
 
   return (

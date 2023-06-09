@@ -80,18 +80,6 @@ export class BabyDeerAGI extends AgentExecuter {
   }
 
   async executeTask(task: AgentTask) {
-    // Check if dependent task id is not empty
-    if (task.dependentTaskIds) {
-      let allDependentTasksCompleted = true;
-      for (const id of task.dependentTaskIds) {
-        const dependentTask = getTaskById(this.taskList, id);
-        if (dependentTask?.status !== 'complete') {
-          allDependentTasksCompleted = false;
-          break;
-        }
-      }
-    }
-
     if (!this.isRunningRef.current) return;
 
     // Execute the task
@@ -110,8 +98,8 @@ export class BabyDeerAGI extends AgentExecuter {
     const taskIndex = this.taskList.findIndex((t) => t.id === task.id);
 
     // Update the task status
-    this.taskList[taskIndex].status = 'complete';
     this.taskList[taskIndex].output = taskOutput;
+    this.taskList[taskIndex].status = 'complete';
   }
 
   // Override AgentExecuter
@@ -136,16 +124,22 @@ export class BabyDeerAGI extends AgentExecuter {
       const incompleteTasks = this.taskList.filter(
         (task) => task.status === 'incomplete',
       );
-      // Pull the first incomplete task
-      const task = incompleteTasks[0];
-      // 2. Execute the task
-      await this.executeTask(task);
+      // Filter tasks that have all their dependencies completed
+      const executableTasks = incompleteTasks.filter((task) => {
+        if (!task.dependentTaskIds) return true;
+        return task.dependentTaskIds.every((id) => {
+          const dependentTask = getTaskById(this.taskList, id);
+          return dependentTask?.status === 'complete';
+        });
+      });
+
+      // Execute all executable tasks in parallel
+      await Promise.all(executableTasks.map((task) => this.executeTask(task)));
 
       if (!this.isRunningRef.current) {
         break;
       }
 
-      this.taskIdCounter += 1;
       this.statusCallback({ type: 'closing' });
     }
   }

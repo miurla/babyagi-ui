@@ -88,7 +88,9 @@ const AgentMessage: FC<AgentMessageProps> = ({
           message.status?.type === 'executing-stream' ||
           message.type === 'search-logs' ||
           message.type === 'task-execute' ? (
-          <AgentCollapsible title={simpleTitle}>{contents}</AgentCollapsible>
+          <AgentCollapsible title={simpleTitle} isOpen={message.open}>
+            {contents}
+          </AgentCollapsible>
         ) : (
           contents
         )}

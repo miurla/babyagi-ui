@@ -52,6 +52,6 @@ export const textCompletionTool = async (
       return null;
     }
     console.log('error: ', error);
-    return error.message;
+    return 'Failed to generate text.';
   }
 };
