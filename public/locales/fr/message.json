@@ -26,5 +26,6 @@
   "TASK_FAILED": "La tâche a échoué.",
   "TASK_FAILED_MESSAGE": "Impossible d'exécuter la tâche. Veuillez vérifier le journal des tâches.",
   "OUTPUT_SUFFICIENCY": "Suffisance de la production",
-  "SUFFICIENCY": "Vérification de la suffisance de sortie de tâche..."
+  "SUFFICIENCY": "Vérification de la suffisance de sortie de tâche...",
+  "USER_INPUT_WAITING": "En attente de votre entrée..."
 }

@@ -14,5 +14,6 @@
   "NOTIFICATION_NOT_SUPPORTED": "このブラウザはデスクトップ通知に対応していません。",
   "NOTIFICATION_DINIED": "通知の許可が拒否されました。ブラウザの設定で許可してください。",
   "FIRST_TASK_PLACEHOLDER": "タスクリストを作成する",
-  "ALERT_GPT_4_DISABLED": "「あなたのAPIキーにはGPT-4へのアクセス権がありません。GPT-4以外のモデルを選択して実行してください。」"
+  "ALERT_GPT_4_DISABLED": "あなたのAPIキーにはGPT-4へのアクセス権がありません。GPT-4以外のモデルを選択して実行してください。",
+  "USER_INPUT_PLACEHOLDER": "あなたの回答を入力してください..."
 }

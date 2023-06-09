@@ -26,5 +26,6 @@
   "TASK_FAILED": "Uppgiften misslyckades\" (Translation in Swedish)",
   "TASK_FAILED_MESSAGE": "Misslyckades med att utföra uppgiften. Vänligen kontrollera uppgiftsloggen.",
   "OUTPUT_SUFFICIENCY": "Utgångsräckvidd",
-  "SUFFICIENCY": "Kontrollera tillräckligheten av uppgiftsutdata...\" (Note: This is the translation for Swedish language code \"sv\".)"
+  "SUFFICIENCY": "Kontrollera tillräckligheten av uppgiftsutdata...",
+  "USER_INPUT_WAITING": "Väntar på din input..."
 }

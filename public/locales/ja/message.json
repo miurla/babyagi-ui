@@ -26,5 +26,6 @@
   "TASK_FAILED": "タスク失敗",
   "TASK_FAILED_MESSAGE": "タスクの実行に失敗しました。タスクログを確認してください。",
   "OUTPUT_SUFFICIENCY": "タスク結果の精査",
-  "SUFFICIENCY": "タスク結果を精査しています..."
+  "SUFFICIENCY": "タスク結果を精査しています...",
+  "USER_INPUT_WAITING": "あなたの入力を待っています..."
 }

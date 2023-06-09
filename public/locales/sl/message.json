@@ -26,5 +26,6 @@
   "TASK_FAILED": "Naloga ni uspela.\" (This is the Slovenian translation for \"Task Failed\".)",
   "TASK_FAILED_MESSAGE": "Naloga ni uspela. Prosimo, preverite dnevnik opravila.",
   "OUTPUT_SUFFICIENCY": "Izpis zadostnosti.",
-  "SUFFICIENCY": "Preveri zadostnost izhodne naloge..."
+  "SUFFICIENCY": "Preveri zadostnost izhodne naloge...",
+  "USER_INPUT_WAITING": "Čakamo na vaš vnos..."
 }

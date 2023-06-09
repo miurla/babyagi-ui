@@ -13,5 +13,6 @@
   "NOTIFICATION_NOT_SUPPORTED": "Deze browser ondersteunt geen desktopmeldingen.",
   "NOTIFICATION_DINIED": "U heeft de meldingstoestemming geweigerd. Sta dit toe in de browserinstellingen.",
   "FIRST_TASK_PLACEHOLDER": "Maak een takenlijst",
-  "ALERT_GPT_4_DISABLED": "Uw API-sleutel heeft geen toegangsrechten voor GPT-4. Selecteer alstublieft een ander model dan GPT-4 en voer het uit."
+  "ALERT_GPT_4_DISABLED": "Uw API-sleutel heeft geen toegangsrechten voor GPT-4. Selecteer alstublieft een ander model dan GPT-4 en voer het uit.",
+  "USER_INPUT_PLACEHOLDER": "Voer hier uw antwoord in..."
 }

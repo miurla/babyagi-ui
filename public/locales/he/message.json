@@ -26,5 +26,6 @@
   "TASK_FAILED": "המשימה נכשלה",
   "TASK_FAILED_MESSAGE": "נכשל בביצוע המשימה. יש לבדוק את לוג המשימה.",
   "OUTPUT_SUFFICIENCY": "כדיון פליטה",
-  "SUFFICIENCY": "בודק את המספיקות של פלט המשימה..."
+  "SUFFICIENCY": "בודק את המספיקות של פלט המשימה...",
+  "USER_INPUT_WAITING": "ממתין לקלט שלך..."
 }

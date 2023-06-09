@@ -26,5 +26,6 @@
   "TASK_FAILED": "Görev Başarısız Oldu",
   "TASK_FAILED_MESSAGE": "Görev yürütülemedi. Lütfen görev kaydını kontrol edin.",
   "OUTPUT_SUFFICIENCY": "Çıktı Yeterliliği",
-  "SUFFICIENCY": "İş çıktısı yeterliliği kontrol ediliyor..."
+  "SUFFICIENCY": "İş çıktısı yeterliliği kontrol ediliyor...",
+  "USER_INPUT_WAITING": "Girişinizi bekliyorum..."
 }

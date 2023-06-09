@@ -13,5 +13,6 @@
   "NOTIFICATION_NOT_SUPPORTED": "Browser ini tidak mendukung notifikasi desktop.",
   "NOTIFICATION_DINIED": "Anda menolak izin notifikasi. Silakan izinkan di pengaturan browser.",
   "FIRST_TASK_PLACEHOLDER": "Membuat daftar tugas.",
-  "ALERT_GPT_4_DISABLED": "Kunci API Anda tidak memiliki hak akses ke GPT-4. Mohon pilih model selain GPT-4 dan jalankan kembali."
+  "ALERT_GPT_4_DISABLED": "Kunci API Anda tidak memiliki hak akses ke GPT-4. Mohon pilih model selain GPT-4 dan jalankan kembali.",
+  "USER_INPUT_PLACEHOLDER": "Masukkan jawaban Anda di sini..."
 }
