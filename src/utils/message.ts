@@ -49,6 +49,8 @@ export const setupMessage = (
       ? '📄'
       : type === 'task-output' && tool === 'text-completion'
       ? '🤖'
+      : type === 'task-output' && tool === 'user-input'
+      ? '🧑‍💻'
       : type === 'sufficiency-result'
       ? '🤔'
       : type === 'failed'
@@ -89,11 +91,9 @@ export const setupMessage = (
       : '';
 
   const bgColor =
-    // type === 'loading'
-    // ? 'bg-gray-100 dark:bg-gray-600/10'
-    // : // : type === 'objective' || type === 'next-task'
-    // ? 'bg-white dark:bg-gray-600/50'
-    'bg-gray-50 dark:bg-[#444654]';
+    type === 'loading'
+      ? 'bg-neutral-100 dark:bg-neutral-600/10'
+      : 'bg-neutral-50 dark:bg-[#444654]';
 
   return {
     text: text ?? '',
@@ -108,7 +108,8 @@ export const setupMessage = (
 export const getMessageText = (message: Message): string => {
   if (
     message.status?.type === 'creating-stream' ||
-    message.status?.type === 'executing-stream'
+    message.status?.type === 'executing-stream' ||
+    message.type === 'search-logs'
   ) {
     return message.text;
   }
@@ -209,7 +210,7 @@ export const getMessageBlocks = (messages: Message[]) => {
       return;
     }
 
-    // message.id と同一の messageBlock があればそこに追加
+    // if there is a messageBlock with the same id as message.id, add it there
     const messageBlock = messageBlocks.find(
       (messageBlock) => messageBlock.id === message.id,
     );
@@ -218,12 +219,25 @@ export const getMessageBlocks = (messages: Message[]) => {
       return;
     }
 
-    // message.id と同一の messageBlock がなければ新規作成
+    // if there is no messageBlock with the same id as message.id, create a new one
     currentMessageBlock = {
       messages: [message],
       id: message.id,
     } as MessageBlock;
     messageBlocks.push(currentMessageBlock);
+  });
+
+  // If user-input and task-output are in the same messageBlock, exclude user-input
+  messageBlocks.forEach((messageBlock) => {
+    const userInputIndex = messageBlock.messages.findIndex(
+      (message) => message.type === 'user-input',
+    );
+    const taskOutputIndex = messageBlock.messages.findIndex(
+      (message) => message.type === 'task-output',
+    );
+    if (userInputIndex >= 0 && taskOutputIndex >= 0) {
+      messageBlock.messages.splice(userInputIndex, 1);
+    }
   });
 
   return messageBlocks;

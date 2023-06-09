@@ -13,16 +13,16 @@ export const AgentMessageBlock: FC<AgentMessageBlockProps> = ({
   userInputCallback,
 }) => {
   return (
-    <div className="w-full border-b border-black/10">
+    <div className="flex w-full flex-col gap-8 border-b border-black/10  bg-neutral-50 p-4 dark:bg-[#444654]  md:p-6">
       {block.messages.map((message, index) =>
-        message.type === `task-output` ? (
+        message.type === `user-input` ? (
           <AgentMessageInput
             key={index}
             message={message}
             onSubmit={userInputCallback}
           />
         ) : (
-          <AgentMessage message={message} key={index} />
+          <AgentMessage message={message} key={index} spacing="tight" />
         ),
       )}
     </div>

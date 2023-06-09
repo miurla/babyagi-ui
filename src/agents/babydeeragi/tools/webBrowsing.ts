@@ -127,7 +127,13 @@ export const webBrowsing = async (
 
   // callback to search logs
   messageCallback(
-    setupMessage('search-logs', '```markdown\n' + statusMessage + '\n```'),
+    setupMessage(
+      'search-logs',
+      '```markdown\n' + statusMessage + '\n```',
+      task.tool,
+      '🌐',
+      task.id,
+    ),
   );
   return analyzedResults;
 };

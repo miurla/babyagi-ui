@@ -56,7 +56,7 @@ export class Printer {
   printTaskOutput(output: string, task: AgentTask) {
     if (task.tool !== 'text-completion') {
       // code block for non-text-completion tools
-      output = '```\n' + output + '\n```';
+      // output = '```\n' + output + '\n```';
     }
     this.messageCallback(
       setupMessage('task-output', output, task?.tool, undefined, task?.id),

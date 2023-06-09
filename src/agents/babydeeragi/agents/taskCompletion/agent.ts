@@ -15,7 +15,7 @@ export const taskCompletionAgent = async (
   signal?: AbortSignal,
   statusCallback?: (status: AgentStatus) => void,
 ) => {
-  let chunk = '```json\n';
+  let chunk = '';
   const prompt = taskCompletionPrompt(taskList, task);
   const openAIApiKey = getUserApiKey();
   const llm = new OpenAIChat(

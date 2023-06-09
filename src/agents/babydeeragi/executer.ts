@@ -68,7 +68,7 @@ export class BabyDeerAGI extends AgentExecuter {
           )) ?? '';
         break;
       case 'user-input':
-        // taskOutput = "User's input";
+        taskOutput = await this.getUserInput(task);
         break;
       default:
         break;
@@ -94,7 +94,7 @@ export class BabyDeerAGI extends AgentExecuter {
     // Execute the task
     this.statusCallback({ type: 'executing' });
     this.printer.printNextTask(task);
-    const taskOutput = await this.taskOutputWithTool(task);
+    let taskOutput = await this.taskOutputWithTool(task);
 
     if (!this.isRunningRef.current) return;
 
@@ -103,18 +103,8 @@ export class BabyDeerAGI extends AgentExecuter {
 
     if (!this.isRunningRef.current) return;
 
-    this.statusCallback({ type: 'sufficiency' });
-
-    if (!this.isRunningRef.current) return;
-
     // Find the task index in the task list
     const taskIndex = this.taskList.findIndex((t) => t.id === task.id);
-
-    if (task.tool === 'user-input') {
-      this.statusCallback({ type: 'user-input' });
-      const userInput = await this.getUserInput();
-      this.taskList[taskIndex].output = userInput;
-    }
 
     // Update the task status
     this.taskList[taskIndex].status = 'complete';
@@ -168,8 +158,6 @@ export class BabyDeerAGI extends AgentExecuter {
   }
 
   async userInput(message: string): Promise<void> {
-    console.log(message);
-
     if (this.userInputResolver) {
       this.userInputResolver(message);
       this.userInputResolver = null;
@@ -177,7 +165,11 @@ export class BabyDeerAGI extends AgentExecuter {
     }
   }
 
-  getUserInput() {
+  getUserInput(task: AgentTask) {
+    this.messageCallback(
+      setupMessage('user-input', task.task, task.tool, undefined, task.id),
+    );
+    this.statusCallback({ type: 'user-input' });
     this.userInputPromise = new Promise((resolve) => {
       this.userInputResolver = resolve;
     });
