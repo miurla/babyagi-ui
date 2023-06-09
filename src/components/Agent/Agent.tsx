@@ -446,11 +446,6 @@ export const Agent: FC = () => {
         agent={selectedAgent.id as AgentType}
         evaluation={currentEvaluation()}
       />
-      {isExecuting && messages.length > 0 && (
-        <div className="invisible fixed right-10 top-10 z-10 md:visible">
-          <MessageSummaryCard messages={messages} />
-        </div>
-      )}
     </div>
   );
 };
