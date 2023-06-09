@@ -30,7 +30,9 @@ export const AgentParameter: FC<AgentParameterProps> = ({
   useEffect(() => {
     let option: SelectItem[] = [];
     if (model.id !== 'gpt-4') {
-      option = AGENT.filter((agent) => agent.id === 'babyagi');
+      option = AGENT.filter(
+        (agent) => agent.id === 'babyagi' || agent.id === 'babydeeragi',
+      );
     } else if (!getUserApiKey()) {
       // bui-mod-1 is only available for using client api key
       option = AGENT.filter((agent) => agent.id !== 'bui-mod-1');
@@ -75,7 +77,7 @@ export const AgentParameter: FC<AgentParameterProps> = ({
           />
         </div>
       )}
-      {agent.id !== 'babycatagi' && agent.id !== 'bui-mod-1' && (
+      {agent.id !== 'babycatagi' && agent.id !== 'babydeeragi' && (
         <div className="flex w-full flex-col">
           <label className="mb-2 text-left text-xs text-neutral-400 dark:text-neutral-500">
             {translate('FIRST_TASK')}

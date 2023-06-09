@@ -13,5 +13,6 @@
   "NOTIFICATION_NOT_SUPPORTED": "Dieser Browser unterstützt keine Desktop-Benachrichtigungen.",
   "NOTIFICATION_DINIED": "Sie haben die Benachrichtigungserlaubnis verweigert. Bitte erlauben Sie es in den Browsereinstellungen.",
   "FIRST_TASK_PLACEHOLDER": "Entwickeln Sie eine Aufgabenliste",
-  "ALERT_GPT_4_DISABLED": "Ihr API-Schlüssel hat keine Zugriffsrechte auf GPT-4. Bitte wählen Sie ein anderes Modell aus und führen Sie es aus."
+  "ALERT_GPT_4_DISABLED": "Ihr API-Schlüssel hat keine Zugriffsrechte auf GPT-4. Bitte wählen Sie ein anderes Modell aus und führen Sie es aus.",
+  "USER_INPUT_PLACEHOLDER": "Geben Sie hier Ihre Antwort ein..."
 }

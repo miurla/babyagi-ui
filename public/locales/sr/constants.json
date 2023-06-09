@@ -13,5 +13,6 @@
   "NOTIFICATION_NOT_SUPPORTED": "Овај прегледач не подржава обавештења на радној површини.",
   "NOTIFICATION_DINIED": "Одбили сте дозволу за обавештења. Дозволите то у подешавањима прегледача.",
   "FIRST_TASK_PLACEHOLDER": "Razvijte listu zadataka.",
-  "ALERT_GPT_4_DISABLED": "Vaš API ključ nema pristupne dozvole za GPT-4. Molimo izaberite neki drugi model i pokrenite ga."
+  "ALERT_GPT_4_DISABLED": "Vaš API ključ nema pristupne dozvole za GPT-4. Molimo izaberite neki drugi model i pokrenite ga.",
+  "USER_INPUT_PLACEHOLDER": "Unesite svoj odgovor ovde..."
 }

@@ -26,5 +26,6 @@
   "TASK_FAILED": "Task Failed\" in Italian is \"Attività fallita\".",
   "TASK_FAILED_MESSAGE": "Impossibile eseguire il compito. Controllare il registro del compito.",
   "OUTPUT_SUFFICIENCY": "Sufficienza di output",
-  "SUFFICIENCY": "Verifica dell'adeguatezza dell'output del compito..."
+  "SUFFICIENCY": "Verifica dell'adeguatezza dell'output del compito...",
+  "USER_INPUT_WAITING": "In attesa del tuo input..."
 }

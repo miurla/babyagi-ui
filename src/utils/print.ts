@@ -24,14 +24,16 @@ export class Printer {
     const nextTask = `${task.id}. ${task.task} - **[${getToolIcon(task.tool)} ${
       task.tool
     }]**`;
-    this.messageCallback(setupMessage('next-task', nextTask));
+    this.messageCallback(
+      setupMessage('next-task', nextTask, task.tool, undefined, task.id),
+    );
 
     if (!this.verbose) return;
     console.log('%c*****NEXT TASK*****\n\n%c', 'color:fuchsia', '');
     console.log(task);
   }
 
-  printTaskList(taskList: AgentTask[]) {
+  printTaskList(taskList: AgentTask[], id?: number) {
     let message =
       '| ID | Status | Task  | Tool | Dependency | \n | :-: | :-: | - | :-: | :-: | \n';
     taskList.forEach((task) => {
@@ -44,7 +46,9 @@ export class Printer {
       )} | ${dependentTask} |\n`;
     });
 
-    this.messageCallback(setupMessage('task-list', message));
+    this.messageCallback(
+      setupMessage('task-list', message, undefined, `📝`, id),
+    );
 
     if (!this.verbose) return;
     console.log('%c*****TASK LIST*****\n\n%c', 'color:fuchsia', '');
@@ -54,9 +58,11 @@ export class Printer {
   printTaskOutput(output: string, task: AgentTask) {
     if (task.tool !== 'text-completion') {
       // code block for non-text-completion tools
-      output = '```\n' + output + '\n```';
+      // output = '```\n' + output + '\n```';
     }
-    this.messageCallback(setupMessage('task-output', output, task?.tool));
+    this.messageCallback(
+      setupMessage('task-output', output, task?.tool, undefined, task?.id),
+    );
 
     if (!this.verbose) return;
     console.log('%c*****TASK OUTPUT*****\n\n%c', 'color:fuchsia', '');

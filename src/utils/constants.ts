@@ -39,11 +39,17 @@ export const BABYBEEAGI_ITERATIONS = [
 
 export const AGENT = [
   {
+    id: 'babydeeragi',
+    name: 'BabyDeerAGI',
+    icon: '🦌',
+    message: '🤖/🔎+📄/🧑‍💻',
+    badge: 'NEW',
+  },
+  {
     id: 'babycatagi',
     name: 'BabyCatAGI',
     icon: '🐱',
     message: '🤖/🔎+📄',
-    badge: 'LATEST',
   },
   {
     id: 'babybeeagi',

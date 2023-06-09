@@ -15,12 +15,17 @@ import { useTheme } from 'next-themes';
 
 interface AgentMessageProps {
   message: Message;
+  spacing?: 'normal' | 'tight';
 }
 
-const AgentMessage: FC<AgentMessageProps> = ({ message }) => {
+const AgentMessage: FC<AgentMessageProps> = ({
+  message,
+  spacing = 'normal',
+}) => {
   const simpleTitle = message.title?.split('(')[0] ?? ''; // ex: 'Creating tasks... (*This process takes time. Please wait...*)'
   const { theme, systemTheme } = useTheme();
   const [highlightStyle, setHighlightStyle] = useState(oneLight);
+  const py = spacing === 'normal' ? 'py-4 md:py-6' : 'py-0';
 
   useEffect(() => {
     const isDark =
@@ -60,9 +65,11 @@ const AgentMessage: FC<AgentMessageProps> = ({ message }) => {
 
   return (
     <div
-      className={`border-b border-black/10 text-gray-800 dark:border-gray-900/50 dark:text-gray-100 ${message.bgColor}`}
+      className={`text-gray-800 dark:border-gray-900/50 dark:text-gray-100 ${message.bgColor}`}
     >
-      <div className="relative m-auto flex gap-4 p-4 text-base md:max-w-2xl md:gap-6 md:py-6 lg:max-w-2xl lg:px-0 xl:max-w-3xl">
+      <div
+        className={`relative m-auto flex gap-4 px-4 text-base md:max-w-2xl md:gap-6 lg:max-w-2xl lg:px-0 xl:max-w-3xl ${py}`}
+      >
         {message.type === 'loading' ? (
           <div className="w-10 pt-1.5">
             <UpdateIcon className="animate-spin" />
@@ -78,8 +85,12 @@ const AgentMessage: FC<AgentMessageProps> = ({ message }) => {
             {contents}
           </details>
         ) : message.status?.type === 'creating-stream' ||
-          message.status?.type === 'executing-stream' ? (
-          <AgentCollapsible title={simpleTitle}>{contents}</AgentCollapsible>
+          message.status?.type === 'executing-stream' ||
+          message.type === 'search-logs' ||
+          message.type === 'task-execute' ? (
+          <AgentCollapsible title={simpleTitle} isOpen={message.open}>
+            {contents}
+          </AgentCollapsible>
         ) : (
           contents
         )}

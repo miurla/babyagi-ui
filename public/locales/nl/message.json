@@ -26,5 +26,6 @@
   "TASK_FAILED": "Mislukte Taak",
   "TASK_FAILED_MESSAGE": "Mislukt om taak uit te voeren. Controleer het taaklogboek alstublieft.",
   "OUTPUT_SUFFICIENCY": "Voldoende uitvoer",
-  "SUFFICIENCY": "Controleren van de voldoende output van de taak..."
+  "SUFFICIENCY": "Controleren van de voldoende output van de taak...",
+  "USER_INPUT_WAITING": "Wachten op uw invoer..."
 }

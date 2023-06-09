@@ -15,7 +15,7 @@
   "SESSION_SUMMARY": "セッションの概要",
   "SUMMARIZING": "✍️まとめると…",
   "TASK_LIST": "タスクリスト",
-  "TASK_OUTPUT": "タスクの出力",
+  "TASK_OUTPUT": "タスクの結果",
   "TASK_RESULT": "タスクの結果",
   "TASK_RESULT_SUMMARY": "タスク結果の概要",
   "TERMINATING": "終了中...",
@@ -26,5 +26,6 @@
   "TASK_FAILED": "タスク失敗",
   "TASK_FAILED_MESSAGE": "タスクの実行に失敗しました。タスクログを確認してください。",
   "OUTPUT_SUFFICIENCY": "タスク結果の精査",
-  "SUFFICIENCY": "タスク結果を精査しています..."
+  "SUFFICIENCY": "タスク結果を精査しています...",
+  "USER_INPUT_WAITING": "あなたの入力を待っています..."
 }

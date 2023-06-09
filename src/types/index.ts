@@ -6,13 +6,21 @@ export type SelectItem = {
   badge?: string;
 };
 
+export type MessageBlock = {
+  id?: number;
+  messages: Message[];
+  status?: 'complete' | 'incomplete' | 'running';
+};
+
 export type Message = {
+  id?: number;
   text: string;
   type: MessageType;
   icon?: string;
   title?: string;
   bgColor?: string;
   status?: AgentStatus;
+  open?: boolean;
 };
 
 export type Execution = {
@@ -48,7 +56,9 @@ export type MessageType =
   | 'done'
   | 'complete'
   | 'failed'
-  | 'sufficiency-result';
+  | 'sufficiency-result' // for mod
+  | 'user-input' // for babydeeragi
+  | 'task-execute'; // for babydeeragi;
 
 export type AgentStatusType =
   | 'preparing'
@@ -65,7 +75,8 @@ export type AgentStatusType =
   | 'managing'
   | 'creating-stream' // for babycatagi
   | 'executing-stream' // for babycatagi
-  | 'sufficiency'; // for mod
+  | 'sufficiency' // for mod
+  | 'user-input'; // for babydeeragi
 
 export type UserSettings = {
   openAIApiKey?: string;
@@ -77,7 +88,11 @@ export type UIState = {
   showSidebar: boolean;
 };
 
-export type ToolType = 'web-scrape' | 'web-search' | 'text-completion';
+export type ToolType =
+  | 'web-scrape'
+  | 'web-search'
+  | 'text-completion'
+  | 'user-input';
 export type TaskStatus = 'complete' | 'incomplete';
 
 export interface AgentTask {

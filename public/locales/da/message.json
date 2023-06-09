@@ -26,5 +26,6 @@
   "TASK_FAILED": "Opdgave mislykkedes",
   "TASK_FAILED_MESSAGE": "Mislykkedes at udføre opgaven. Kontroller venligst opgaveloggen.",
   "OUTPUT_SUFFICIENCY": "Udskriftstilstrækkelighed",
-  "SUFFICIENCY": "Tjekker tilstrækkeligheden af opgaveoutput..."
+  "SUFFICIENCY": "Tjekker tilstrækkeligheden af opgaveoutput...",
+  "USER_INPUT_WAITING": "Afventer din input..."
 }

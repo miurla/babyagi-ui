@@ -26,5 +26,6 @@
   "TASK_FAILED": "A feladat sikertelen volt",
   "TASK_FAILED_MESSAGE": "Sikertelen a feladat végrehajtása. Kérjük, ellenőrizze a feladatnaplót.",
   "OUTPUT_SUFFICIENCY": "Kimeneti elegendőség",
-  "SUFFICIENCY": "A feladat kimenetének ellenőrzése elegendősége szempontjából..."
+  "SUFFICIENCY": "A feladat kimenetének ellenőrzése elegendősége szempontjából...",
+  "USER_INPUT_WAITING": "A bemenet várakozik..."
 }

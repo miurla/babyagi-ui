@@ -5,6 +5,7 @@ import {
   AgentType,
   Execution,
   Message,
+  MessageBlock,
   SelectItem,
   UserSettings,
 } from '@/types';
@@ -13,10 +14,15 @@ import AgentMessage from './AgentMessage';
 import { AgentParameter } from './AgentParameter';
 import { ProjectTile } from './ProjectTile';
 import { AgentMessageHeader } from './AgentMessageHeader';
-import { getExportText, loadingAgentMessage } from '../../utils/message';
+import {
+  getExportText,
+  getMessageBlocks,
+  loadingAgentMessage,
+} from '../../utils/message';
 import { BabyAGI } from '@/agents/babyagi';
 import { BabyBeeAGI } from '@/agents/babybeeagi/agent';
 import { BabyCatAGI } from '@/agents/babycatagi/agent';
+import { BabyDeerAGI } from '@/agents/babydeeragi/executer';
 import { AGENT, ITERATIONS, MODELS, SETTINGS_KEY } from '@/utils/constants';
 import { toast } from 'sonner';
 import { v4 as uuidv4 } from 'uuid';
@@ -28,6 +34,7 @@ import axios from 'axios';
 import { taskCompletedNotification } from '@/utils/notification';
 import { MessageSummaryCard } from './MessageSummaryCard';
 import { useTranslation } from 'next-i18next';
+import { AgentMessageBlock } from './AgentMessageBlock';
 
 export const Agent: FC = () => {
   const [model, setModel] = useState<SelectItem>(MODELS[1]);
@@ -37,12 +44,13 @@ export const Agent: FC = () => {
     translate('FIRST_TASK_PLACEHOLDER', 'constants'),
   );
   const [messages, setMessages] = useState<Message[]>([]);
+  const [messageBlocks, setMessageBlocks] = useState<MessageBlock[]>([]);
   const [agentStatus, setAgentStatus] = useState<AgentStatus>({
     type: 'ready',
   });
-  const [agent, setAgent] = useState<BabyAGI | BabyBeeAGI | BabyCatAGI | null>(
-    null,
-  );
+  const [agent, setAgent] = useState<
+    BabyAGI | BabyBeeAGI | BabyCatAGI | BabyDeerAGI | null
+  >(null);
   const [selectedAgent, setSelectedAgent] = useState<SelectItem>(AGENT[0]);
   const { i18n } = useTranslation();
   const [language, setLanguage] = useState(i18n.language);
@@ -61,7 +69,7 @@ export const Agent: FC = () => {
     const behavior = isExecuting ? 'smooth' : 'auto';
     messagesEndRef.current?.scrollIntoView({ behavior: behavior });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [messages]);
+  }, [messageBlocks]);
 
   useEffect(() => {
     scrollToBottom();
@@ -91,6 +99,10 @@ export const Agent: FC = () => {
       };
       updateExec(updatedExecution);
     }
+
+    const blocks = getMessageBlocks(messages);
+    setMessageBlocks(blocks);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [messages]);
 
@@ -125,15 +137,29 @@ export const Agent: FC = () => {
 
   // handler functions
   const messageHandler = (message: Message) => {
-    setMessages((messages) => [...messages, message]);
+    setMessages((currentMessages) => {
+      // if the message.type and id are the same, overwrite the message
+      const index = currentMessages.findIndex(
+        (msg) => msg.type === message.type && msg.id === message.id,
+      );
+      if (index !== -1) {
+        const newMessages = [...currentMessages];
+        newMessages[index] = message;
+        return newMessages;
+      }
 
-    // show toast notification
-    if (message.type === 'complete' || message.type === 'end-of-iterations') {
-      toast.success(translate('ALL_TASKS_COMPLETED_TOAST', 'agent'));
-      taskCompletedNotification(objective);
-    } else if (message.type === 'done') {
-      toast.success(translate('TASK_COMPLETED_TOAST', 'agent'));
-    }
+      const updatedMessages = [...currentMessages, message];
+
+      // show toast notification
+      if (message.type === 'complete' || message.type === 'end-of-iterations') {
+        toast.success(translate('ALL_TASKS_COMPLETED_TOAST', 'agent'));
+        taskCompletedNotification(objective);
+      } else if (message.type === 'done') {
+        toast.success(translate('TASK_COMPLETED_TOAST', 'agent'));
+      }
+
+      return updatedMessages;
+    });
   };
 
   const inputHandler = (value: string) => {
@@ -194,6 +220,17 @@ export const Agent: FC = () => {
         break;
       case 'babycatagi':
         agent = new BabyCatAGI(
+          objective,
+          model.id,
+          messageHandler,
+          setAgentStatus,
+          cancelHandle,
+          language,
+          verbose,
+        );
+        break;
+      case 'babydeeragi':
+        agent = new BabyDeerAGI(
           objective,
           model.id,
           messageHandler,
@@ -311,6 +348,12 @@ export const Agent: FC = () => {
     }
   };
 
+  const userInputHandler = async (text: string) => {
+    if (agent instanceof BabyDeerAGI) {
+      agent.userInput(text);
+    }
+  };
+
   const needSettingsAlert = () => {
     const useUserApiKey = process.env.NEXT_PUBLIC_USE_USER_API_KEY;
     if (useUserApiKey === 'false') {
@@ -353,7 +396,7 @@ export const Agent: FC = () => {
 
   return (
     <div className="overflow-none relative flex-1 bg-white dark:bg-[#343541]">
-      {messages.length === 0 ? (
+      {messageBlocks.length === 0 ? (
         <>
           <AgentParameter
             model={model}
@@ -372,8 +415,12 @@ export const Agent: FC = () => {
       ) : (
         <div className="max-h-full overflow-scroll">
           <AgentMessageHeader model={model} agent={selectedAgent} />
-          {messages.map((message, index) => (
-            <AgentMessage key={index} message={message} />
+          {messageBlocks.map((block, index) => (
+            <AgentMessageBlock
+              block={block}
+              key={index}
+              userInputCallback={userInputHandler}
+            />
           ))}
           {isExecuting && (
             <AgentMessage message={loadingAgentMessage(agentStatus)} />
@@ -399,11 +446,6 @@ export const Agent: FC = () => {
         agent={selectedAgent.id as AgentType}
         evaluation={currentEvaluation()}
       />
-      {isExecuting && messages.length > 0 && (
-        <div className="invisible fixed right-10 top-10 z-10 md:visible">
-          <MessageSummaryCard messages={messages} />
-        </div>
-      )}
     </div>
   );
 };

@@ -13,5 +13,6 @@
   "NOTIFICATION_NOT_SUPPORTED": "Este navegador não suporta notificações de desktop.",
   "NOTIFICATION_DINIED": "Você negou a permissão de notificação. Por favor, permita nas configurações do navegador.",
   "FIRST_TASK_PLACEHOLDER": "Desenvolver uma lista de tarefas.",
-  "ALERT_GPT_4_DISABLED": "Sua chave de API não tem direitos de acesso ao GPT-4. Por favor, selecione um modelo diferente do GPT-4 e execute-o."
+  "ALERT_GPT_4_DISABLED": "Sua chave de API não tem direitos de acesso ao GPT-4. Por favor, selecione um modelo diferente do GPT-4 e execute-o.",
+  "USER_INPUT_PLACEHOLDER": "Digite sua resposta aqui..."
 }

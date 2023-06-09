@@ -26,5 +26,6 @@
   "TASK_FAILED": "Zadatak nije uspio",
   "TASK_FAILED_MESSAGE": "Nije uspjelo izvršavanje zadatka. Provjerite zapisnik zadatka.",
   "OUTPUT_SUFFICIENCY": "Izlazna dovoljnost",
-  "SUFFICIENCY": "Provjeravanje zadovoljivosti zadataka izlaza..."
+  "SUFFICIENCY": "Provjeravanje zadovoljivosti zadataka izlaza...",
+  "USER_INPUT_WAITING": "Čekam vaš unos..."
 }

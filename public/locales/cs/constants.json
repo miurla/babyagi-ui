@@ -13,5 +13,6 @@
   "NOTIFICATION_NOT_SUPPORTED": "Tento prohlížeč nepodporuje oznámení na ploše.",
   "NOTIFICATION_DINIED": "Odmítli jste povolení oznámení. Povolte jej v nastavení prohlížeče.",
   "FIRST_TASK_PLACEHOLDER": "Vypracujte seznam úkolů",
-  "ALERT_GPT_4_DISABLED": "Váš API klíč nemá přístupová práva k modelu GPT-4. Prosím zvolte jiný model a spusťte ho."
+  "ALERT_GPT_4_DISABLED": "Váš API klíč nemá přístupová práva k modelu GPT-4. Prosím zvolte jiný model a spusťte ho.",
+  "USER_INPUT_PLACEHOLDER": "Zadejte svou odpověď zde..."
 }

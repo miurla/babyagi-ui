@@ -1,4 +1,10 @@
-import { AgentStatus, Message, MessageType, ToolType } from '@/types';
+import {
+  AgentStatus,
+  Message,
+  MessageBlock,
+  MessageType,
+  ToolType,
+} from '@/types';
 import { translate } from './translate';
 
 export const setupMessage = (
@@ -6,12 +12,21 @@ export const setupMessage = (
   text?: string,
   tool?: ToolType,
   icon?: string,
+  id?: number,
 ): Message => {
   const defaultIcon =
     type === 'objective'
       ? '🎯'
       : type === 'task-list'
       ? '📝'
+      : type === 'next-task' && tool === 'web-search'
+      ? '🔍'
+      : type === 'next-task' && tool === 'web-scrape'
+      ? '📄'
+      : type === 'next-task' && tool === 'text-completion'
+      ? '🤖'
+      : type === 'next-task' && tool === 'user-input'
+      ? '🧑‍💻'
       : type === 'next-task'
       ? '👉'
       : type === 'task-result' && tool === 'web-search'
@@ -36,16 +51,22 @@ export const setupMessage = (
       ? '✅'
       : type === 'complete'
       ? '🏁'
-      : type === 'task-output' && tool === 'web-search'
-      ? '🔍'
-      : type === 'task-output' && tool === 'web-scrape'
-      ? '📄'
-      : type === 'task-output' && tool === 'text-completion'
-      ? '🤖'
+      : // : type === 'task-output' && tool === 'web-search'
+      // ? '🔍'
+      // : type === 'task-output' && tool === 'web-scrape'
+      // ? '📄'
+      // : type === 'task-output' && tool === 'text-completion'
+      // ? '🤖'
+      // : type === 'task-output' && tool === 'user-input'
+      // ? '🧑‍💻'
+      type === 'task-output'
+      ? '✅'
       : type === 'sufficiency-result'
       ? '🤔'
       : type === 'failed'
       ? '❌'
+      : type === 'user-input'
+      ? '🧑‍💻'
       : '🤖';
 
   const title =
@@ -81,10 +102,8 @@ export const setupMessage = (
 
   const bgColor =
     type === 'loading'
-      ? 'bg-gray-100 dark:bg-gray-600/10'
-      : type === 'objective' || type === 'next-task'
-      ? 'bg-white dark:bg-gray-600/50'
-      : 'bg-gray-50 dark:bg-[#444654]';
+      ? 'bg-neutral-100 dark:bg-neutral-600/10'
+      : 'bg-neutral-50 dark:bg-[#444654]';
 
   return {
     text: text ?? '',
@@ -92,13 +111,16 @@ export const setupMessage = (
     icon: icon ?? defaultIcon,
     title: title,
     bgColor: bgColor,
+    id: id,
   };
 };
 
 export const getMessageText = (message: Message): string => {
   if (
     message.status?.type === 'creating-stream' ||
-    message.status?.type === 'executing-stream'
+    message.status?.type === 'executing-stream' ||
+    message.type === 'search-logs' ||
+    message.type === 'task-execute'
   ) {
     return message.text;
   }
@@ -130,6 +152,8 @@ export const loadingAgentMessage = (status: AgentStatus) => {
       ? translate('MANAGING', 'message')
       : status.type === 'sufficiency'
       ? translate('SUFFICIENCY', 'message')
+      : status.type === 'user-input'
+      ? translate('USER_INPUT_WAITING', 'message')
       : translate('THINKING', 'message');
 
   let title = undefined;
@@ -157,6 +181,8 @@ export const getToolIcon = (tool: ToolType) => {
       return '📄';
     case 'text-completion':
       return '🤖';
+    case 'user-input':
+      return '🧑‍💻';
     default:
       return '🤖';
   }
@@ -181,4 +207,63 @@ export const getMessageSummaryTitle = (message?: Message) => {
   } else {
     return '';
   }
+};
+
+// create messageBlock array from message array
+export const getMessageBlocks = (messages: Message[]) => {
+  const messageBlocks: MessageBlock[] = [];
+
+  let currentMessageBlock: MessageBlock | null = null;
+  messages.forEach((message) => {
+    if (message.id === undefined) {
+      currentMessageBlock = { messages: [message] } as MessageBlock;
+      messageBlocks.push(currentMessageBlock);
+      return;
+    }
+
+    // if there is a messageBlock with the same id as message.id, add it there
+    const messageBlock = messageBlocks.find(
+      (messageBlock) => messageBlock.id === message.id,
+    );
+    if (messageBlock) {
+      messageBlock.messages.push(message);
+      return;
+    }
+
+    // if there is no messageBlock with the same id as message.id, create a new one
+    currentMessageBlock = {
+      messages: [message],
+      id: message.id,
+    } as MessageBlock;
+    messageBlocks.push(currentMessageBlock);
+  });
+
+  // If (user-input/task-execute) and task-output are in the same messageBlock, exclude user-input
+  messageBlocks.forEach((messageBlock) => {
+    const excludeIndex = messageBlock.messages.findIndex(
+      (message) =>
+        message.type === 'user-input' || message.type === 'task-execute',
+    );
+    const taskOutputIndex = messageBlock.messages.findIndex(
+      (message) => message.type === 'task-output',
+    );
+    if (excludeIndex >= 0 && taskOutputIndex >= 0) {
+      messageBlock.messages.splice(excludeIndex, 1);
+    }
+  });
+
+  // If task-execute and task-output are in the same messageBlock, exclude task-execute
+  messageBlocks.forEach((messageBlock) => {
+    const taskExecuteIndex = messageBlock.messages.findIndex(
+      (message) => message.type === 'task-execute',
+    );
+    const taskOutputIndex = messageBlock.messages.findIndex(
+      (message) => message.type === 'task-list',
+    );
+    if (taskExecuteIndex >= 0 && taskOutputIndex >= 0) {
+      messageBlock.messages.splice(taskExecuteIndex, 1);
+    }
+  });
+
+  return messageBlocks;
 };

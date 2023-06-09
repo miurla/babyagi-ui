@@ -26,5 +26,6 @@
   "TASK_FAILED": "작업 실패했습니다.",
   "TASK_FAILED_MESSAGE": "작업 실행에 실패했습니다. 작업 로그를 확인해주십시오.",
   "OUTPUT_SUFFICIENCY": "출력 충분성",
-  "SUFFICIENCY": "작업 출력물 충분성 확인 중..."
+  "SUFFICIENCY": "작업 출력물 충분성 확인 중...",
+  "USER_INPUT_WAITING": "입력을 기다리는 중입니다..."
 }

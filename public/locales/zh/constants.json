@@ -13,5 +13,6 @@
   "NOTIFICATION_NOT_SUPPORTED": "此浏览器不支持桌面通知。",
   "NOTIFICATION_DINIED": "您拒绝了通知权限。请在浏览器设置中允许。",
   "FIRST_TASK_PLACEHOLDER": "开发任务列表",
-  "ALERT_GPT_4_DISABLED": "您的 API 密钥没有 GPT-4 的访问权限。请选择其他模型并运行。"
+  "ALERT_GPT_4_DISABLED": "您的 API 密钥没有 GPT-4 的访问权限。请选择其他模型并运行。",
+  "USER_INPUT_PLACEHOLDER": "在此处输入您的答案..."
 }
