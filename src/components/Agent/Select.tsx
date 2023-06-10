@@ -65,7 +65,7 @@ export const Select: FC<Props> = ({ label, item, items, onChange }) => {
   return (
     <div className="relative w-full">
       <div className="flex w-full flex-col text-left text-xs">
-        <div className="mb-0.5 flex items-center">
+        <div className="mb-0.5 flex h-5 items-center">
           <label className="text-neutral-400 dark:text-neutral-500">
             {label}
           </label>
