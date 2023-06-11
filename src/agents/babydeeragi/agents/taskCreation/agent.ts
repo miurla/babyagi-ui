@@ -30,6 +30,7 @@ export const taskCreationAgent = async (
       topP: 1,
       frequencyPenalty: 0,
       presencePenalty: 0,
+      maxRetries: 3,
       streaming: true,
       callbacks: [
         {
@@ -50,7 +51,7 @@ export const taskCreationAgent = async (
     { baseOptions: { signal: signal } },
   );
 
-  let result = '';
+  let result;
   const chain = new LLMChain({ llm: model, prompt });
   try {
     const response = await chain.call({
@@ -64,12 +65,12 @@ export const taskCreationAgent = async (
     if (error.name === 'AbortError') {
       return null;
     }
-    console.log('error: ', error);
+    console.log(error);
     return null;
   }
 
   if (!result) {
-    return [];
+    return null;
   }
 
   let taskList: AgentTask[] = [];
@@ -77,8 +78,9 @@ export const taskCreationAgent = async (
   try {
     taskList = parseTasks(result);
   } catch (error) {
-    console.error(error);
+    console.log(error);
     // TODO: handle error
+    return null;
   }
 
   return taskList;

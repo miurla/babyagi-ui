@@ -18,15 +18,21 @@ export class BabyDeerAGI extends AgentExecuter {
   async taskCreation() {
     this.statusCallback({ type: 'creating' });
     this.abortController = new AbortController();
-    this.taskList =
-      (await taskCreationAgent(
-        this.objective,
-        this.modelName,
-        this.language,
-        this.abortController?.signal,
-        this.messageCallback,
-      )) ?? [];
+    const taskList = await taskCreationAgent(
+      this.objective,
+      this.modelName,
+      this.language,
+      this.abortController?.signal,
+      this.messageCallback,
+    );
 
+    if (!taskList) {
+      toast.error(translate('ERROR_CREATING_TASKS', 'message'));
+      this.stop();
+      return;
+    }
+
+    this.taskList = taskList;
     this.printer.printTaskList(this.taskList, 0);
   }
 
