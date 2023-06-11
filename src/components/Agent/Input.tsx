@@ -125,7 +125,7 @@ export const Input: FC<InputProps> = ({
             )}
           </div>
         </div>
-        <div className="relative flex w-full flex-grow flex-col justify-center rounded-md border border-black/10 bg-white py-2 shadow-[0_0_10px_rgba(0,0,0,0.10)] dark:border-gray-900/50 dark:bg-[#40414F] dark:text-white dark:shadow-[0_0_15px_rgba(0,0,0,0.10)] md:py-3 md:pl-4">
+        <div className="relative flex w-full flex-grow flex-col justify-center rounded-xl border border-black/10 bg-white py-3 shadow-[0_0_10px_rgba(0,0,0,0.10)] dark:border-gray-900/50 dark:bg-[#40414F] dark:text-white dark:shadow-[0_0_15px_rgba(0,0,0,0.10)] md:py-4 md:pl-4">
           <input
             className="m-0 w-full resize-none border-0 bg-transparent p-0 pl-2 pr-12 text-black outline-none focus:ring-0 focus-visible:ring-0 dark:bg-transparent dark:text-white md:pl-0"
             placeholder={
