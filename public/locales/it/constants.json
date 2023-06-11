@@ -14,5 +14,6 @@
   "NOTIFICATION_DINIED": "Hai negato il permesso di notifica. Si prega di consentirlo nelle impostazioni del browser.",
   "FIRST_TASK_PLACEHOLDER": "Sviluppare un elenco di attività.",
   "ALERT_GPT_4_DISABLED": "La tua chiave API non ha i diritti di accesso per GPT-4. Scegli un altro modello diverso da GPT-4 e avvialo.",
-  "USER_INPUT_PLACEHOLDER": "Inserisci qui la tua risposta..."
+  "USER_INPUT_PLACEHOLDER": "Inserisci qui la tua risposta...",
+  "ERROR_CREATING_TASKS": "Errore durante la creazione dei task"
 }

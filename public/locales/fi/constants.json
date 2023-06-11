@@ -14,5 +14,6 @@
   "NOTIFICATION_DINIED": "Kielsit ilmoitusluvan. Salli se selaimen asetuksissa.",
   "FIRST_TASK_PLACEHOLDER": "Kehitä tehtäväluettelo.",
   "ALERT_GPT_4_DISABLED": "API-avaimellasi ei ole käyttöoikeuksia GPT-4:ään. Valitse toinen malli ja suorita se.",
-  "USER_INPUT_PLACEHOLDER": "Kirjoita vastauksesi tähän..."
+  "USER_INPUT_PLACEHOLDER": "Kirjoita vastauksesi tähän...",
+  "ERROR_CREATING_TASKS": "Tehtävien luominen ei onnistunut virheen vuoksi"
 }

@@ -14,5 +14,6 @@
   "NOTIFICATION_DINIED": "Bildirim iznini reddettiniz. Lütfen tarayıcı ayarlarında izin verin.",
   "FIRST_TASK_PLACEHOLDER": "Görev listesi oluşturun",
   "ALERT_GPT_4_DISABLED": "API anahtarınızın GPT-4'e erişim hakları yok. Lütfen GPT-4'den farklı bir model seçin ve çalıştırın.",
-  "USER_INPUT_PLACEHOLDER": "Buraya cevabınızı girin..."
+  "USER_INPUT_PLACEHOLDER": "Buraya cevabınızı girin...",
+  "ERROR_CREATING_TASKS": "Görevler oluşturulurken hata oluştu"
 }

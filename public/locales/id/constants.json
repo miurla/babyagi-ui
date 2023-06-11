@@ -14,5 +14,6 @@
   "NOTIFICATION_DINIED": "Anda menolak izin notifikasi. Silakan izinkan di pengaturan browser.",
   "FIRST_TASK_PLACEHOLDER": "Membuat daftar tugas.",
   "ALERT_GPT_4_DISABLED": "Kunci API Anda tidak memiliki hak akses ke GPT-4. Mohon pilih model selain GPT-4 dan jalankan kembali.",
-  "USER_INPUT_PLACEHOLDER": "Masukkan jawaban Anda di sini..."
+  "USER_INPUT_PLACEHOLDER": "Masukkan jawaban Anda di sini...",
+  "ERROR_CREATING_TASKS": "Galat membuat tugas"
 }

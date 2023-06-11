@@ -14,5 +14,6 @@
   "NOTIFICATION_DINIED": "Zavrnili ste dovoljenje za obvestila. Dovolite to v nastavitvah brskalnika.",
   "FIRST_TASK_PLACEHOLDER": "Razvijte seznam opravil.",
   "ALERT_GPT_4_DISABLED": "Vaš ključ API-ja nima pravic do dostopa do GPT-4. Izberite drug model in ga zaženite.",
-  "USER_INPUT_PLACEHOLDER": "Vnesite svoj odgovor tukaj ..."
+  "USER_INPUT_PLACEHOLDER": "Vnesite svoj odgovor tukaj ...",
+  "ERROR_CREATING_TASKS": "Napaka pri ustvarjanju nalog"
 }

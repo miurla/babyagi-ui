@@ -14,5 +14,6 @@
   "NOTIFICATION_DINIED": "Du nægtede notifikationstilladelsen. Tillad det venligst i browserindstillingerne.",
   "FIRST_TASK_PLACEHOLDER": "Udvikle en opgaveliste.",
   "ALERT_GPT_4_DISABLED": "Din API-nøgle har ikke adgangsrettigheder til GPT-4. Vælg venligst en anden model end GPT-4 og kør den.",
-  "USER_INPUT_PLACEHOLDER": "Indtast dit svar her..."
+  "USER_INPUT_PLACEHOLDER": "Indtast dit svar her...",
+  "ERROR_CREATING_TASKS": "Fehler beim Erstellen von Aufgaben"
 }
