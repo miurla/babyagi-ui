@@ -14,5 +14,6 @@
   "NOTIFICATION_DINIED": "Ați refuzat permisiunea de notificare. Vă rugăm să o permiteți în setările browserului.",
   "FIRST_TASK_PLACEHOLDER": "Elaborați o listă de activități.",
   "ALERT_GPT_4_DISABLED": "Cheia API nu are drepturi de acces la GPT-4. Vă rugăm să selectați un alt model decât GPT-4 și să-l rulați.",
-  "USER_INPUT_PLACEHOLDER": "Introduceți răspunsul dumneavoastră aici..."
+  "USER_INPUT_PLACEHOLDER": "Introduceți răspunsul dumneavoastră aici...",
+  "ERROR_CREATING_TASKS": "Eroare la crearea de sarcini"
 }

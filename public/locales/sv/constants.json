@@ -14,5 +14,6 @@
   "NOTIFICATION_DINIED": "Du nekade aviseringstillståndet. Vänligen tillåt det i webbläsarinställningarna.",
   "FIRST_TASK_PLACEHOLDER": "Upprätta en uppgiftslista",
   "ALERT_GPT_4_DISABLED": "Din API-nyckel har inte åtkomstbehörighet till GPT-4. Välj ett annat modell än GPT-4 och kör det.",
-  "USER_INPUT_PLACEHOLDER": "Skriv ditt svar här..."
+  "USER_INPUT_PLACEHOLDER": "Skriv ditt svar här...",
+  "ERROR_CREATING_TASKS": "Fel vid skapande av uppgifter"
 }

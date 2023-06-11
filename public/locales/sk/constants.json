@@ -14,5 +14,6 @@
   "NOTIFICATION_DINIED": "Odmietli ste povolenie oznámenia. Povolte ho v nastaveniach prehliadača.",
   "FIRST_TASK_PLACEHOLDER": "Vypracujte zoznam úloh\" (sk)",
   "ALERT_GPT_4_DISABLED": "Váš API kľúč nemá prístupové práva na GPT-4. Prosím, vyberte iný model a spustite ho.",
-  "USER_INPUT_PLACEHOLDER": "Sem zadajte svoju odpoveď..."
+  "USER_INPUT_PLACEHOLDER": "Sem zadajte svoju odpoveď...",
+  "ERROR_CREATING_TASKS": "Chyba pri vytváraní úloh"
 }

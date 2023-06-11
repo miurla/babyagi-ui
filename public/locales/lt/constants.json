@@ -14,5 +14,6 @@
   "NOTIFICATION_DINIED": "Jūs atmetėte pranešimo leidimą. Prašome leisti tai naršyklės nustatymuose.",
   "FIRST_TASK_PLACEHOLDER": "Sukurkite užduočių sąrašą.",
   "ALERT_GPT_4_DISABLED": "Jūsų API raktas neturi prieigos teisių prie GPT-4. Prašome pasirinkti kitą modelį nei GPT-4 ir paleisti jį.",
-  "USER_INPUT_PLACEHOLDER": "Įveskite savo atsakymą čia..."
+  "USER_INPUT_PLACEHOLDER": "Įveskite savo atsakymą čia...",
+  "ERROR_CREATING_TASKS": "Klaida kuriant užduotis"
 }

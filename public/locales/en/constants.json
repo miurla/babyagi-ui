@@ -14,5 +14,6 @@
   "NOTIFICATION_DINIED": "You denied the notification permission. Please allow it in the browser settings.",
   "FIRST_TASK_PLACEHOLDER": "Develop a task list",
   "ALERT_GPT_4_DISABLED": "Your API key doesn't have access rights to GPT-4. Please select a model other than GPT-4 and run it.",
-  "USER_INPUT_PLACEHOLDER": "Enter your answer here..."
+  "USER_INPUT_PLACEHOLDER": "Enter your answer here...",
+  "ERROR_CREATING_TASKS": "Error creating tasks"
 }

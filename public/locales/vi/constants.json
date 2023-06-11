@@ -14,5 +14,6 @@
   "NOTIFICATION_DINIED": "Bạn đã từ chối quyền thông báo. Vui lòng cho phép trong cài đặt trình duyệt.",
   "FIRST_TASK_PLACEHOLDER": "Phát triển một danh sách công việc.",
   "ALERT_GPT_4_DISABLED": "Khóa API của bạn không có quyền truy cập vào GPT-4. Vui lòng chọn một mô hình khác mà không phải là GPT-4 và chạy lại.",
-  "USER_INPUT_PLACEHOLDER": "Nhập câu trả lời của bạn ở đây..."
+  "USER_INPUT_PLACEHOLDER": "Nhập câu trả lời của bạn ở đây...",
+  "ERROR_CREATING_TASKS": "Lỗi khi tạo các nhiệm vụ"
 }
