@@ -1,7 +1,7 @@
 import { FC } from 'react';
-import { SidebarSettings } from './SidebarSettings';
 import { Executions } from './Executions';
 import { SidebarHeader } from './SidebarHeader';
+import { SidebarFooter } from './SidebarFooter';
 
 interface SidebarProps {
   onMenuClick: () => void;
@@ -14,9 +14,7 @@ export const Sidebar: FC<SidebarProps> = ({ onMenuClick }) => {
     >
       <SidebarHeader onMenuClick={onMenuClick} />
       <Executions />
-      <div className="border-t border-neutral-600 pt-2">
-        <SidebarSettings />
-      </div>
+      <SidebarFooter />
     </aside>
   );
 };
