@@ -1,7 +1,10 @@
 import { SidebarSettings } from './SidebarSettings';
 import Link from 'next/link';
-import Image from 'next/image';
-import { GitHubLogoIcon, TwitterLogoIcon } from '@radix-ui/react-icons';
+import {
+  DiscordLogoIcon,
+  GitHubLogoIcon,
+  TwitterLogoIcon,
+} from '@radix-ui/react-icons';
 import { FC } from 'react';
 
 export const SidebarFooter: FC = () => {
@@ -27,12 +30,7 @@ export const SidebarFooter: FC = () => {
         target="_blank"
         className="hover:opacity-50"
       >
-        <Image
-          src="/images/discord-mark-white.svg"
-          width={24}
-          height={24}
-          alt={'Discord'}
-        />
+        <DiscordLogoIcon />
       </Link>
     </div>
   );
