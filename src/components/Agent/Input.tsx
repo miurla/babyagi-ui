@@ -42,6 +42,13 @@ export const Input: FC<InputProps> = ({
   agent,
   evaluation,
 }) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && !e.nativeEvent.isComposing) {
+      e.preventDefault();
+      onStart(value);
+    }
+  };
+
   return (
     <div className="dark:bg-vert-dark-gradient absolute bottom-0 left-0 w-full border-transparent bg-white from-[#343541] via-[#343541] to-[#343541]/0 pt-6 dark:border-white/20 dark:!bg-transparent dark:bg-[#444654] dark:bg-gradient-to-t md:pt-2">
       <div className="stretch last:mb-2md:last:mb-6 mx-4 flex flex-col gap-3 lg:mx-auto lg:max-w-3xl">
@@ -128,6 +135,7 @@ export const Input: FC<InputProps> = ({
             }
             value={value}
             onChange={(e) => onChange(e.target.value)}
+            onKeyDown={handleKeyDown}
           />
           <button
             className="absolute right-5 rounded-sm p-1 text-neutral-800 hover:bg-neutral-100 hover:text-neutral-900 focus:outline-none disabled:opacity-30 dark:bg-opacity-50 dark:text-neutral-100 dark:hover:bg-neutral-800 dark:hover:text-neutral-200"
