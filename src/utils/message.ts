@@ -189,6 +189,12 @@ export const getToolIcon = (tool: ToolType) => {
 };
 
 export const getExportText = (messages: Message[]) => {
+  // exclude task-execute & search-logs messages
+  messages = messages.filter(
+    (message) =>
+      message.type !== 'task-execute' && message.type !== 'search-logs',
+  );
+
   const text = messages
     .map((message) => `## ${message.icon} ${message.title}\n${message.text}`)
     .join('\n\n');
