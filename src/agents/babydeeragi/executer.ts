@@ -151,7 +151,8 @@ export class BabyDeerAGI extends AgentExecuter {
       this.statusCallback({ type: 'finished' });
       return;
     }
-    this.printer.printTaskList(this.taskList);
+    const id = this.taskList[this.taskList.length - 1].id + 1;
+    this.printer.printTaskList(this.taskList, id);
 
     super.finishup();
   }
