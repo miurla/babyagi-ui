@@ -190,7 +190,7 @@ export const getToolIcon = (tool: ToolType) => {
 
 export const getExportText = (messages: Message[], agentId?: string) => {
   if (agentId === 'babydeeragi') {
-    // exclude task-execute & search-logs messages
+    // exclude task-execute & user-input messages
     messages = messages.filter(
       (message) =>
         message.type !== 'task-execute' && message.type !== 'user-input',
