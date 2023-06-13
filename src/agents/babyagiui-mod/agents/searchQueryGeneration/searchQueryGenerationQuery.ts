@@ -1,5 +1,5 @@
 import { AgentTask } from '@/types';
-import { PromptTemplate } from 'langchain';
+import { PromptTemplate } from 'langchain/prompts';
 
 export const searchQueryGenerationPrompt = () => {
   const taskPrompt = `Generate a search query that yields the best results for the given task.

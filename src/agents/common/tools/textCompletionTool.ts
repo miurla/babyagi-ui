@@ -1,7 +1,7 @@
 import { getUserApiKey } from '@/utils/settings';
 import { OpenAIChat } from 'langchain/llms/openai';
 import { LLMChain } from 'langchain/chains';
-import { PromptTemplate } from 'langchain';
+import { PromptTemplate } from 'langchain/prompts';
 import { Message } from '@/types';
 import { setupMessage } from '@/utils/message';
 
