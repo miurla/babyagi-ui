@@ -1,6 +1,6 @@
 import { AgentTask } from '@/types';
 import { getTaskById } from '@/utils/task';
-import { PromptTemplate } from 'langchain';
+import { PromptTemplate } from 'langchain/prompts';
 
 export const taskCompletionPrompt = (
   taskList: AgentTask[],

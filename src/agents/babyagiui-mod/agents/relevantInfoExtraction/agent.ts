@@ -1,7 +1,7 @@
 import { getUserApiKey } from '@/utils/settings';
 import { OpenAIChat } from 'langchain/llms/openai';
 import { relevantInfoExtractionPrompt } from './prompt';
-import { LLMChain } from 'langchain';
+import { LLMChain } from 'langchain/chains';
 
 // TODO: Only client-side requests are allowed.
 // To use the environment variable API key, the request must be implemented from the server side.

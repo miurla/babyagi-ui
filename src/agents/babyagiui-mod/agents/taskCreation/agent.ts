@@ -1,6 +1,6 @@
 import { OpenAIChat } from 'langchain/llms/openai';
 import { taskCreationPrompt } from './prompt';
-import { LLMChain } from 'langchain';
+import { LLMChain } from 'langchain/chains';
 import { AgentStatus, AgentTask } from '@/types';
 import { getUserApiKey } from '@/utils/settings';
 import { parseTasks } from '@/utils/task';
