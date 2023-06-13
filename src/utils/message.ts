@@ -188,12 +188,22 @@ export const getToolIcon = (tool: ToolType) => {
   }
 };
 
-export const getExportText = (messages: Message[]) => {
-  // exclude task-execute & search-logs messages
-  messages = messages.filter(
-    (message) =>
-      message.type !== 'task-execute' && message.type !== 'search-logs',
-  );
+export const getExportText = (messages: Message[], agentId?: string) => {
+  if (agentId === 'babydeeragi') {
+    // exclude task-execute & user-input messages
+    messages = messages.filter(
+      (message) =>
+        message.type !== 'task-execute' && message.type !== 'user-input',
+    );
+
+    // sord by id
+    messages.sort((a, b) => (a.id ?? 0) - (b.id ?? 0));
+    // if message is complete, move it to the end
+    messages.sort(
+      (a, b) =>
+        (a.type === 'complete' ? 1 : 0) - (b.type === 'complete' ? 1 : 0),
+    );
+  }
 
   const text = messages
     .map((message) => `## ${message.icon} ${message.title}\n${message.text}`)
