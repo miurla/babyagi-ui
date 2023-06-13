@@ -267,7 +267,7 @@ export const Agent: FC = () => {
   };
 
   const copyHandler = () => {
-    navigator.clipboard.writeText(getExportText(messages));
+    navigator.clipboard.writeText(getExportText(messages, selectedAgent.id));
     toast.success(translate('COPIED_TO_CLIPBOARD', 'agent'));
 
     va.track('CopyToClipboard');
@@ -275,7 +275,7 @@ export const Agent: FC = () => {
 
   const downloadHandler = () => {
     const element = document.createElement('a');
-    const file = new Blob([getExportText(messages)], {
+    const file = new Blob([getExportText(messages, selectedAgent.id)], {
       type: 'text/plain;charset=utf-8',
     });
     element.href = URL.createObjectURL(file);
