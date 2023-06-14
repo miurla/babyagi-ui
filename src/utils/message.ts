@@ -160,6 +160,8 @@ export const loadingAgentMessage = (status: AgentStatus) => {
   if (status.type === 'creating-stream' || status.type === 'executing-stream') {
     title = text;
     text = status.message ?? '';
+  } else if (status.type === 'executing') {
+    text += ` ${status.message}`;
   } else if (status.message) {
     text += `\n\n${status.message}`;
   }

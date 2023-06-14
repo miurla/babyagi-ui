@@ -24,6 +24,7 @@ export const textCompletionTool = async (
       openAIApiKey: openAIApiKey,
       modelName: modelName,
       temperature: 0.2,
+      maxTokens: 1500,
       topP: 1,
       frequencyPenalty: 0,
       presencePenalty: 0,

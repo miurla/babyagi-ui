@@ -1,6 +1,5 @@
 import { simplifySearchResults } from '@/agents/common/tools/webSearch';
 import { AgentStatus, AgentTask, Message } from '@/types';
-import { setupMessage } from '@/utils/message';
 import axios from 'axios';
 import { getTaskById } from '@/utils/task';
 import { analystPrompt, searchQueryPrompt } from '../prompt';
@@ -20,8 +19,6 @@ export const webBrowsing = async (
   language: string,
   signal?: AbortSignal,
 ) => {
-  statusCallback({ type: 'executing' });
-
   let dependentTasksOutput = '';
   if (task.dependentTaskIds) {
     for (const dependentTaskId of task.dependentTaskIds) {
@@ -36,18 +33,24 @@ export const webBrowsing = async (
   const searchQuery = await textCompletionTool(prompt, modelName, signal);
 
   const trimmedQuery = searchQuery.replace(/^"|"$/g, ''); // remove quotes from the search query
+
+  let title = `🔎 Searching: ${trimmedQuery}`;
+  let message = `Search query: ${trimmedQuery}\n`;
+  callbackSearchStatus(title, message, task, messageCallback);
   const searchResults = await webSearchTool(trimmedQuery, signal);
+  let statusMessage = message;
 
   if (!isRunningRef.current) return;
 
   const sinmplifiedSearchResults = simplifySearchResults(searchResults);
-  const message = `Search query: ${trimmedQuery}\nCompleted search. \nNow scraping results.\n`;
+  title = `📖 Reading content...`;
+  message = `✅ Completed search. \nNow reading content.\n`;
   if (verbose) {
     console.log(message);
   }
 
-  let statusMessage = message;
-  callbackSearchStatus(statusMessage, task, messageCallback);
+  statusMessage += message;
+  callbackSearchStatus(title, statusMessage, task, messageCallback);
 
   if (!isRunningRef.current) return;
 
@@ -62,29 +65,30 @@ export const webBrowsing = async (
 
     // Extract the URL from the search result
     const url = searchResult.link;
-    let message = `${index}. Scraping: ${url} ...\n`;
+    let title = `${index}. Reading: ${url} ...`;
 
     if (verbose) {
       console.log(message);
     }
-    statusMessage += message;
-    callbackSearchStatus(statusMessage, task, messageCallback);
+    statusMessage += `${title}\n`;
+    callbackSearchStatus(title, statusMessage, task, messageCallback);
 
     const content = (await webScrapeTool(url, signal)) ?? '';
 
-    message = `  - Scrape completed. Length:${content.length}. Now extracting relevant info...\n`;
+    title = `${index}. Extracting relevant info...`;
+    message = `  -  Content reading completed. Length:${content.length}. Now extracting relevant info...\n`;
     if (verbose) {
       console.log(message);
     }
 
     statusMessage += message;
-    callbackSearchStatus(statusMessage, task, messageCallback);
+    callbackSearchStatus(title, statusMessage, task, messageCallback);
 
     if (content.length === 0) {
       let message = `  - Content too short. Skipped. \n`;
       if (verbose) console.log(message);
       statusMessage += message;
-      callbackSearchStatus(statusMessage, task, messageCallback);
+      callbackSearchStatus(undefined, statusMessage, task, messageCallback);
       index += 1;
       continue;
     }
@@ -97,11 +101,13 @@ export const webBrowsing = async (
         console.log(message);
       }
       statusMessage = `${statusMessage}${message}`;
-      callbackSearchStatus(statusMessage, task, messageCallback);
+      title = `${index}. Extracting relevant info... ${message}`;
+      callbackSearchStatus(title, statusMessage, task, messageCallback);
     };
 
     statusMessage += `  - Extracting relevant information\n`;
-    callbackSearchStatus(statusMessage, task, messageCallback);
+    title = `${index}. Extracting relevant info...`;
+    callbackSearchStatus(title, statusMessage, task, messageCallback);
     const info = await largeTextExtract(
       objective,
       content.slice(0, 20000),
@@ -119,7 +125,8 @@ export const webBrowsing = async (
       console.log(message);
     }
     statusMessage += message;
-    callbackSearchStatus(statusMessage, task, messageCallback);
+    title = `${index}. Relevant info...`;
+    callbackSearchStatus(title, statusMessage, task, messageCallback);
 
     results += `${info}. `;
     index += 1;
@@ -129,6 +136,7 @@ export const webBrowsing = async (
   if (!isRunningRef.current) return;
 
   callbackSearchStatus(
+    'Analyzing results...',
     `${statusMessage}Analyze results...`,
     task,
     messageCallback,
@@ -158,16 +166,18 @@ export const webBrowsing = async (
 };
 
 const callbackSearchStatus = (
+  title: string | undefined,
   message: string,
   task: AgentTask,
   messageCallback: (message: Message) => void,
 ) => {
   messageCallback({
     type: 'task-execute',
-    title: translate('SEARCH_LOGS', 'message'),
+    title: title ?? translate('SEARCH_LOGS', 'message'),
     text: '```markdown\n' + message + '\n```',
     id: task.id,
     icon: '🌐',
+    open: false,
   });
 };
 

@@ -93,7 +93,7 @@ export type ToolType =
   | 'web-search'
   | 'text-completion'
   | 'user-input';
-export type TaskStatus = 'complete' | 'incomplete';
+export type TaskStatus = 'complete' | 'incomplete' | 'running';
 
 export interface AgentTask {
   id: number;
