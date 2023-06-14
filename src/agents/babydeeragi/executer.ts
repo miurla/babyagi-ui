@@ -133,13 +133,16 @@ export class BabyDeerAGI extends AgentExecuter {
         (task) => task.status === 'incomplete',
       );
       // Filter tasks that have all their dependencies completed
-      const executableTasks = incompleteTasks.filter((task) => {
-        if (!task.dependentTaskIds) return true;
-        return task.dependentTaskIds.every((id) => {
-          const dependentTask = getTaskById(this.taskList, id);
-          return dependentTask?.status === 'complete';
-        });
-      });
+      const MaxExecutableTasks = 5;
+      const executableTasks = incompleteTasks
+        .filter((task) => {
+          if (!task.dependentTaskIds) return true;
+          return task.dependentTaskIds.every((id) => {
+            const dependentTask = getTaskById(this.taskList, id);
+            return dependentTask?.status === 'complete';
+          });
+        })
+        .slice(0, MaxExecutableTasks);
 
       // Execute all executable tasks in parallel
       await Promise.all(executableTasks.map((task) => this.executeTask(task)));

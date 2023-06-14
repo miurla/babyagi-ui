@@ -37,7 +37,6 @@ export const webBrowsing = async (
 
   const trimmedQuery = searchQuery.replace(/^"|"$/g, ''); // remove quotes from the search query
   const searchResults = await webSearchTool(trimmedQuery, signal);
-  console.log('Search results: ', searchResults.length);
 
   if (!isRunningRef.current) return;
 
