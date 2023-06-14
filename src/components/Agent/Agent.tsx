@@ -169,6 +169,9 @@ export const Agent: FC = () => {
   const cancelHandle = () => {
     setAgent(null);
     setExecuting(false);
+    // refresh message blocks
+    const blocks = getMessageBlocks(messages, isExecuting);
+    setMessageBlocks(blocks);
   };
 
   const startHandler = async () => {

@@ -12,15 +12,18 @@ export const textCompletionTool = async (
   id?: number,
   messageCallnback?: (message: Message) => void,
 ) => {
+  if (prompt.length > 3200) {
+    modelName = 'gpt-3.5-turbo-16k-0613';
+  }
+
   let chunk = '';
   const openAIApiKey = getUserApiKey();
-  modelName = 'gpt-3.5-turbo-16k-0613'; // use a fixed model
   const llm = new OpenAIChat(
     {
       openAIApiKey: openAIApiKey,
       modelName: modelName,
       temperature: 0.2,
-      maxTokens: 1500,
+      maxTokens: 800,
       topP: 1,
       frequencyPenalty: 0,
       presencePenalty: 0,
