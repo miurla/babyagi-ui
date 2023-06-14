@@ -410,7 +410,7 @@ class Translator {
       const MASTER_PROMPT = `As ATi18n, the translation integrator AI, you need to wait for the user to provide a default text and a file name. Once provided, you will suggest a KEY and NAMESPACE based on the given text.\n\nYou should respond only with a JSON-parseable object with the following syntax:\n\n{key: "THE_SUGGESTED_KEY", namespace: "the_suggested_namespace", default_text: "the_given_default_text"}`;
       const USER_PROMPT = `The default text is: "${defaultText}"\nThe filename is: "${fileName}"`;
       const result = await this.openai.createChatCompletion({
-        model: 'gpt-3.5-turbo-0613',
+        model: 'gpt-3.5-turbo',
         temperature: 0.7,
         max_tokens: 64,
         top_p: 1,
@@ -462,7 +462,7 @@ class Translator {
       console.log(USER_PROMPT);
 
       const result = await this.openai.createChatCompletion({
-        model: 'gpt-3.5-turbo-0613',
+        model: 'gpt-3.5-turbo',
         temperature: 0.7,
         max_tokens: 64,
         top_p: 1,
@@ -541,7 +541,7 @@ class Translator {
     const MASTER_PROMPT =
       "You are a professional translator named AT-i18n. You have to wait for the user to provide the translatable text and the target language's code. You have to respond ONLY with the translated text.";
     const translationResult = await this.openai.createChatCompletion({
-      model: 'gpt-3.5-turbo-0613',
+      model: 'gpt-3.5-turbo',
       temperature: 1,
       messages: [
         { role: 'system', content: MASTER_PROMPT },
