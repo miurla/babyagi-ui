@@ -159,7 +159,7 @@ export class BabyCatAGI {
 
       return await textCompletion(
         prompt,
-        'gpt-3.5-turbo',
+        'gpt-3.5-turbo-0613',
         this.abortController?.signal,
         getUserApiKey(),
         callback,
@@ -261,6 +261,7 @@ export class BabyCatAGI {
     // Loop through search results
     for (const searchResult of sinmplifiedSearchResults) {
       if (!this.isRunning) break;
+      if (index >= 5) break;
 
       // Extract the URL from the search result
       const url = searchResult.link;

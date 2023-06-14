@@ -11,15 +11,16 @@ export const relevantInfoExtractionAgent = async (
   task: string,
   notes: string,
   chunk: string,
-  modelName: string,
   signal?: AbortSignal,
 ) => {
   const openAIApiKey = getUserApiKey();
   const prompt = relevantInfoExtractionPrompt();
+  const modelName = 'gpt-3.5-turbo-16k-0613'; // use a fixed model
+
   const llm = new OpenAIChat(
     {
       openAIApiKey,
-      modelName: modelName,
+      modelName,
       temperature: 0.7,
       maxTokens: 800,
       topP: 1,

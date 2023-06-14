@@ -8,11 +8,12 @@ export const largeTextExtract = async (
   objective: string,
   largeString: string,
   task: AgentTask,
+  modelName: string,
   isRunningRef: React.MutableRefObject<boolean>,
   callback: (message: string) => void,
   signal?: AbortSignal,
 ) => {
-  const chunkSize = 3000;
+  const chunkSize = 15000;
   const overlap = 500;
   let notes = '';
 
@@ -32,7 +33,6 @@ export const largeTextExtract = async (
         task.task,
         notes,
         chunk,
-        'gpt-3.5-turbo',
       );
       notes += response;
     } else {

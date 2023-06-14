@@ -23,8 +23,10 @@ export const AgentCollapsible: FC<AgentCollapsibleProps> = ({
   return (
     <Collapsible.Root className="w-full" open={open} onOpenChange={setOpen}>
       <Collapsible.Trigger asChild>
-        <button className="inline-flex w-80 items-center justify-between rounded bg-neutral-200 p-3 text-sm dark:bg-neutral-900">
-          {title}
+        <button className="inline-flex w-80 items-center justify-between rounded bg-neutral-200 p-3 dark:bg-neutral-900">
+          <span className="truncate pr-1 text-xs text-neutral-600 dark:text-neutral-400">
+            {title}
+          </span>
           {open ? <ChevronUpIcon /> : <ChevronDownIcon />}
         </button>
       </Collapsible.Trigger>

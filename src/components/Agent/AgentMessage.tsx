@@ -70,7 +70,7 @@ const AgentMessage: FC<AgentMessageProps> = ({
       <div
         className={`relative m-auto flex gap-4 px-4 text-base md:max-w-2xl md:gap-6 lg:max-w-2xl lg:px-0 xl:max-w-3xl ${py}`}
       >
-        {message.type === 'loading' ? (
+        {message.type === 'loading' || message.type === 'task-execute' ? (
           <div className="w-10 pt-1.5">
             <UpdateIcon className="animate-spin" />
           </div>

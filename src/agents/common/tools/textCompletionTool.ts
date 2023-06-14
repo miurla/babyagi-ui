@@ -14,6 +14,7 @@ export const textCompletionTool = async (
 ) => {
   let chunk = '';
   const openAIApiKey = getUserApiKey();
+  modelName = 'gpt-3.5-turbo-16k-0613'; // use a fixed model
   const llm = new OpenAIChat(
     {
       openAIApiKey: openAIApiKey,

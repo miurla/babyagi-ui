@@ -43,6 +43,10 @@ export const Input: FC<InputProps> = ({
   evaluation,
 }) => {
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (hasMessages) {
+      return;
+    }
+
     if (e.key === 'Enter' && !e.nativeEvent.isComposing) {
       e.preventDefault();
       onStart(value);
