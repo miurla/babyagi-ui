@@ -12,7 +12,7 @@ export const summarizerAgent = async (
 ) => {
   const model = new OpenAI({
     openAIApiKey,
-    modelName: 'gpt-3.5-turbo',
+    modelName: 'gpt-3.5-turbo-0613',
     temperature: 0.5,
     maxTokens: 100,
     topP: 1,
@@ -36,7 +36,7 @@ export const overviewAgent = async (
 ) => {
   const model = new OpenAI({
     openAIApiKey,
-    modelName: 'gpt-3.5-turbo',
+    modelName: 'gpt-3.5-turbo-0613',
     temperature: 0.5,
     maxTokens: 200,
     topP: 1,

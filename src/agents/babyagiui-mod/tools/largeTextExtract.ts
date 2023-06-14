@@ -26,7 +26,7 @@ export const largeTextExtract = async (
         task.task,
         notes,
         chunk,
-        'gpt-3.5-turbo',
+        'gpt-3.5-turbo-0613',
       );
       notes += response;
     } else {

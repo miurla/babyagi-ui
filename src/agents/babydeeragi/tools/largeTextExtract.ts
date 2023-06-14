@@ -8,6 +8,7 @@ export const largeTextExtract = async (
   objective: string,
   largeString: string,
   task: AgentTask,
+  modelName: string,
   isRunningRef: React.MutableRefObject<boolean>,
   callback: (message: string) => void,
   signal?: AbortSignal,
@@ -32,7 +33,7 @@ export const largeTextExtract = async (
         task.task,
         notes,
         chunk,
-        'gpt-3.5-turbo',
+        modelName,
       );
       notes += response;
     } else {

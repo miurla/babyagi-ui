@@ -104,6 +104,7 @@ export const webBrowsing = async (
       objective,
       content.slice(0, 5000),
       task,
+      modelName,
       isRunningRef,
       callback,
       signal,

@@ -60,7 +60,7 @@ export const extractRelevantInfoAgent = async (
 ) => {
   const model = new OpenAI({
     openAIApiKey,
-    modelName: 'gpt-3.5-turbo',
+    modelName: 'gpt-3.5-turbo-0613',
     temperature: 0.7,
     maxTokens: 800,
     n: 1,

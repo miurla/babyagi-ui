@@ -16,7 +16,7 @@ export const webBrowsing = async (
 ) => {
   const searchQuery = await searchQueryGenerationAgent(
     task,
-    'gpt-3.5-turbo',
+    'gpt-3.5-turbo-0613',
     signal,
   );
 
