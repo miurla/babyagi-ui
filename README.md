@@ -35,7 +35,7 @@ This is a port of [babyagi](https://github.com/yoheinakajima/babyagi) with [Lang
 - [x] Notification that all tasks have been completed. 🔔
 - [x] Display the current task and task list. 📌
 - [x] Collapsible Sidebar ⏩️
-- [x] User input & parallel tasking. ([🦌 BabyDeerAGI](https://twitter.com/yoheinakajima/status/1666313838868992001))
+- [x] User input & parallel tasking. ([🦌 BabyDeerAGI](https://twitter.com/yoheinakajima/status/1666313838868992001) \*Only client request)
 - [ ] Other LLM models support
 
 and more ...

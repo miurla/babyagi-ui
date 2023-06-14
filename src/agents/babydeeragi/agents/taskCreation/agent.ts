@@ -21,6 +21,14 @@ export const taskCreationAgent = async (
   const userinputVar = '[user-input] ';
   const prompt = taskCreationPrompt();
   const openAIApiKey = getUserApiKey();
+
+  if (!openAIApiKey) {
+    // TODO: Allow requests to be made from the server side
+    throw new Error(
+      'This agent only supports requests from the client side. To use the API key in environment variables, you need to implement requests from the server side.',
+    );
+  }
+
   const model = new OpenAIChat(
     {
       openAIApiKey,
