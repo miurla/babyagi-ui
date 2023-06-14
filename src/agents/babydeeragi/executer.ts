@@ -55,6 +55,7 @@ export class BabyDeerAGI extends AgentExecuter {
           task.task,
           dependentTasksOutput,
         );
+
         taskOutput = await textCompletionTool(
           prompt,
           this.modelName,
@@ -190,7 +191,7 @@ export class BabyDeerAGI extends AgentExecuter {
       .map((t) => t.id);
     this.statusCallback({
       type: 'executing',
-      message: `(👉 ${ids.join(', ')})`,
+      message: `(👉 ${ids.join(', ')} / ${this.taskList.length})`,
     });
   };
 }
