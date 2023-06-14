@@ -12,13 +12,9 @@ export const textCompletionTool = async (
   id?: number,
   messageCallnback?: (message: Message) => void,
 ) => {
-  // if model name contains 0613, use 16k model
-  if (modelName.includes('0613')) {
-    modelName = modelName.replace('0613', '16k-0613');
-  }
-
   let chunk = '';
   const openAIApiKey = getUserApiKey();
+  modelName = 'gpt-3.5-turbo-16k-0613'; // use a fixed model
   const llm = new OpenAIChat(
     {
       openAIApiKey: openAIApiKey,
