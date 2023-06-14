@@ -12,6 +12,11 @@ export const textCompletionTool = async (
   id?: number,
   messageCallnback?: (message: Message) => void,
 ) => {
+  // if model name contains 0613, use 16k model
+  if (modelName.includes('0613')) {
+    modelName = modelName.replace('0613', '16k-0613');
+  }
+
   let chunk = '';
   const openAIApiKey = getUserApiKey();
   const llm = new OpenAIChat(
@@ -19,7 +24,6 @@ export const textCompletionTool = async (
       openAIApiKey: openAIApiKey,
       modelName: modelName,
       temperature: 0.2,
-      maxTokens: 1500,
       topP: 1,
       frequencyPenalty: 0,
       presencePenalty: 0,

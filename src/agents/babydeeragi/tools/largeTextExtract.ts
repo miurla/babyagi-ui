@@ -13,7 +13,7 @@ export const largeTextExtract = async (
   callback: (message: string) => void,
   signal?: AbortSignal,
 ) => {
-  const chunkSize = 3000;
+  const chunkSize = 15000;
   const overlap = 500;
   let notes = '';
 
@@ -33,7 +33,6 @@ export const largeTextExtract = async (
         task.task,
         notes,
         chunk,
-        modelName,
       );
       notes += response;
     } else {

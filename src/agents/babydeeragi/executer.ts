@@ -45,7 +45,7 @@ export class BabyDeerAGI extends AgentExecuter {
         if (task.dependentTaskIds) {
           for (const id of task.dependentTaskIds) {
             const dependentTasks = getTaskById(this.taskList, id);
-            const dependentTaskOutput = dependentTasks?.output?.slice(0, 2000);
+            const dependentTaskOutput = dependentTasks?.output?.slice(0, 14000);
             dependentTasksOutput += dependentTaskOutput;
           }
         }

@@ -261,6 +261,7 @@ export class BabyCatAGI {
     // Loop through search results
     for (const searchResult of sinmplifiedSearchResults) {
       if (!this.isRunning) break;
+      if (index >= 5) break;
 
       // Extract the URL from the search result
       const url = searchResult.link;

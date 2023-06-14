@@ -54,9 +54,12 @@ export const webBrowsing = async (
 
   let results = '';
   let index = 1;
+  let completedCount = 0;
+  const MaxCompletedCount = 3;
   // Loop through search results
   for (const searchResult of sinmplifiedSearchResults) {
     if (!isRunningRef.current) return;
+    if (completedCount >= MaxCompletedCount) break;
 
     // Extract the URL from the search result
     const url = searchResult.link;
@@ -102,7 +105,7 @@ export const webBrowsing = async (
     callbackSearchStatus(statusMessage, task, messageCallback);
     const info = await largeTextExtract(
       objective,
-      content.slice(0, 5000),
+      content.slice(0, 20000),
       task,
       modelName,
       isRunningRef,
@@ -121,6 +124,7 @@ export const webBrowsing = async (
 
     results += `${info}. `;
     index += 1;
+    completedCount += 1;
   }
 
   if (!isRunningRef.current) return;
