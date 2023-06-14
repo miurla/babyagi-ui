@@ -100,7 +100,7 @@ export const Agent: FC = () => {
       updateExec(updatedExecution);
     }
 
-    const blocks = getMessageBlocks(messages);
+    const blocks = getMessageBlocks(messages, isExecuting);
     setMessageBlocks(blocks);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

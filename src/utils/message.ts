@@ -161,7 +161,7 @@ export const loadingAgentMessage = (status: AgentStatus) => {
     title = text;
     text = status.message ?? '';
   } else if (status.type === 'executing') {
-    text += ` ${status.message}`;
+    text += ` ${status.message ?? ''}`;
   } else if (status.message) {
     text += `\n\n${status.message}`;
   }
@@ -228,7 +228,10 @@ export const getMessageSummaryTitle = (message?: Message) => {
 };
 
 // create messageBlock array from message array
-export const getMessageBlocks = (messages: Message[]) => {
+export const getMessageBlocks = (
+  messages: Message[],
+  isExecutiong: boolean,
+) => {
   const messageBlocks: MessageBlock[] = [];
 
   let currentMessageBlock: MessageBlock | null = null;
@@ -282,6 +285,18 @@ export const getMessageBlocks = (messages: Message[]) => {
       messageBlock.messages.splice(taskExecuteIndex, 1);
     }
   });
+
+  // if isExecutiong is false, exclude task-execute
+  if (!isExecutiong) {
+    messageBlocks.forEach((messageBlock) => {
+      const taskExecuteIndex = messageBlock.messages.findIndex(
+        (message) => message.type === 'task-execute',
+      );
+      if (taskExecuteIndex >= 0) {
+        messageBlock.messages.splice(taskExecuteIndex, 1);
+      }
+    });
+  }
 
   return messageBlocks;
 };
