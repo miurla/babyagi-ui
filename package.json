@@ -36,7 +36,7 @@
     "i18next-browser-languagedetector": "^7.0.1",
     "i18next-http-backend": "^2.2.0",
     "install": "^0.13.0",
-    "langchain": "^0.0.64",
+    "langchain": "^0.0.95",
     "next": "13.2.4",
     "next-i18next": "^13.2.2",
     "next-themes": "^0.2.1",

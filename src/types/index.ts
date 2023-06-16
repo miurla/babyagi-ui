@@ -111,3 +111,7 @@ export type AgentStatus = {
   type: AgentStatusType;
   message?: string;
 };
+
+export interface FunctionCall {
+  arguments: string;
+}

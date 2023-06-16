@@ -30,9 +30,16 @@ export const stringifyTasks = (tasks: AgentTask[]): string => {
   return JSON.stringify(snakeCaseTasks);
 };
 
-export const parseTasks = (jsonString: string): AgentTask[] => {
+export const parseTasks = (
+  jsonString: string,
+  isFunc: boolean = false,
+): AgentTask[] => {
   const parsedObj = JSON.parse(jsonString);
-  const camelCaseObj = convertKeys(parsedObj, snakeToCamelCase);
+  let object = parsedObj;
+  if (isFunc) {
+    object = parsedObj.tasks;
+  }
+  const camelCaseObj = convertKeys(object, snakeToCamelCase);
   return camelCaseObj;
 };
 
