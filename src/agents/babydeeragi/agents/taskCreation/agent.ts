@@ -23,7 +23,11 @@ export const taskCreationAgent = async (
   const prompt = taskCreationPrompt();
   const openAIApiKey = getUserApiKey();
 
-  let result;
+  if (!openAIApiKey && process.env.NEXT_PUBLIC_USE_USER_API_KEY === 'true') {
+    throw new Error('User API key is not set.');
+  }
+
+  let result = '';
   if (getUserApiKey()) {
     // client side request
     const model = new OpenAIChat(
@@ -56,7 +60,6 @@ export const taskCreationAgent = async (
       { baseOptions: { signal: signal } },
     );
 
-    let result;
     const chain = new LLMChain({ llm: model, prompt });
     try {
       const response = await chain.call({
@@ -77,7 +80,7 @@ export const taskCreationAgent = async (
     // server side request
     const response = await axios
       .post(
-        '/api/agents/tasks/create',
+        '/api/deer/create',
         {
           objective: objective,
           websearch_var: websearchVar,

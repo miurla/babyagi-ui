@@ -17,11 +17,15 @@ export const relevantInfoExtractionAgent = async (
   const openAIApiKey = getUserApiKey();
   const modelName = 'gpt-3.5-turbo-16k-0613'; // use a fixed model
 
+  if (!openAIApiKey && process.env.NEXT_PUBLIC_USE_USER_API_KEY === 'true') {
+    throw new Error('User API key is not set.');
+  }
+
   if (!openAIApiKey) {
     // server side request
     const response = await axios
       .post(
-        '/api/agents/extract',
+        '/api/deer/extract',
         {
           objective,
           task,

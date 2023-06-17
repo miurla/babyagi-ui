@@ -1,9 +1,9 @@
 import { getUserApiKey } from '@/utils/settings';
-import { OpenAIChat } from 'langchain/llms/openai';
-import { LLMChain } from 'langchain/chains';
-import { PromptTemplate } from 'langchain/prompts';
 import { Message } from '@/types';
 import { setupMessage } from '@/utils/message';
+import axios from 'axios';
+import { ChatOpenAI } from 'langchain/chat_models/openai';
+import { HumanChatMessage } from 'langchain/schema';
 
 export const textCompletionTool = async (
   prompt: string,
@@ -15,10 +15,37 @@ export const textCompletionTool = async (
   if (prompt.length > 3200) {
     modelName = 'gpt-3.5-turbo-16k-0613';
   }
-
   let chunk = '';
   const openAIApiKey = getUserApiKey();
-  const llm = new OpenAIChat(
+
+  if (!openAIApiKey && process.env.NEXT_PUBLIC_USE_USER_API_KEY === 'true') {
+    throw new Error('User API key is not set.');
+  }
+
+  if (!openAIApiKey) {
+    // server side request
+    const response = await axios
+      .post(
+        '/api/deer/completion',
+        {
+          prompt,
+          model_name: modelName,
+        },
+        {
+          signal: signal,
+        },
+      )
+      .catch((error) => {
+        if (error.name === 'AbortError') {
+          console.log('Request aborted', error.message);
+        } else {
+          console.log(error.message);
+        }
+      });
+    return response?.data?.response.text;
+  }
+
+  const llm = new ChatOpenAI(
     {
       openAIApiKey: openAIApiKey,
       modelName: modelName,
@@ -42,14 +69,8 @@ export const textCompletionTool = async (
     { baseOptions: { signal: signal } },
   );
 
-  const pt = new PromptTemplate({
-    template: prompt,
-    inputVariables: [],
-    validateTemplate: false,
-  });
-  const chain = new LLMChain({ llm: llm, prompt: pt });
   try {
-    const response = await chain.call({});
+    const response = await llm.call([new HumanChatMessage(prompt)]);
     return response.text;
   } catch (error: any) {
     if (error.name === 'AbortError') {
