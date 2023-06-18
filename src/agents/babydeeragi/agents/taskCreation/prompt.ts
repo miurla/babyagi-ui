@@ -6,13 +6,15 @@ export const taskCreationPrompt = () => {
       'objective',
       'websearch_var',
       'user_input_var',
+      'ai-plugin',
       'language',
     ],
     template: `
     You are an expert task creation AI tasked with creating a  list of tasks as a JSON array, considering the ultimate objective of your team: {objective}. 
     Create new tasks based on the objective. Limit tasks types to those that can be completed with the available tools listed below. Task description should be detailed.
     Task description must be answered in {language}.
-    Current tool options are [text-completion] {websearch_var} {user_input_var}.
+    Current tool options are [text-completion] {websearch_var} {user_input_var} {ai-plugin}.
+    For tasks using {ai-plugin}, search and compare prices from thousands of online shops. Only available in the US.
     For tasks using [web-search], provide the search query, and only the search query to use (eg. not 'research waterproof shoes, but 'waterproof shoes'). Result will be a summary of relevant information from the first few articles.
     When requiring multiple searches, use the [web-search] multiple times. This tool will use the dependent task result to generate the search query if necessary.
     Use [user-input] sparingly and only if you need to ask a question to the user who set up the objective. The task description should be the question you want to ask the user.')

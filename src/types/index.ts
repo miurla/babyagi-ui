@@ -92,7 +92,8 @@ export type ToolType =
   | 'web-scrape'
   | 'web-search'
   | 'text-completion'
-  | 'user-input';
+  | 'user-input'
+  | 'ai-plugin';
 export type TaskStatus = 'complete' | 'incomplete' | 'running';
 
 export interface AgentTask {

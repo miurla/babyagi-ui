@@ -8,6 +8,7 @@ import { textCompletionTool } from '../common/tools/textCompletionTool';
 import { setupMessage } from '@/utils/message';
 import { toast } from 'sonner';
 import { translate } from '@/utils/translate';
+import { aiPlugin } from './tools/aiPlugin';
 
 export class BabyDeerAGI extends AgentExecuter {
   sessionSummary = `OBJECTIVE: ${this.objective}\n\n`;
@@ -81,6 +82,13 @@ export class BabyDeerAGI extends AgentExecuter {
         break;
       case 'user-input':
         taskOutput = await this.getUserInput(task);
+        break;
+      case 'ai-plugin':
+        taskOutput = await aiPlugin(
+          task.task,
+          this.modelName,
+          this.abortController?.signal,
+        );
         break;
       default:
         break;
