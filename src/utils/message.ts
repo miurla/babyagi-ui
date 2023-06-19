@@ -27,6 +27,8 @@ export const setupMessage = (
       ? '🤖'
       : type === 'next-task' && tool === 'user-input'
       ? '🧑‍💻'
+      : type === 'next-task' && tool === 'ai-plugin'
+      ? '🔌'
       : type === 'next-task'
       ? '👉'
       : type === 'task-result' && tool === 'web-search'
@@ -35,6 +37,8 @@ export const setupMessage = (
       ? '📄'
       : type === 'task-result' && tool === 'text-completion'
       ? '🤖'
+      : type === 'task-result' && tool === 'ai-plugin'
+      ? '🔌'
       : type === 'task-result'
       ? '✅'
       : type === 'task-result-summary'
@@ -185,6 +189,8 @@ export const getToolIcon = (tool: ToolType) => {
       return '🤖';
     case 'user-input':
       return '🧑‍💻';
+    case 'ai-plugin':
+      return '🔌';
     default:
       return '🤖';
   }

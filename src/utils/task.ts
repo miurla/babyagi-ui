@@ -39,3 +39,19 @@ export const parseTasks = (jsonString: string): AgentTask[] => {
 export const getTaskById = (taskList: AgentTask[], id: number) => {
   return taskList.find((task) => task.id === id);
 };
+
+export const getDependentTasks = (
+  taskList: AgentTask[],
+  task: AgentTask,
+  max: number = 14000,
+) => {
+  let dependentTasksOutput = '';
+  if (task.dependentTaskIds) {
+    for (const id of task.dependentTaskIds) {
+      const dependentTasks = getTaskById(taskList, id);
+      const dependentTaskOutput = dependentTasks?.output?.slice(0, max);
+      dependentTasksOutput += dependentTaskOutput;
+    }
+  }
+  return dependentTasksOutput;
+};

@@ -14,18 +14,22 @@ export const taskCreationAgent = async (
   objective: string,
   modelName: string,
   language: string,
+  pluginDescription?: string,
   signal?: AbortSignal,
   messageCallback?: (message: Message) => void,
 ) => {
   let chunk = '```json\n';
   const websearchVar = process.env.SEARP_API_KEY ? '[web-search] ' : ''; // if search api key is not set, don't add [web-search] to the task description
   const userinputVar = '[user-input] ';
+  const pluginVar = pluginDescription ? `[ai-pligin] ` : '';
   const prompt = taskCreationPrompt();
   const openAIApiKey = getUserApiKey();
 
   if (!openAIApiKey && process.env.NEXT_PUBLIC_USE_USER_API_KEY === 'true') {
     throw new Error('User API key is not set.');
   }
+
+  console.log('prompt: ', prompt);
 
   let result = '';
   if (getUserApiKey()) {
@@ -56,6 +60,7 @@ export const taskCreationAgent = async (
             },
           },
         ],
+        verbose: true,
       },
       { baseOptions: { signal: signal } },
     );
@@ -66,6 +71,8 @@ export const taskCreationAgent = async (
         objective,
         websearch_var: websearchVar,
         user_input_var: userinputVar,
+        ai_plugin_var: pluginVar,
+        plugin_description: pluginDescription,
         language,
       });
       result = response.text;
@@ -85,6 +92,7 @@ export const taskCreationAgent = async (
           objective: objective,
           websearch_var: websearchVar,
           user_input_var: userinputVar,
+          ai_plugin_var: '[ai-plugin] ',
           model_name: modelName,
         },
         {

@@ -1,3 +1,5 @@
+import { type } from 'os';
+
 export type SelectItem = {
   id: string;
   name: string;

@@ -1,28 +1,39 @@
 import { AgentExecuter } from '../base/AgentExecuter';
 import { taskCreationAgent } from './agents/taskCreation/agent';
 import { AgentTask } from '@/types';
-import { getTaskById } from '@/utils/task';
+import { getDependentTasks, getTaskById } from '@/utils/task';
 import { webBrowsing } from './tools/webBrowsing';
 import { textCompletionToolPrompt } from './prompt';
 import { textCompletionTool } from '../common/tools/textCompletionTool';
 import { setupMessage } from '@/utils/message';
 import { toast } from 'sonner';
 import { translate } from '@/utils/translate';
-import { aiPlugin } from './tools/aiPlugin';
+import { aiPlugin, aiPluginDescription } from './tools/aiPlugin';
 
 export class BabyDeerAGI extends AgentExecuter {
   sessionSummary = `OBJECTIVE: ${this.objective}\n\n`;
   userInputResolver: ((message: string) => void) | null = null;
   userInputPromise: Promise<string> | null = null;
 
+  // if you want to test the plugin, you can use the following urls. it's experimental and not guaranteed to work.
+  // pluginUrl: string | null = null;
+  pluginUrl = 'https://www.klarna.com/.well-known/ai-plugin.json';
+
   // Create task list by agent
   async taskCreation() {
     this.statusCallback({ type: 'creating' });
     this.abortController = new AbortController();
+
+    let pluginDescription = '';
+    if (this.pluginUrl) {
+      pluginDescription = await aiPluginDescription(this.pluginUrl);
+    }
+
     const taskList = await taskCreationAgent(
       this.objective,
       this.modelName,
       this.language,
+      pluginDescription,
       this.abortController?.signal,
       this.messageCallback,
     );
@@ -39,17 +50,10 @@ export class BabyDeerAGI extends AgentExecuter {
 
   async taskOutputWithTool(task: AgentTask) {
     let taskOutput = '';
+    let dependentTasksOutput = getDependentTasks(this.taskList, task);
     switch (task.tool) {
       case 'text-completion':
         this.abortController = new AbortController();
-        let dependentTasksOutput = '';
-        if (task.dependentTaskIds) {
-          for (const id of task.dependentTaskIds) {
-            const dependentTasks = getTaskById(this.taskList, id);
-            const dependentTaskOutput = dependentTasks?.output?.slice(0, 14000);
-            dependentTasksOutput += dependentTaskOutput;
-          }
-        }
         const prompt = textCompletionToolPrompt(
           this.objective,
           this.language,
@@ -83,10 +87,21 @@ export class BabyDeerAGI extends AgentExecuter {
       case 'user-input':
         taskOutput = await this.getUserInput(task);
         break;
-      case 'ai-plugin':
+      case 'ai-plugin': // experimental feature
+        dependentTasksOutput = getDependentTasks(this.taskList, task, 3000);
+        if (this.pluginUrl === null) {
+          taskOutput = 'No plugin url provided';
+          break;
+        }
+
         taskOutput = await aiPlugin(
-          task.task,
+          this.objective,
+          task,
+          dependentTasksOutput,
+          this.pluginUrl,
+          this.language,
           this.modelName,
+          this.messageCallback,
           this.abortController?.signal,
         );
         break;
