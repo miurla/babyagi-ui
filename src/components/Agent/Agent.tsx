@@ -35,6 +35,7 @@ import { taskCompletedNotification } from '@/utils/notification';
 import { MessageSummaryCard } from './MessageSummaryCard';
 import { useTranslation } from 'next-i18next';
 import { AgentMessageBlock } from './AgentMessageBlock';
+import { AgentTask } from './AgentTask';
 
 export const Agent: FC = () => {
   const [model, setModel] = useState<SelectItem>(MODELS[1]);
@@ -419,7 +420,7 @@ export const Agent: FC = () => {
         <div className="max-h-full overflow-scroll">
           <AgentMessageHeader model={model} agent={selectedAgent} />
           {messageBlocks.map((block, index) => (
-            <AgentMessageBlock
+            <AgentTask
               block={block}
               key={index}
               userInputCallback={userInputHandler}
