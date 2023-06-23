@@ -9,6 +9,7 @@ import { AgentCollapsible } from './AgentCollapsible';
 import { AgentResult } from './AgentResult';
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import { AgentLabelBlock } from './AgentLabelBlock';
+import { AgentTaskStatus } from './AgentTastStatus';
 
 export interface AgentTaskProps {
   block: MessageBlock;
@@ -48,9 +49,7 @@ export const AgentTask: FC<AgentTaskProps> = ({ block, userInputCallback }) => {
           >
             {message.text}
           </div>
-          <div className="flex aspect-square h-9 items-center justify-center">
-            <CheckCircledIcon className="h-5 w-5 text-teal-500" />
-          </div>
+          <AgentTaskStatus block={block} />
         </div>
         <AgentResult title="Task Details" isOpen={false}>
           <div className="flex flex-col gap-4 p-6">
