@@ -8,6 +8,7 @@ import {
 import { AgentCollapsible } from './AgentCollapsible';
 import { AgentResult } from './AgentResult';
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
+import { AgentLabelBlock } from './AgentLabelBlock';
 
 export interface AgentTaskProps {
   block: MessageBlock;
@@ -31,7 +32,9 @@ export const AgentTask: FC<AgentTaskProps> = ({ block, userInputCallback }) => {
     }
   };
 
-  return block.id != null && block?.id > 0 ? (
+  return block.id != null &&
+    block?.id > 0 &&
+    block?.messages[0].type !== 'task-list' ? (
     <div className="relative m-auto flex w-full flex-col gap-4 bg-white p-6 px-4 text-base text-neutral-900 dark:bg-[#444654] md:max-w-2xl md:gap-6 md:p-8 lg:max-w-2xl lg:px-0 xl:max-w-3xl">
       <div className="flex flex-col rounded-lg border border-neutral-200">
         <div className="flex gap-4 p-6">
@@ -72,5 +75,7 @@ export const AgentTask: FC<AgentTaskProps> = ({ block, userInputCallback }) => {
         </AgentResult>
       </div>
     </div>
-  ) : null;
+  ) : (
+    <AgentLabelBlock block={block} />
+  );
 };
