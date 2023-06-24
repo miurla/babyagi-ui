@@ -104,7 +104,7 @@ export const setupMessage = (
   const bgColor =
     type === 'loading'
       ? 'bg-neutral-100 dark:bg-neutral-600/10'
-      : 'bg-neutral-50 dark:bg-[#444654]';
+      : 'bg-neutral-50 dark:bg-black';
 
   return {
     text: text ?? '',

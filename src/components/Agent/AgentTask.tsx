@@ -33,6 +33,10 @@ export const AgentTask: FC<AgentTaskProps> = ({ block, userInputCallback }) => {
     (message) => message.type === 'search-logs',
   );
 
+  // if message.text include index of message block, remove it
+  const text = message.text.replace(`${message.id}. `, '');
+  const id = message.id ? `${message.id}. ` : '';
+
   return message.type === 'next-task' ? (
     <div className="relative m-auto flex w-full flex-col gap-4 p-6 px-4 text-base text-neutral-900 dark:text-neutral-300 md:max-w-2xl md:gap-6 md:p-8 lg:max-w-2xl lg:px-0 xl:max-w-3xl">
       <div className="flex flex-col rounded-lg border border-neutral-200 dark:border-neutral-800">
@@ -41,8 +45,8 @@ export const AgentTask: FC<AgentTaskProps> = ({ block, userInputCallback }) => {
             {message.icon}
           </div>
           <div className="focus:border-1 w-full pt-1.5 text-base font-medium focus:border-purple-500 focus:bg-white">
-            <span>{`${message.id}. `}</span>
-            <span>{message.text}</span>
+            <span>{id}</span>
+            <span>{text}</span>
           </div>
           <AgentTaskStatus block={block} />
         </div>

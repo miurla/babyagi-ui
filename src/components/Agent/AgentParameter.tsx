@@ -83,7 +83,7 @@ export const AgentParameter: FC<AgentParameterProps> = ({
             {translate('FIRST_TASK')}
           </label>
           <input
-            className="w-full rounded-lg border border-neutral-200 p-3 text-neutral-600 focus:outline-none dark:border-neutral-600 dark:bg-[#343541] dark:text-white"
+            className="w-full rounded-lg border border-neutral-200 p-3 text-neutral-600 focus:outline-none dark:border-neutral-600 dark:bg-neutral-800 dark:text-white"
             value={firstTask}
             onChange={(e) => setFirstTask(e.target.value)}
           ></input>
