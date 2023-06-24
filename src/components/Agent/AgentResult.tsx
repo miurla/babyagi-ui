@@ -1,21 +1,19 @@
 import { FC, useEffect } from 'react';
 import * as Collapsible from '@radix-ui/react-collapsible';
-import {
-  ChevronDownIcon,
-  ChevronRightIcon,
-  Link1Icon,
-} from '@radix-ui/react-icons';
+import { ChevronRightIcon, Link1Icon } from '@radix-ui/react-icons';
 import React from 'react';
 
 export interface AgentResultProps {
   children: React.ReactNode;
   title: string;
+  dependencies?: number[];
   isOpen?: boolean;
 }
 
 export const AgentResult: FC<AgentResultProps> = ({
   children,
   title,
+  dependencies,
   isOpen = true,
 }) => {
   const [open, setOpen] = React.useState(false);
@@ -34,12 +32,14 @@ export const AgentResult: FC<AgentResultProps> = ({
         >
           <div className="flex items-center gap-2">
             <ChevronRightIcon className={`${open && 'rotate-90'}`} />
-            <div className="">Task Result</div>
+            <div className="">{title}</div>
           </div>
-          <div className="flex items-center gap-2">
-            <Link1Icon />
-            <div className="">{'2 3'}</div>
-          </div>
+          {dependencies && dependencies.length > 0 && (
+            <div className="flex items-center gap-2">
+              <Link1Icon />
+              <div className="">{dependencies.join(', ')}</div>
+            </div>
+          )}
         </button>
       </Collapsible.Trigger>
       <Collapsible.Content className="w-full py-2">

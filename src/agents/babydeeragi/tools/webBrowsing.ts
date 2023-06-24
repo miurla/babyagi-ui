@@ -57,7 +57,7 @@ export const webBrowsing = async (
   let results = '';
   let index = 1;
   let completedCount = 0;
-  const MaxCompletedCount = 2;
+  const MaxCompletedCount = 5;
   // Loop through search results
   for (const searchResult of sinmplifiedSearchResults) {
     if (!isRunningRef.current) return;
@@ -172,7 +172,7 @@ const callbackSearchStatus = (
   messageCallback: (message: Message) => void,
 ) => {
   messageCallback({
-    type: 'task-execute',
+    type: 'search-logs',
     title: title ?? translate('SEARCH_LOGS', 'message'),
     text: '```markdown\n' + message + '\n```',
     id: task.id,

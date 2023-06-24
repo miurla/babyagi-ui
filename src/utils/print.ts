@@ -1,5 +1,5 @@
 import { AgentTask, Message } from '@/types';
-import { getToolIcon, setupMessage } from './message';
+import { getToolIcon, setupMessage, setupMessageWithTask } from './message';
 
 export class Printer {
   messageCallback: (message: Message) => void;
@@ -27,6 +27,14 @@ export class Printer {
     this.messageCallback(
       setupMessage('next-task', nextTask, task.tool, undefined, task.id),
     );
+
+    if (!this.verbose) return;
+    console.log('%c*****NEXT TASK*****\n\n%c', 'color:fuchsia', '');
+    console.log(task);
+  }
+
+  printTaskExecute(task: AgentTask) {
+    this.messageCallback(setupMessageWithTask(task));
 
     if (!this.verbose) return;
     console.log('%c*****NEXT TASK*****\n\n%c', 'color:fuchsia', '');

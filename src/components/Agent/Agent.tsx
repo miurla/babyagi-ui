@@ -429,7 +429,7 @@ export const Agent: FC = () => {
           {isExecuting && (
             <AgentMessage message={loadingAgentMessage(agentStatus)} />
           )}
-          {!isExecuting && messages.length > 0 && <AgentMessageFooter />}
+          {/* {!isExecuting && messages.length > 0 && <AgentMessageFooter />} */}
           <div
             className="h-[162px] bg-white dark:bg-[#343541]"
             ref={messagesEndRef}
