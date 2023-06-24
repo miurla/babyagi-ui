@@ -5,6 +5,7 @@ import { AgentResult } from './AgentResult';
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import { AgentLabelBlock } from './AgentLabelBlock';
 import { AgentTaskStatus } from './AgentTastStatus';
+import { AgentMessageInput } from './AgentMessageInput';
 
 export interface AgentTaskProps {
   block: MessageBlock;
@@ -13,8 +14,15 @@ export interface AgentTaskProps {
 
 export const AgentTask: FC<AgentTaskProps> = ({ block, userInputCallback }) => {
   const message = block.messages[0];
+  const nextMessage = block.messages[1];
 
   if (message === undefined) return null;
+
+  if (nextMessage?.type === 'user-input') {
+    return (
+      <AgentMessageInput message={nextMessage} onSubmit={userInputCallback} />
+    );
+  }
 
   // task output
   const outputMessages = block.messages.filter(
