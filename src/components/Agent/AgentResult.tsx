@@ -26,7 +26,7 @@ export const AgentResult: FC<AgentResultProps> = ({
     <Collapsible.Root className="w-full" open={open} onOpenChange={setOpen}>
       <Collapsible.Trigger asChild>
         <button
-          className={`flex w-full items-center justify-between bg-neutral-50 px-6 py-2 text-sm text-neutral-500 ${
+          className={`flex w-full items-center justify-between bg-neutral-50 px-6 py-2 text-sm text-neutral-500 dark:bg-neutral-900 dark:text-neutral-400 ${
             !open && 'rounded-b-lg'
           }`}
         >

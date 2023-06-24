@@ -88,7 +88,7 @@ export const Select: FC<Props> = ({ label, item, items, onChange }) => {
           ) : null}
         </div>
         <SelectPrimitive.Root onValueChange={onChange} value={item.id}>
-          <SelectPrimitive.Trigger className="focus:shadow-outline inline-flex w-full cursor-pointer appearance-none items-center justify-between rounded-lg border border-neutral-200 p-3 text-xs text-neutral-600 focus:outline-none dark:border-neutral-600 dark:bg-[#343541] dark:text-white">
+          <SelectPrimitive.Trigger className="focus:shadow-outline inline-flex w-full cursor-pointer appearance-none items-center justify-between rounded-lg border border-neutral-200 p-3 text-xs text-neutral-600 focus:outline-none dark:border-neutral-700 dark:bg-neutral-800 dark:text-white">
             <SelectPrimitive.Value>
               <div className="inline-flex h-5 items-center gap-2 truncate font-mono">
                 {iconLabel(item)}

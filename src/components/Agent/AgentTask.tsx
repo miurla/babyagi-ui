@@ -26,10 +26,10 @@ export const AgentTask: FC<AgentTaskProps> = ({ block, userInputCallback }) => {
   );
 
   return message.type === 'next-task' ? (
-    <div className="relative m-auto flex w-full flex-col gap-4 bg-white p-6 px-4 text-base text-neutral-900 dark:bg-[#444654] md:max-w-2xl md:gap-6 md:p-8 lg:max-w-2xl lg:px-0 xl:max-w-3xl">
-      <div className="flex flex-col rounded-lg border border-neutral-200">
+    <div className="relative m-auto flex w-full flex-col gap-4 p-6 px-4 text-base text-neutral-900 dark:text-neutral-300 md:max-w-2xl md:gap-6 md:p-8 lg:max-w-2xl lg:px-0 xl:max-w-3xl">
+      <div className="flex flex-col rounded-lg border border-neutral-200 dark:border-neutral-800">
         <div className="flex gap-4 p-6">
-          <div className="flex aspect-square h-9 items-center justify-center rounded-full border border-neutral-200 text-lg">
+          <div className="flex aspect-square h-9 items-center justify-center rounded-full border border-neutral-200 text-lg dark:border-neutral-800">
             {message.icon}
           </div>
           <div className="focus:border-1 w-full pt-1.5 text-base font-medium focus:border-purple-500 focus:bg-white">
@@ -51,7 +51,7 @@ export const AgentTask: FC<AgentTaskProps> = ({ block, userInputCallback }) => {
                 </div>
                 <div className="flex flex-col gap-8">
                   {outputMessages[0]?.text.length > 0 && (
-                    <div className="prose prose-sm prose-neutral w-full pt-1.5">
+                    <div className="prose prose-sm prose-neutral w-full pt-1.5 dark:prose-invert prose-pre:bg-neutral-200 prose-pre:text-black dark:prose-pre:bg-neutral-800 dark:prose-pre:text-white">
                       <ReactMarkdown>{outputMessages[0]?.text}</ReactMarkdown>
                     </div>
                   )}
@@ -62,7 +62,7 @@ export const AgentTask: FC<AgentTaskProps> = ({ block, userInputCallback }) => {
                         title={logs[0].title ?? '🔎 Search logs'}
                         isOpen={false}
                       >
-                        <div className="prose prose-sm w-full">
+                        <div className="prose prose-sm w-full dark:prose-invert prose-pre:bg-neutral-200 prose-pre:text-black dark:prose-pre:bg-neutral-800 dark:prose-pre:text-white">
                           <ReactMarkdown>{logs[0].text}</ReactMarkdown>
                         </div>
                       </AgentCollapsible>

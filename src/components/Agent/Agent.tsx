@@ -399,7 +399,7 @@ export const Agent: FC = () => {
   };
 
   return (
-    <div className="overflow-none relative flex-1 bg-white dark:bg-[#343541]">
+    <div className="overflow-none relative flex-1 bg-white dark:bg-black">
       {messageBlocks.length === 0 ? (
         <>
           <AgentParameter
@@ -431,7 +431,7 @@ export const Agent: FC = () => {
           )}
           {/* {!isExecuting && messages.length > 0 && <AgentMessageFooter />} */}
           <div
-            className="h-[162px] bg-white dark:bg-[#343541]"
+            className="h-[162px] bg-white dark:bg-black"
             ref={messagesEndRef}
           />
         </div>
