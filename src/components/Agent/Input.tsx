@@ -54,14 +54,14 @@ export const Input: FC<InputProps> = ({
   };
 
   return (
-    <div className="dark:bg-vert-dark-gradient absolute bottom-0 left-0 w-full border-transparent bg-white from-black via-neutral-950 to-neutral-900/0 pt-6 dark:border-white/20 dark:!bg-transparent dark:bg-[#444654] dark:bg-gradient-to-t md:pt-2">
+    <div className="absolute bottom-0 left-0 w-full border-transparent !bg-transparent bg-gradient-to-t from-white via-white to-neutral-900/0 pt-6 dark:border-white/20 dark:bg-[#444654] dark:from-black dark:via-neutral-950 md:pt-2">
       <div className="stretch last:mb-2md:last:mb-6 mx-4 flex flex-col gap-3 lg:mx-auto lg:max-w-3xl">
         <div className="flex-cols flex justify-between">
           <div className="w-1/3"></div>
           <div className="flex w-1/3 justify-center">
             {isExecuting ? (
               <button
-                className="rounded border border-neutral-500 px-4 py-2 text-black hover:opacity-50 dark:bg-neutral-900 dark:text-white md:top-0"
+                className="rounded border border-neutral-500 px-4 py-2 text-black hover:opacity-80 dark:bg-neutral-900 dark:text-white md:top-0"
                 onClick={() => {
                   onStop();
                 }}
@@ -71,7 +71,7 @@ export const Input: FC<InputProps> = ({
               </button>
             ) : hasMessages ? (
               <button
-                className="rounded border border-neutral-500 px-4 py-2 text-black hover:opacity-50 dark:bg-neutral-900 dark:text-white md:top-0"
+                className="rounded border border-neutral-500 bg-white px-4 py-2 text-black hover:opacity-80 dark:bg-neutral-900 dark:text-white md:top-0"
                 onClick={() => {
                   onClear();
                 }}

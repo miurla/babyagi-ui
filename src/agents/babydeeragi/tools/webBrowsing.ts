@@ -76,7 +76,7 @@ export const webBrowsing = async (
     const content = (await webScrapeTool(url, signal)) ?? '';
 
     title = `${index}. Extracting relevant info...`;
-    message = `  -  Content reading completed. Length:${content.length}. Now extracting relevant info...\n`;
+    message = `  - Content reading completed. Length:${content.length}. Now extracting relevant info...\n`;
     if (verbose) {
       console.log(message);
     }
@@ -155,7 +155,7 @@ export const webBrowsing = async (
   const msg: Message = {
     type: 'search-logs',
     text: '```markdown\n' + statusMessage + '\n```',
-    title: translate('SEARCH_LOGS', 'message'),
+    title: `🔎 ${translate('SEARCH_LOGS', 'message')}`,
     id: task.id,
     icon: '🌐',
     open: false,

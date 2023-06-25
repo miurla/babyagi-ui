@@ -118,7 +118,7 @@ export const setupMessage = (
 
 export const setupMessageWithTask = (task: AgentTask): Message => {
   return {
-    text: task.task,
+    text: `${task.id}. ${task.task}`,
     type: 'next-task',
     icon:
       task.tool === 'web-search'
