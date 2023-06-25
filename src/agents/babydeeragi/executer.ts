@@ -97,7 +97,8 @@ export class BabyDeerAGI extends AgentExecuter {
     // Execute the task
     this.taskList[taskIndex].status = 'running';
     this.currentStatusCallback();
-    this.printer.printNextTask(task);
+    // this.printer.printNextTask(task);
+    this.printer.printTaskExecute(task);
 
     let taskOutput = await this.taskOutputWithTool(task);
 

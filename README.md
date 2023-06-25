@@ -8,7 +8,7 @@
 BabyAGI UI is designed to make it easier to run and develop with [babyagi](https://github.com/yoheinakajima/babyagi) in a web app, like a ChatGPT.
 This is a port of [babyagi](https://github.com/yoheinakajima/babyagi) with [Langchain.js](https://github.com/hwchase17/langchainjs) and build a user interface.
 
-![](./public/images/screenshot-230525.png)
+![](./public/images/screenshot-230625.png)
 [Demo](https://twitter.com/miiura/status/1653026609606320130)
 
 ## 💡 Get help

@@ -1,3 +1,6 @@
+import { Agent } from 'http';
+import { type } from 'os';
+
 export type SelectItem = {
   id: string;
   name: string;
@@ -10,6 +13,7 @@ export type MessageBlock = {
   id?: number;
   messages: Message[];
   status?: 'complete' | 'incomplete' | 'running';
+  type?: MessageType;
 };
 
 export type Message = {
@@ -21,6 +25,7 @@ export type Message = {
   bgColor?: string;
   status?: AgentStatus;
   open?: boolean;
+  dependentTaskIds?: number[];
 };
 
 export type Execution = {

@@ -57,7 +57,7 @@ export const webBrowsing = async (
   let results = '';
   let index = 1;
   let completedCount = 0;
-  const MaxCompletedCount = 2;
+  const MaxCompletedCount = 3;
   // Loop through search results
   for (const searchResult of sinmplifiedSearchResults) {
     if (!isRunningRef.current) return;
@@ -76,7 +76,7 @@ export const webBrowsing = async (
     const content = (await webScrapeTool(url, signal)) ?? '';
 
     title = `${index}. Extracting relevant info...`;
-    message = `  -  Content reading completed. Length:${content.length}. Now extracting relevant info...\n`;
+    message = `  - Content reading completed. Length:${content.length}. Now extracting relevant info...\n`;
     if (verbose) {
       console.log(message);
     }
@@ -155,7 +155,7 @@ export const webBrowsing = async (
   const msg: Message = {
     type: 'search-logs',
     text: '```markdown\n' + statusMessage + '\n```',
-    title: translate('SEARCH_LOGS', 'message'),
+    title: `🔎 ${translate('SEARCH_LOGS', 'message')}`,
     id: task.id,
     icon: '🌐',
     open: false,
@@ -172,7 +172,7 @@ const callbackSearchStatus = (
   messageCallback: (message: Message) => void,
 ) => {
   messageCallback({
-    type: 'task-execute',
+    type: 'search-logs',
     title: title ?? translate('SEARCH_LOGS', 'message'),
     text: '```markdown\n' + message + '\n```',
     id: task.id,

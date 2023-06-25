@@ -60,7 +60,7 @@ export const textCompletionTool = async (
           handleLLMNewToken(token: string) {
             chunk += token;
             messageCallnback?.(
-              setupMessage('task-output', chunk, undefined, '🤖', id),
+              setupMessage('task-execute', chunk, undefined, '🤖', id),
             );
           },
         },
@@ -71,6 +71,11 @@ export const textCompletionTool = async (
 
   try {
     const response = await llm.call([new HumanChatMessage(prompt)]);
+    //
+    messageCallnback?.(
+      setupMessage('task-output', response.text, undefined, '✅', id),
+    );
+
     return response.text;
   } catch (error: any) {
     if (error.name === 'AbortError') {

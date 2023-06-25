@@ -29,12 +29,11 @@ import { v4 as uuidv4 } from 'uuid';
 import { useExecution } from '@/hooks/useExecution';
 import { useExecutionStatus } from '@/hooks/useExecutionStatus';
 import { translate } from '../../utils/translate';
-import { AgentMessageFooter } from './AgentMessageFooter';
 import axios from 'axios';
 import { taskCompletedNotification } from '@/utils/notification';
-import { MessageSummaryCard } from './MessageSummaryCard';
 import { useTranslation } from 'next-i18next';
 import { AgentMessageBlock } from './AgentMessageBlock';
+import { AgentTask } from './AgentTask';
 
 export const Agent: FC = () => {
   const [model, setModel] = useState<SelectItem>(MODELS[1]);
@@ -397,8 +396,22 @@ export const Agent: FC = () => {
     return undefined;
   };
 
+  const currentAgentId = () => {
+    if (isExecuting) {
+      return selectedAgent.id;
+    }
+
+    const selectedExecution = executions.find(
+      (exe) => exe.id === selectedExecutionId,
+    );
+    if (selectedExecution) {
+      return selectedExecution.params.agent;
+    }
+    return undefined;
+  };
+
   return (
-    <div className="overflow-none relative flex-1 bg-white dark:bg-[#343541]">
+    <div className="overflow-none relative flex-1 bg-white dark:bg-black">
       {messageBlocks.length === 0 ? (
         <>
           <AgentParameter
@@ -418,19 +431,26 @@ export const Agent: FC = () => {
       ) : (
         <div className="max-h-full overflow-scroll">
           <AgentMessageHeader model={model} agent={selectedAgent} />
-          {messageBlocks.map((block, index) => (
-            <AgentMessageBlock
-              block={block}
-              key={index}
-              userInputCallback={userInputHandler}
-            />
-          ))}
+          {messageBlocks.map((block, index) =>
+            currentAgentId() === 'babydeeragi' ? (
+              <AgentTask
+                block={block}
+                key={index}
+                userInputCallback={userInputHandler}
+              />
+            ) : (
+              <AgentMessageBlock
+                block={block}
+                key={index}
+                userInputCallback={userInputHandler}
+              />
+            ),
+          )}
           {isExecuting && (
             <AgentMessage message={loadingAgentMessage(agentStatus)} />
           )}
-          {!isExecuting && messages.length > 0 && <AgentMessageFooter />}
           <div
-            className="h-[162px] bg-white dark:bg-[#343541]"
+            className="h-[162px] bg-white dark:bg-black"
             ref={messagesEndRef}
           />
         </div>
