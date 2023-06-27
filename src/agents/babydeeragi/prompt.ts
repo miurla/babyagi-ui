@@ -1,6 +1,12 @@
 export const searchQueryPrompt = (task: string, dependent_task: string) => {
   return `You are an AI assistant tasked with generating a Google search query based on the following task: ${task}. 
-    If the task looks like a search query, return the identical search query as your response. ${dependent_task}\nSearch Query:`;
+  ${
+    dependent_task.length > 0
+      ? `Consider the results of dependent tasks: ${dependent_task}.`
+      : ''
+  }
+  If the task looks like a search query, return the identical search query as your response.
+  Search Query:`;
 };
 
 export const analystPrompt = (results: string, language: string) => {
@@ -20,7 +26,7 @@ export const textCompletionToolPrompt = (
    Output must be answered in ${language}.\n
    `;
   if (dependentTaskOutput !== '') {
-    prompt += `Your dependent task output: ${dependentTaskOutput}\n OUTPUT:`;
+    prompt += `Your dependent tasks: ${dependentTaskOutput}\n OUTPUT:`;
   } else {
     prompt += '\nOUTPUT:';
   }
