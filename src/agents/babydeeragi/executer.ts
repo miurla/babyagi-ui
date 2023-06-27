@@ -44,16 +44,16 @@ export class BabyDeerAGI extends AgentExecuter {
         let dependentTasksOutput = '';
         if (task.dependentTaskIds) {
           for (const id of task.dependentTaskIds) {
-            const dependentTasks = getTaskById(this.taskList, id);
-            const dependentTaskOutput = dependentTasks?.output?.slice(0, 14000);
-            dependentTasksOutput += dependentTaskOutput;
+            const dependentTask = getTaskById(this.taskList, id);
+            const dependentTaskOutput = dependentTask?.output;
+            dependentTasksOutput += `${dependentTask?.task}: ${dependentTaskOutput}\n`;
           }
         }
         const prompt = textCompletionToolPrompt(
           this.objective,
           this.language,
           task.task,
-          dependentTasksOutput,
+          dependentTasksOutput.slice(0, 14000),
         );
 
         taskOutput = await textCompletionTool(

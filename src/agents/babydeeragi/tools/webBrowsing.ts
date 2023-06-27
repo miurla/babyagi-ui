@@ -24,12 +24,15 @@ export const webBrowsing = async (
     for (const dependentTaskId of task.dependentTaskIds) {
       const dependentTask = getTaskById(taskList, dependentTaskId);
       if (!dependentTask) continue;
-      const dependentTaskOutput = dependentTask.output?.slice(0, 2000);
-      dependentTasksOutput += ` ${dependentTaskOutput}`;
+      const dependentTaskOutput = dependentTask.output;
+      dependentTasksOutput += `${dependentTask.task}: ${dependentTaskOutput}\n`;
     }
   }
 
-  const prompt = searchQueryPrompt(task.task, dependentTasksOutput);
+  const prompt = searchQueryPrompt(
+    task.task,
+    dependentTasksOutput.slice(0, 3500),
+  );
   const searchQuery = await textCompletionTool(prompt, modelName, signal);
 
   const trimmedQuery = searchQuery.replace(/^"|"$/g, ''); // remove quotes from the search query
