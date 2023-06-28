@@ -34,6 +34,7 @@ import { taskCompletedNotification } from '@/utils/notification';
 import { useTranslation } from 'next-i18next';
 import { AgentMessageBlock } from './AgentMessageBlock';
 import { AgentTask } from './AgentTask';
+import { IntroGuide } from './IntroGuide';
 
 export const Agent: FC = () => {
   const [model, setModel] = useState<SelectItem>(MODELS[1]);
@@ -425,7 +426,12 @@ export const Agent: FC = () => {
             setAgent={setSelectedAgent}
           />
           <div className="h-[calc(100vh-450px)]">
-            <ProjectTile />
+            <div className="flex h-full flex-col items-center justify-center gap-6 p-4">
+              <ProjectTile />
+              {executions.length < 5 && selectedAgent.id === 'babydeeragi' && (
+                <IntroGuide onClick={(value) => setObjective(value)} />
+              )}
+            </div>
           </div>
         </>
       ) : (
