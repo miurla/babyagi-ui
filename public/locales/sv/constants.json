@@ -15,5 +15,9 @@
   "FIRST_TASK_PLACEHOLDER": "Upprätta en uppgiftslista",
   "ALERT_GPT_4_DISABLED": "Din API-nyckel har inte åtkomstbehörighet till GPT-4. Välj ett annat modell än GPT-4 och kör det.",
   "USER_INPUT_PLACEHOLDER": "Skriv ditt svar här...",
-  "ERROR_CREATING_TASKS": "Fel vid skapande av uppgifter"
+  "ERROR_CREATING_TASKS": "Fel vid skapande av uppgifter",
+  "EXAMPLE_OBJECTIVE_1": "Skriv en väderprognos för de nästa 3 dagarna i Paris.",
+  "EXAMPLE_OBJECTIVE_2": "Utforska modellen gpt-3.5-turbo-0613",
+  "EXAMPLE_OBJECTIVE_3": "Rapportera de senaste nyheterna inom användarens favoritkategori.",
+  "EXAMPLES": "Exempel"
 }

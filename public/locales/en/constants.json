@@ -15,5 +15,9 @@
   "FIRST_TASK_PLACEHOLDER": "Develop a task list",
   "ALERT_GPT_4_DISABLED": "Your API key doesn't have access rights to GPT-4. Please select a model other than GPT-4 and run it.",
   "USER_INPUT_PLACEHOLDER": "Enter your answer here...",
-  "ERROR_CREATING_TASKS": "Error creating tasks"
+  "ERROR_CREATING_TASKS": "Error creating tasks",
+  "EXAMPLES": "Examples",
+  "EXAMPLE_OBJECTIVE_1": "Write a weather report for the next 3 days in Paris",
+  "EXAMPLE_OBJECTIVE_2": "Research the gpt-3.5-turbo-0613 model",
+  "EXAMPLE_OBJECTIVE_3": "Report the latest news in the user’s favorite category"
 }

@@ -15,5 +15,9 @@
   "FIRST_TASK_PLACEHOLDER": "Arendage ülesandeloend",
   "ALERT_GPT_4_DISABLED": "Teie API võti ei oma juurdepääsu õigusi GPT-4-le. Valige mõni muu mudel ja käivitage see.",
   "USER_INPUT_PLACEHOLDER": "Sisestage oma vastus siia ...",
-  "ERROR_CREATING_TASKS": "Ülesannete loomisel tekkis viga"
+  "ERROR_CREATING_TASKS": "Ülesannete loomisel tekkis viga",
+  "EXAMPLE_OBJECTIVE_1": "Kirjutage ilmaprognoos järgmiseks 3 päevaks Pariisis.",
+  "EXAMPLE_OBJECTIVE_2": "Uurige gpt-3.5-turbo-0613 mudelit.",
+  "EXAMPLE_OBJECTIVE_3": "Teatage oma lemmik-kategooria viimaseid uudiseid.",
+  "EXAMPLES": "Näited"
 }

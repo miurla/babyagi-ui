@@ -15,5 +15,9 @@
   "FIRST_TASK_PLACEHOLDER": "Przygotuj listę zadań",
   "ALERT_GPT_4_DISABLED": "Twój klucz API nie ma praw dostępu do GPT-4. Proszę wybrać inny model niż GPT-4 i uruchomić go.",
   "USER_INPUT_PLACEHOLDER": "Wprowadź swoją odpowiedź tutaj...",
-  "ERROR_CREATING_TASKS": "Błąd podczas tworzenia zadań"
+  "ERROR_CREATING_TASKS": "Błąd podczas tworzenia zadań",
+  "EXAMPLE_OBJECTIVE_1": "Napisz raport pogodowy na najbliższe 3 dni w Paryżu.",
+  "EXAMPLE_OBJECTIVE_2": "Zbadaj model gpt-3.5-turbo-0613",
+  "EXAMPLE_OBJECTIVE_3": "Raportuj najnowsze wiadomości w ulubionej kategorii użytkownika.",
+  "EXAMPLES": "Przykłady"
 }

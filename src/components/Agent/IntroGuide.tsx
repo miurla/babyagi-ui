@@ -1,3 +1,4 @@
+import { translate } from '@/utils/translate';
 import { FC } from 'react';
 
 export interface IntroGuideProps {
@@ -6,15 +7,15 @@ export interface IntroGuideProps {
 
 export const IntroGuide: FC<IntroGuideProps> = ({ onClick }) => {
   const examples = [
-    'Write a weather report for the next 3 days in Paris',
-    'Research the gpt-3.5-turbo-0613 model',
-    'Report the latest news in the user’s favorite category',
+    translate('EXAMPLE_OBJECTIVE_1', 'constants'),
+    translate('EXAMPLE_OBJECTIVE_2', 'constants'),
+    translate('EXAMPLE_OBJECTIVE_3', 'constants'),
   ];
 
   return (
     <div className="flex w-full flex-col items-center gap-2 rounded border bg-neutral-50 p-6 text-sm text-neutral-500 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-600 md:w-1/2 ">
       <div className="mb-2 text-lg font-semibold text-neutral-400">
-        Examples ✍️
+        {translate('EXAMPLES', 'constants')} ✍️
       </div>
       {examples.map((example) => (
         <button

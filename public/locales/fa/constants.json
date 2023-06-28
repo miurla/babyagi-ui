@@ -15,5 +15,9 @@
   "FIRST_TASK_PLACEHOLDER": "تهیه لیست وظایف",
   "ALERT_GPT_4_DISABLED": "کلید API شما دسترسی لازم برای GPT-4 را ندارد. لطفاً یک مدل دیگر از GPT-4 انتخاب کنید و آن را اجرا کنید.",
   "USER_INPUT_PLACEHOLDER": "لطفاً پاسخ خود را در اینجا وارد کنید...",
-  "ERROR_CREATING_TASKS": "خطا در ایجاد وظایف"
+  "ERROR_CREATING_TASKS": "خطا در ایجاد وظایف",
+  "EXAMPLE_OBJECTIVE_1": "نوشتن یک گزارش آب و هوای برای 3 روز آینده در پاریس",
+  "EXAMPLE_OBJECTIVE_2": "تحقیق مدل gpt-3.5-turbo-0613 را انجام دهید",
+  "EXAMPLE_OBJECTIVE_3": "گزارش آخرین اخبار در دسته‌بندی موردعلاقه کاربر را ارسال کنید.",
+  "EXAMPLES": "نمونه ها"
 }

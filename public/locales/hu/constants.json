@@ -15,5 +15,9 @@
   "FIRST_TASK_PLACEHOLDER": "A feladatlista kidolgozása",
   "ALERT_GPT_4_DISABLED": "Az API-kulcsodnak nincsenek hozzáférési jogai a GPT-4-hez. Kérlek válassz egy másik modellt, majd futtasd újra.",
   "USER_INPUT_PLACEHOLDER": "Adja meg a válaszát itt...",
-  "ERROR_CREATING_TASKS": "A feladatok létrehozása során hiba történt"
+  "ERROR_CREATING_TASKS": "A feladatok létrehozása során hiba történt",
+  "EXAMPLE_OBJECTIVE_1": "Írjon egy időjárásjelentést a következő 3 napra Párizsban.",
+  "EXAMPLE_OBJECTIVE_2": "Gpt-3.5-turbo-0613 modellt kutasd!",
+  "EXAMPLE_OBJECTIVE_3": "Jelentse a legfrissebb híreket a felhasználó kedvenc kategóriájában.",
+  "EXAMPLES": "Példák"
 }

@@ -15,5 +15,9 @@
   "FIRST_TASK_PLACEHOLDER": "Razvijte listu zadataka.",
   "ALERT_GPT_4_DISABLED": "Vaš API ključ nema pristupne dozvole za GPT-4. Molimo izaberite neki drugi model i pokrenite ga.",
   "USER_INPUT_PLACEHOLDER": "Unesite svoj odgovor ovde...",
-  "ERROR_CREATING_TASKS": "Greška prilikom kreiranja zadataka"
+  "ERROR_CREATING_TASKS": "Greška prilikom kreiranja zadataka",
+  "EXAMPLE_OBJECTIVE_1": "Напишите извештај о времену за следећа 3 дана у Паризу.",
+  "EXAMPLE_OBJECTIVE_2": "Istražite model gpt-3.5-turbo-0613",
+  "EXAMPLE_OBJECTIVE_3": "Prijavite najnovije vesti u korisnikovoj omiljenoj kategoriji",
+  "EXAMPLES": "Примери"
 }

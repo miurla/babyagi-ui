@@ -15,5 +15,9 @@
   "FIRST_TASK_PLACEHOLDER": "એક કાર્ય યાદિ વિકસો",
   "ALERT_GPT_4_DISABLED": "તમારો API કી GPT-4 પર્યાવરણમાં પ્રવેશની હકો નથી. GPT-4 કર્યાના બદલે વધુ મોડલ પસંદ કરો અને તેને ચલાવો.",
   "USER_INPUT_PLACEHOLDER": "અહિંયા તમારો જવાબ દાખલ કરો...",
-  "ERROR_CREATING_TASKS": "કામો બનાવવાની ભૂલ"
+  "ERROR_CREATING_TASKS": "કામો બનાવવાની ભૂલ",
+  "EXAMPLE_OBJECTIVE_1": "પ્યારિસ માં આવતા ૩ દિવસની હવામાન અહ્વાલ લખો",
+  "EXAMPLE_OBJECTIVE_2": "ગ્પ્ટી-3.5-ટર્બો-0613 મોડેલની શોધ",
+  "EXAMPLE_OBJECTIVE_3": "વપરાશકર્તાના પસંદગીતા કેટેગરીમાં તાજેતરની સમાચાર આપો",
+  "EXAMPLES": "ઉદાહરણો"
 }

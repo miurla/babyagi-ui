@@ -15,5 +15,9 @@
   "FIRST_TASK_PLACEHOLDER": "Utvikle en oppgaveliste",
   "ALERT_GPT_4_DISABLED": "Din API-nøkkel har ikke tilgangsrettigheter til GPT-4. Vennligst velg en annen modell enn GPT-4 og kjør den.",
   "USER_INPUT_PLACEHOLDER": "Skriv svaret ditt her…",
-  "ERROR_CREATING_TASKS": "Feil ved oppretting av oppgaver"
+  "ERROR_CREATING_TASKS": "Feil ved oppretting av oppgaver",
+  "EXAMPLE_OBJECTIVE_1": "Skriv en værmelding for de neste 3 dagene i Paris.",
+  "EXAMPLE_OBJECTIVE_2": "Forskningsmodellen gpt-3.5-turbo-0613.",
+  "EXAMPLE_OBJECTIVE_3": "Rapporter de siste nyhetene innen brukerens favorittkategori.",
+  "EXAMPLES": "Eksempler"
 }

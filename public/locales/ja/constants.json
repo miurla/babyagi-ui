@@ -16,5 +16,9 @@
   "FIRST_TASK_PLACEHOLDER": "タスクリストを作成する",
   "ALERT_GPT_4_DISABLED": "あなたのAPIキーにはGPT-4へのアクセス権がありません。GPT-4以外のモデルを選択して実行してください。",
   "USER_INPUT_PLACEHOLDER": "あなたの回答を入力してください...",
-  "ERROR_CREATING_TASKS": "タスクの作成中にエラーが発生しました。"
+  "ERROR_CREATING_TASKS": "タスクの作成中にエラーが発生しました。",
+  "EXAMPLE_OBJECTIVE_1": "パリの次の3日間の天気予報を書いてください。",
+  "EXAMPLE_OBJECTIVE_2": "gpt-3.5-turbo-0613モデルを調査してください。",
+  "EXAMPLE_OBJECTIVE_3": "ユーザーのお気に入りのカテゴリーの最新ニュースを報告してください。",
+  "EXAMPLES": "例"
 }
