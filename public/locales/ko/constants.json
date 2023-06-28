@@ -15,5 +15,9 @@
   "FIRST_TASK_PLACEHOLDER": "할 일 목록 개발",
   "ALERT_GPT_4_DISABLED": "귀하의 API 키는 GPT-4에 대한 액세스 권한이 없습니다. GPT-4가 아닌 다른 모델을 선택하고 실행하십시오.",
   "USER_INPUT_PLACEHOLDER": "여기에 답변을 입력하세요...",
-  "ERROR_CREATING_TASKS": "작업 생성 중 오류가 발생하였습니다"
+  "ERROR_CREATING_TASKS": "작업 생성 중 오류가 발생하였습니다",
+  "EXAMPLE_OBJECTIVE_1": "파리의 다음 3일 동안의 날씨 보고서를 작성하세요.",
+  "EXAMPLE_OBJECTIVE_2": "gpt-3.5-turbo-0613 모델을 연구하세요.",
+  "EXAMPLE_OBJECTIVE_3": "사용자가 선호하는 카테고리의 최신 뉴스를 보고해주세요.",
+  "EXAMPLES": "예시"
 }

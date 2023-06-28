@@ -15,5 +15,9 @@
   "FIRST_TASK_PLACEHOLDER": "พัฒนารายการงาน",
   "ALERT_GPT_4_DISABLED": "คีย์ API ของคุณไม่มีสิทธิ์เข้าถึง GPT-4 โปรดเลือกโมเดลอื่นๆนอกเหนือจาก GPT-4 และรันต่อไป",
   "USER_INPUT_PLACEHOLDER": "กรอกคำตอบของคุณที่นี่ ...",
-  "ERROR_CREATING_TASKS": "การสร้างงานผิดพลาด"
+  "ERROR_CREATING_TASKS": "การสร้างงานผิดพลาด",
+  "EXAMPLE_OBJECTIVE_1": "เขียนรายงานสภาพอากาศสำหรับ 3 วันถัดไปในปารีส",
+  "EXAMPLE_OBJECTIVE_2": "ค้นคว้าโมเดล gpt-3.5-turbo-0613",
+  "EXAMPLE_OBJECTIVE_3": "รายงานข่าวล่าสุดในหมวดหมู่ที่ผู้ใช้ชื่นชอบ",
+  "EXAMPLES": "ตัวอย่าง"
 }

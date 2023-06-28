@@ -15,5 +15,9 @@
   "FIRST_TASK_PLACEHOLDER": "Membuat daftar tugas.",
   "ALERT_GPT_4_DISABLED": "Kunci API Anda tidak memiliki hak akses ke GPT-4. Mohon pilih model selain GPT-4 dan jalankan kembali.",
   "USER_INPUT_PLACEHOLDER": "Masukkan jawaban Anda di sini...",
-  "ERROR_CREATING_TASKS": "Galat membuat tugas"
+  "ERROR_CREATING_TASKS": "Galat membuat tugas",
+  "EXAMPLE_OBJECTIVE_1": "Tuliskan laporan cuaca untuk 3 hari mendatang di Paris",
+  "EXAMPLE_OBJECTIVE_2": "Teliti model gpt-3.5-turbo-0613",
+  "EXAMPLE_OBJECTIVE_3": "Laporkan berita terbaru dalam kategori favorit pengguna.",
+  "EXAMPLES": "Contoh-contoh"
 }

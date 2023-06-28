@@ -15,5 +15,9 @@
   "FIRST_TASK_PLACEHOLDER": "开发任务列表",
   "ALERT_GPT_4_DISABLED": "您的 API 密钥没有 GPT-4 的访问权限。请选择其他模型并运行。",
   "USER_INPUT_PLACEHOLDER": "在此处输入您的答案...",
-  "ERROR_CREATING_TASKS": "创建任务时出错。"
+  "ERROR_CREATING_TASKS": "创建任务时出错。",
+  "EXAMPLE_OBJECTIVE_1": "写一份巴黎未来3天的天气报告",
+  "EXAMPLE_OBJECTIVE_2": "研究gpt-3.5-turbo-0613模型",
+  "EXAMPLE_OBJECTIVE_3": "报告用户喜爱类别的最新新闻",
+  "EXAMPLES": "示例"
 }

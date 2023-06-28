@@ -15,5 +15,9 @@
   "FIRST_TASK_PLACEHOLDER": "Razvijte seznam opravil.",
   "ALERT_GPT_4_DISABLED": "Vaš ključ API-ja nima pravic do dostopa do GPT-4. Izberite drug model in ga zaženite.",
   "USER_INPUT_PLACEHOLDER": "Vnesite svoj odgovor tukaj ...",
-  "ERROR_CREATING_TASKS": "Napaka pri ustvarjanju nalog"
+  "ERROR_CREATING_TASKS": "Napaka pri ustvarjanju nalog",
+  "EXAMPLE_OBJECTIVE_1": "Napišite vremensko poročilo za naslednje 3 dni v Parizu.",
+  "EXAMPLE_OBJECTIVE_2": "Raziskujte model gpt-3.5-turbo-0613",
+  "EXAMPLE_OBJECTIVE_3": "Poročajte o najnovejših novicah v uporabnikovi najljubši kategoriji.",
+  "EXAMPLES": "Primeri"
 }

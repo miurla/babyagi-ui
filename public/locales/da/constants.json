@@ -15,5 +15,9 @@
   "FIRST_TASK_PLACEHOLDER": "Udvikle en opgaveliste.",
   "ALERT_GPT_4_DISABLED": "Din API-nøgle har ikke adgangsrettigheder til GPT-4. Vælg venligst en anden model end GPT-4 og kør den.",
   "USER_INPUT_PLACEHOLDER": "Indtast dit svar her...",
-  "ERROR_CREATING_TASKS": "Fehler beim Erstellen von Aufgaben"
+  "ERROR_CREATING_TASKS": "Fehler beim Erstellen von Aufgaben",
+  "EXAMPLE_OBJECTIVE_1": "Skriv en vejrudsigt for de næste 3 dage i Paris.",
+  "EXAMPLE_OBJECTIVE_2": "Undersøg gpt-3.5-turbo-0613-modellen",
+  "EXAMPLE_OBJECTIVE_3": "Rapportér de seneste nyheder inden for brugerens foretrukne kategori.",
+  "EXAMPLES": "Eksempler"
 }

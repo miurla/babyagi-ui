@@ -15,5 +15,9 @@
   "FIRST_TASK_PLACEHOLDER": "Maak een takenlijst",
   "ALERT_GPT_4_DISABLED": "Uw API-sleutel heeft geen toegangsrechten voor GPT-4. Selecteer alstublieft een ander model dan GPT-4 en voer het uit.",
   "USER_INPUT_PLACEHOLDER": "Voer hier uw antwoord in...",
-  "ERROR_CREATING_TASKS": "Fout bij het aanmaken van taken"
+  "ERROR_CREATING_TASKS": "Fout bij het aanmaken van taken",
+  "EXAMPLE_OBJECTIVE_1": "Schrijf een weersverslag voor de komende 3 dagen in Parijs.",
+  "EXAMPLE_OBJECTIVE_2": "Onderzoek het model gpt-3.5-turbo-0613",
+  "EXAMPLE_OBJECTIVE_3": "Rapporteer het laatste nieuws in de favoriete categorie van de gebruiker.",
+  "EXAMPLES": "Voorbeelden"
 }

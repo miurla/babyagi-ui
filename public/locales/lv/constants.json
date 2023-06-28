@@ -15,5 +15,9 @@
   "FIRST_TASK_PLACEHOLDER": "Izveidot uzdevumu sarakstu.",
   "ALERT_GPT_4_DISABLED": "Jūsu API atslēga nav piekļuves tiesību GPT-4. Lūdzu, izvēlieties citu modeli nekā GPT-4 un palaist to.",
   "USER_INPUT_PLACEHOLDER": "Ievadiet savu atbildi šeit...",
-  "ERROR_CREATING_TASKS": "Kļūda, izveidojot uzdevumus"
+  "ERROR_CREATING_TASKS": "Kļūda, izveidojot uzdevumus",
+  "EXAMPLE_OBJECTIVE_1": "Uzraksti laika ziņojumu par nākamo 3 dienām Parīzē.",
+  "EXAMPLE_OBJECTIVE_2": "Pētījums par gpt-3.5-turbo-0613 modeli",
+  "EXAMPLE_OBJECTIVE_3": "Paziņojiet par jaunākajām ziņām lietotāja izvēlētā kategorijā.",
+  "EXAMPLES": "Piemēri"
 }

@@ -16,5 +16,9 @@
   "FIRST_TASK_PLACEHOLDER": "Desenvolva uma lista de tarefas.",
   "ALERT_GPT_4_DISABLED": "Sua chave de API não tem direitos de acesso ao GPT-4. Por favor, selecione um modelo diferente do GPT-4 e execute-o.",
   "USER_INPUT_PLACEHOLDER": "Digite sua resposta aqui...",
-  "ERROR_CREATING_TASKS": "Erro ao criar tarefas"
+  "ERROR_CREATING_TASKS": "Erro ao criar tarefas",
+  "EXAMPLE_OBJECTIVE_1": "Skrivañ un adkav dasvallen a-dreuz an 3 devezhioù a zeu e Pariz.",
+  "EXAMPLE_OBJECTIVE_2": "Pesquisa o modelo gpt-3.5-turbo-0613",
+  "EXAMPLE_OBJECTIVE_3": "Relate as últimas notícias na categoria favorita do usuário.",
+  "EXAMPLES": "Exemplos"
 }
