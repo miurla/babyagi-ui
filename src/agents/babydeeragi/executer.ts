@@ -11,8 +11,8 @@ import { translate } from '@/utils/translate';
 
 export class BabyDeerAGI extends AgentExecuter {
   sessionSummary = `OBJECTIVE: ${this.objective}\n\n`;
-  userInputResolver: ((message: string) => void) | null = null;
-  userInputPromise: Promise<string> | null = null;
+  userInputResolvers: { [id: number]: (message: string) => void } = {};
+  userInputPromises: { [id: number]: Promise<string> } = {};
 
   // Create task list by agent
   async taskCreation() {
@@ -119,6 +119,8 @@ export class BabyDeerAGI extends AgentExecuter {
   // Override AgentExecuter
   async prepare() {
     super.prepare();
+    this.userInputPromises = {};
+    this.userInputResolvers = {};
     // 1. Create task list
     await this.taskCreation();
   }
@@ -166,11 +168,11 @@ export class BabyDeerAGI extends AgentExecuter {
     super.finishup();
   }
 
-  async userInput(message: string): Promise<void> {
-    if (this.userInputResolver) {
-      this.userInputResolver(message);
-      this.userInputResolver = null;
-      this.userInputPromise = null;
+  async userInput(taskId: number, message: string): Promise<void> {
+    if (this.userInputResolvers[taskId]) {
+      this.userInputResolvers[taskId](message);
+      delete this.userInputResolvers[taskId];
+      delete this.userInputPromises[taskId];
     }
   }
 
@@ -180,10 +182,10 @@ export class BabyDeerAGI extends AgentExecuter {
     );
     toast.message(translate('USER_INPUT_WAITING', 'message'));
     this.statusCallback({ type: 'user-input' });
-    this.userInputPromise = new Promise((resolve) => {
-      this.userInputResolver = resolve;
+    this.userInputPromises[task.id] = new Promise((resolve) => {
+      this.userInputResolvers[task.id] = resolve;
     });
-    return this.userInputPromise;
+    return this.userInputPromises[task.id];
   }
 
   currentStatusCallback = () => {

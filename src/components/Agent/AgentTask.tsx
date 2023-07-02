@@ -9,18 +9,23 @@ import { AgentMessageInput } from './AgentMessageInput';
 
 export interface AgentTaskProps {
   block: MessageBlock;
-  userInputCallback: (input: string) => Promise<void>;
+  userInputCallback: (id: number, input: string) => Promise<void>;
 }
 
 export const AgentTask: FC<AgentTaskProps> = ({ block, userInputCallback }) => {
   const message = block.messages[0];
   const nextMessage = block.messages[1];
+  const id = block.id ?? 0;
 
   if (message === undefined) return null;
 
   if (nextMessage?.type === 'user-input') {
     return (
-      <AgentMessageInput message={nextMessage} onSubmit={userInputCallback} />
+      <AgentMessageInput
+        message={nextMessage}
+        id={id}
+        onSubmit={userInputCallback}
+      />
     );
   }
 

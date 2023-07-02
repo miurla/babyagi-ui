@@ -351,9 +351,9 @@ export const Agent: FC = () => {
     }
   };
 
-  const userInputHandler = async (text: string) => {
+  const userInputHandler = async (id: number, text: string) => {
     if (agent instanceof BabyDeerAGI) {
-      agent.userInput(text);
+      agent.userInput(id, text);
     }
   };
 
