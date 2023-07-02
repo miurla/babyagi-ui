@@ -4,11 +4,13 @@ import { FC, FormEvent, useState } from 'react';
 import { Check } from 'react-feather';
 
 export interface AgentMessageInputProps {
+  id: number;
   message: Message;
-  onSubmit: (message: string) => Promise<void>;
+  onSubmit: (id: number, message: string) => Promise<void>;
 }
 
 export const AgentMessageInput: FC<AgentMessageInputProps> = ({
+  id,
   message,
   onSubmit,
 }) => {
@@ -17,7 +19,7 @@ export const AgentMessageInput: FC<AgentMessageInputProps> = ({
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    onSubmit(text);
+    onSubmit(id, text);
     setSubmitted(true);
     setText('');
   };

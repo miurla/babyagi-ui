@@ -72,5 +72,5 @@ export class AgentExecuter {
   }
   async loop() {}
 
-  async userInput(message: string) {}
+  async userInput(taskId: number, message: string) {}
 }

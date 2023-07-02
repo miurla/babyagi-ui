@@ -5,7 +5,7 @@ import { AgentMessageInput } from './AgentMessageInput';
 
 export interface AgentMessageBlockProps {
   block: MessageBlock;
-  userInputCallback: (input: string) => Promise<void>;
+  userInputCallback: (id: number, input: string) => Promise<void>;
 }
 
 export const AgentMessageBlock: FC<AgentMessageBlockProps> = ({
@@ -18,6 +18,7 @@ export const AgentMessageBlock: FC<AgentMessageBlockProps> = ({
         message.type === `user-input` ? (
           <AgentMessageInput
             key={index}
+            id={block.id ?? 0}
             message={message}
             onSubmit={userInputCallback}
           />
