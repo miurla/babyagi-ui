@@ -1,7 +1,7 @@
 import { MessageBlock } from '@/types';
 import { FC } from 'react';
 import { AgentCollapsible } from './AgentCollapsible';
-import { AgentResult } from './AgentResult';
+import remarkGfm from 'remark-gfm';
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import { AgentLabelBlock } from './AgentLabelBlock';
 import { AgentTaskStatus } from './AgentTastStatus';
@@ -64,7 +64,7 @@ export const AgentTask: FC<AgentTaskProps> = ({ block, userInputCallback }) => {
                 <div className="flex flex-col gap-8">
                   {outputMessages[0]?.text.length > 0 && (
                     <div className="prose prose-sm prose-neutral w-full pt-1.5 dark:prose-invert prose-pre:bg-neutral-200 prose-pre:text-black dark:prose-pre:bg-neutral-800 dark:prose-pre:text-white">
-                      <ReactMarkdown>{outputMessages[0]?.text}</ReactMarkdown>
+                      <ReactMarkdown remarkPlugins={[remarkGfm]}>{outputMessages[0]?.text}</ReactMarkdown>
                     </div>
                   )}
                   {logs.length > 0 &&
@@ -75,7 +75,7 @@ export const AgentTask: FC<AgentTaskProps> = ({ block, userInputCallback }) => {
                         isOpen={false}
                       >
                         <div className="prose prose-sm w-full dark:prose-invert prose-pre:bg-neutral-200 prose-pre:text-black dark:prose-pre:bg-neutral-800 dark:prose-pre:text-white">
-                          <ReactMarkdown>{logs[0].text}</ReactMarkdown>
+                          <ReactMarkdown remarkPlugins={[remarkGfm]}>{logs[0].text}</ReactMarkdown>
                         </div>
                       </AgentCollapsible>
                     )}
@@ -90,3 +90,4 @@ export const AgentTask: FC<AgentTaskProps> = ({ block, userInputCallback }) => {
     <AgentLabelBlock block={block} />
   );
 };
+
