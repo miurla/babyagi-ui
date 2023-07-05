@@ -2,6 +2,7 @@ import { MessageBlock } from '@/types';
 import { FC } from 'react';
 import { AgentCollapsible } from './AgentCollapsible';
 import remarkGfm from 'remark-gfm';
+import { AgentResult } from './AgentResult';
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import { AgentLabelBlock } from './AgentLabelBlock';
 import { AgentTaskStatus } from './AgentTastStatus';
