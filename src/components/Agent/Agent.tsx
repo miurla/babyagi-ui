@@ -278,11 +278,18 @@ export const Agent: FC = () => {
 
   const downloadHandler = () => {
     const element = document.createElement('a');
-    const file = new Blob([getExportText(messages, selectedAgent.id)], {
-      type: 'text/plain;charset=utf-8',
-    });
+    const filename =
+      objective.length > 0
+        ? `${objective.replace(/\s/g, '_')}.txt`
+        : 'download.txt';
+    const file = new Blob(
+      ['\uFEFF' + getExportText(messages, selectedAgent.id)],
+      {
+        type: 'text/plain;charset=utf-8',
+      },
+    );
     element.href = URL.createObjectURL(file);
-    element.download = `${objective.replace(/\s/g, '_')}.txt`;
+    element.download = filename;
     document.body.appendChild(element);
     element.click();
 
