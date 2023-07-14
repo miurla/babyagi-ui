@@ -1,3 +1,4 @@
+import { TextCompletion } from '@/agents/babyelfagi/skills/textCompletion';
 import { translate } from './translate';
 
 export const SETTINGS_KEY = 'BABYAGIUI_SETTINGS';
@@ -39,11 +40,17 @@ export const BABYBEEAGI_ITERATIONS = [
 
 export const AGENT = [
   {
+    id: 'babyelfagi',
+    name: 'BabyElfAGI',
+    icon: '🧝',
+    message: '',
+    badge: 'NEW',
+  },
+  {
     id: 'babydeeragi',
     name: 'BabyDeerAGI',
     icon: '🦌',
     message: '🤖/🔎+📄/🧑‍💻',
-    badge: 'NEW',
   },
   {
     id: 'babycatagi',
