@@ -18,7 +18,11 @@ export const taskCreationAgent = async (
   messageCallback?: (message: Message) => void,
 ) => {
   let chunk = '```json\n';
-  const websearchVar = process.env.SEARP_API_KEY ? '[web-search] ' : ''; // if search api key is not set, don't add [web-search] to the task description
+  const websearchVar =
+    process.env.SEARP_API_KEY || process.env.GOOGLE_SEARCH_API_KEY
+      ? '[web-search] '
+      : ''; // if search api key is not set, don't add [web-search] to the task description
+
   const userinputVar = '[user-input] ';
   const prompt = taskCreationPrompt();
   const openAIApiKey = getUserApiKey();
