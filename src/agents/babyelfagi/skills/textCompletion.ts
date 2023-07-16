@@ -2,7 +2,6 @@ import { ChatOpenAI } from 'langchain/chat_models/openai';
 import { Skill } from './skill';
 import { HumanChatMessage } from 'langchain/schema';
 import { AgentTask } from '@/types';
-import { t } from 'i18next';
 import { setupMessage } from '@/utils/message';
 
 export class textCompletion extends Skill {
@@ -10,6 +9,7 @@ export class textCompletion extends Skill {
   description =
     "A tool that uses OpenAI's text completion API to generate, summarize, and/or analyze text and code.";
   apiKeysRequired = ['openai'];
+  icon = '🤖';
 
   async execute(
     task: AgentTask,
@@ -48,7 +48,7 @@ export class textCompletion extends Skill {
           },
         ],
       },
-      { baseOptions: { signal: null } },
+      { baseOptions: { signal: this.abortController.signal } },
     );
 
     try {

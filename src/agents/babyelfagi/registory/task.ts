@@ -122,10 +122,6 @@ export class TaskRegistry {
     }
   }
 
-  printTaskList(): void {
-    console.log(this.tasks);
-  }
-
   updateTasks(taskUpdate: { id: number; updates: Partial<AgentTask> }): void {
     let task = this.getTask(taskUpdate.id);
     if (task) {

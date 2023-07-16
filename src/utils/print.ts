@@ -29,7 +29,7 @@ export class Printer {
     );
 
     if (!this.verbose) return;
-    console.log('%c*****NEXT TASK*****\n\n%c', 'color:fuchsia', '');
+    console.log('%c*****NEXT TASK*****\n%c', 'color:fuchsia', '');
     console.log(task);
   }
 
@@ -37,7 +37,7 @@ export class Printer {
     this.messageCallback(setupMessageWithTask(task));
 
     if (!this.verbose) return;
-    console.log('%c*****NEXT TASK*****\n\n%c', 'color:fuchsia', '');
+    console.log('%c*****NEXT TASK*****\n%c', 'color:fuchsia', '');
     console.log(task);
   }
 
@@ -56,7 +56,7 @@ export class Printer {
         : '-';
       const status = task.status === 'complete' ? '✅' : '⬜️';
       if (useSkill) {
-        message += `| ${task.id} | ${status} | ${task.task} | ${task.skill} | ${dependentTask} |\n`;
+        message += `| ${task.id} | ${status} | ${task.task} | ${task.icon} | ${dependentTask} |\n`;
         return;
       }
       message += `| ${task.id} | ${status} | ${task.task} | ${getToolIcon(

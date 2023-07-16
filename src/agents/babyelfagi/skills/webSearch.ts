@@ -8,6 +8,7 @@ export class webSearch extends Skill {
   name = 'web_search';
   description = 'A tool that performs web searches.';
   apiKeysRequired = [];
+  icon = '🔍';
 
   async execute(
     task: AgentTask,

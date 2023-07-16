@@ -65,20 +65,20 @@ export class BabyDeerAGI extends AgentExecuter {
         );
         break;
       case 'web-search':
-        dependentTasksOutput = '';
+        let dependentOutput = '';
         if (task.dependentTaskIds) {
           for (const dependentTaskId of task.dependentTaskIds) {
             const dependentTask = getTaskById(this.taskList, dependentTaskId);
             if (!dependentTask) continue;
             const dependentTaskOutput = dependentTask.output;
-            dependentTasksOutput += `${dependentTask.task}: ${dependentTaskOutput}\n`;
+            dependentOutput += `${dependentTask.task}: ${dependentTaskOutput}\n`;
           }
         }
         taskOutput =
           (await webBrowsing(
             this.objective,
             task,
-            dependentTasksOutput,
+            dependentOutput,
             this.messageCallback,
             this.statusCallback,
             this.isRunningRef,
@@ -171,7 +171,7 @@ export class BabyDeerAGI extends AgentExecuter {
       this.statusCallback({ type: 'finished' });
       return;
     }
-    const id = this.taskList[this.taskList.length - 1].id + 1;
+    const id = this.taskList.length + 1;
     this.printer.printTaskList(this.taskList, id);
 
     super.finishup();

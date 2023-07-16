@@ -48,7 +48,7 @@ export class SkillRegistry {
 
     // Print the names and descriptions of all loaded skills
     let skillInfo = Object.values(this.skills)
-      .map((skill) => `${skill.name}: ${skill.description}`)
+      .map((skill) => `${skill.icon} ${skill.name}: ${skill.description}`)
       .join('\n');
     console.log(skillInfo);
   }

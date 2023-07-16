@@ -49,8 +49,10 @@ export class BabyElfAGI extends AgentExecuter {
 
   async prepare() {
     await super.prepare();
+
     const skillDescriptions = this.skillRegistry.getSkillDescriptions();
     this.abortController = new AbortController();
+    this.statusCallback({ type: 'creating' });
     await this.taskRegistry.createTaskList(
       this.objective,
       skillDescriptions,
@@ -69,6 +71,11 @@ export class BabyElfAGI extends AgentExecuter {
 
     // Loop until all tasks are completed
     while (!Object.values(taskOutputs).every((task) => task.completed)) {
+      if (!this.isRunningRef.current) {
+        break;
+      }
+      this.statusCallback({ type: 'preparing' });
+
       // Get the tasks that are ready to be executed
       const tasks = this.taskRegistry.getTasks();
 
@@ -80,11 +87,26 @@ export class BabyElfAGI extends AgentExecuter {
         }
       }
 
-      // Execute the tasks that are ready to be executed
-      for (let i = 0; i < tasks.length; i++) {
-        const task = tasks[i];
-        if (taskOutputs[task.id].completed) continue;
+      // Filter tasks that have all their dependencies completed
+      const MaxExecutableTasks = 5;
+      const executableTasks = tasks
+        .filter((task) => {
+          if (!task.dependentTaskIds) return true;
+          return task.dependentTaskIds.every((id) => {
+            return taskOutputs[id]?.completed;
+          });
+        })
+        .slice(0, MaxExecutableTasks);
 
+      // Execute all executable tasks in parallel
+      const taskPromises = executableTasks.map(async (task, i) => {
+        // Update task status to running
+        this.taskRegistry.updateTasks({
+          id: task.id,
+          updates: { status: 'running' },
+        });
+        this.printer.printTaskExecute(task);
+        this.currentStatusCallback();
         const output = await this.taskRegistry.executeTask(
           i,
           task,
@@ -92,8 +114,6 @@ export class BabyElfAGI extends AgentExecuter {
           this.objective,
           this.skillRegistry,
         );
-
-        console.log('output: ', output);
 
         taskOutputs[task.id] = { completed: true, output: output };
         this.taskRegistry.updateTasks({
@@ -109,16 +129,25 @@ export class BabyElfAGI extends AgentExecuter {
           //     this.taskRegistry.addTask(newTask, 0);
           //   }
         }
-      }
+      });
 
-      // Short delay to prevent busy looping
-      setTimeout(() => {}, 100);
+      // Wait for all tasks to complete
+      await Promise.all(taskPromises);
     }
-
-    // // Save session summary to a file
-    // fs.writeFileSync(
-    //   `output/output_${new Date().toISOString()}.txt`,
-    //   'summary',
-    // );
   }
+
+  // // Save session summary to a file
+  // fs.writeFileSync(
+  //   `output/output_${new Date().toISOString()}.txt`,
+  //   'summary',
+  // );
+
+  currentStatusCallback = () => {
+    const tasks = this.taskRegistry.getTasks();
+    const ids = tasks.filter((t) => t.status === 'running').map((t) => t.id);
+    this.statusCallback({
+      type: 'executing',
+      message: `(👉 ${ids.join(', ')} / ${tasks.length})`,
+    });
+  };
 }

@@ -7,6 +7,7 @@ export class Skill {
   apiKeysRequired: Array<string | Array<string>> = [];
   valid: boolean;
   apiKeys: { [key: string]: string };
+  icon: string = '🛠️';
   // for UI
   messageCallback: (message: Message) => void;
   abortController: AbortController;

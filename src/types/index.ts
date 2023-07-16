@@ -111,6 +111,7 @@ export interface AgentTask {
   resultSummary?: string; // for babybeeagi
   dependentTaskId?: number; // for babybeeagi
   skill?: string; // for babyelfagi
+  icon?: string; // for babyelfagi
 }
 
 export type AgentStatus = {
