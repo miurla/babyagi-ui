@@ -1,15 +1,37 @@
+import { AgentTask, Message } from '@/types';
+import { t } from 'i18next';
+
 export class Skill {
   name: string = 'base skill';
   description: string = 'This is the base skill.';
   apiKeysRequired: Array<string | Array<string>> = [];
   valid: boolean;
   apiKeys: { [key: string]: string };
+  // for UI
+  messageCallback: (message: Message) => void;
+  abortController: AbortController;
+  isRunningRef?: React.MutableRefObject<boolean>;
+  verbose: boolean;
+  language: string = 'en';
 
   // This index signature allows dynamic assignment of properties
   [key: string]: any;
 
-  constructor(apiKeys: { [key: string]: string }) {
+  constructor(
+    apiKeys: { [key: string]: string },
+    messageCallback: (message: Message) => void,
+    abortController: AbortController,
+    isRunningRef?: React.MutableRefObject<boolean>,
+    verbose: boolean = false,
+    language: string = 'en',
+  ) {
     this.apiKeys = apiKeys;
+    this.messageCallback = messageCallback;
+    this.abortController = abortController;
+    this.isRunningRef = isRunningRef;
+    this.verbose = verbose;
+    this.language = language;
+
     const missingKeys = this.checkRequiredKeys(apiKeys);
     if (missingKeys.length > 0) {
       console.log(`Missing API keys for ${this.name}: ${missingKeys}`);
@@ -47,10 +69,10 @@ export class Skill {
   }
 
   execute(
-    params: any,
+    task: AgentTask,
     dependentTaskOutputs: any,
     objective: string,
-  ): Promise<any> {
+  ): Promise<string> {
     // This method should be overridden by subclasses
     throw new Error("Method 'execute' must be implemented");
   }

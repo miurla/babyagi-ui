@@ -10,25 +10,15 @@ import { translate } from '@/utils/translate';
 export const webBrowsing = async (
   objective: string,
   task: AgentTask,
-  taskList: AgentTask[],
+  dependentTasksOutput: string,
   messageCallback: (message: Message) => void,
-  statusCallback: (status: AgentStatus) => void,
-  isRunningRef: React.MutableRefObject<boolean>,
-  verbose: boolean,
-  modelName: string,
-  language: string,
+  statusCallback?: (status: AgentStatus) => void,
+  isRunningRef?: React.MutableRefObject<boolean>,
+  verbose: boolean = false,
+  modelName: string = 'gpt-3.5-turbo',
+  language: string = 'en',
   signal?: AbortSignal,
 ) => {
-  let dependentTasksOutput = '';
-  if (task.dependentTaskIds) {
-    for (const dependentTaskId of task.dependentTaskIds) {
-      const dependentTask = getTaskById(taskList, dependentTaskId);
-      if (!dependentTask) continue;
-      const dependentTaskOutput = dependentTask.output;
-      dependentTasksOutput += `${dependentTask.task}: ${dependentTaskOutput}\n`;
-    }
-  }
-
   const prompt = searchQueryPrompt(
     task.task,
     dependentTasksOutput.slice(0, 3500),
@@ -43,7 +33,7 @@ export const webBrowsing = async (
   const searchResults = await webSearchTool(trimmedQuery, signal);
   let statusMessage = message;
 
-  if (!isRunningRef.current) return;
+  if (!isRunningRef?.current) return;
 
   const sinmplifiedSearchResults = simplifySearchResults(searchResults);
   title = `📖 Reading content...`;
@@ -115,7 +105,6 @@ export const webBrowsing = async (
       objective,
       content.slice(0, 20000),
       task,
-      modelName,
       isRunningRef,
       callback,
       signal,

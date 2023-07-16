@@ -117,3 +117,12 @@ export type AgentStatus = {
   type: AgentStatusType;
   message?: string;
 };
+
+export type TaskOutput = {
+  completed: boolean;
+  output: string | undefined;
+};
+
+export type TaskOutputs = {
+  [id: number]: TaskOutput;
+};

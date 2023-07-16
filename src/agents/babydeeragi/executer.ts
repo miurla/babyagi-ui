@@ -65,11 +65,20 @@ export class BabyDeerAGI extends AgentExecuter {
         );
         break;
       case 'web-search':
+        dependentTasksOutput = '';
+        if (task.dependentTaskIds) {
+          for (const dependentTaskId of task.dependentTaskIds) {
+            const dependentTask = getTaskById(this.taskList, dependentTaskId);
+            if (!dependentTask) continue;
+            const dependentTaskOutput = dependentTask.output;
+            dependentTasksOutput += `${dependentTask.task}: ${dependentTaskOutput}\n`;
+          }
+        }
         taskOutput =
           (await webBrowsing(
             this.objective,
             task,
-            this.taskList,
+            dependentTasksOutput,
             this.messageCallback,
             this.statusCallback,
             this.isRunningRef,

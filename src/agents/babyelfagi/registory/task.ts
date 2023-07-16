@@ -1,16 +1,12 @@
-import { AgentTask, Message } from '@/types';
 import _ from 'lodash';
+import { AgentTask, Message, TaskOutputs } from '@/types';
 import json from './example_objectives/example3.json';
 import { ChatOpenAI } from 'langchain/chat_models/openai';
 import { parseTasks } from '@/utils/task';
 import { HumanChatMessage, SystemChatMessage } from 'langchain/schema';
 import { getUserApiKey } from '@/utils/settings';
 import { translate } from '@/utils/translate';
-
-interface ExampleObjective {
-  objective: string;
-  examples: AgentTask[];
-}
+import { SkillRegistry } from './skill';
 
 export class TaskRegistry {
   tasks: AgentTask[];
@@ -88,25 +84,16 @@ export class TaskRegistry {
   async executeTask(
     i: number,
     task: AgentTask,
-    // skillRegistry: SkillRegistry,
-    taskOutputs: any,
+    taskOutputs: TaskOutputs,
     objective: string,
-  ): Promise<any> {
-    // let skill = skillRegistry.getSkill(task.skill);
-    // let dependentTaskOutputs: any = {};
-    // if (task.dependentTaskIds) {
-    //   for (let id of task.dependentTaskIds) {
-    //     if (id in taskOutputs) {
-    //       dependentTaskOutputs[id] = taskOutputs[id];
-    //     }
-    //   }
-    // }
-    // let taskOutput = await skill.execute(
-    //   task.task,
-    //   dependentTaskOutputs,
-    //   objective,
-    // );
-    // return [i, taskOutput];
+    skillRegistry: SkillRegistry,
+  ): Promise<string> {
+    const skill = skillRegistry.getSkill(task.skill ?? '');
+    const dependentTaskOutputs = task.dependentTaskIds
+      ? task.dependentTaskIds.map((id) => taskOutputs[id].output).join('\n')
+      : '';
+    let taskOutput = await skill.execute(task, dependentTaskOutputs, objective);
+    return taskOutput;
   }
 
   calculateSimilarity(embedding1: number[], embedding2: number[]): number {

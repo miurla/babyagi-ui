@@ -17,12 +17,7 @@ export class Printer {
     this.messageCallback(setupMessage('objective', objective));
 
     if (!this.verbose) return;
-    console.log(
-      '%c*****OBJECTIVE*****\n\n%c%s',
-      'color:fuchsia',
-      '',
-      objective,
-    );
+    console.log('%c*****OBJECTIVE*****\n%c%s', 'color:fuchsia', '', objective);
   }
 
   printNextTask(task: AgentTask) {
