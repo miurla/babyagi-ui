@@ -5,6 +5,7 @@
       "id": 1,
       "task": "Conduct a web search on Yohei Nakajima.",
       "skill": "web_search",
+      "icon": "🔎",
       "dependent_task_ids": [],
       "status": "incomplete"
     },
@@ -12,6 +13,7 @@
       "id": 2,
       "task": "Conduct a follow-up web search on Yohei Nakajima.",
       "skill": "web_search",
+      "icon": "🔎",
       "dependent_task_ids": [1],
       "status": "incomplete"
     },
@@ -19,6 +21,7 @@
       "id": 3,
       "task": "Conduct a web search on Untapped Capital",
       "skill": "web_search",
+      "icon": "🔎",
       "dependent_task_ids": [],
       "status": "incomplete"
     },
@@ -26,6 +29,7 @@
       "id": 4,
       "task": "Conduct a follow-up web search on Untapped Capital",
       "skill": "web_search",
+      "icon": "🔎",
       "dependent_task_ids": [3],
       "status": "incomplete"
     },
@@ -33,6 +37,7 @@
       "id": 5,
       "task": "Analyze the findings from the web search on Yohei Nakajima and summarize his key contributions and areas of expertise.",
       "skill": "text_completion",
+      "icon": "🤖",
       "dependent_task_ids": [1, 2],
       "status": "incomplete"
     },
@@ -40,6 +45,7 @@
       "id": 6,
       "task": "Analyze the findings from the web search on Untapped Capital and summarize their investment strategies and notable portfolio companies.",
       "skill": "text_completion",
+      "icon": "🤖",
       "dependent_task_ids": [3, 4],
       "status": "incomplete"
     },
@@ -47,6 +53,7 @@
       "id": 7,
       "task": "Combine the analyses of Yohei Nakajima and Untapped Capital to provide an overview of their collaboration or mutual interests.",
       "skill": "text_completion",
+      "icon": "🤖",
       "dependent_task_ids": [5, 6],
       "status": "incomplete"
     }

@@ -5,6 +5,7 @@
       "id": 1,
       "task": "Read the code in text_completion.py using the code_reader skill to understand its structure and concepts.",
       "skill": "code_reader",
+      "icon": "📖",
       "dependent_task_ids": [],
       "status": "incomplete"
     },
@@ -12,6 +13,7 @@
       "id": 2,
       "task": "Write a new skill that uses the concepts from text_completion.py to generate a poem based on user input.",
       "skill": "text_completion",
+      "icon": "🤖",
       "dependent_task_ids": [1],
       "status": "incomplete"
     },
@@ -19,6 +21,7 @@
       "id": 3,
       "task": "Save the newly created skill using the skill_saver skill for future use.",
       "skill": "skill_saver",
+      "icon": "💾",
       "dependent_task_ids": [2],
       "status": "incomplete"
     }

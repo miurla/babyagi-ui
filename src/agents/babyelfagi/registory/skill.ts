@@ -69,7 +69,7 @@ export class SkillRegistry {
 
   getSkillDescriptions(): string {
     return Object.values(this.skills)
-      .map((skill) => `${skill.name}: ${skill.description}`)
+      .map((skill) => `${skill.icon} ${skill.name}: ${skill.description}`)
       .join(',');
   }
 }

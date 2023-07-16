@@ -1,12 +1,12 @@
 import _ from 'lodash';
 import { AgentTask, Message, TaskOutputs } from '@/types';
-import json from './example_objectives/example3.json';
 import { ChatOpenAI } from 'langchain/chat_models/openai';
 import { parseTasks } from '@/utils/task';
 import { HumanChatMessage, SystemChatMessage } from 'langchain/schema';
 import { getUserApiKey } from '@/utils/settings';
 import { translate } from '@/utils/translate';
 import { SkillRegistry } from './skill';
+import { findMostRelevantObjective } from '@/utils/objective';
 
 export class TaskRegistry {
   tasks: AgentTask[];
@@ -23,8 +23,9 @@ export class TaskRegistry {
     messageCallback?: (message: Message) => void,
     abortController?: AbortController,
   ): Promise<void> {
-    const exapmleObjective = json.objective;
-    const exampleTaskList = json.examples;
+    const relevantObjective = await findMostRelevantObjective(objective);
+    const exapmleObjective = relevantObjective.objective;
+    const exampleTaskList = relevantObjective.examples;
     const prompt = `
     You are an expert task list creation AI tasked with creating a  list of tasks as a JSON array, considering the ultimate objective of your team: ${objective}.
     Create a very short task list based on the objective, the final output of the last task will be provided back to the user. Limit tasks types to those that can be completed with the available skills listed below. Task description should be detailed.###
@@ -96,15 +97,6 @@ export class TaskRegistry {
     return taskOutput;
   }
 
-  calculateSimilarity(embedding1: number[], embedding2: number[]): number {
-    let sum = _.zip(embedding1, embedding2)
-      .filter(([x, y]) => x !== undefined && y !== undefined)
-      .reduce((sum: number, [x, y]) => sum + (x as number) * (y as number), 0);
-    let mag1 = Math.sqrt(_.sum(embedding1.map((x: number) => x * x)));
-    let mag2 = Math.sqrt(_.sum(embedding2.map((x: number) => x * x)));
-    return sum / (mag1 * mag2);
-  }
-
   getTasks(): AgentTask[] {
     return this.tasks;
   }
@@ -133,12 +125,101 @@ export class TaskRegistry {
     this.tasks = _.sortBy(this.tasks, ['priority', 'task_id']);
   }
 
-  // *** TODO: Implement reflectOnOutput in TypeScript *** //
   async reflectOnOutput(
-    taskOutput: any,
+    objective: string,
+    taskOutput: string,
     skillDescriptions: string,
-  ): Promise<void> {
-    // This method involves significant logic in the Python version and would require a careful conversion.
-    // For now, it's just a placeholder to show where this method would go.
+  ): Promise<[AgentTask[], number[], AgentTask[]]> {
+    const example = [
+      [
+        {
+          id: 3,
+          task: 'New task 1 description',
+          skill: 'text_completion_skill',
+          icon: '🤖',
+          dependent_task_ids: [],
+          status: 'complete',
+        },
+        {
+          id: 4,
+          task: 'New task 2 description',
+          skill: 'text_completion_skill',
+          icon: '🤖',
+          dependent_task_ids: [],
+          status: 'incomplete',
+        },
+      ],
+      [2, 3],
+      [
+        {
+          id: 5,
+          task: 'Complete the objective and provide a final report',
+          skill: 'text_completion_skill',
+          icon: '🤖',
+          dependent_task_ids: [1, 2, 3, 4],
+          status: 'incomplete',
+        },
+      ],
+    ];
+
+    const prompt = `You are an expert task manager, review the task output to decide at least one new task to add.
+  As you add a new task, see if there are any tasks that need to be updated (such as updating dependencies).
+  Use the current task list as reference. 
+  considering the ultimate objective of your team: ${objective}. 
+  Do not add duplicate tasks to those in the current task list.
+  Only provide JSON as your response without further comments.
+  Every new and updated task must include all variables, even they are empty array.
+  Dependent IDs must be smaller than the ID of the task.
+  New tasks IDs should be no larger than the last task ID.
+  Always select at least one skill.
+  Task IDs should be unique and in chronological order.
+  Do not change the status of complete tasks.
+  Only add skills from the AVAILABLE SKILLS, using the exact same spelling.
+  Provide your array as a JSON array with double quotes. The first object is new tasks to add as a JSON array, the second array lists the ID numbers where the new tasks should be added after (number of ID numbers matches array), The number of elements in the first and second arrays will always be the same. 
+  And the third array provides the tasks that need to be updated.
+  Make sure to keep dependent_task_ids key, even if an empty array.
+  OBJECIVE: ${objective}.
+  AVAILABLE SKILLS: ${skillDescriptions}.
+  Here is the last task output: ${taskOutput}
+  Here is the current task list: ${JSON.stringify(this.tasks)}
+  EXAMPLE OUTPUT FORMAT = ${JSON.stringify(example)}
+  OUTPUT = `;
+
+    console.log(
+      '\nReflecting on task output to generate new tasks if necessary...\n',
+    );
+
+    const model = new ChatOpenAI({
+      openAIApiKey: getUserApiKey(),
+      modelName: 'gpt-3.5-turbo-16k',
+      temperature: 0.7,
+      maxTokens: 1500,
+      topP: 1,
+      frequencyPenalty: 0,
+      presencePenalty: 0,
+    });
+
+    const response = await model.call([
+      new SystemChatMessage('You are a task creation AI.'),
+      new HumanChatMessage(prompt),
+    ]);
+
+    const result = response.text;
+    console.log('\n' + result);
+
+    // Check if the returned result has the expected structure
+    if (typeof result === 'string') {
+      try {
+        const taskList = JSON.parse(result);
+        console.log(taskList);
+        return [taskList[0], taskList[1], taskList[2]];
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      throw new Error('Invalid task list structure in the output');
+    }
+
+    return [[], [], []];
   }
 }

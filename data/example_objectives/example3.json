@@ -5,7 +5,7 @@
       "id": 1,
       "task": "Conduct a web search on 'untapped.vc' to gather information about the company, its investments, and its impact in the startup ecosystem.",
       "skill": "web_search",
-      "icon": "🔍",
+      "icon": "🔎",
       "dependent_task_ids": [],
       "status": "incomplete"
     },
@@ -13,7 +13,7 @@
       "id": 2,
       "task": "Based on the results from the first web search, perform a follow-up web search to explore specific areas of interest or investment strategies of 'untapped.vc'.",
       "skill": "web_search",
-      "icon": "🔍",
+      "icon": "🔎",
       "dependent_task_ids": [1],
       "status": "incomplete"
     },

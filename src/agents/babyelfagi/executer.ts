@@ -1,4 +1,4 @@
-import { AgentStatus, AgentTask, Message, TaskOutputs } from '@/types'; // You need to define these types
+import { AgentStatus, Message, TaskOutputs } from '@/types'; // You need to define these types
 
 import { AgentExecuter } from '../base/AgentExecuter';
 import { SkillRegistry, TaskRegistry } from './registory';
@@ -80,20 +80,24 @@ export class BabyElfAGI extends AgentExecuter {
       const tasks = this.taskRegistry.getTasks();
 
       // Update taskOutputs to include new tasks
-      for (let i = 0; i < tasks.length; i++) {
-        const task = tasks[i];
+      tasks.forEach((task) => {
         if (!(task.id in taskOutputs)) {
           taskOutputs[task.id] = { completed: false, output: undefined };
         }
-      }
+      });
+
+      // Filter taskoutput not completed
+      const incompleteTasks = tasks.filter((task) => {
+        return !taskOutputs[task.id].completed;
+      });
 
       // Filter tasks that have all their dependencies completed
       const MaxExecutableTasks = 5;
-      const executableTasks = tasks
+      const executableTasks = incompleteTasks
         .filter((task) => {
           if (!task.dependentTaskIds) return true;
           return task.dependentTaskIds.every((id) => {
-            return taskOutputs[id]?.completed;
+            return taskOutputs[id]?.completed === true;
           });
         })
         .slice(0, MaxExecutableTasks);
@@ -124,10 +128,32 @@ export class BabyElfAGI extends AgentExecuter {
 
         // Reflect on the output of the tasks and possibly add new tasks or update existing ones
         if (REFLECTION) {
-          //   let newTasks = this.taskRegistry.reflectOnOutput(output, '');
-          //   for (let newTask of newTasks) {
-          //     this.taskRegistry.addTask(newTask, 0);
-          //   }
+          const skillDescriptions = this.skillRegistry.getSkillDescriptions();
+          const [newTasks, insertAfterIds, tasksToUpdate] =
+            await this.taskRegistry.reflectOnOutput(
+              this.objective,
+              output,
+              skillDescriptions,
+            );
+
+          // Insert new tasks
+          for (let i = 0; i < newTasks.length; i++) {
+            const newTask = newTasks[i];
+            const afterId = insertAfterIds[i];
+            this.taskRegistry.addTask(newTask, afterId);
+          }
+
+          // Update existing tasks
+          for (const taskToUpdate of tasksToUpdate) {
+            this.taskRegistry.updateTasks({
+              id: taskToUpdate.id,
+              updates: taskToUpdate,
+            });
+          }
+
+          if (newTasks.length > 0 || tasksToUpdate.length > 0) {
+            this.printer.printTaskList(this.taskRegistry.tasks);
+          }
         }
       });
 

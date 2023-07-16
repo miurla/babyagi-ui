@@ -1,13 +1,12 @@
 import { AgentTask, Message } from '@/types';
-import { t } from 'i18next';
 
 export class Skill {
   name: string = 'base skill';
   description: string = 'This is the base skill.';
+  icon: string = '🛠️';
   apiKeysRequired: Array<string | Array<string>> = [];
   valid: boolean;
   apiKeys: { [key: string]: string };
-  icon: string = '🛠️';
   // for UI
   messageCallback: (message: Message) => void;
   abortController: AbortController;
