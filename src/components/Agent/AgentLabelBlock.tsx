@@ -2,7 +2,6 @@ import { MessageBlock } from '@/types';
 import { translate } from '@/utils/translate';
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import remarkGfm from 'remark-gfm';
-import { AgentMessageBlock } from './AgentMessageBlock';
 import AgentMessage from './AgentMessage';
 import { useEffect, useRef } from 'react';
 
@@ -12,19 +11,34 @@ export interface AgentLabelBlockProps {
 
 export const AgentLabelBlock: React.FC<AgentLabelBlockProps> = ({ block }) => {
   const message = block.messages[0];
-  const nextMessage = block.messages[1];
+  const nextMessage = block.messages?.[1];
   const linkRef = useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {
     if (message.type === 'final-result') {
-      const file = new Blob(['\uFEFF' + message.text], {
+      if (!nextMessage) return;
+
+      const file = new Blob(['\uFEFF' + nextMessage?.text], {
         type: 'text/plain;charset=utf-8',
       });
       const url = URL.createObjectURL(file);
       if (linkRef.current) {
         const link = linkRef.current;
         link.href = url;
-        link.download = 'session_summary.txt'; // ここでダウンロードするファイル名を指定します
+        link.download = 'session_summary.txt';
+      }
+
+      // If it's a development environment, save the file automatically.
+      if (process.env.NODE_ENV === 'development') {
+        fetch('/api/save-session-summary', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ text: nextMessage.text }),
+        })
+          .then((response) => response.json())
+          .then((data) => console.log(data));
       }
     }
   }, [nextMessage]);

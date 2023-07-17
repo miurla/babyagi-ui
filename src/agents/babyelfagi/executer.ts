@@ -164,7 +164,7 @@ export class BabyElfAGI extends AgentExecuter {
     this.messageCallback({
       type: 'final-result',
       text: lastTask.result ?? '',
-      title: 'Final task result',
+      title: 'Final Task Result',
       icon: '✍️',
       id: 9999,
     });

@@ -18,7 +18,7 @@ const getObjectivesExamples = async () => {
     let loadedObjectives: any[] = [];
 
     for (const jsonFile of jsonFiles) {
-      const response = await fetch(`/api/jsonProvider?file=${jsonFile}`);
+      const response = await fetch(`/api/json-provider?file=${jsonFile}`);
       const data = await response.json();
       loadedObjectives.push(data);
     }
