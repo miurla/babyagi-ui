@@ -1,5 +1,4 @@
 import { AgentStatus, Message, TaskOutputs } from '@/types'; // You need to define these types
-
 import { AgentExecuter } from '../base/AgentExecuter';
 import { SkillRegistry, TaskRegistry } from './registory';
 import { Configuration, textCompletion, webSearch } from './skills';
@@ -125,6 +124,7 @@ export class BabyElfAGI extends AgentExecuter {
           updates: { status: 'complete', result: output },
         });
         this.printer.printTaskOutput(output, task);
+        this.sessionSummary += `# ${task.id}: ${task.task}\n${output}\n\n`;
 
         // Reflect on the output of the tasks and possibly add new tasks or update existing ones
         if (REFLECTION) {
@@ -150,10 +150,6 @@ export class BabyElfAGI extends AgentExecuter {
               updates: taskToUpdate,
             });
           }
-
-          if (newTasks.length > 0 || tasksToUpdate.length > 0) {
-            this.printer.printTaskList(this.taskRegistry.tasks);
-          }
         }
       });
 
@@ -162,11 +158,25 @@ export class BabyElfAGI extends AgentExecuter {
     }
   }
 
-  // // Save session summary to a file
-  // fs.writeFileSync(
-  //   `output/output_${new Date().toISOString()}.txt`,
-  //   'summary',
-  // );
+  async finishup() {
+    const tasks = this.taskRegistry.getTasks();
+    const lastTask = tasks[tasks.length - 1];
+    this.messageCallback({
+      type: 'final-result',
+      text: lastTask.result ?? '',
+      title: 'Final task result',
+      icon: '✍️',
+      id: 9999,
+    });
+
+    this.messageCallback({
+      type: 'session-summary',
+      text: this.sessionSummary,
+      id: 9999,
+    });
+
+    super.finishup();
+  }
 
   currentStatusCallback = () => {
     const tasks = this.taskRegistry.getTasks();

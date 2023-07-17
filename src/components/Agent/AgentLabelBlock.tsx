@@ -4,6 +4,7 @@ import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import remarkGfm from 'remark-gfm';
 import { AgentMessageBlock } from './AgentMessageBlock';
 import AgentMessage from './AgentMessage';
+import { useEffect, useRef } from 'react';
 
 export interface AgentLabelBlockProps {
   block: MessageBlock;
@@ -11,9 +12,27 @@ export interface AgentLabelBlockProps {
 
 export const AgentLabelBlock: React.FC<AgentLabelBlockProps> = ({ block }) => {
   const message = block.messages[0];
+  const nextMessage = block.messages[1];
+  const linkRef = useRef<HTMLAnchorElement>(null);
+
+  useEffect(() => {
+    if (message.type === 'final-result') {
+      const file = new Blob(['\uFEFF' + message.text], {
+        type: 'text/plain;charset=utf-8',
+      });
+      const url = URL.createObjectURL(file);
+      if (linkRef.current) {
+        const link = linkRef.current;
+        link.href = url;
+        link.download = 'session_summary.txt'; // ここでダウンロードするファイル名を指定します
+      }
+    }
+  }, [nextMessage]);
+
   if (
     message.type !== 'objective' &&
     message.type !== 'complete' &&
+    message.type !== 'final-result' &&
     message.type !== 'task-list' &&
     message.type !== 'task-execute'
   )
@@ -31,9 +50,14 @@ export const AgentLabelBlock: React.FC<AgentLabelBlockProps> = ({ block }) => {
             {message.icon}
           </div>
           <div className="focus:border-1 prose prose-neutral w-full dark:prose-invert prose-pre:bg-neutral-200 prose-pre:text-black dark:prose-pre:bg-neutral-800 dark:prose-pre:text-white">
-            <ReactMarkdown
-              remarkPlugins={[remarkGfm]}
-            >{`### ${message.title}\n${message.text}`}</ReactMarkdown>
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+              {`### ${message.title}\n${message.text}`}
+            </ReactMarkdown>
+            {message.type === 'final-result' && (
+              <a ref={linkRef} download>
+                ⬇️ Download Session Summary
+              </a>
+            )}
           </div>
         </div>
       </div>

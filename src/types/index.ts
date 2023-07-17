@@ -63,7 +63,8 @@ export type MessageType =
   | 'failed'
   | 'sufficiency-result' // for mod
   | 'user-input' // for babydeeragi
-  | 'task-execute'; // for babydeeragi;
+  | 'task-execute' // for babydeeragi;
+  | 'final-result';
 
 export type AgentStatusType =
   | 'preparing'
