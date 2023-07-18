@@ -102,6 +102,7 @@ export type ToolType =
 export type TaskStatus = 'complete' | 'incomplete' | 'running';
 
 export interface AgentTask {
+  parameters: { filename: any };
   id: number;
   task: string;
   tool: ToolType;

@@ -1,7 +1,15 @@
 import { AgentStatus, Message, TaskOutputs } from '@/types'; // You need to define these types
 import { AgentExecuter } from '../base/AgentExecuter';
 import { SkillRegistry, TaskRegistry } from './registory';
-import { Configuration, textCompletion, webSearch } from './skills';
+import {
+  CodeReader,
+  Configuration,
+  DirectoryStructure,
+  ObjectiveSaver,
+  SkillSaver,
+  TextCompletion,
+  WebSearch,
+} from './skills';
 import { Skill } from './skills/skill';
 import { getUserApiKey } from '@/utils/settings';
 
@@ -31,7 +39,14 @@ export class BabyElfAGI extends AgentExecuter {
       verbose,
     );
 
-    const skillClasses: (typeof Skill)[] = [textCompletion, webSearch]; // You need to define these skills
+    const skillClasses: (typeof Skill)[] = [
+      TextCompletion,
+      WebSearch,
+      CodeReader,
+      SkillSaver,
+      DirectoryStructure,
+      ObjectiveSaver,
+    ]; // You need to define these skills
     const apiKeys = { openai: getUserApiKey() || '' };
     const config = new Configuration({ skillClasses, apiKeys });
     this.abortController = new AbortController();

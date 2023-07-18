@@ -70,7 +70,7 @@ export class Skill {
 
   execute(
     task: AgentTask,
-    dependentTaskOutputs: any,
+    dependentTaskOutputs: string,
     objective: string,
   ): Promise<string> {
     // This method should be overridden by subclasses

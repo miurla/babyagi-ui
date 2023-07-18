@@ -1,10 +1,10 @@
-import { Skill } from './skill';
 import { AgentTask } from '@/types';
 import { webBrowsing } from '@/agents/babydeeragi/tools/webBrowsing';
+import { Skill } from '../skill';
 
 // This skill is Specialized for web browsing
 // using webBrowsing tool in babydeeragi
-export class webSearch extends Skill {
+export class WebSearch extends Skill {
   name = 'web_search';
   description = 'A tool that performs web searches.';
   apiKeysRequired = [];

@@ -11,7 +11,7 @@
     },
     {
       "id": 2,
-      "task": "Read the code in text_completion.py using the code_reader skill to understand its structure and concepts.",
+      "task": "Read the code in textCompletion.ts using the code_reader skill to understand its structure and concepts.",
       "skill": "code_reader",
       "icon": "📖",
       "dependent_task_ids": [],
@@ -19,7 +19,7 @@
     },
     {
       "id": 3,
-      "task": "Write a new skill that combines the concepts from text_completion.py and the code examples for free weather APIs to implement weather lookup based on a location input.",
+      "task": "Write a new skill that combines the concepts from textCompletion.ts and the code examples for free weather APIs to implement weather lookup based on a location input.",
       "skill": "text_completion",
       "icon": "🤖",
       "dependent_task_ids": [2, 1],

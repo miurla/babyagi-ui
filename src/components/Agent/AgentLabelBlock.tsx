@@ -30,7 +30,7 @@ export const AgentLabelBlock: React.FC<AgentLabelBlockProps> = ({ block }) => {
 
       // If it's a development environment, save the file automatically.
       if (process.env.NODE_ENV === 'development') {
-        fetch('/api/save-session-summary', {
+        fetch('/api/local/save-session-summary', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

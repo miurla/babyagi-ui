@@ -3,6 +3,11 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import path from 'path';
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
+  if (process.env.NODE_ENV !== 'development') {
+    res.status(403).json({ error: 'Access is forbidden in this environment' });
+    return;
+  }
+
   if (req.method === 'POST') {
     const text = req.body.text;
     const date = new Date().toISOString().replace(/[:.]/g, '-'); // Get current date and time in YYYY-MM-DDTHH-MM-SS-SSS format

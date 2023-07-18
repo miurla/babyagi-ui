@@ -1,10 +1,10 @@
 import { ChatOpenAI } from 'langchain/chat_models/openai';
-import { Skill } from './skill';
 import { HumanChatMessage } from 'langchain/schema';
 import { AgentTask } from '@/types';
 import { setupMessage } from '@/utils/message';
+import { Skill } from '../skill';
 
-export class textCompletion extends Skill {
+export class TextCompletion extends Skill {
   name = 'text_completion';
   description =
     "A tool that uses OpenAI's text completion API to generate, summarize, and/or analyze text and code.";
@@ -13,12 +13,12 @@ export class textCompletion extends Skill {
 
   async execute(
     task: AgentTask,
-    dependentTaskOutputs: any,
+    dependentTaskOutputs: string,
     objective: string,
   ): Promise<string> {
     if (!this.valid) return '';
 
-    const taskPrompt = `Complete your assigned task based on the objective and only based on information provided in the dependent task output, if provided. \n###
+    const prompt = `Complete your assigned task based on the objective and only based on information provided in the dependent task output, if provided. \n###
     Your objective: ${objective}. \n###
     Your task: ${task} \n###
     Dependent tasks output: ${dependentTaskOutputs}  ###
@@ -27,6 +27,7 @@ export class textCompletion extends Skill {
 
     let chunk = '';
     const messageCallnback = this.messageCallback;
+
     const llm = new ChatOpenAI(
       {
         openAIApiKey: this.apiKeys.openai,
@@ -52,8 +53,7 @@ export class textCompletion extends Skill {
     );
 
     try {
-      const response = await llm.call([new HumanChatMessage(taskPrompt)]);
-      //
+      const response = await llm.call([new HumanChatMessage(prompt)]);
       messageCallnback?.(
         setupMessage('task-output', response.text, undefined, '✅', task.id),
       );
