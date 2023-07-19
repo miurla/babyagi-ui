@@ -8,7 +8,7 @@ export interface SkillsListProps {
 
 export const SkillsList: FC<SkillsListProps> = ({ skills }) => {
   return (
-    <div className="mx-auto flex w-full flex-col gap-1 p-4 lg:w-2/3 xl:w-2/4">
+    <div className="mx-auto flex w-full flex-col gap-1 p-4 lg:w-2/3 xl:w-1/2">
       <div className="flex gap-1 text-xs text-neutral-400 dark:text-neutral-500">
         <span>Available Skills</span>
         <span>{`(${skills.length})`}</span>

@@ -5,7 +5,7 @@ import { parseTasks } from '@/utils/task';
 import { HumanChatMessage, SystemChatMessage } from 'langchain/schema';
 import { getUserApiKey } from '@/utils/settings';
 import { translate } from '@/utils/translate';
-import { SkillRegistry } from './skill';
+import { SkillRegistry } from './skillRegistry';
 import { findMostRelevantObjective } from '@/utils/objective';
 
 export class TaskRegistry {

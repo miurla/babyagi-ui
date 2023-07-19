@@ -40,8 +40,8 @@ export const SkillCard: FC<SkillProps> = ({ skill }) => {
           'bg-neutral-100 dark:bg-neutral-800',
         )}
       >
-        <HoverCard.Arrow className=" fill-neutral-100 text-neutral-50 dark:text-neutral-800" />
-        <div className="flex h-full w-full space-x-4 font-sans">
+        <HoverCard.Arrow className=" fill-neutral-100  dark:fill-neutral-800" />
+        <div className="flex h-full w-full space-x-4 font-sans text-neutral-50 dark:text-neutral-300">
           <div>{skill.description}</div>
         </div>
       </HoverCard.Content>

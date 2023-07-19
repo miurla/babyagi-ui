@@ -1,2 +1,2 @@
-export * from './skill';
-export * from './task';
+export * from './skillRegistry';
+export * from './taskRegistry';

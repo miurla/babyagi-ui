@@ -44,13 +44,14 @@ export const AGENT = [
     name: 'BabyElfAGI',
     icon: '🧝',
     message: '',
-    badge: 'NEW',
+    badge: 'BETA',
   },
   {
     id: 'babydeeragi',
     name: 'BabyDeerAGI',
     icon: '🦌',
     message: '🤖/🔎+📄/🧑‍💻',
+    badge: 'STABLE',
   },
   {
     id: 'babycatagi',
