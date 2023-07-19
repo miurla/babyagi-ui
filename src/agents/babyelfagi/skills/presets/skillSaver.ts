@@ -5,11 +5,12 @@ import { HumanChatMessage } from 'langchain/schema';
 import { Skill } from '../skill';
 
 export class SkillSaver extends Skill {
-  name = 'skill_saver';
-  description =
+  static skillName = 'skill_saver';
+  static skillDescription =
     'A skill that saves code written in a previous step into a file within the skills folder. Not for writing code.';
+  static skillIcon = '💾';
+  static skillType = 'dev';
   apiKeysRequired = ['openai'];
-  icon = '💾';
 
   async execute(
     task: AgentTask,

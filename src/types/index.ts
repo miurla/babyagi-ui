@@ -129,3 +129,10 @@ export type TaskOutput = {
 export type TaskOutputs = {
   [id: number]: TaskOutput;
 };
+
+export type SkillInfo = {
+  name: string;
+  description: string;
+  icon: string;
+  badge?: string;
+};

@@ -50,7 +50,9 @@ export class SkillRegistry {
     let skillInfo = Object.values(this.skills)
       .map((skill) => `${skill.icon} ${skill.name}: ${skill.description}`)
       .join('\n');
-    console.log(skillInfo);
+    if (this.verbose) {
+      console.log(`Loaded skills:\n${skillInfo}`);
+    }
   }
 
   getSkill(skillName: string): Skill {

@@ -39,14 +39,7 @@ export class BabyElfAGI extends AgentExecuter {
       verbose,
     );
 
-    const skillClasses: (typeof Skill)[] = [
-      TextCompletion,
-      WebSearch,
-      CodeReader,
-      SkillSaver,
-      DirectoryStructure,
-      ObjectiveSaver,
-    ]; // You need to define these skills
+    const skillClasses: (typeof Skill)[] = BabyElfAGI.getSkillClasses();
     const apiKeys = { openai: getUserApiKey() || '' };
     const config = new Configuration({ skillClasses, apiKeys });
     this.abortController = new AbortController();
@@ -59,6 +52,17 @@ export class BabyElfAGI extends AgentExecuter {
     );
     this.taskRegistry = new TaskRegistry();
     this.sessionSummary = '';
+  }
+
+  // You need to define this method
+  static getSkillClasses(): (typeof Skill)[] {
+    // This skills is the default skill
+    const skills: (typeof Skill)[] = [TextCompletion, WebSearch];
+    if (process.env.NODE_ENV === 'development') {
+      // These skills are only available in development mode
+      skills.push(CodeReader, SkillSaver, DirectoryStructure, ObjectiveSaver);
+    }
+    return skills;
   }
 
   async prepare() {

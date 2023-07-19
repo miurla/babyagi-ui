@@ -7,6 +7,7 @@ import {
   Message,
   MessageBlock,
   SelectItem,
+  SkillInfo,
   UserSettings,
 } from '@/types';
 import { Input } from './Input';
@@ -36,6 +37,9 @@ import { AgentMessageBlock } from './AgentMessageBlock';
 import { AgentTask } from './AgentTask';
 import { IntroGuide } from './IntroGuide';
 import { BabyElfAGI } from '@/agents/babyelfagi/executer';
+import { SkillsList } from './SkillList';
+import { title } from 'process';
+import { Skill } from '@/agents/babyelfagi/skills';
 
 export const Agent: FC = () => {
   const [model, setModel] = useState<SelectItem>(MODELS[1]);
@@ -430,6 +434,24 @@ export const Agent: FC = () => {
     return undefined;
   };
 
+  const skills = () => {
+    console.log('skills');
+    if (selectedAgent.id === 'babyelfagi') {
+      const skills = BabyElfAGI.getSkillClasses();
+      const skillInfos = skills.map((skill) => {
+        const skillInfo = {
+          name: skill.skillName,
+          description: skill.skillDescription,
+          icon: skill.skillIcon,
+          badge: skill.skillType,
+        };
+        return skillInfo;
+      });
+      return skillInfos;
+    }
+    return [];
+  };
+
   return (
     <div className="overflow-none relative flex-1 bg-white dark:bg-black">
       {messageBlocks.length === 0 ? (
@@ -444,7 +466,10 @@ export const Agent: FC = () => {
             agent={selectedAgent}
             setAgent={setSelectedAgent}
           />
-          <div className="h-[calc(100vh-450px)]">
+          {selectedAgent.id === 'babyelfagi' && (
+            <SkillsList skills={skills()} />
+          )}
+          <div className="h-[calc(100vh-550px)]">
             <div className="flex h-full flex-col items-center justify-center gap-6 p-4">
               <ProjectTile />
               {executions.length > 5 &&

@@ -5,11 +5,12 @@ import { Skill } from '../skill';
 import { HumanChatMessage } from 'langchain/schema';
 
 export class ObjectiveSaver extends Skill {
-  name = 'objective_saver';
-  description =
+  static skillName = 'objective_saver';
+  static skillDescription =
     'A skill that saves a new example_objective based on the concepts from skillSaver.ts';
+  static skillIcon = '💽';
+  static skillType = 'dev';
   apiKeysRequired = ['openai'];
-  icon = '💽';
 
   async execute(
     task: AgentTask,

@@ -5,11 +5,11 @@ import { setupMessage } from '@/utils/message';
 import { Skill } from '../skill';
 
 export class TextCompletion extends Skill {
-  name = 'text_completion';
-  description =
+  static skillName = 'text_completion';
+  static skillDescription =
     "A tool that uses OpenAI's text completion API to generate, summarize, and/or analyze text and code.";
+  static skillIcon = '🤖';
   apiKeysRequired = ['openai'];
-  icon = '🤖';
 
   async execute(
     task: AgentTask,

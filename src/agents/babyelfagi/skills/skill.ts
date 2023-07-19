@@ -1,9 +1,10 @@
 import { AgentTask, Message } from '@/types';
 
 export class Skill {
-  name: string = 'base skill';
-  description: string = 'This is the base skill.';
-  icon: string = '🛠️';
+  static skillName: string = 'base skill';
+  static skillDescription: string = 'This is the base skill.';
+  static skillIcon: string = '🛠️';
+  static skillType: string = 'normal';
   apiKeysRequired: Array<string | Array<string>> = [];
   valid: boolean;
   apiKeys: { [key: string]: string };

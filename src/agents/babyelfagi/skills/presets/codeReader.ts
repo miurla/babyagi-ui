@@ -5,11 +5,12 @@ import { setupMessage } from '@/utils/message';
 import { HumanChatMessage } from 'langchain/schema';
 
 export class CodeReader extends Skill {
-  name = 'code_reader';
-  description =
+  static skillName = 'code_reader';
+  static skillDescription =
     "A skill that finds a file's location in its own program's directory and returns its contents.";
+  static skillIcon = '📖';
+  static skillType = 'dev';
   apiKeysRequired = ['openai'];
-  icon = '📖';
 
   async execute(
     task: AgentTask,
