@@ -195,7 +195,7 @@ export const Agent: FC = () => {
     setMessages([]);
     setExecuting(true);
     const execution = await saveNewData();
-    const verbose = true; // You can set this to true to see the agent's internal state
+    const verbose = false; // You can set this to true to see the agent's internal state
 
     // switch agent
     let agent = null;
