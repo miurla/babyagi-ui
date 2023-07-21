@@ -19,5 +19,7 @@
   "EXAMPLE_OBJECTIVE_1": "Schreiben Sie einen Wetterbericht für die nächsten 3 Tage in Paris.",
   "EXAMPLE_OBJECTIVE_2": "Untersuchen Sie das Modell gpt-3.5-turbo-0613",
   "EXAMPLE_OBJECTIVE_3": "Melden Sie die neuesten Nachrichten in der Lieblingskategorie des Benutzers.",
-  "EXAMPLES": "Beispiele"
+  "EXAMPLES": "Beispiele",
+  "EXAMPLE_OBJECTIVE_4": "Schreiben Sie einen Bericht darüber, was BabyAGI ist. Fügen Sie dem Bericht einen YouTube-Link hinzu.",
+  "EXAMPLE_OBJECTIVE_5": "Basierend auf skillSaver.ts, schreiben Sie eine neue Fähigkeit namens airtableSaver.ts, die die Airtable API verwendet, um Daten in eine bestimmte Tabelle einzufügen."
 }

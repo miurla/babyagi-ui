@@ -27,5 +27,7 @@
   "TASK_FAILED_MESSAGE": "Eșec la executarea sarcinii. Vă rugăm să verificați jurnalul sarcinii.",
   "OUTPUT_SUFFICIENCY": "Suficiența ieșirii",
   "SUFFICIENCY": "Verificând suficiența rezultatelor sarcinii...",
-  "USER_INPUT_WAITING": "Așteptăm intrarea dvs..."
+  "USER_INPUT_WAITING": "Așteptăm intrarea dvs...",
+  "FINAL_TASK_RESULT": "Rezultatul final al sarcinii",
+  "DOWNLOAD_SESSION_SUMMARY": "Descărcați rezumatul sesiunii"
 }

@@ -27,5 +27,7 @@
   "TASK_FAILED_MESSAGE": "فشل تنفيذ المهمة. يرجى التحقق من سجل المهمة.",
   "OUTPUT_SUFFICIENCY": "الكفاية الانتاجية",
   "SUFFICIENCY": "التحقق من كفاية نتائج المهمة...",
-  "USER_INPUT_WAITING": "في انتظار إدخالك..."
+  "USER_INPUT_WAITING": "في انتظار إدخالك...",
+  "FINAL_TASK_RESULT": "نتيجة المهمة النهائية",
+  "DOWNLOAD_SESSION_SUMMARY": "تنزيل ملخص الجلسة"
 }

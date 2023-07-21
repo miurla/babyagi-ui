@@ -8,7 +8,7 @@
 BabyAGI UI is designed to make it easier to run and develop with [babyagi](https://github.com/yoheinakajima/babyagi) in a web app, like a ChatGPT.
 This is a port of [babyagi](https://github.com/yoheinakajima/babyagi) with [Langchain.js](https://github.com/hwchase17/langchainjs) and build a user interface.
 
-![](./public/images/screenshot-230625.png)
+![](./public/images/screenshot-230722.png)
 [Demo](https://twitter.com/miiura/status/1653026609606320130)
 
 ## 💡 Get help
@@ -37,6 +37,7 @@ This is a port of [babyagi](https://github.com/yoheinakajima/babyagi) with [Lang
 - [x] Collapsible Sidebar ⏩️
 - [x] User input & parallel tasking. ([🦌 BabyDeerAGI](https://twitter.com/yoheinakajima/status/1666313838868992001))
 - [x] API updates support (gpt-3.5-turbo-0613/gpt-3.5-turbo-16k-0613/gpt-4-0613)
+- [x] Skills Class allows for easy skill creation ([🧝 BabyElfAGI](https://twitter.com/yoheinakajima/status/1678443482866933760))
 
 and more ...
 

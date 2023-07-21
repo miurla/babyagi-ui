@@ -27,5 +27,7 @@
   "TASK_FAILED_MESSAGE": "Mislykkedes at udføre opgaven. Kontroller venligst opgaveloggen.",
   "OUTPUT_SUFFICIENCY": "Udskriftstilstrækkelighed",
   "SUFFICIENCY": "Tjekker tilstrækkeligheden af opgaveoutput...",
-  "USER_INPUT_WAITING": "Afventer din input..."
+  "USER_INPUT_WAITING": "Afventer din input...",
+  "FINAL_TASK_RESULT": "Endelig opgave resultat",
+  "DOWNLOAD_SESSION_SUMMARY": "Download Session Summary\nHent sessionsoversigt"
 }

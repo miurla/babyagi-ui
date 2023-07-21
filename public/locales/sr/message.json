@@ -27,5 +27,7 @@
   "TASK_FAILED_MESSAGE": "Neuspešno izvršavanje zadatka. Molimo proverite zapisnik zadatka.",
   "OUTPUT_SUFFICIENCY": "Do-voljnost izlaza",
   "SUFFICIENCY": "Provera zadatog broja izlaznih podataka...",
-  "USER_INPUT_WAITING": "Čekam vaš unos..."
+  "USER_INPUT_WAITING": "Čekam vaš unos...",
+  "FINAL_TASK_RESULT": "Konačni rezultat zadatka",
+  "DOWNLOAD_SESSION_SUMMARY": "Преузмите резиме сесије"
 }

@@ -27,5 +27,7 @@
   "TASK_FAILED_MESSAGE": "Naloga ni uspela. Prosimo, preverite dnevnik opravila.",
   "OUTPUT_SUFFICIENCY": "Izpis zadostnosti.",
   "SUFFICIENCY": "Preveri zadostnost izhodne naloge...",
-  "USER_INPUT_WAITING": "Čakamo na vaš vnos..."
+  "USER_INPUT_WAITING": "Čakamo na vaš vnos...",
+  "FINAL_TASK_RESULT": "Končni rezultat naloge",
+  "DOWNLOAD_SESSION_SUMMARY": "Prenesi povzetek seje"
 }

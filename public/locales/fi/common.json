@@ -20,5 +20,6 @@
   "THEME": "Teema",
   "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 Sinun on asetettava OpenAI API -avain asetusvalikossa.",
   "DARK_MODE": "Pimeä tila",
-  "LIGHT_MODE": "Valotila"
+  "LIGHT_MODE": "Valotila",
+  "AVAILABLE_SKILLS": "Saatavilla olevat taidot"
 }

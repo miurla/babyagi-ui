@@ -20,5 +20,6 @@
   "THEME": "Teema",
   "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 Peate seadistusmenüüs määrama oma OpenAI API võtme.",
   "DARK_MODE": "Tume režiim",
-  "LIGHT_MODE": "Valge režiim"
+  "LIGHT_MODE": "Valge režiim",
+  "AVAILABLE_SKILLS": "Saadaval olevad oskused"
 }

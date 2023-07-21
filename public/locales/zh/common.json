@@ -20,5 +20,6 @@
   "THEME": "主题",
   "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 您必须在设置菜单中设置您的 OpenAI API 密钥。",
   "DARK_MODE": "暗黑模式",
-  "LIGHT_MODE": "Light mode\" 的中文翻译为：\"浅色模式"
+  "LIGHT_MODE": "Light mode\" 的中文翻译为：\"浅色模式",
+  "AVAILABLE_SKILLS": "可用技能"
 }

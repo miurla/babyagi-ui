@@ -3,6 +3,7 @@ import { translate } from './translate';
 export const SETTINGS_KEY = 'BABYAGIUI_SETTINGS';
 export const EXECUTIONS_KEY = 'BABYAGIUI_EXECUTIONS';
 export const STATE_KEY = 'BABYAGIUI_STATE';
+export const EXAMPLES_KEY = 'BABYAGIUI_EXAMPLES';
 
 export const MODELS = [
   {
@@ -39,11 +40,18 @@ export const BABYBEEAGI_ITERATIONS = [
 
 export const AGENT = [
   {
+    id: 'babyelfagi',
+    name: 'BabyElfAGI',
+    icon: '🧝',
+    message: '',
+    badge: 'BETA',
+  },
+  {
     id: 'babydeeragi',
     name: 'BabyDeerAGI',
     icon: '🦌',
     message: '🤖/🔎+📄/🧑‍💻',
-    badge: 'NEW',
+    badge: 'STABLE',
   },
   {
     id: 'babycatagi',

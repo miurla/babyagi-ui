@@ -27,5 +27,7 @@
   "TASK_FAILED_MESSAGE": "任务执行失败。请检查任务日志。",
   "OUTPUT_SUFFICIENCY": "输出充足性",
   "SUFFICIENCY": "检查任务输出是否充足...",
-  "USER_INPUT_WAITING": "等待您的输入..."
+  "USER_INPUT_WAITING": "等待您的输入...",
+  "FINAL_TASK_RESULT": "最终任务结果",
+  "DOWNLOAD_SESSION_SUMMARY": "下载会议摘要"
 }

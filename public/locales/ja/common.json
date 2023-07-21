@@ -20,5 +20,6 @@
   "THEME": "テーマ",
   "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 設定メニューで OpenAI API キーを設定する必要があります。",
   "DARK_MODE": "ダークモード",
-  "LIGHT_MODE": "ライトモード"
+  "LIGHT_MODE": "ライトモード",
+  "AVAILABLE_SKILLS": "利用可能なスキル"
 }

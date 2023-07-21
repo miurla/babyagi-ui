@@ -20,5 +20,6 @@
   "THEME": "Tema",
   "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 Du må angi OpenAI API-nøkkelen i innstillingsmenyen.",
   "DARK_MODE": "Mørk modus.",
-  "LIGHT_MODE": "Lys modus"
+  "LIGHT_MODE": "Lys modus",
+  "AVAILABLE_SKILLS": "Tilgjengelige ferdigheter"
 }

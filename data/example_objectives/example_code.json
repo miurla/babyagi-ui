@@ -1,0 +1,29 @@
+{
+  "objective": "Based on skillSaver.ts, write a new skill called objectiveSaver.ts which saves a new example_objective.",
+  "examples": [
+    {
+      "id": 1,
+      "task": "Look up the code in skillSaver.ts using the code_reader skill to understand its structure and concepts.",
+      "skill": "code_reader",
+      "icon": "📖",
+      "dependent_task_ids": [],
+      "status": "incomplete"
+    },
+    {
+      "id": 2,
+      "task": "Write a new skill called objectiveSaver.ts that saves a new example_objective based on the concepts from skillSaver.ts (use code_writer).",
+      "skill": "code_writer",
+      "icon": "✍️",
+      "dependent_task_ids": [1],
+      "status": "incomplete"
+    },
+    {
+      "id": 3,
+      "task": "Save the newly created example_objective using the skillSaver.ts skill for future use.",
+      "skill": "skill_saver",
+      "icon": "💾",
+      "dependent_task_ids": [2],
+      "status": "incomplete"
+    }
+  ]
+}

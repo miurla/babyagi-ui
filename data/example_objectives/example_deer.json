@@ -1,0 +1,37 @@
+{
+  "objective": "Look up AI news from today (May 27, 2023) and write a poem.",
+  "examples": [
+    {
+      "id": 1,
+      "task": "AI news today",
+      "skill": "web_search",
+      "icon": "🔎",
+      "dependent_task_ids": [],
+      "status": "incomplete"
+    },
+    {
+      "id": 2,
+      "task": "Summarize a news article",
+      "skill": "text_completion",
+      "icon": "🤖",
+      "dependent_task_ids": [1],
+      "status": "incomplete"
+    },
+    {
+      "id": 3,
+      "task": "Pick up important news",
+      "skill": "text_completion",
+      "icon": "🤖",
+      "dependent_task_ids": [2],
+      "status": "incomplete"
+    },
+    {
+      "id": 4,
+      "task": "Final summary report",
+      "skill": "text_completion",
+      "icon": "🤖",
+      "dependent_task_ids": [1, 2, 3],
+      "status": "incomplete"
+    }
+  ]
+}

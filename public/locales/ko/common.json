@@ -20,5 +20,6 @@
   "THEME": "주제",
   "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 설정 메뉴에서 OpenAI API 키를 설정해야 합니다.",
   "DARK_MODE": "다크 모드",
-  "LIGHT_MODE": "라이트 모드"
+  "LIGHT_MODE": "라이트 모드",
+  "AVAILABLE_SKILLS": "사용 가능한 기술"
 }

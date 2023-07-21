@@ -27,5 +27,7 @@
   "TASK_FAILED_MESSAGE": "Fallo al ejecutar la tarea. Por favor revise el registro de la tarea.",
   "OUTPUT_SUFFICIENCY": "Suficiencia de salida",
   "SUFFICIENCY": "Comprobando la suficiencia de la salida de la tarea...",
-  "USER_INPUT_WAITING": "Esperando su entrada..."
+  "USER_INPUT_WAITING": "Esperando su entrada...",
+  "FINAL_TASK_RESULT": "Resultado de la Tarea Final",
+  "DOWNLOAD_SESSION_SUMMARY": "Descargar Resumen de Sesión"
 }

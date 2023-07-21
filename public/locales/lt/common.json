@@ -20,5 +20,6 @@
   "THEME": "Tema",
   "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 Nustatymų meniu turite nustatyti OpenAI API raktą.",
   "DARK_MODE": "Tamsusis režimas",
-  "LIGHT_MODE": "Šviesus režimas"
+  "LIGHT_MODE": "Šviesus režimas",
+  "AVAILABLE_SKILLS": "Turimi įgūdžiai"
 }

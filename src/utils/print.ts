@@ -17,7 +17,7 @@ export class Printer {
     this.messageCallback(setupMessage('objective', objective));
 
     if (!this.verbose) return;
-    console.log('%c*****OBJECTIVE*****\n\n%c', 'color:fuchsia', '');
+    console.log('%c*****OBJECTIVE*****\n%c%s', 'color:fuchsia', '', objective);
   }
 
   printNextTask(task: AgentTask) {
@@ -29,7 +29,7 @@ export class Printer {
     );
 
     if (!this.verbose) return;
-    console.log('%c*****NEXT TASK*****\n\n%c', 'color:fuchsia', '');
+    console.log('%c*****NEXT TASK*****\n%c', 'color:fuchsia', '');
     console.log(task);
   }
 
@@ -37,18 +37,28 @@ export class Printer {
     this.messageCallback(setupMessageWithTask(task));
 
     if (!this.verbose) return;
-    console.log('%c*****NEXT TASK*****\n\n%c', 'color:fuchsia', '');
+    console.log('%c*****NEXT TASK*****\n%c', 'color:fuchsia', '');
     console.log(task);
   }
 
   printTaskList(taskList: AgentTask[], id?: number) {
+    const useSkill = taskList[0].skill !== undefined;
     let message =
       '| ID | Status | Task  | Tool | Dependency | \n | :-: | :-: | - | :-: | :-: | \n';
+    if (useSkill) {
+      message =
+        '| ID | Status | Task  | Skill | Dependency | \n | :-: | :-: | - | :-: | :-: | \n';
+    }
+
     taskList.forEach((task) => {
       const dependentTask = task.dependentTaskIds
         ? `${task.dependentTaskIds.join(', ')}`
         : '-';
       const status = task.status === 'complete' ? '✅' : '⬜️';
+      if (useSkill) {
+        message += `| ${task.id} | ${status} | ${task.task} | ${task.icon} | ${dependentTask} |\n`;
+        return;
+      }
       message += `| ${task.id} | ${status} | ${task.task} | ${getToolIcon(
         task.tool,
       )} | ${dependentTask} |\n`;
@@ -59,8 +69,7 @@ export class Printer {
     );
 
     if (!this.verbose) return;
-    console.log('%c*****TASK LIST*****\n\n%c', 'color:fuchsia', '');
-    console.log(message);
+    console.log('%c*****TASK LIST*****\n%c%s', 'color:fuchsia', '', message);
   }
 
   printTaskOutput(output: string, task: AgentTask) {
@@ -73,21 +82,20 @@ export class Printer {
     );
 
     if (!this.verbose) return;
-    console.log('%c*****TASK OUTPUT*****\n\n%c', 'color:fuchsia', '');
-    console.log(output);
+    console.log('%c*****TASK OUTPUT*****\n%c%s', 'color:fuchsia', '', output);
   }
 
   printTaskCompleted() {
     this.messageCallback(setupMessage('done', 'Done!'));
 
     if (!this.verbose) return;
-    console.log('%c*****DONE*****\n\n%c', 'color:fuchsia', '');
+    console.log('%c*****DONE*****\n%c', 'color:fuchsia', '');
   }
 
   printAllTaskCompleted() {
     this.messageCallback(setupMessage('complete', 'All tasks completed!'));
 
     if (!this.verbose) return;
-    console.log('%c*****ALL TASK COMPLETED*****\n\n%c', 'color:fuchsia', '');
+    console.log('%c*****ALL TASK COMPLETED*****%c', 'color:fuchsia', '');
   }
 }

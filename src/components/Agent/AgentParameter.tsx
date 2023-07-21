@@ -31,7 +31,10 @@ export const AgentParameter: FC<AgentParameterProps> = ({
     let option: SelectItem[] = [];
     if (model.id !== 'gpt-4') {
       option = AGENT.filter(
-        (agent) => agent.id === 'babyagi' || agent.id === 'babydeeragi',
+        (agent) =>
+          agent.id === 'babyagi' ||
+          agent.id === 'babydeeragi' ||
+          agent.id === 'babyelfagi',
       );
     } else if (!getUserApiKey()) {
       // bui-mod-1 is only available for using client api key
@@ -77,18 +80,20 @@ export const AgentParameter: FC<AgentParameterProps> = ({
           />
         </div>
       )}
-      {agent.id !== 'babycatagi' && agent.id !== 'babydeeragi' && (
-        <div className="flex w-full flex-col">
-          <label className="mb-2 text-left text-xs text-neutral-400 dark:text-neutral-500">
-            {translate('FIRST_TASK')}
-          </label>
-          <input
-            className="w-full rounded-lg border border-neutral-200 p-3 text-neutral-600 focus:outline-none dark:border-neutral-600 dark:bg-neutral-800 dark:text-white"
-            value={firstTask}
-            onChange={(e) => setFirstTask(e.target.value)}
-          ></input>
-        </div>
-      )}
+      {agent.id !== 'babycatagi' &&
+        agent.id !== 'babydeeragi' &&
+        agent.id !== 'babyelfagi' && (
+          <div className="flex w-full flex-col">
+            <label className="mb-2 text-left text-xs text-neutral-400 dark:text-neutral-500">
+              {translate('FIRST_TASK')}
+            </label>
+            <input
+              className="w-full rounded-lg border border-neutral-200 p-3 text-neutral-600 focus:outline-none dark:border-neutral-600 dark:bg-neutral-800 dark:text-white"
+              value={firstTask}
+              onChange={(e) => setFirstTask(e.target.value)}
+            ></input>
+          </div>
+        )}
     </div>
   );
 };

@@ -27,5 +27,7 @@
   "TASK_FAILED_MESSAGE": "נכשל בביצוע המשימה. יש לבדוק את לוג המשימה.",
   "OUTPUT_SUFFICIENCY": "כדיון פליטה",
   "SUFFICIENCY": "בודק את המספיקות של פלט המשימה...",
-  "USER_INPUT_WAITING": "ממתין לקלט שלך..."
+  "USER_INPUT_WAITING": "ממתין לקלט שלך...",
+  "FINAL_TASK_RESULT": "תוצאת המטלה הסופית",
+  "DOWNLOAD_SESSION_SUMMARY": "הורד סיכום המפגש"
 }

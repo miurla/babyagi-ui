@@ -27,5 +27,7 @@
   "TASK_FAILED_MESSAGE": "Falha ao executar tarefa. Por favor, verifique o log de tarefas.",
   "OUTPUT_SUFFICIENCY": "Suficiência de Saída",
   "SUFFICIENCY": "Chekando se a saída da tarefa é suficiente...",
-  "USER_INPUT_WAITING": "Aguardando sua entrada..."
+  "USER_INPUT_WAITING": "Aguardando sua entrada...",
+  "FINAL_TASK_RESULT": "Resultado da tarefa final",
+  "DOWNLOAD_SESSION_SUMMARY": "Baixe o Resumo da Sessão"
 }

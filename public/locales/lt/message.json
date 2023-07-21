@@ -27,5 +27,7 @@
   "TASK_FAILED_MESSAGE": "Nepavyko vykdyti užduoties. Prašome patikrinti užduoties žurnalą.",
   "OUTPUT_SUFFICIENCY": "Pridėtinio rodiklio pakankamumas",
   "SUFFICIENCY": "Tikrinamas užduoties rezultatų pakankamumas...",
-  "USER_INPUT_WAITING": "Laukiu jūsų įvesties..."
+  "USER_INPUT_WAITING": "Laukiu jūsų įvesties...",
+  "FINAL_TASK_RESULT": "Galutinio užduoties rezultatas",
+  "DOWNLOAD_SESSION_SUMMARY": "Atsisiųstų sesijos suvestinių"
 }

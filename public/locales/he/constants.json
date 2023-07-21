@@ -19,5 +19,7 @@
   "EXAMPLE_OBJECTIVE_1": "כתוב דוח מזג האוויר לשלושת הימים הבאים בפריז",
   "EXAMPLE_OBJECTIVE_2": "חקור את הדגם gpt-3.5-turbo-0613",
   "EXAMPLE_OBJECTIVE_3": "דווח על אחרונות בקטגוריה המועדפת של המשתמש",
-  "EXAMPLES": "דוגמאות"
+  "EXAMPLES": "דוגמאות",
+  "EXAMPLE_OBJECTIVE_4": "כתוב דוח על מהי BabyAGI. כלול קישור ל- Youtube בדוח.",
+  "EXAMPLE_OBJECTIVE_5": "על פי skillSaver.ts, כתבו מיומנות חדשה בשם airtableSaver.ts שמשתמשת ב- API של Airtable כדי להכניס נתונים לטבלה מסוימת."
 }

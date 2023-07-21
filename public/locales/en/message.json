@@ -27,5 +27,7 @@
   "TASK_FAILED_MESSAGE": "Failed to execute task. Please check the task log.",
   "OUTPUT_SUFFICIENCY": "Output Sufficiency",
   "SUFFICIENCY": "Checking task output sufficiency...",
-  "USER_INPUT_WAITING": "Waiting for your input..."
+  "USER_INPUT_WAITING": "Waiting for your input...",
+  "FINAL_TASK_RESULT": "Final Task Result",
+  "DOWNLOAD_SESSION_SUMMARY": "Download Session Summary"
 }

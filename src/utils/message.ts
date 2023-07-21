@@ -117,19 +117,22 @@ export const setupMessage = (
 };
 
 export const setupMessageWithTask = (task: AgentTask): Message => {
+  const skillIcon = task.skill ? task.icon ?? '🛠️' : undefined;
+  const toolIcon =
+    task.tool === 'web-search'
+      ? '🔍'
+      : task.tool === 'web-scrape'
+      ? '📄'
+      : task.tool === 'text-completion'
+      ? '🤖'
+      : task.tool === 'user-input'
+      ? '🧑‍💻'
+      : '👉';
+
   return {
     text: `${task.id}. ${task.task}`,
     type: 'next-task',
-    icon:
-      task.tool === 'web-search'
-        ? '🔍'
-        : task.tool === 'web-scrape'
-        ? '📄'
-        : task.tool === 'text-completion'
-        ? '🤖'
-        : task.tool === 'user-input'
-        ? '🧑‍💻'
-        : '👉',
+    icon: skillIcon ?? toolIcon,
     title: translate('NEXT_TASK', 'message'),
     id: task.id,
     dependentTaskIds: task.dependentTaskIds,

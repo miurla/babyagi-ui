@@ -20,5 +20,6 @@
   "THEME": "Temat",
   "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 Musisz ustawić swój klucz API OpenAI w menu ustawień.",
   "DARK_MODE": "Tryb ciemny",
-  "LIGHT_MODE": "Tryb jasny"
+  "LIGHT_MODE": "Tryb jasny",
+  "AVAILABLE_SKILLS": "Dostępne umiejętności"
 }

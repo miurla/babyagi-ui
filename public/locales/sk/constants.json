@@ -19,5 +19,7 @@
   "EXAMPLE_OBJECTIVE_1": "Napíšte predpoveď počasia pre nasledujúce 3 dni v Paríži.",
   "EXAMPLE_OBJECTIVE_2": "Preskúmajte model gpt-3.5-turbo-0613",
   "EXAMPLE_OBJECTIVE_3": "Nahláste najnovšie správy v obľúbenej kategórii používateľa.",
-  "EXAMPLES": "Príklady"
+  "EXAMPLES": "Príklady",
+  "EXAMPLE_OBJECTIVE_4": "Napíšte správu o tom, čo je BabyAGI. Do správy zahrňte odkaz na Youtube.",
+  "EXAMPLE_OBJECTIVE_5": "Na základe súboru skillSaver.ts napíšte novú funkciu s názvom airtableSaver.ts, ktorá používa Airtable API na vloženie údajov do konkrétnej tabuľky."
 }

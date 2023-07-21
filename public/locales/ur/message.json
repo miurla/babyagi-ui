@@ -27,5 +27,7 @@
   "TASK_FAILED_MESSAGE": "کام کو انجام دینے میں ناکامی ہوئی۔ براہ کرم ٹاسک لاگ کو چیک کریں۔",
   "OUTPUT_SUFFICIENCY": "آؤٹپٹ کافیت",
   "SUFFICIENCY": "ٹاسک اخراج کے کافی مراقبت کرنا ...",
-  "USER_INPUT_WAITING": "آپ کا ان پٹ کا انتظار ہے۔.."
+  "USER_INPUT_WAITING": "آپ کا ان پٹ کا انتظار ہے۔..",
+  "FINAL_TASK_RESULT": "آخری ٹاسک نتیجہ",
+  "DOWNLOAD_SESSION_SUMMARY": "سیشن مختصر ڈاؤن لوڈ کریں"
 }

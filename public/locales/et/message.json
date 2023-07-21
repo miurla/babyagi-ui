@@ -27,5 +27,7 @@
   "TASK_FAILED_MESSAGE": "Ebaõnnestus ülesande täitmisel. Kontrolli ülesande logi.",
   "OUTPUT_SUFFICIENCY": "Väljundpiisavus",
   "SUFFICIENCY": "Ülesande väljundi piisavuse kontrollimine...",
-  "USER_INPUT_WAITING": "Ootan teie sisendit..."
+  "USER_INPUT_WAITING": "Ootan teie sisendit...",
+  "FINAL_TASK_RESULT": "Lõpptulemuse ülesanne",
+  "DOWNLOAD_SESSION_SUMMARY": "Laadige alla sessiooni kokkuvõte"
 }

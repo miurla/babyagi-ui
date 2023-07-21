@@ -27,5 +27,7 @@
   "TASK_FAILED_MESSAGE": "Niepowodzenie podczas wykonywania zadania. Proszę sprawdzić dziennik zadania.",
   "OUTPUT_SUFFICIENCY": "Wystarczalność wyjścia",
   "SUFFICIENCY": "Sprawdzanie wystarczalności wyników zadania...",
-  "USER_INPUT_WAITING": "Oczekiwanie na Twoje dane wejściowe..."
+  "USER_INPUT_WAITING": "Oczekiwanie na Twoje dane wejściowe...",
+  "FINAL_TASK_RESULT": "Wynik końcowy zadania",
+  "DOWNLOAD_SESSION_SUMMARY": "Pobierz podsumowanie sesji"
 }

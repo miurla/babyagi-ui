@@ -7,6 +7,7 @@ import {
   Message,
   MessageBlock,
   SelectItem,
+  SkillInfo,
   UserSettings,
 } from '@/types';
 import { Input } from './Input';
@@ -35,6 +36,10 @@ import { useTranslation } from 'next-i18next';
 import { AgentMessageBlock } from './AgentMessageBlock';
 import { AgentTask } from './AgentTask';
 import { IntroGuide } from './IntroGuide';
+import { BabyElfAGI } from '@/agents/babyelfagi/executer';
+import { SkillsList } from './SkillList';
+import { title } from 'process';
+import { Skill } from '@/agents/babyelfagi/skills';
 
 export const Agent: FC = () => {
   const [model, setModel] = useState<SelectItem>(MODELS[1]);
@@ -49,7 +54,7 @@ export const Agent: FC = () => {
     type: 'ready',
   });
   const [agent, setAgent] = useState<
-    BabyAGI | BabyBeeAGI | BabyCatAGI | BabyDeerAGI | null
+    BabyAGI | BabyBeeAGI | BabyCatAGI | BabyDeerAGI | BabyElfAGI | null
   >(null);
   const [selectedAgent, setSelectedAgent] = useState<SelectItem>(AGENT[0]);
   const { i18n } = useTranslation();
@@ -190,7 +195,7 @@ export const Agent: FC = () => {
     setMessages([]);
     setExecuting(true);
     const execution = await saveNewData();
-    const verbose = false; // You can set this to true to see the agent's internal state
+    const verbose = true; // You can set this to true to see the agent's internal state
 
     // switch agent
     let agent = null;
@@ -234,6 +239,17 @@ export const Agent: FC = () => {
         break;
       case 'babydeeragi':
         agent = new BabyDeerAGI(
+          objective,
+          model.id,
+          messageHandler,
+          setAgentStatus,
+          cancelHandle,
+          language,
+          verbose,
+        );
+        break;
+      case 'babyelfagi':
+        agent = new BabyElfAGI(
           objective,
           model.id,
           messageHandler,
@@ -418,6 +434,32 @@ export const Agent: FC = () => {
     return undefined;
   };
 
+  const skills = () => {
+    if (selectedAgent.id === 'babyelfagi') {
+      const elf = new BabyElfAGI(
+        objective,
+        model.id,
+        messageHandler,
+        setAgentStatus,
+        cancelHandle,
+        language,
+        false,
+      );
+      const skills = elf.skillRegistry.getAllSkills();
+      const skillInfos = skills.map((skill) => {
+        const skillInfo = {
+          name: skill.name,
+          description: skill.descriptionForHuman,
+          icon: skill.icon,
+          badge: skill.type,
+        };
+        return skillInfo;
+      });
+      return skillInfos;
+    }
+    return [];
+  };
+
   return (
     <div className="overflow-none relative flex-1 bg-white dark:bg-black">
       {messageBlocks.length === 0 ? (
@@ -432,11 +474,18 @@ export const Agent: FC = () => {
             agent={selectedAgent}
             setAgent={setSelectedAgent}
           />
-          <div className="h-[calc(100vh-450px)]">
+          {selectedAgent.id === 'babyelfagi' && (
+            <SkillsList skills={skills()} />
+          )}
+          <div className="h-[calc(100vh-600px)]">
             <div className="flex h-full flex-col items-center justify-center gap-6 p-4">
               <ProjectTile />
-              {executions.length < 5 && selectedAgent.id === 'babydeeragi' && (
-                <IntroGuide onClick={(value) => setObjective(value)} />
+              {(selectedAgent.id === 'babydeeragi' ||
+                selectedAgent.id === 'babyelfagi') && (
+                <IntroGuide
+                  onClick={(value) => setObjective(value)}
+                  agent={selectedAgent.id}
+                />
               )}
             </div>
           </div>
@@ -445,7 +494,8 @@ export const Agent: FC = () => {
         <div className="max-h-full overflow-scroll">
           <AgentMessageHeader model={model} agent={selectedAgent} />
           {messageBlocks.map((block, index) =>
-            currentAgentId() === 'babydeeragi' ? (
+            currentAgentId() === 'babydeeragi' ||
+            currentAgentId() === 'babyelfagi' ? (
               <AgentTask
                 block={block}
                 key={index}

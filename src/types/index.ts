@@ -63,7 +63,8 @@ export type MessageType =
   | 'failed'
   | 'sufficiency-result' // for mod
   | 'user-input' // for babydeeragi
-  | 'task-execute'; // for babydeeragi;
+  | 'task-execute' // for babydeeragi;
+  | 'final-result';
 
 export type AgentStatusType =
   | 'preparing'
@@ -101,6 +102,7 @@ export type ToolType =
 export type TaskStatus = 'complete' | 'incomplete' | 'running';
 
 export interface AgentTask {
+  parameters: { filename: any };
   id: number;
   task: string;
   tool: ToolType;
@@ -110,9 +112,39 @@ export interface AgentTask {
   result?: string; // for babybeeagi
   resultSummary?: string; // for babybeeagi
   dependentTaskId?: number; // for babybeeagi
+  skill?: string; // for babyelfagi
+  icon?: string; // for babyelfagi
 }
 
 export type AgentStatus = {
   type: AgentStatusType;
   message?: string;
+};
+
+export type TaskOutput = {
+  completed: boolean;
+  output: string | undefined;
+};
+
+export type TaskOutputs = {
+  [id: number]: TaskOutput;
+};
+
+export type SkillInfo = {
+  name: string;
+  description: string;
+  icon: string;
+  badge?: string;
+};
+
+export type LLMParams = {
+  openAIApiKey?: string;
+  modelName?: string;
+  temperature?: number;
+  maxTokens?: number;
+  topP?: number;
+  frequencyPenalty?: number;
+  presencePenalty?: number;
+  streaming?: boolean;
+  callbacks?: any[];
 };
