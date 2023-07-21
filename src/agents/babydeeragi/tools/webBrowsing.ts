@@ -35,7 +35,7 @@ export const webBrowsing = async (
 
   if (!isRunningRef?.current) return;
 
-  const sinmplifiedSearchResults = simplifySearchResults(searchResults);
+  const simplifiedSearchResults = simplifySearchResults(searchResults);
   title = `📖 Reading content...`;
   message = `✅ Completed search. \nNow reading content.\n`;
   if (verbose) {
@@ -52,7 +52,7 @@ export const webBrowsing = async (
   let completedCount = 0;
   const MaxCompletedCount = 3;
   // Loop through search results
-  for (const searchResult of sinmplifiedSearchResults) {
+  for (const searchResult of simplifiedSearchResults) {
     if (!isRunningRef.current) return;
     if (completedCount >= MaxCompletedCount) break;
 
