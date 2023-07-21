@@ -15,7 +15,7 @@ export const IntroGuide: FC<IntroGuideProps> = ({ onClick, agent }) => {
   const elfExample = [
     translate('EXAMPLE_OBJECTIVE_4', 'constants'),
     translate('EXAMPLE_OBJECTIVE_5', 'constants'),
-    translate('EXAMPLE_OBJECTIVE_3', 'constants'),
+    translate('EXAMPLE_OBJECTIVE_2', 'constants'),
   ];
   const examples = agent === 'babydeeragi' ? deerExamples : elfExample;
 
