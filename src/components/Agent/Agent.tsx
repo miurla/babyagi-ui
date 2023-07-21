@@ -477,17 +477,16 @@ export const Agent: FC = () => {
           {selectedAgent.id === 'babyelfagi' && (
             <SkillsList skills={skills()} />
           )}
-          <div className="h-[calc(100vh-550px)]">
+          <div className="h-[calc(100vh-600px)]">
             <div className="flex h-full flex-col items-center justify-center gap-6 p-4">
               <ProjectTile />
-              {executions.length > 5 &&
-                (selectedAgent.id === 'babydeeragi' ||
-                  selectedAgent.id === 'babyelfagi') && (
-                  <IntroGuide
-                    onClick={(value) => setObjective(value)}
-                    agent={selectedAgent.id}
-                  />
-                )}
+              {(selectedAgent.id === 'babydeeragi' ||
+                selectedAgent.id === 'babyelfagi') && (
+                <IntroGuide
+                  onClick={(value) => setObjective(value)}
+                  agent={selectedAgent.id}
+                />
+              )}
             </div>
           </div>
         </>
