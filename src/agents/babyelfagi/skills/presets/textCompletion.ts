@@ -2,12 +2,12 @@ import { AgentTask } from '@/types';
 import { Skill } from '../skill';
 
 export class TextCompletion extends Skill {
-  static skillName = 'text_completion';
-  static skillDescriptionForHuman =
+  name = 'text_completion';
+  descriptionForHuman =
     "A tool that uses OpenAI's text completion API to generate, summarize, and/or analyze text.";
-  static skillDescriptionForModel =
+  descriptionForModel =
     "A tool that uses OpenAI's text completion API to generate, summarize, and/or analyze text.";
-  static skillIcon = '🤖';
+  icon = '🤖';
   apiKeysRequired = ['openai'];
 
   async execute(

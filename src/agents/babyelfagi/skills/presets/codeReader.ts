@@ -1,14 +1,14 @@
 import { AgentTask } from '@/types';
-import { Skill } from '../skill';
+import { Skill, SkillType } from '../skill';
 
 export class CodeReader extends Skill {
-  static skillName = 'code_reader';
-  static skillDescriptionForHuman =
+  name = 'code_reader';
+  descriptionForHuman =
     "A skill that finds a file's location in its own program's directory and returns its contents.";
-  static skillDescriptionForModel =
+  descriptionForModel =
     "A skill that finds a file's location in its own program's directory and returns its contents.";
-  static skillIcon = '📖';
-  static skillType = 'dev';
+  icon = '📖';
+  type: SkillType = 'dev';
   apiKeysRequired = ['openai'];
 
   async execute(

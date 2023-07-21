@@ -1,14 +1,14 @@
 import { AgentTask } from '@/types';
-import { Skill } from '../skill';
+import { Skill, SkillType } from '../skill';
 
 export class ObjectiveSaver extends Skill {
-  static skillName = 'objective_saver';
-  static skillDescriptionForHuman =
+  name = 'objective_saver';
+  descriptionForHuman =
     'A skill that saves a new example_objective based on the concepts from skillSaver.ts';
-  static skillDescriptionForModel =
+  descriptionForModel =
     'A skill that saves a new example_objective based on the concepts from skillSaver.ts ';
-  static skillIcon = '💽';
-  static skillType = 'dev';
+  icon = '💽';
+  type: SkillType = 'dev';
   apiKeysRequired = ['openai'];
 
   async execute(

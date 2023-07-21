@@ -1,15 +1,15 @@
 import { AgentTask } from '@/types';
-import { Skill } from '../skill';
+import { Skill, SkillType } from '../skill';
 
 // This skill uses the GPT-4 model to write code
 export class CodeWriter extends Skill {
-  static skillName = 'code_writer';
-  static skillDescriptionForHuman =
+  name = 'code_writer';
+  descriptionForHuman =
     "A tool that uses OpenAI's text completion API to write code. this tool does not save the code.";
-  static skillDescriptionForModel =
+  descriptionForModel =
     "A tool that uses OpenAI's text completion API to write code. this tool does not save the code.";
-  static skillIcon = '🖊️';
-  static skillType = 'dev';
+  icon = '🖊️';
+  type: SkillType = 'dev';
   apiKeysRequired = ['openai'];
 
   async execute(

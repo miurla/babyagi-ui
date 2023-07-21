@@ -3,12 +3,11 @@ import { Skill } from '../skill';
 import axios from 'axios';
 
 export class YoutubeSearch extends Skill {
-  static skillName = 'youtube_search';
-  static skillDescriptionForHuman = 'This skill searches YouTube for videos.';
-  static skillDescriptionForModel =
+  name = 'youtube_search';
+  descriptionForHuman = 'This skill searches YouTube for videos.';
+  descriptionForModel =
     'This skill searches YouTube for videos. Returns a list of links.';
-  static skillIcon = '📺';
-  static skillType = 'normal';
+  icon = '📺';
 
   async execute(
     task: AgentTask,

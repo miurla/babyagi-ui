@@ -1,13 +1,14 @@
 import Airtable from 'airtable';
-import { Skill } from '../skill';
+import { Skill, SkillType } from '../skill';
 import { AgentTask } from '@/types';
 
 export class AirtableSaver extends Skill {
-  static skillName = 'airtable_saver';
-  static skillDescriptionForHuman = 'Saves data to Airtable';
-  static skillDescriptionForModel = 'Saves data to Airtable';
-  static skillIcon = '📦';
-  static skillType = 'dev';
+  name = 'airtable_saver';
+  descriptionForHuman = 'Saves data to Airtable';
+  descriptionForModel =
+    'Saves data to Airtable. If objective does not include airtable, this skill dont use anytime.';
+  icon = '📦';
+  type: SkillType = 'dev';
 
   apiKeysRequired = ['airtable'];
 

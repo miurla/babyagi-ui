@@ -8,7 +8,7 @@ export interface SkillProps {
 }
 
 export const SkillCard: FC<SkillProps> = ({ skill }) => {
-  const skillName = skill.name
+  const name = skill.name
     .split('_')
     .map((word) => {
       return word.charAt(0).toUpperCase() + word.slice(1);
@@ -23,7 +23,7 @@ export const SkillCard: FC<SkillProps> = ({ skill }) => {
         <div className="flex w-full cursor-default items-center gap-2 px-2 py-1 text-xs text-neutral-600 dark:text-white">
           <div className="flex items-center gap-3">
             <span className="text-base">{skill.icon}</span>
-            <span>{skillName}</span>
+            <span>{name}</span>
           </div>
           {badge && (
             <span className="select-none rounded-full bg-red-500 bg-opacity-10 px-2 py-0.5 text-[10px] text-red-500 dark:bg-red-500 dark:bg-opacity-10 dark:text-red-300">

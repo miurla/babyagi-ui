@@ -1,14 +1,14 @@
 import { AgentTask } from '@/types';
-import { Skill } from '../skill';
+import { Skill, SkillType } from '../skill';
 
 export class SkillSaver extends Skill {
-  static skillName = 'skill_saver';
-  static skillDescriptionForHuman =
+  name = 'skill_saver';
+  descriptionForHuman =
     'A skill that saves code written in a previous step into a file within the skills folder. Not for writing code.';
-  static skillDescriptionForModel =
-    'A skill that saves code written in a previous step into a file within the skills folder. Not for writing code. Never use this skill for anything other than storing non-skill codes.';
-  static skillIcon = '💾';
-  static skillType = 'dev';
+  descriptionForModel =
+    'A skill that saves code written in a previous step into a file within the skills folder. Not for writing code. If objective does not include save the skill, this skill dont use anytime.';
+  icon = '💾';
+  type: SkillType = 'dev';
   apiKeysRequired = ['openai'];
 
   async execute(

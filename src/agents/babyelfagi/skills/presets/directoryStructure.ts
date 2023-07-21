@@ -1,14 +1,14 @@
 import { AgentTask } from '@/types';
-import { Skill } from '../skill';
+import { Skill, SkillType } from '../skill';
 
 export class DirectoryStructure extends Skill {
-  static skillName = 'directory_structure';
-  static skillDescriptionForHuman =
+  name = 'directory_structure';
+  descriptionForHuman =
     "A skill that outputs the directory structure of the 'src' folder.";
-  static skillDescriptionForModel =
+  descriptionForModel =
     "A skill that outputs the directory structure of the 'src' folder.";
-  static skillIcon = '📂';
-  static skillType = 'dev';
+  icon = '📂';
+  type: SkillType = 'dev';
 
   async execute(
     task: AgentTask,

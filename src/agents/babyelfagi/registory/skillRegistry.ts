@@ -40,17 +40,19 @@ export class SkillRegistry {
         this.verbose,
         this.language,
       );
-      if (skill.valid) {
+      if (
+        skill.type === 'dev' ? process.env.NODE_ENV === 'development' : true
+      ) {
         this.skills.push(skill);
       }
-      console.log(`Loaded skill: ${skill}`);
     }
+
+    this.skills.filter((skill) => skill.valid);
 
     // Print the names and descriptions of all loaded skills
     let loadedSkills = this.skills
       .map((skill) => {
-        const skillClass = skill.constructor as typeof Skill;
-        return `${skillClass.skillIcon} ${skillClass.skillName}: ${skillClass.skillDescriptionForHuman}`;
+        return `${skill.icon} ${skill.name}: ${skill.descriptionForHuman}`;
       })
       .join('\n');
     if (this.verbose) {
@@ -58,14 +60,13 @@ export class SkillRegistry {
     }
   }
 
-  getSkill(skillName: string): Skill {
+  getSkill(name: string): Skill {
     const skill = this.skills.find((skill) => {
-      const skillClass = skill.constructor as typeof Skill;
-      return skillClass.skillName === skillName;
+      return skill.name === name;
     });
     if (!skill) {
       throw new Error(
-        `Skill '${skillName}' not found. Please make sure the skill is loaded and all required API keys are set.`,
+        `Skill '${name}' not found. Please make sure the skill is loaded and all required API keys are set.`,
       );
     }
     return skill;
@@ -78,8 +79,7 @@ export class SkillRegistry {
   getSkillDescriptions(): string {
     return this.skills
       .map((skill) => {
-        const skillClass = skill.constructor as typeof Skill;
-        return `${skillClass.skillIcon} ${skillClass.skillName}: ${skillClass.skillDescriptionForModel}`;
+        return `${skill.icon} ${skill.name}: ${skill.descriptionForModel}`;
       })
       .join(',');
   }

@@ -42,7 +42,7 @@ export class BabyElfAGI extends AgentExecuter {
       verbose,
     );
 
-    const skillClasses: (typeof Skill)[] = BabyElfAGI.getSkillClasses();
+    const skillClasses: (typeof Skill)[] = this.getSkillClasses();
     const apiKeys = {
       openai: getUserApiKey() || '',
       airtable: 'keyXXXXXXXXXXXXXX', // Your Airtable API key here
@@ -61,7 +61,7 @@ export class BabyElfAGI extends AgentExecuter {
   }
 
   // You need to define this method
-  static getSkillClasses(): (typeof Skill)[] {
+  getSkillClasses(): (typeof Skill)[] {
     const skills: (typeof Skill)[] = [
       TextCompletion,
       WebSearch,
@@ -73,14 +73,6 @@ export class BabyElfAGI extends AgentExecuter {
       // ObjectiveSaver,
       YoutubeSearch,
     ];
-    if (process.env.NODE_ENV !== 'development') {
-      // if skill type is dev, it will not be included in production
-      skills.map((skill) => {
-        if (skill.skillType !== 'dev') {
-          return skill;
-        }
-      });
-    }
     return skills;
   }
 

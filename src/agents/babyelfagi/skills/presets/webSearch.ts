@@ -5,10 +5,10 @@ import { Skill } from '../skill';
 // This skill is Specialized for web browsing
 // using webBrowsing tool in babydeeragi
 export class WebSearch extends Skill {
-  static skillName = 'web_search';
-  static skillDescriptionForHuman = 'A tool that performs web searches.';
-  static skillDescriptionForModel = 'A tool that performs web searches.';
-  static skillIcon = '🔎';
+  name = 'web_search';
+  descriptionForHuman = 'A tool that performs web searches.';
+  descriptionForModel = 'A tool that performs web searches.';
+  icon = '🔎';
   apiKeysRequired = [];
 
   async execute(

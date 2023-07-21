@@ -3,12 +3,14 @@ import { setupMessage } from '@/utils/message';
 import { ChatOpenAI } from 'langchain/chat_models/openai';
 import { HumanChatMessage } from 'langchain/schema';
 
+export type SkillType = 'normal' | 'dev';
+
 export class Skill {
-  static skillName: string = 'base skill';
-  static skillDescriptionForHuman: string = 'This is the base skill.';
-  static skillDescriptionForModel: string = 'This is the base skill.';
-  static skillIcon: string = '🛠️';
-  static skillType: string = 'normal'; // If available only in the local development environment, be sure to use dev type.
+  name: string = 'base_kill';
+  descriptionForHuman: string = 'This is the base skill.';
+  descriptionForModel: string = 'This is the base skill.';
+  icon: string = '🛠️';
+  type: SkillType = 'normal'; // If available only in the local development environment, be sure to use dev type.
   apiKeysRequired: Array<string | Array<string>> = [];
   valid: boolean;
   apiKeys: { [key: string]: string };
@@ -55,6 +57,9 @@ export class Skill {
         this[`${key}_apiKey`] = apiKeys[key];
       }
     }
+
+    this.valid =
+      this.type === 'dev' ? process.env.NODE_ENV === 'development' : true;
   }
 
   checkRequiredKeys(apiKeys: {
