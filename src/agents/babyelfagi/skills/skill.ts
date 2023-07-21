@@ -8,7 +8,7 @@ export class Skill {
   static skillDescriptionForHuman: string = 'This is the base skill.';
   static skillDescriptionForModel: string = 'This is the base skill.';
   static skillIcon: string = '🛠️';
-  static skillType: string = 'normal'; // normal or dev. dev skills available only in local dev environment
+  static skillType: string = 'normal'; // If available only in the local development environment, be sure to use dev type.
   apiKeysRequired: Array<string | Array<string>> = [];
   valid: boolean;
   apiKeys: { [key: string]: string };

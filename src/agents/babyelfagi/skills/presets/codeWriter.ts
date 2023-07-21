@@ -8,7 +8,8 @@ export class CodeWriter extends Skill {
     "A tool that uses OpenAI's text completion API to write code. this tool does not save the code.";
   static skillDescriptionForModel =
     "A tool that uses OpenAI's text completion API to write code. this tool does not save the code.";
-  static skillIcon = '✍️';
+  static skillIcon = '🖊️';
+  static skillType = 'dev';
   apiKeysRequired = ['openai'];
 
   async execute(

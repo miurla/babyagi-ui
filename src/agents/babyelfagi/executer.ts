@@ -11,6 +11,7 @@ import {
   WebSearch,
   CodeWriter,
   AirtableSaver,
+  YoutubeSearch,
 } from './skills';
 import { Skill } from './skills/skill';
 import { getUserApiKey } from '@/utils/settings';
@@ -69,7 +70,8 @@ export class BabyElfAGI extends AgentExecuter {
       CodeWriter,
       SkillSaver,
       DirectoryStructure,
-      ObjectiveSaver,
+      // ObjectiveSaver,
+      YoutubeSearch,
     ];
     if (process.env.NODE_ENV !== 'development') {
       // if skill type is dev, it will not be included in production

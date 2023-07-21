@@ -3,7 +3,7 @@ import { Skill } from '../skill';
 import { AgentTask } from '@/types';
 
 export class AirtableSaver extends Skill {
-  static skillName = 'AirtableSaver';
+  static skillName = 'airtable_saver';
   static skillDescriptionForHuman = 'Saves data to Airtable';
   static skillDescriptionForModel = 'Saves data to Airtable';
   static skillIcon = '📦';
