@@ -74,7 +74,8 @@ export const taskManagementAgent = async (
   const chain = TaskManagementChain.fromLLM({ llm: model });
 
   const response = await chain.call({
-    minified_task_list: stringifyTasks(minifiedTaskList),
+    // minified_task_list: stringifyTasks(minifiedTaskList),
+    minified_task_list: stringifyTasks([]),
     objective,
     result,
     websearch_var: websearchVar,
