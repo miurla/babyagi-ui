@@ -27,5 +27,7 @@
   "TASK_FAILED_MESSAGE": "Misslyckades med att utföra uppgiften. Vänligen kontrollera uppgiftsloggen.",
   "OUTPUT_SUFFICIENCY": "Utgångsräckvidd",
   "SUFFICIENCY": "Kontrollera tillräckligheten av uppgiftsutdata...",
-  "USER_INPUT_WAITING": "Väntar på din input..."
+  "USER_INPUT_WAITING": "Väntar på din input...",
+  "FINAL_TASK_RESULT": "Slutligt uppgiftsresultat",
+  "DOWNLOAD_SESSION_SUMMARY": "Ladda ned sessionssammanfattning"
 }

@@ -20,5 +20,6 @@
   "THEME": "Thema",
   "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 Sie müssen Ihren OpenAI-API-Schlüssel im Einstellungsmenü festlegen.",
   "DARK_MODE": "Dunkler Modus",
-  "LIGHT_MODE": "Heller Modus"
+  "LIGHT_MODE": "Heller Modus",
+  "AVAILABLE_SKILLS": "Verfügbare Fähigkeiten"
 }

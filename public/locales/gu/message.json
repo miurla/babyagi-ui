@@ -27,5 +27,7 @@
   "TASK_FAILED_MESSAGE": "કાર્ય નિષ્ફળ રહ્યું. કૃપા કરીને કાર્ય લોગ તપાસો.",
   "OUTPUT_SUFFICIENCY": "આઉટપુટ સાર્વત્રિકતા",
   "SUFFICIENCY": "ટાસ્ક આઉટપુટ પર્યાપ્તતા તપાસાણ...",
-  "USER_INPUT_WAITING": "તમારું ઇનપુટ વાઈટ થાય છે ..."
+  "USER_INPUT_WAITING": "તમારું ઇનપુટ વાઈટ થાય છે ...",
+  "FINAL_TASK_RESULT": "અંતિમ કાર્ય પરિણામ",
+  "DOWNLOAD_SESSION_SUMMARY": "સેશન સારાંશ ડાઉનલોડ કરો"
 }

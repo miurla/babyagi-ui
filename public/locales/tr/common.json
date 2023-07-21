@@ -20,5 +20,6 @@
   "THEME": "Tema",
   "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉Ayarlar menüsünde OpenAI API anahtarınızı belirlemelisiniz.",
   "DARK_MODE": "Karanlık modu",
-  "LIGHT_MODE": "Gündüz modu"
+  "LIGHT_MODE": "Gündüz modu",
+  "AVAILABLE_SKILLS": "Kullanılabilir beceriler"
 }

@@ -20,5 +20,6 @@
   "THEME": "Thème",
   "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 Vous devez définir votre clé API OpenAI dans le menu des paramètres.",
   "DARK_MODE": "Mode sombre",
-  "LIGHT_MODE": "Mode clair"
+  "LIGHT_MODE": "Mode clair",
+  "AVAILABLE_SKILLS": "Compétences disponibles"
 }

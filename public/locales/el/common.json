@@ -20,5 +20,6 @@
   "THEME": "Θέμα",
   "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 Πρέπει να ορίσετε το κλειδί OpenAI API στο μενού ρυθμίσεων.",
   "DARK_MODE": "Σκοτεινή λειτουργία",
-  "LIGHT_MODE": "Λειτουργία φωτισμού"
+  "LIGHT_MODE": "Λειτουργία φωτισμού",
+  "AVAILABLE_SKILLS": "Διαθέσιμες δεξιότητες"
 }

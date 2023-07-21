@@ -27,5 +27,7 @@
   "TASK_FAILED_MESSAGE": "Neizdevās izpildīt uzdevumu. Lūdzu, pārbaudiet uzdevuma žurnālu.",
   "OUTPUT_SUFFICIENCY": "Izvades pietiekamība",
   "SUFFICIENCY": "Pārbauda uzdevuma izvades pietiekamību...",
-  "USER_INPUT_WAITING": "Gaidu jūsu ievadi..."
+  "USER_INPUT_WAITING": "Gaidu jūsu ievadi...",
+  "FINAL_TASK_RESULT": "Beigu uzdevuma rezultāts",
+  "DOWNLOAD_SESSION_SUMMARY": "Sesijas kopsavilkumu lejupielāde"
 }

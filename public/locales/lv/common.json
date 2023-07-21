@@ -20,5 +20,6 @@
   "THEME": "Tēma",
   "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 Iestatījumu izvēlnē jāiestata sava OpenAI API atslēga.",
   "DARK_MODE": "Tumšais režīms.",
-  "LIGHT_MODE": "Gaišais režīms"
+  "LIGHT_MODE": "Gaišais režīms",
+  "AVAILABLE_SKILLS": "Pieejamās prasmes"
 }

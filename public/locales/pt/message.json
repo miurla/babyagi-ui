@@ -27,5 +27,7 @@
   "TASK_FAILED_MESSAGE": "Não foi possível executar a tarefa. Por favor, verifique o registro da tarefa.",
   "OUTPUT_SUFFICIENCY": "Suficiência de saída",
   "SUFFICIENCY": "Verificando a suficiência da saída da tarefa...",
-  "USER_INPUT_WAITING": "Aguardando sua entrada..."
+  "USER_INPUT_WAITING": "Aguardando sua entrada...",
+  "FINAL_TASK_RESULT": "Resultado da Tarefa Final",
+  "DOWNLOAD_SESSION_SUMMARY": "Baixar Resumo da Sessão"
 }

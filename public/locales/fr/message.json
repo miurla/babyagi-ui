@@ -27,5 +27,7 @@
   "TASK_FAILED_MESSAGE": "Impossible d'exécuter la tâche. Veuillez vérifier le journal des tâches.",
   "OUTPUT_SUFFICIENCY": "Suffisance de la production",
   "SUFFICIENCY": "Vérification de la suffisance de sortie de tâche...",
-  "USER_INPUT_WAITING": "En attente de votre entrée..."
+  "USER_INPUT_WAITING": "En attente de votre entrée...",
+  "FINAL_TASK_RESULT": "Résultat de la tâche finale",
+  "DOWNLOAD_SESSION_SUMMARY": "Télécharger le résumé de session."
 }

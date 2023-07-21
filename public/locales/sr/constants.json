@@ -19,5 +19,7 @@
   "EXAMPLE_OBJECTIVE_1": "Напишите извештај о времену за следећа 3 дана у Паризу.",
   "EXAMPLE_OBJECTIVE_2": "Istražite model gpt-3.5-turbo-0613",
   "EXAMPLE_OBJECTIVE_3": "Prijavite najnovije vesti u korisnikovoj omiljenoj kategoriji",
-  "EXAMPLES": "Примери"
+  "EXAMPLES": "Примери",
+  "EXAMPLE_OBJECTIVE_4": "Napišite izveštaj o tome šta je BabyAGI. Uključite YouTube link u izveštaju.",
+  "EXAMPLE_OBJECTIVE_5": "Na osnovu skillSaver.ts, napiši novu veštinu nazvanu airtableSaver.ts koja koristi Airtable API da bi ubacila podatke u određenu tabelu."
 }

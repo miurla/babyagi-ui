@@ -27,5 +27,7 @@
   "TASK_FAILED_MESSAGE": "Sikertelen a feladat végrehajtása. Kérjük, ellenőrizze a feladatnaplót.",
   "OUTPUT_SUFFICIENCY": "Kimeneti elegendőség",
   "SUFFICIENCY": "A feladat kimenetének ellenőrzése elegendősége szempontjából...",
-  "USER_INPUT_WAITING": "A bemenet várakozik..."
+  "USER_INPUT_WAITING": "A bemenet várakozik...",
+  "FINAL_TASK_RESULT": "Végleges feladat eredmény",
+  "DOWNLOAD_SESSION_SUMMARY": "Letöltési munkamenet összefoglaló letöltése"
 }

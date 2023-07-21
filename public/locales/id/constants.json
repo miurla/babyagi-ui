@@ -19,5 +19,7 @@
   "EXAMPLE_OBJECTIVE_1": "Tuliskan laporan cuaca untuk 3 hari mendatang di Paris",
   "EXAMPLE_OBJECTIVE_2": "Teliti model gpt-3.5-turbo-0613",
   "EXAMPLE_OBJECTIVE_3": "Laporkan berita terbaru dalam kategori favorit pengguna.",
-  "EXAMPLES": "Contoh-contoh"
+  "EXAMPLES": "Contoh-contoh",
+  "EXAMPLE_OBJECTIVE_4": "Tulis laporan tentang apa itu BabyAGI. Sertakan tautan Youtube di dalam laporan tersebut.",
+  "EXAMPLE_OBJECTIVE_5": "Berdasarkan skillSaver.ts, tulis keterampilan baru yang bernama airtableSaver.ts yang menggunakan API Airtable untuk memasukkan data ke tabel spesifik"
 }

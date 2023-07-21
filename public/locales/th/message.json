@@ -27,5 +27,7 @@
   "TASK_FAILED_MESSAGE": "การดำเนินการล้มเหลว โปรดตรวจสอบบันทึกงาน",
   "OUTPUT_SUFFICIENCY": "ความเพียงพอของผลลัพธ์",
   "SUFFICIENCY": "ตรวจสอบความเพียงพอของผลการทำงาน...",
-  "USER_INPUT_WAITING": "กำลังรอข้อมูลของคุณ..."
+  "USER_INPUT_WAITING": "กำลังรอข้อมูลของคุณ...",
+  "FINAL_TASK_RESULT": "ผลลัพธ์งานสุดท้าย",
+  "DOWNLOAD_SESSION_SUMMARY": "ดาวน์โหลดสรุปของเซสชัน"
 }

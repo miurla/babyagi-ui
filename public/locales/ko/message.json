@@ -27,5 +27,7 @@
   "TASK_FAILED_MESSAGE": "작업 실행에 실패했습니다. 작업 로그를 확인해주십시오.",
   "OUTPUT_SUFFICIENCY": "출력 충분성",
   "SUFFICIENCY": "작업 출력물 충분성 확인 중...",
-  "USER_INPUT_WAITING": "입력을 기다리는 중입니다..."
+  "USER_INPUT_WAITING": "입력을 기다리는 중입니다...",
+  "FINAL_TASK_RESULT": "최종 작업 결과",
+  "DOWNLOAD_SESSION_SUMMARY": "다운로드 세션 요약"
 }

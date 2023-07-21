@@ -19,5 +19,7 @@
   "EXAMPLE_OBJECTIVE_1": "Parašykite orų prognozę kitoms 3 dienoms Paryžiuje.",
   "EXAMPLE_OBJECTIVE_2": "Nagrinėkite gpt-3.5-turbo-0613 modelį",
   "EXAMPLE_OBJECTIVE_3": "Praneškite naujausias naujienas vartotojo mėgstamoje kategorijoje",
-  "EXAMPLES": "Pavyzdžiai"
+  "EXAMPLES": "Pavyzdžiai",
+  "EXAMPLE_OBJECTIVE_4": "Parašykite ataskaitą apie tai, kas yra BabyAGI. Ataskaitoje įtraukite Youtube nuorodą.",
+  "EXAMPLE_OBJECTIVE_5": "Remiantis skillSaver.ts, parašykite naują įgūdį pavadinimu airtableSaver.ts, kuris naudoja Airtable API norint įterpti duomenis į konkretų lentelę."
 }

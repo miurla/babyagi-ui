@@ -27,5 +27,7 @@
   "TASK_FAILED_MESSAGE": "Görev yürütülemedi. Lütfen görev kaydını kontrol edin.",
   "OUTPUT_SUFFICIENCY": "Çıktı Yeterliliği",
   "SUFFICIENCY": "İş çıktısı yeterliliği kontrol ediliyor...",
-  "USER_INPUT_WAITING": "Girişinizi bekliyorum..."
+  "USER_INPUT_WAITING": "Girişinizi bekliyorum...",
+  "FINAL_TASK_RESULT": "Son Görev Sonucu",
+  "DOWNLOAD_SESSION_SUMMARY": "İndirme Oturumu Özeti"
 }

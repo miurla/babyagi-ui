@@ -20,5 +20,7 @@
   "EXAMPLE_OBJECTIVE_1": "在巴黎的下三天請撰寫一份天氣報告",
   "EXAMPLE_OBJECTIVE_2": "翻譯後的文本是: \"研究gpt-3.5-turbo-0613模型",
   "EXAMPLE_OBJECTIVE_3": "在使用者喜愛的類別中報導最新消息",
-  "EXAMPLES": "範例"
+  "EXAMPLES": "範例",
+  "EXAMPLE_OBJECTIVE_4": "撰寫一份有關BabyAGI的報告。在報告中包含一個Youtube鏈接。",
+  "EXAMPLE_OBJECTIVE_5": "根據 skillSaver.ts，撰寫一個名為 airtableSaver.ts 的新技能，該技能使用 Airtable API 將資料插入到特定表格中。"
 }

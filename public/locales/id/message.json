@@ -27,5 +27,7 @@
   "TASK_FAILED_MESSAGE": "Gagal mengeksekusi tugas. Harap periksa log tugas.",
   "OUTPUT_SUFFICIENCY": "Keluaran Yang Cukup",
   "SUFFICIENCY": "Mengecek keluaran tugas yang memadai...",
-  "USER_INPUT_WAITING": "Menunggu masukan Anda..."
+  "USER_INPUT_WAITING": "Menunggu masukan Anda...",
+  "FINAL_TASK_RESULT": "Hasil Tugas Akhir",
+  "DOWNLOAD_SESSION_SUMMARY": "Unduh Ringkasan Sesi"
 }

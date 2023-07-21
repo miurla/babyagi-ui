@@ -27,5 +27,7 @@
   "TASK_FAILED_MESSAGE": "Tehtävän suorittaminen epäonnistui. Tarkista tehtäväloki.",
   "OUTPUT_SUFFICIENCY": "Tuotos riittävyys",
   "SUFFICIENCY": "Tehtävän tulostuksen riittävyyden tarkistaminen...",
-  "USER_INPUT_WAITING": "Odottaa syöttöäsi..."
+  "USER_INPUT_WAITING": "Odottaa syöttöäsi...",
+  "FINAL_TASK_RESULT": "Lopullisen tehtävän tulos",
+  "DOWNLOAD_SESSION_SUMMARY": "Lataa istunnon yhteenveto"
 }

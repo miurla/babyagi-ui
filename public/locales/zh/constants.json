@@ -19,5 +19,7 @@
   "EXAMPLE_OBJECTIVE_1": "写一份巴黎未来3天的天气报告",
   "EXAMPLE_OBJECTIVE_2": "研究gpt-3.5-turbo-0613模型",
   "EXAMPLE_OBJECTIVE_3": "报告用户喜爱类别的最新新闻",
-  "EXAMPLES": "示例"
+  "EXAMPLES": "示例",
+  "EXAMPLE_OBJECTIVE_4": "撰写一份关于BabyAGI的报告。在报告中加入一个YouTube链接。",
+  "EXAMPLE_OBJECTIVE_5": "基于 skillSaver.ts，编写一个名为 airtableSaver.ts 的新技能，使用 Airtable API 将数据插入到指定的表中"
 }

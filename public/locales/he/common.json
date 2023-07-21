@@ -20,5 +20,6 @@
   "THEME": "נושא",
   "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 עליך להגדיר את מפתח ה-API של OpenAI בתפריט ההגדרות.",
   "DARK_MODE": "תצוגה לילית",
-  "LIGHT_MODE": "מצב תאורה לבנה"
+  "LIGHT_MODE": "מצב תאורה לבנה",
+  "AVAILABLE_SKILLS": "כישורים זמינים"
 }

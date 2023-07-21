@@ -27,5 +27,7 @@
   "TASK_FAILED_MESSAGE": "Zlyhalo sa pri vykonávaní úlohy. Skontrolujte prosím protokol úlohy.",
   "OUTPUT_SUFFICIENCY": "Výstupná dostačujúcnosť",
   "SUFFICIENCY": "Kontrola dostatočnosti výstupu úlohy...",
-  "USER_INPUT_WAITING": "Čakáme na vašu vstupnú hodnotu..."
+  "USER_INPUT_WAITING": "Čakáme na vašu vstupnú hodnotu...",
+  "FINAL_TASK_RESULT": "Výsledok záverečnej úlohy",
+  "DOWNLOAD_SESSION_SUMMARY": "Stiahnuť zhrnutie relácie"
 }

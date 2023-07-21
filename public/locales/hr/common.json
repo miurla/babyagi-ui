@@ -20,5 +20,6 @@
   "THEME": "Tema",
   "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 Morate postaviti svoj OpenAI API ključ u izborniku postavki.",
   "DARK_MODE": "Tamni način",
-  "LIGHT_MODE": "Svjetlosni način rada"
+  "LIGHT_MODE": "Svjetlosni način rada",
+  "AVAILABLE_SKILLS": "Dostupne vještine"
 }

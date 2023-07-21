@@ -20,5 +20,6 @@
   "THEME": "Тема",
   "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 Морате да подесите свој ОпенАИ АПИ кључ у менију подешавања.",
   "DARK_MODE": "Tamni način rada",
-  "LIGHT_MODE": "Svetli način rada"
+  "LIGHT_MODE": "Svetli način rada",
+  "AVAILABLE_SKILLS": "Доступне вештине"
 }

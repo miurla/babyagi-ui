@@ -27,5 +27,7 @@
   "TASK_FAILED_MESSAGE": "اجرای وظیفه با شکست مواجه شد. لطفاً ورودی‌های وظیفه را بررسی کنید.",
   "OUTPUT_SUFFICIENCY": "كفايت خروجی.",
   "SUFFICIENCY": "بررسی کافی بودن خروجی وظیفه...",
-  "USER_INPUT_WAITING": "در انتظار ورودی شما..."
+  "USER_INPUT_WAITING": "در انتظار ورودی شما...",
+  "FINAL_TASK_RESULT": "نتیجه‌ی تسک نهایی",
+  "DOWNLOAD_SESSION_SUMMARY": "دانلود خلاصه جلسه"
 }

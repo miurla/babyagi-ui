@@ -27,5 +27,7 @@
   "TASK_FAILED_MESSAGE": "任務執行失敗。請檢查任務記錄。",
   "OUTPUT_SUFFICIENCY": "輸出充足性",
   "SUFFICIENCY": "檢查任務輸出是否足夠...",
-  "USER_INPUT_WAITING": "等待您的輸入..."
+  "USER_INPUT_WAITING": "等待您的輸入...",
+  "FINAL_TASK_RESULT": "最終任務結果",
+  "DOWNLOAD_SESSION_SUMMARY": "下載會話摘要"
 }

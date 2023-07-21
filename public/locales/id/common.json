@@ -20,5 +20,6 @@
   "THEME": "Tema",
   "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 Anda harus mengatur kunci OpenAI API Anda di menu pengaturan.",
   "DARK_MODE": "Mode Gelap",
-  "LIGHT_MODE": "Mode Terang"
+  "LIGHT_MODE": "Mode Terang",
+  "AVAILABLE_SKILLS": "Keterampilan yang tersedia"
 }

@@ -20,5 +20,6 @@
   "THEME": "Thema",
   "TITLE_INSTRUCTION_OPENAI_API_KEY": "👉 U moet uw OpenAI API-sleutel instellen in het instellingenmenu.",
   "DARK_MODE": "Donkere modus",
-  "LIGHT_MODE": "Lichte modus"
+  "LIGHT_MODE": "Lichte modus",
+  "AVAILABLE_SKILLS": "Beschikbare vaardigheden"
 }
