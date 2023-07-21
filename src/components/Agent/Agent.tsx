@@ -483,7 +483,10 @@ export const Agent: FC = () => {
               {executions.length > 5 &&
                 (selectedAgent.id === 'babydeeragi' ||
                   selectedAgent.id === 'babyelfagi') && (
-                  <IntroGuide onClick={(value) => setObjective(value)} />
+                  <IntroGuide
+                    onClick={(value) => setObjective(value)}
+                    agent={selectedAgent.id}
+                  />
                 )}
             </div>
           </div>

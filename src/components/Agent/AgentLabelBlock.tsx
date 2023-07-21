@@ -69,7 +69,7 @@ export const AgentLabelBlock: React.FC<AgentLabelBlockProps> = ({ block }) => {
             </ReactMarkdown>
             {message.type === 'final-result' && (
               <a ref={linkRef} download>
-                ⬇️ Download Session Summary
+                ⬇️ {translate('DOWNLOAD_SESSION_SUMMARY')}
               </a>
             )}
           </div>

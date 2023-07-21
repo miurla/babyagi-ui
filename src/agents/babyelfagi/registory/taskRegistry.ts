@@ -23,6 +23,7 @@ export class TaskRegistry {
     modelName: string = 'gpt-3.5-turbo',
     messageCallback?: (message: Message) => void,
     abortController?: AbortController,
+    language: string = 'en',
   ): Promise<void> {
     const relevantObjective = await findMostRelevantObjective(objective);
     const exapmleObjective = relevantObjective.objective;
@@ -36,7 +37,8 @@ export class TaskRegistry {
     Always include one skill.
     Do not create files unless specified in the objective.    
     dependent_task_ids should always be an empty array, or an array of numbers representing the task ID it should pull results from.
-    Make sure all task IDs are in chronological order.###\n
+    Make sure all task IDs are in chronological order.###
+    Output must be answered in ${language}.
     EXAMPLE OBJECTIVE=${exapmleObjective}
     TASK LIST=${JSON.stringify(exampleTaskList)}
     OBJECTIVE=${objective}

@@ -15,6 +15,7 @@ import {
 } from './skills';
 import { Skill } from './skills/skill';
 import { getUserApiKey } from '@/utils/settings';
+import { translate } from '@/utils/translate';
 
 const REFLECTION = false;
 
@@ -55,6 +56,7 @@ export class BabyElfAGI extends AgentExecuter {
       this.abortController,
       this.isRunningRef,
       verbose,
+      this.language,
     );
     this.taskRegistry = new TaskRegistry(this.verbose);
     this.sessionSummary = '';
@@ -88,8 +90,9 @@ export class BabyElfAGI extends AgentExecuter {
       this.modelName,
       this.messageCallback,
       this.abortController,
+      this.language,
     );
-    this.printer.printTaskList(this.taskRegistry.tasks);
+    this.printer.printTaskList(this.taskRegistry.tasks, 0);
   }
 
   async loop() {
@@ -195,7 +198,7 @@ export class BabyElfAGI extends AgentExecuter {
     this.messageCallback({
       type: 'final-result',
       text: lastTask.result ?? '',
-      title: 'Final Task Result',
+      title: translate('FINAL_TASK_RESULT', 'message'),
       icon: '✍️',
       id: 9999,
     });
