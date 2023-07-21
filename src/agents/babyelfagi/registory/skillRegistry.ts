@@ -3,8 +3,8 @@ import { ConfigurationParams } from '../skills';
 import { Skill } from '../skills/skill';
 
 export class SkillRegistry {
-  skills: { [key: string]: Skill };
   skillClasses: (typeof Skill)[];
+  skills: Skill[] = [];
   apiKeys: { [key: string]: string };
   // for UI
   messageCallback: (message: Message) => void;
@@ -21,7 +21,6 @@ export class SkillRegistry {
     verbose: boolean = false,
     language: string = 'en',
   ) {
-    this.skills = {};
     this.skillClasses = config.skillClasses;
     this.apiKeys = config.apiKeys;
     //
@@ -42,21 +41,28 @@ export class SkillRegistry {
         this.language,
       );
       if (skill.valid) {
-        this.skills[skill.name] = skill;
+        this.skills.push(skill);
       }
+      console.log(`Loaded skill: ${skill}`);
     }
 
     // Print the names and descriptions of all loaded skills
-    let skillInfo = Object.values(this.skills)
-      .map((skill) => `${skill.icon} ${skill.name}: ${skill.description}`)
+    let loadedSkills = this.skills
+      .map((skill) => {
+        const skillClass = skill.constructor as typeof Skill;
+        return `${skillClass.skillIcon} ${skillClass.skillName}: ${skillClass.skillDescriptionForHuman}`;
+      })
       .join('\n');
     if (this.verbose) {
-      console.log(`Loaded skills:\n${skillInfo}`);
+      console.log(`Loaded skills:\n${loadedSkills}`);
     }
   }
 
   getSkill(skillName: string): Skill {
-    let skill = this.skills[skillName];
+    const skill = this.skills.find((skill) => {
+      const skillClass = skill.constructor as typeof Skill;
+      return skillClass.skillName === skillName;
+    });
     if (!skill) {
       throw new Error(
         `Skill '${skillName}' not found. Please make sure the skill is loaded and all required API keys are set.`,
@@ -65,13 +71,16 @@ export class SkillRegistry {
     return skill;
   }
 
-  getAllSkills(): { [key: string]: Skill } {
+  getAllSkills(): Skill[] {
     return this.skills;
   }
 
   getSkillDescriptions(): string {
-    return Object.values(this.skills)
-      .map((skill) => `${skill.icon} ${skill.name}: ${skill.description}`)
+    return this.skills
+      .map((skill) => {
+        const skillClass = skill.constructor as typeof Skill;
+        return `${skillClass.skillIcon} ${skillClass.skillName}: ${skillClass.skillDescriptionForModel}`;
+      })
       .join(',');
   }
 }

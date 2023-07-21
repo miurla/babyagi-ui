@@ -1,13 +1,12 @@
-import { ChatOpenAI } from 'langchain/chat_models/openai';
-import { HumanChatMessage } from 'langchain/schema';
 import { AgentTask } from '@/types';
-import { setupMessage } from '@/utils/message';
 import { Skill } from '../skill';
 
 export class TextCompletion extends Skill {
   static skillName = 'text_completion';
-  static skillDescription =
-    "A tool that uses OpenAI's text completion API to generate, summarize, and/or analyze text and code.";
+  static skillDescriptionForHuman =
+    "A tool that uses OpenAI's text completion API to generate, summarize, and/or analyze text.";
+  static skillDescriptionForModel =
+    "A tool that uses OpenAI's text completion API to generate, summarize, and/or analyze text.";
   static skillIcon = '🤖';
   apiKeysRequired = ['openai'];
 
@@ -25,46 +24,9 @@ export class TextCompletion extends Skill {
     Your task: ${task}\n###
     RESPONSE:`;
 
-    let chunk = '';
-    const messageCallnback = this.messageCallback;
-
-    const llm = new ChatOpenAI(
-      {
-        openAIApiKey: this.apiKeys.openai,
-        modelName: 'gpt-3.5-turbo',
-        temperature: 0.2,
-        maxTokens: 800,
-        topP: 1,
-        frequencyPenalty: 0,
-        presencePenalty: 0,
-        streaming: true,
-        callbacks: [
-          {
-            handleLLMNewToken(token: string) {
-              chunk += token;
-              messageCallnback?.(
-                setupMessage('task-execute', chunk, undefined, '🤖', task.id),
-              );
-            },
-          },
-        ],
-      },
-      { baseOptions: { signal: this.abortController.signal } },
-    );
-
-    try {
-      const response = await llm.call([new HumanChatMessage(prompt)]);
-      messageCallnback?.(
-        setupMessage('task-output', response.text, undefined, '✅', task.id),
-      );
-
-      return response.text;
-    } catch (error: any) {
-      if (error.name === 'AbortError') {
-        return `Task aborted.`;
-      }
-      console.log('error: ', error);
-      return 'Failed to generate text.';
-    }
+    return this.generateText(prompt, task, {
+      temperature: 0.2,
+      maxTokens: 800,
+    });
   }
 }

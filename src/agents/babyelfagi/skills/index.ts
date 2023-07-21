@@ -6,3 +6,5 @@ export * from './presets/codeReader';
 export * from './presets/skillSaver';
 export * from './presets/directoryStructure';
 export * from './presets/objectiveSaver';
+export * from './presets/codeWriter';
+export * from './addons/airtableSaver';

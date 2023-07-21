@@ -13,7 +13,7 @@ export const SkillsList: FC<SkillsListProps> = ({ skills }) => {
         <span>Available Skills</span>
         <span>{`(${skills.length})`}</span>
       </div>
-      <div className="flex max-h-60 w-full flex-col items-start gap-2 overflow-auto rounded-lg border bg-white p-2 font-mono text-sm text-neutral-500 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-600">
+      <div className="flex max-h-64 w-full flex-col items-start gap-2 overflow-auto rounded-lg border bg-white p-2 font-mono text-sm text-neutral-500 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-600">
         {skills.map((skill, index) => (
           <SkillCard
             key={index}

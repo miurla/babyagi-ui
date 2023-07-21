@@ -1,12 +1,11 @@
 import { AgentTask } from '@/types';
 import { Skill } from '../skill';
-import { ChatOpenAI } from 'langchain/chat_models/openai';
-import { setupMessage } from '@/utils/message';
-import { HumanChatMessage } from 'langchain/schema';
 
 export class CodeReader extends Skill {
   static skillName = 'code_reader';
-  static skillDescription =
+  static skillDescriptionForHuman =
+    "A skill that finds a file's location in its own program's directory and returns its contents.";
+  static skillDescriptionForModel =
     "A skill that finds a file's location in its own program's directory and returns its contents.";
   static skillIcon = '📖';
   static skillType = 'dev';
@@ -14,7 +13,7 @@ export class CodeReader extends Skill {
 
   async execute(
     task: AgentTask,
-    dependentTaskOutputs: any,
+    dependentTaskOutputs: string,
     objective: string,
   ): Promise<string> {
     if (!this.valid) return '';
@@ -27,7 +26,7 @@ export class CodeReader extends Skill {
       dirStructure,
     )}\
     Your task: ${task.task}\n###\nRESPONSE:`;
-    let filePath = await this.generateText(prompt, task);
+    let filePath = await this.generateText(prompt, task, { temperature: 0.2 });
 
     console.log(`AI suggested file path: ${filePath}`);
 
@@ -61,47 +60,5 @@ export class CodeReader extends Skill {
       throw new Error('Failed to get directory structure');
     }
     return await response.json();
-  }
-
-  async generateText(prompt: string, task: AgentTask): Promise<string> {
-    let chunk = '';
-    const messageCallback = this.messageCallback;
-    const llm = new ChatOpenAI(
-      {
-        openAIApiKey: this.apiKeys.openai,
-        modelName: 'gpt-3.5-turbo',
-        temperature: 0.2,
-        maxTokens: 1500,
-        topP: 1,
-        frequencyPenalty: 0,
-        presencePenalty: 0,
-        streaming: true,
-        callbacks: [
-          {
-            handleLLMNewToken(token: string) {
-              chunk += token;
-              messageCallback?.(
-                setupMessage('task-execute', chunk, undefined, '🤖', task.id),
-              );
-            },
-          },
-        ],
-      },
-      { baseOptions: { signal: this.abortController.signal } },
-    );
-
-    try {
-      const response = await llm.call([new HumanChatMessage(prompt)]);
-      messageCallback?.(
-        setupMessage('task-output', response.text, undefined, '✅', task.id),
-      );
-      return response.text;
-    } catch (error: any) {
-      if (error.name === 'AbortError') {
-        return `Task aborted.`;
-      }
-      console.log('error: ', error);
-      return 'Failed to generate text.';
-    }
   }
 }

@@ -9,13 +9,12 @@ interface DirectoryNode {
 }
 
 const handler = (req: NextApiRequest, res: NextApiResponse) => {
-  // if (process.env.NODE_ENV !== 'development') {
-  //   res.status(403).json({ error: 'Access is forbidden in this environment' });
-  //   return;
-  // }
+  if (process.env.NODE_ENV !== 'development') {
+    res.status(403).json({ error: 'Access is forbidden in this environment' });
+    return;
+  }
 
   if (req.method === 'GET') {
-    const srcPath = path.join(process.cwd(), 'src');
     const dirStructure = getAllFilePaths('src');
     res.status(200).json(dirStructure);
   } else {

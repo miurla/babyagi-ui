@@ -5,15 +5,18 @@ const getObjectivesExamples = async () => {
   const storedObjectives = localStorage.getItem('BABYAGIUI_OBJECTIVES');
 
   if (storedObjectives) {
-    return JSON.parse(storedObjectives);
+    // return JSON.parse(storedObjectives);
+    return [];
   } else {
     const jsonFiles = [
-      'example1',
-      'example2',
+      // 'example1',
+      // 'example2',
       'example3',
       'example4',
-      'example5',
-      'example6',
+      // 'example5',
+      // 'example6',
+      'example_deer',
+      'example_code',
     ];
     let loadedObjectives: any[] = [];
 
@@ -23,10 +26,10 @@ const getObjectivesExamples = async () => {
       loadedObjectives.push(data);
     }
 
-    localStorage.setItem(
-      'BABYAGIUI_OBJECTIVES',
-      JSON.stringify(loadedObjectives),
-    );
+    // localStorage.setItem(
+    //   'BABYAGIUI_OBJECTIVES',
+    //   JSON.stringify(loadedObjectives),
+    // );
 
     return loadedObjectives;
   }

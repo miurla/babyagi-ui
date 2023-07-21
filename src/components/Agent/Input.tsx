@@ -61,7 +61,7 @@ export const Input: FC<InputProps> = ({
           <div className="flex w-1/3 justify-center">
             {isExecuting ? (
               <button
-                className="rounded border border-neutral-500 px-4 py-2 text-black hover:opacity-80 dark:bg-neutral-900 dark:text-white md:top-0"
+                className="rounded border border-neutral-500 bg-white px-4 py-2 text-black hover:opacity-80 dark:bg-neutral-900 dark:text-white md:top-0"
                 onClick={() => {
                   onStop();
                 }}

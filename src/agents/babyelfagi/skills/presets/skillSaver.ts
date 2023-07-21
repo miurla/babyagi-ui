@@ -1,13 +1,12 @@
 import { AgentTask } from '@/types';
-import { ChatOpenAI } from 'langchain/chat_models/openai';
-import { setupMessage } from '@/utils/message';
-import { HumanChatMessage } from 'langchain/schema';
 import { Skill } from '../skill';
 
 export class SkillSaver extends Skill {
   static skillName = 'skill_saver';
-  static skillDescription =
+  static skillDescriptionForHuman =
     'A skill that saves code written in a previous step into a file within the skills folder. Not for writing code.';
+  static skillDescriptionForModel =
+    'A skill that saves code written in a previous step into a file within the skills folder. Not for writing code. Never use this skill for anything other than storing non-skill codes.';
   static skillIcon = '💾';
   static skillType = 'dev';
   apiKeysRequired = ['openai'];
@@ -19,11 +18,18 @@ export class SkillSaver extends Skill {
   ): Promise<string> {
     if (!this.valid) return '';
 
+    const params = {
+      temperature: 0.2,
+      maxTokens: 800,
+    };
     const codePrompt = `Extract the code and only the code from the dependent task output here: ${dependentTaskOutputs}  \n###\nCODE:`;
-    const code = await this.generateText(codePrompt, task);
+    const code = await this.generateText(codePrompt, task, params);
+
+    console.log('dependentTaskOutputs', dependentTaskOutputs);
+    console.log('code', code);
 
     const filePrompt = `Come up with a file name (eg. 'getWeather.ts') for the following skill:${code}\n###\nFILE_NAME:`;
-    const filename = await this.generateText(filePrompt, task);
+    const filename = await this.generateText(filePrompt, task, params);
     const skillsPath = `src/agents/babyelfagi/skills/addons`;
 
     try {
@@ -44,46 +50,6 @@ export class SkillSaver extends Skill {
     } catch (error) {
       console.error('Error saving code.', error);
       return 'Error saving code.';
-    }
-  }
-
-  async generateText(prompt: string, task: AgentTask): Promise<string> {
-    const messageCallback = this.messageCallback;
-    const llm = new ChatOpenAI(
-      {
-        openAIApiKey: this.apiKeys.openai,
-        modelName: 'gpt-3.5-turbo',
-        temperature: 0.2,
-        maxTokens: 800,
-        topP: 1,
-        frequencyPenalty: 0,
-        presencePenalty: 0,
-        streaming: true,
-        callbacks: [
-          {
-            handleLLMNewToken(token: string) {
-              messageCallback?.(
-                setupMessage('task-execute', token, undefined, '🤖', task.id),
-              );
-            },
-          },
-        ],
-      },
-      { baseOptions: { signal: this.abortController.signal } },
-    );
-
-    try {
-      const response = await llm.call([new HumanChatMessage(prompt)]);
-      messageCallback?.(
-        setupMessage('task-output', response.text, undefined, '✅', task.id),
-      );
-      return response.text;
-    } catch (error: any) {
-      if (error.name === 'AbortError') {
-        return `Task aborted.`;
-      }
-      console.log('error: ', error);
-      return 'Failed to generate text.';
     }
   }
 }

@@ -1,10 +1,14 @@
-import { AgentTask, Message } from '@/types';
+import { AgentTask, LLMParams, Message } from '@/types';
+import { setupMessage } from '@/utils/message';
+import { ChatOpenAI } from 'langchain/chat_models/openai';
+import { HumanChatMessage } from 'langchain/schema';
 
 export class Skill {
   static skillName: string = 'base skill';
-  static skillDescription: string = 'This is the base skill.';
+  static skillDescriptionForHuman: string = 'This is the base skill.';
+  static skillDescriptionForModel: string = 'This is the base skill.';
   static skillIcon: string = '🛠️';
-  static skillType: string = 'normal';
+  static skillType: string = 'normal'; // normal or dev. dev skills available only in local dev environment
   apiKeysRequired: Array<string | Array<string>> = [];
   valid: boolean;
   apiKeys: { [key: string]: string };
@@ -69,12 +73,58 @@ export class Skill {
     return missingKeys;
   }
 
-  execute(
+  async execute(
     task: AgentTask,
     dependentTaskOutputs: string,
     objective: string,
   ): Promise<string> {
     // This method should be overridden by subclasses
     throw new Error("Method 'execute' must be implemented");
+  }
+
+  async generateText(
+    prompt: string,
+    task: AgentTask,
+    params?: LLMParams,
+  ): Promise<string> {
+    let chunk = '';
+    const messageCallback = this.messageCallback;
+    const llm = new ChatOpenAI(
+      {
+        openAIApiKey: this.apiKeys.openai,
+        modelName: params?.modelName ?? 'gpt-3.5-turbo',
+        temperature: params?.temperature ?? 0.7,
+        maxTokens: params?.maxTokens ?? 1500,
+        topP: params?.topP ?? 1,
+        frequencyPenalty: params?.frequencyPenalty ?? 0,
+        presencePenalty: params?.presencePenalty ?? 0,
+        streaming: params?.streaming ?? true,
+        callbacks: [
+          {
+            handleLLMNewToken(token: string) {
+              chunk += token;
+              messageCallback?.(
+                setupMessage('task-execute', chunk, undefined, '🤖', task.id),
+              );
+            },
+          },
+        ],
+      },
+      { baseOptions: { signal: this.abortController.signal } },
+    );
+
+    try {
+      const response = await llm.call([new HumanChatMessage(prompt)]);
+      messageCallback?.(
+        setupMessage('task-output', response.text, undefined, '✅', task.id),
+      );
+      return response.text;
+    } catch (error: any) {
+      if (error.name === 'AbortError') {
+        return `Task aborted.`;
+      }
+      console.log('error: ', error);
+      return 'Failed to generate text.';
+    }
   }
 }

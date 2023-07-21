@@ -136,3 +136,15 @@ export type SkillInfo = {
   icon: string;
   badge?: string;
 };
+
+export type LLMParams = {
+  openAIApiKey?: string;
+  modelName?: string;
+  temperature?: number;
+  maxTokens?: number;
+  topP?: number;
+  frequencyPenalty?: number;
+  presencePenalty?: number;
+  streaming?: boolean;
+  callbacks?: any[];
+};

@@ -3,14 +3,16 @@ import { Skill } from '../skill';
 
 export class DirectoryStructure extends Skill {
   static skillName = 'directory_structure';
-  static skillDescription =
+  static skillDescriptionForHuman =
+    "A skill that outputs the directory structure of the 'src' folder.";
+  static skillDescriptionForModel =
     "A skill that outputs the directory structure of the 'src' folder.";
   static skillIcon = '📂';
   static skillType = 'dev';
 
   async execute(
     task: AgentTask,
-    dependentTaskOutputs: any,
+    dependentTaskOutputs: string,
     objective: string,
   ): Promise<any> {
     const response = await fetch('/api/local/directory-structure', {

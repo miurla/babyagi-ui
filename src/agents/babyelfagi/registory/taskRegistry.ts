@@ -20,6 +20,7 @@ export class TaskRegistry {
   async createTaskList(
     objective: string,
     skillDescriptions: string,
+    modelName: string = 'gpt-3.5-turbo',
     messageCallback?: (message: Message) => void,
     abortController?: AbortController,
   ): Promise<void> {
@@ -33,6 +34,7 @@ export class TaskRegistry {
     RULES:
     Do not use skills that are not listed.
     Always include one skill.
+    Do not create files unless specified in the objective.    
     dependent_task_ids should always be an empty array, or an array of numbers representing the task ID it should pull results from.
     Make sure all task IDs are in chronological order.###\n
     EXAMPLE OBJECTIVE=${exapmleObjective}
@@ -52,7 +54,7 @@ export class TaskRegistry {
     const model = new ChatOpenAI(
       {
         openAIApiKey,
-        modelName: 'gpt-3.5-turbo',
+        modelName,
         temperature: 0,
         maxTokens: 1500,
         topP: 1,
@@ -129,13 +131,14 @@ export class TaskRegistry {
     objective: string,
     taskOutput: string,
     skillDescriptions: string,
+    modelName: string = 'gpt-3.5-turbo-16k',
   ): Promise<[AgentTask[], number[], AgentTask[]]> {
     const example = [
       [
         {
           id: 3,
           task: 'New task 1 description',
-          skill: 'text_completion_skill',
+          skill: 'text_completion',
           icon: '🤖',
           dependent_task_ids: [],
           status: 'complete',
@@ -143,7 +146,7 @@ export class TaskRegistry {
         {
           id: 4,
           task: 'New task 2 description',
-          skill: 'text_completion_skill',
+          skill: 'text_completion',
           icon: '🤖',
           dependent_task_ids: [],
           status: 'incomplete',
@@ -154,7 +157,7 @@ export class TaskRegistry {
         {
           id: 5,
           task: 'Complete the objective and provide a final report',
-          skill: 'text_completion_skill',
+          skill: 'text_completion',
           icon: '🤖',
           dependent_task_ids: [1, 2, 3, 4],
           status: 'incomplete',
@@ -191,7 +194,7 @@ export class TaskRegistry {
 
     const model = new ChatOpenAI({
       openAIApiKey: getUserApiKey(),
-      modelName: 'gpt-3.5-turbo-16k',
+      modelName,
       temperature: 0.7,
       maxTokens: 1500,
       topP: 1,

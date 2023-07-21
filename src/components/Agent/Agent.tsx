@@ -435,13 +435,12 @@ export const Agent: FC = () => {
   };
 
   const skills = () => {
-    console.log('skills');
     if (selectedAgent.id === 'babyelfagi') {
       const skills = BabyElfAGI.getSkillClasses();
       const skillInfos = skills.map((skill) => {
         const skillInfo = {
           name: skill.skillName,
-          description: skill.skillDescription,
+          description: skill.skillDescriptionForHuman,
           icon: skill.skillIcon,
           badge: skill.skillType,
         };

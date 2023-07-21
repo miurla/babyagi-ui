@@ -21,6 +21,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     fs.mkdir(path.dirname(filePath), { recursive: true }, (err) => {
       if (err) {
         res.status(500).json({ error: 'Failed to create directory' });
+        return;
       } else {
         fs.writeFile(filePath, text, (err) => {
           if (err) {

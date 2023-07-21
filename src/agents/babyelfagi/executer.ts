@@ -9,6 +9,8 @@ import {
   SkillSaver,
   TextCompletion,
   WebSearch,
+  CodeWriter,
+  AirtableSaver,
 } from './skills';
 import { Skill } from './skills/skill';
 import { getUserApiKey } from '@/utils/settings';
@@ -40,7 +42,10 @@ export class BabyElfAGI extends AgentExecuter {
     );
 
     const skillClasses: (typeof Skill)[] = BabyElfAGI.getSkillClasses();
-    const apiKeys = { openai: getUserApiKey() || '' };
+    const apiKeys = {
+      openai: getUserApiKey() || '',
+      airtable: 'keyXXXXXXXXXXXXXX', // Your Airtable API key here
+    };
     const config = new Configuration({ skillClasses, apiKeys });
     this.abortController = new AbortController();
     this.skillRegistry = new SkillRegistry(
@@ -50,17 +55,29 @@ export class BabyElfAGI extends AgentExecuter {
       this.isRunningRef,
       verbose,
     );
-    this.taskRegistry = new TaskRegistry();
+    this.taskRegistry = new TaskRegistry(this.verbose);
     this.sessionSummary = '';
   }
 
   // You need to define this method
   static getSkillClasses(): (typeof Skill)[] {
-    // This skills is the default skill
-    const skills: (typeof Skill)[] = [TextCompletion, WebSearch];
-    if (process.env.NODE_ENV === 'development') {
-      // These skills are only available in development mode
-      skills.push(CodeReader, SkillSaver, DirectoryStructure, ObjectiveSaver);
+    const skills: (typeof Skill)[] = [
+      TextCompletion,
+      WebSearch,
+      AirtableSaver,
+      CodeReader,
+      CodeWriter,
+      SkillSaver,
+      DirectoryStructure,
+      ObjectiveSaver,
+    ];
+    if (process.env.NODE_ENV !== 'development') {
+      // if skill type is dev, it will not be included in production
+      skills.map((skill) => {
+        if (skill.skillType !== 'dev') {
+          return skill;
+        }
+      });
     }
     return skills;
   }
@@ -74,6 +91,7 @@ export class BabyElfAGI extends AgentExecuter {
     await this.taskRegistry.createTaskList(
       this.objective,
       skillDescriptions,
+      this.modelName,
       this.messageCallback,
       this.abortController,
     );
