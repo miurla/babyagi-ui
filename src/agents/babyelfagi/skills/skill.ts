@@ -4,6 +4,7 @@ import { ChatOpenAI } from 'langchain/chat_models/openai';
 import { HumanChatMessage } from 'langchain/schema';
 
 export type SkillType = 'normal' | 'dev';
+export type SkillExecutionLocation = 'client' | 'server';
 
 export class Skill {
   name: string = 'base_kill';
@@ -14,6 +15,7 @@ export class Skill {
   apiKeysRequired: Array<string | Array<string>> = [];
   valid: boolean;
   apiKeys: { [key: string]: string };
+  executionLocation: SkillExecutionLocation = 'client'; // 'client' or 'server'
   // for UI
   messageCallback: (message: Message) => void;
   abortController: AbortController;

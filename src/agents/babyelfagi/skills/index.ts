@@ -1,4 +1,3 @@
-export * from './configuration';
 export * from './skill';
 export * from './presets/textCompletion';
 export * from './presets/webSearch';
