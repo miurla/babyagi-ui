@@ -1,6 +1,16 @@
 import { Message } from '@/types';
-import { ConfigurationParams } from '../skills';
+import {
+  AirtableSaver,
+  CodeReader,
+  CodeWriter,
+  DirectoryStructure,
+  SkillSaver,
+  TextCompletion,
+  WebSearch,
+  YoutubeSearch,
+} from '../skills';
 import { Skill } from '../skills/skill';
+import { getUserApiKey } from '@/utils/settings';
 
 export class SkillRegistry {
   skillClasses: (typeof Skill)[];
@@ -14,18 +24,17 @@ export class SkillRegistry {
   language: string = 'en';
 
   constructor(
-    config: ConfigurationParams,
-    messageCallback: (message: Message) => void,
-    abortController: AbortController,
+    messageCallback?: (message: Message) => void,
+    abortController?: AbortController,
     isRunningRef?: React.MutableRefObject<boolean>,
     verbose: boolean = false,
     language: string = 'en',
   ) {
-    this.skillClasses = config.skillClasses;
-    this.apiKeys = config.apiKeys;
+    this.skillClasses = SkillRegistry.getSkillClasses();
+    this.apiKeys = SkillRegistry.apiKeys;
     //
-    this.messageCallback = messageCallback;
-    this.abortController = abortController;
+    this.messageCallback = messageCallback || (() => {});
+    this.abortController = abortController || new AbortController();
     this.isRunningRef = isRunningRef;
     this.verbose = verbose;
     this.language = language;
@@ -59,6 +68,25 @@ export class SkillRegistry {
       console.log(`Loaded skills:\n${loadedSkills}`);
     }
   }
+
+  static getSkillClasses(): (typeof Skill)[] {
+    const skills: (typeof Skill)[] = [
+      TextCompletion,
+      WebSearch,
+      AirtableSaver,
+      CodeReader,
+      CodeWriter,
+      SkillSaver,
+      DirectoryStructure,
+      YoutubeSearch,
+    ];
+    return skills;
+  }
+
+  static apiKeys = {
+    openai: getUserApiKey() || process.env.OPENAI_API_KEY || '',
+    airtable: 'keyXXXXXXXXXXXXXX', // Your Airtable API key here
+  };
 
   getSkill(name: string): Skill {
     const skill = this.skills.find((skill) => {

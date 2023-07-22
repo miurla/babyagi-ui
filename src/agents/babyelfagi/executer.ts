@@ -1,20 +1,6 @@
 import { AgentStatus, Message, TaskOutputs } from '@/types'; // You need to define these types
 import { AgentExecuter } from '../base/AgentExecuter';
 import { SkillRegistry, TaskRegistry } from './registory';
-import {
-  CodeReader,
-  Configuration,
-  DirectoryStructure,
-  ObjectiveSaver,
-  SkillSaver,
-  TextCompletion,
-  WebSearch,
-  CodeWriter,
-  AirtableSaver,
-  YoutubeSearch,
-} from './skills';
-import { Skill } from './skills/skill';
-import { getUserApiKey } from '@/utils/settings';
 import { translate } from '@/utils/translate';
 
 const REFLECTION = false;
@@ -43,15 +29,8 @@ export class BabyElfAGI extends AgentExecuter {
       verbose,
     );
 
-    const skillClasses: (typeof Skill)[] = this.getSkillClasses();
-    const apiKeys = {
-      openai: getUserApiKey() || '',
-      airtable: 'keyXXXXXXXXXXXXXX', // Your Airtable API key here
-    };
-    const config = new Configuration({ skillClasses, apiKeys });
     this.abortController = new AbortController();
     this.skillRegistry = new SkillRegistry(
-      config,
       this.messageCallback,
       this.abortController,
       this.isRunningRef,
@@ -60,22 +39,6 @@ export class BabyElfAGI extends AgentExecuter {
     );
     this.taskRegistry = new TaskRegistry(this.verbose);
     this.sessionSummary = '';
-  }
-
-  // You need to define this method
-  getSkillClasses(): (typeof Skill)[] {
-    const skills: (typeof Skill)[] = [
-      TextCompletion,
-      WebSearch,
-      AirtableSaver,
-      CodeReader,
-      CodeWriter,
-      SkillSaver,
-      DirectoryStructure,
-      // ObjectiveSaver,
-      YoutubeSearch,
-    ];
-    return skills;
   }
 
   async prepare() {
