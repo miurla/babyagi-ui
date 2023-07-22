@@ -101,7 +101,7 @@ export class TaskRegistry {
 
     if (skill.executionLocation === 'server') {
       // Call the API endpoint if the skill needs to be executed on the server side
-      const response = await axios.post('/api/execute', {
+      const response = await axios.post('/api/execute-skill', {
         task: JSON.stringify(task),
         dependent_task_outputs: dependentTaskOutputs,
         objective,
