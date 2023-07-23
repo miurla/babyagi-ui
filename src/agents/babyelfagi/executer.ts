@@ -3,7 +3,7 @@ import { AgentExecuter } from '../base/AgentExecuter';
 import { SkillRegistry, TaskRegistry } from './registory';
 import { translate } from '@/utils/translate';
 
-const REFLECTION = false;
+const REFLECTION = false; // If you want to use reflection, set this to true. now support only client side reflection.
 
 export class BabyElfAGI extends AgentExecuter {
   skillRegistry: SkillRegistry;

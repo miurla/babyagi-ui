@@ -1,7 +1,10 @@
 import { AgentTask, LLMParams, Message } from '@/types';
 import { setupMessage } from '@/utils/message';
+import { getUserApiKey } from '@/utils/settings';
+import axios from 'axios';
 import { ChatOpenAI } from 'langchain/chat_models/openai';
 import { HumanChatMessage } from 'langchain/schema';
+import { get } from 'lodash';
 
 export type SkillType = 'normal' | 'dev';
 export type SkillExecutionLocation = 'client' | 'server';
@@ -94,44 +97,73 @@ export class Skill {
     task: AgentTask,
     params?: LLMParams,
   ): Promise<string> {
-    let chunk = '';
-    const messageCallback = this.messageCallback;
-    const llm = new ChatOpenAI(
-      {
-        openAIApiKey: this.apiKeys.openai,
-        modelName: params?.modelName ?? 'gpt-3.5-turbo',
-        temperature: params?.temperature ?? 0.7,
-        maxTokens: params?.maxTokens ?? 1500,
-        topP: params?.topP ?? 1,
-        frequencyPenalty: params?.frequencyPenalty ?? 0,
-        presencePenalty: params?.presencePenalty ?? 0,
-        streaming: params?.streaming ?? true,
-        callbacks: [
-          {
-            handleLLMNewToken(token: string) {
-              chunk += token;
-              messageCallback?.(
-                setupMessage('task-execute', chunk, undefined, '🤖', task.id),
-              );
+    if (getUserApiKey()) {
+      let chunk = '';
+      const messageCallback = this.messageCallback;
+      const llm = new ChatOpenAI(
+        {
+          openAIApiKey: this.apiKeys.openai,
+          modelName: params?.modelName ?? 'gpt-3.5-turbo',
+          temperature: params?.temperature ?? 0.7,
+          maxTokens: params?.maxTokens ?? 1500,
+          topP: params?.topP ?? 1,
+          frequencyPenalty: params?.frequencyPenalty ?? 0,
+          presencePenalty: params?.presencePenalty ?? 0,
+          streaming: params?.streaming ?? true,
+          callbacks: [
+            {
+              handleLLMNewToken(token: string) {
+                chunk += token;
+                messageCallback?.(
+                  setupMessage('task-execute', chunk, undefined, '🤖', task.id),
+                );
+              },
             },
-          },
-        ],
-      },
-      { baseOptions: { signal: this.abortController.signal } },
-    );
-
-    try {
-      const response = await llm.call([new HumanChatMessage(prompt)]);
-      messageCallback?.(
-        setupMessage('task-output', response.text, undefined, '✅', task.id),
+          ],
+        },
+        { baseOptions: { signal: this.abortController.signal } },
       );
-      return response.text;
-    } catch (error: any) {
-      if (error.name === 'AbortError') {
-        return `Task aborted.`;
+
+      try {
+        const response = await llm.call([new HumanChatMessage(prompt)]);
+        messageCallback?.(
+          setupMessage('task-output', response.text, undefined, '✅', task.id),
+        );
+        return response.text;
+      } catch (error: any) {
+        if (error.name === 'AbortError') {
+          return `Task aborted.`;
+        }
+        console.log('error: ', error);
+        return 'Failed to generate text.';
       }
-      console.log('error: ', error);
-      return 'Failed to generate text.';
+    } else {
+      // server side request
+      const response = await axios
+        .post(
+          '/api/elf/completion',
+          {
+            prompt: prompt,
+            model_name: params?.modelName ?? 'gpt-3.5-turbo',
+            temperature: params?.temperature ?? 0.7,
+            max_tokens: params?.maxTokens ?? 1500,
+            top_p: params?.topP ?? 1,
+            frequency_penalty: params?.frequencyPenalty ?? 0,
+            presence_penalty: params?.presencePenalty ?? 0,
+          },
+          {
+            signal: this.abortController.signal,
+          },
+        )
+        .catch((error) => {
+          if (error.name === 'AbortError') {
+            return undefined;
+          }
+          console.log('error: ', error);
+          return undefined;
+        });
+
+      return response?.data.response;
     }
   }
 }

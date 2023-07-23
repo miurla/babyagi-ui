@@ -1,4 +1,5 @@
 import { getUserApiKey } from '@/utils/settings';
+import axios from 'axios';
 import { OpenAIEmbeddings } from 'langchain/embeddings/openai';
 
 const getObjectivesExamples = async () => {
@@ -39,11 +40,30 @@ async function getEmbedding(
   text: string,
   modelName: string = 'text-embedding-ada-002',
 ) {
-  const embedding = new OpenAIEmbeddings({
-    modelName,
-    openAIApiKey: getUserApiKey(),
-  });
-  return await embedding.embedQuery(text);
+  const openAIApiKey = getUserApiKey();
+  if (!openAIApiKey && process.env.NEXT_PUBLIC_USE_USER_API_KEY === 'true') {
+    throw new Error('User API key is not set.');
+  }
+
+  if (openAIApiKey) {
+    const embedding = new OpenAIEmbeddings({
+      modelName,
+      openAIApiKey: getUserApiKey(),
+    });
+    return await embedding.embedQuery(text);
+  } else {
+    const response = await axios.post(
+      '/api/elf/embedding',
+      {
+        text: text,
+        model_name: modelName,
+      },
+      {
+        signal: new AbortController().signal,
+      },
+    );
+    return response.data.response;
+  }
 }
 
 function calculateSimilarity(embedding1: number[], embedding2: number[]) {
