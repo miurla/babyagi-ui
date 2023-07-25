@@ -166,4 +166,14 @@ export class Skill {
       return response?.data.response;
     }
   }
+
+  async getDirectoryStructure(): Promise<any> {
+    const response = await fetch('/api/local/directory-structure', {
+      method: 'GET',
+    });
+    if (!response.ok) {
+      throw new Error('Failed to get directory structure');
+    }
+    return await response.json();
+  }
 }

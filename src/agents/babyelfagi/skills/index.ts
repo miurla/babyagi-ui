@@ -6,5 +6,6 @@ export * from './presets/skillSaver';
 export * from './presets/directoryStructure';
 export * from './presets/objectiveSaver';
 export * from './presets/codeWriter';
+export * from './presets/codeReviewer';
 export * from './addons/airtableSaver';
 export * from './addons/youtubeSearch';
