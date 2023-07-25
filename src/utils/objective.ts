@@ -10,14 +10,11 @@ const getObjectivesExamples = async () => {
     return [];
   } else {
     const jsonFiles = [
-      // 'example1',
-      // 'example2',
       'example3',
       'example4',
-      // 'example5',
-      // 'example6',
       'example_deer',
       'example_code',
+      'example_code_review',
     ];
     let loadedObjectives: any[] = [];
 

@@ -22,15 +22,27 @@ export class SkillSaver extends Skill {
       temperature: 0.2,
       maxTokens: 800,
     };
-    const codePrompt = `Extract the code and only the code from the dependent task output here: ${dependentTaskOutputs}  \n###\nCODE:`;
+    const codePrompt = `Extract the code and only the code from the dependent task output.
+    If it is a markdown code block, extract only the code inside.
+    DEPENDENT TASK OUTPUT: ${dependentTaskOutputs}
+    CODE:`;
     const code = await this.generateText(codePrompt, task, params);
 
-    console.log('dependentTaskOutputs', dependentTaskOutputs);
-    console.log('code', code);
-
-    const filePrompt = `Come up with a file name (eg. 'getWeather.ts') for the following skill:${code}\n###\nFILE_NAME:`;
+    const filePrompt = `Come up with a file name (eg. 'getWeather.ts') for the following skill.
+    If there is a file name to save in the task, please use it. (eg. 'getWeather.ts')
+    TASK: ${task.task}
+    CODE: ${code}
+    FILE_NAME:`;
     const filename = await this.generateText(filePrompt, task, params);
-    const skillsPath = `src/agents/babyelfagi/skills/addons`;
+    let skillsPath = `src/agents/babyelfagi/skills/addons`;
+
+    const dirStructure: string[] = await this.getDirectoryStructure();
+    const skillPaths = dirStructure.filter((path) => path.includes(filename));
+    if (skillPaths.length > 0) {
+      skillsPath = skillPaths[0];
+    } else {
+      skillsPath += `/${filename}`;
+    }
 
     try {
       const response = await fetch('/api/local/write-file', {
@@ -39,7 +51,7 @@ export class SkillSaver extends Skill {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          filename: `${skillsPath}/${filename}`,
+          filename: skillsPath,
           content: code,
         }),
       });

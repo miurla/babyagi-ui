@@ -1,0 +1,37 @@
+{
+  "objective": "Refactor codeReviwer.ts and save update code using skillSaver.ts",
+  "examples": [
+    {
+      "id": 1,
+      "task": "Use the code_reader skill to read the existing code in codeReviwer.ts to understand its structure and concepts.",
+      "skill": "code_reader",
+      "icon": "📖",
+      "dependent_task_ids": [],
+      "status": "incomplete"
+    },
+    {
+      "id": 2,
+      "task": "Use the code_reviewer skill to review the code in codeReviwer.ts and provide comments to improve its quality.",
+      "skill": "code_reviewer",
+      "icon": "👨‍💻",
+      "dependent_task_ids": [1],
+      "status": "incomplete"
+    },
+    {
+      "id": 3,
+      "task": "Use the code_writer skill to refactor the code in codeReviwer.ts based on the comments from the code_reviewer.",
+      "skill": "code_writer",
+      "icon": "🖊️",
+      "dependent_task_ids": [1, 2],
+      "status": "incomplete"
+    },
+    {
+      "id": 4,
+      "task": "Save the refactored code in codeReviwer.ts using the skill_saver skill.",
+      "skill": "skill_saver",
+      "icon": "💾",
+      "dependent_task_ids": [3],
+      "status": "incomplete"
+    }
+  ]
+}

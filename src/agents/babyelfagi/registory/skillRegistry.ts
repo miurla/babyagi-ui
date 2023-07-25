@@ -2,6 +2,7 @@ import { Message } from '@/types';
 import {
   AirtableSaver,
   CodeReader,
+  CodeReviewer,
   CodeWriter,
   DirectoryStructure,
   SkillSaver,
@@ -79,6 +80,7 @@ export class SkillRegistry {
       SkillSaver,
       DirectoryStructure,
       YoutubeSearch,
+      CodeReviewer,
     ];
     return skills;
   }
