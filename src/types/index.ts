@@ -61,7 +61,6 @@ export type MessageType =
   | 'done'
   | 'complete'
   | 'failed'
-  | 'sufficiency-result' // for mod
   | 'user-input' // for babydeeragi
   | 'task-execute' // for babydeeragi;
   | 'final-result';
@@ -81,7 +80,6 @@ export type AgentStatusType =
   | 'managing'
   | 'creating-stream' // for babycatagi
   | 'executing-stream' // for babycatagi
-  | 'sufficiency' // for mod
   | 'user-input'; // for babydeeragi
 
 export type UserSettings = {

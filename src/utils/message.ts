@@ -62,8 +62,6 @@ export const setupMessage = (
       // ? '🧑‍💻'
       type === 'task-output'
       ? '✅'
-      : type === 'sufficiency-result'
-      ? '🤔'
       : type === 'failed'
       ? '❌'
       : type === 'user-input'
@@ -97,8 +95,6 @@ export const setupMessage = (
       ? translate('FINISHED', 'message')
       : type === 'failed'
       ? translate('TASK_FAILED', 'message')
-      : type === 'sufficiency-result'
-      ? translate('OUTPUT_SUFFICIENCY', 'message')
       : '';
 
   const bgColor =
@@ -175,8 +171,6 @@ export const loadingAgentMessage = (status: AgentStatus) => {
       ? translate('SUMMARIZING', 'message')
       : status.type === 'managing'
       ? translate('MANAGING', 'message')
-      : status.type === 'sufficiency'
-      ? translate('SUFFICIENCY', 'message')
       : status.type === 'user-input'
       ? translate('USER_INPUT_WAITING', 'message')
       : translate('THINKING', 'message');
