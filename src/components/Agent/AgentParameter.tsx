@@ -36,9 +36,6 @@ export const AgentParameter: FC<AgentParameterProps> = ({
           agent.id === 'babydeeragi' ||
           agent.id === 'babyelfagi',
       );
-    } else if (!getUserApiKey()) {
-      // bui-mod-1 is only available for using client api key
-      option = AGENT.filter((agent) => agent.id !== 'bui-mod-1');
     } else {
       option = AGENT;
     }
