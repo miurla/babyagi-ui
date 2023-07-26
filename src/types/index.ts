@@ -144,5 +144,5 @@ export type LLMParams = {
   frequencyPenalty?: number;
   presencePenalty?: number;
   streaming?: boolean;
-  callbacks?: any[];
+  callbacks?: (message: Message) => void;
 };
