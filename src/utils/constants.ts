@@ -17,11 +17,6 @@ export const MODELS = [
     name: 'OpenAI gpt-3.5-turbo',
     icon: 'openai-logo.svg',
   },
-  {
-    id: 'text-davinci-003',
-    name: 'OpenAI text-davinci-003',
-    icon: 'openai-logo.svg',
-  },
 ];
 
 export const ITERATIONS = [
@@ -52,18 +47,6 @@ export const AGENT = [
     icon: '🦌',
     message: '🤖/🔎+📄/🧑‍💻',
     badge: 'STABLE',
-  },
-  {
-    id: 'babycatagi',
-    name: 'BabyCatAGI',
-    icon: '🐱',
-    message: '🤖/🔎+📄',
-  },
-  {
-    id: 'babybeeagi',
-    name: 'BabyBeeAGI',
-    icon: '🐝',
-    message: '🤖/🔎/📄',
   },
   { id: 'babyagi', name: 'BabyAGI', icon: '👶', message: '🤖' },
 ];
