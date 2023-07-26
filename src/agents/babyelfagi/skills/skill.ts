@@ -4,7 +4,6 @@ import { getUserApiKey } from '@/utils/settings';
 import axios from 'axios';
 import { ChatOpenAI } from 'langchain/chat_models/openai';
 import { HumanChatMessage } from 'langchain/schema';
-import { get } from 'lodash';
 
 export type SkillType = 'normal' | 'dev';
 export type SkillExecutionLocation = 'client' | 'server';
@@ -96,10 +95,11 @@ export class Skill {
     prompt: string,
     task: AgentTask,
     params?: LLMParams,
+    ignoreCallback: boolean = false,
   ): Promise<string> {
     if (getUserApiKey()) {
       let chunk = '';
-      const messageCallback = this.messageCallback;
+      const messageCallback = ignoreCallback ? () => {} : this.messageCallback;
       const llm = new ChatOpenAI(
         {
           openAIApiKey: this.apiKeys.openai,
@@ -109,7 +109,7 @@ export class Skill {
           topP: params?.topP ?? 1,
           frequencyPenalty: params?.frequencyPenalty ?? 0,
           presencePenalty: params?.presencePenalty ?? 0,
-          streaming: params?.streaming ?? true,
+          streaming: params?.streaming === undefined ? true : params.streaming,
           callbacks: [
             {
               handleLLMNewToken(token: string) {

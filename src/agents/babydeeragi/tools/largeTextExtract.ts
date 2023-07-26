@@ -8,8 +8,8 @@ export const largeTextExtract = async (
   objective: string,
   largeString: string,
   task: AgentTask,
-  isRunningRef: React.MutableRefObject<boolean>,
-  callback: (message: string) => void,
+  isRunningRef?: React.MutableRefObject<boolean>,
+  callback?: (message: string) => void,
   signal?: AbortSignal,
 ) => {
   const chunkSize = 15000;
@@ -20,9 +20,9 @@ export const largeTextExtract = async (
   const total = Math.ceil(largeString.length / (chunkSize - overlap));
 
   for (let i = 0; i < largeString.length; i += chunkSize - overlap) {
-    if (!isRunningRef.current) break;
+    if (!isRunningRef?.current) break;
 
-    callback(`    - chunk ${i / (chunkSize - overlap) + 1} of ${total}\n`);
+    callback?.(`    - chunk ${i / (chunkSize - overlap) + 1} of ${total}\n`);
 
     const chunk = largeString.slice(i, i + chunkSize);
     // Client side call

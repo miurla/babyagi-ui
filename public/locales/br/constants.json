@@ -22,5 +22,6 @@
   "EXAMPLE_OBJECTIVE_3": "Relate as últimas notícias na categoria favorita do usuário.",
   "EXAMPLES": "Exemplos",
   "EXAMPLE_OBJECTIVE_4": "Krido adro war BabyAGI a zo. Enklo un telen Youtube en-dro er gwrizioù.",
-  "EXAMPLE_OBJECTIVE_5": "Baseado em skillSaver.ts, escreva uma nova habilidade chamada airtableSaver.ts que usa a API do Airtable para inserir dados em uma tabela específica."
+  "EXAMPLE_OBJECTIVE_5": "Baseado em skillSaver.ts, escreva uma nova habilidade chamada airtableSaver.ts que usa a API do Airtable para inserir dados em uma tabela específica.",
+  "EXAMPLE_OBJECTIVE_6": "Resumi a páxina"
 }

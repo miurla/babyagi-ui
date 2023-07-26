@@ -210,7 +210,7 @@ export const getToolIcon = (tool: ToolType) => {
 };
 
 export const getExportText = (messages: Message[], agentId?: string) => {
-  if (agentId === 'babydeeragi') {
+  if (agentId === 'babydeeragi' || agentId === 'babyelfagi') {
     // exclude task-execute & user-input messages
     messages = messages.filter(
       (message) =>

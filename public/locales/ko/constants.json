@@ -21,5 +21,6 @@
   "EXAMPLE_OBJECTIVE_3": "사용자가 선호하는 카테고리의 최신 뉴스를 보고해주세요.",
   "EXAMPLES": "예시",
   "EXAMPLE_OBJECTIVE_4": "BabyAGI에 대해 보고서를 작성하세요. 보고서에는 Youtube 링크를 포함하세요.",
-  "EXAMPLE_OBJECTIVE_5": "기존의 skillSaver.ts를 기반으로 하여 airtableSaver.ts라는 새로운 스킬을 작성하십시오. 이 스킬은 Airtable API를 사용하여 특정 테이블에 데이터를 삽입합니다."
+  "EXAMPLE_OBJECTIVE_5": "기존의 skillSaver.ts를 기반으로 하여 airtableSaver.ts라는 새로운 스킬을 작성하십시오. 이 스킬은 Airtable API를 사용하여 특정 테이블에 데이터를 삽입합니다.",
+  "EXAMPLE_OBJECTIVE_6": "페이지를 요약해주세요."
 }

@@ -21,5 +21,6 @@
   "EXAMPLE_OBJECTIVE_3": "Melden Sie die neuesten Nachrichten in der Lieblingskategorie des Benutzers.",
   "EXAMPLES": "Beispiele",
   "EXAMPLE_OBJECTIVE_4": "Schreiben Sie einen Bericht darüber, was BabyAGI ist. Fügen Sie dem Bericht einen YouTube-Link hinzu.",
-  "EXAMPLE_OBJECTIVE_5": "Basierend auf skillSaver.ts, schreiben Sie eine neue Fähigkeit namens airtableSaver.ts, die die Airtable API verwendet, um Daten in eine bestimmte Tabelle einzufügen."
+  "EXAMPLE_OBJECTIVE_5": "Basierend auf skillSaver.ts, schreiben Sie eine neue Fähigkeit namens airtableSaver.ts, die die Airtable API verwendet, um Daten in eine bestimmte Tabelle einzufügen.",
+  "EXAMPLE_OBJECTIVE_6": "Zusammenfassen Sie die Seite"
 }

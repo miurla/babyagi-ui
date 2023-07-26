@@ -21,5 +21,6 @@
   "EXAMPLE_OBJECTIVE_3": "דווח על אחרונות בקטגוריה המועדפת של המשתמש",
   "EXAMPLES": "דוגמאות",
   "EXAMPLE_OBJECTIVE_4": "כתוב דוח על מהי BabyAGI. כלול קישור ל- Youtube בדוח.",
-  "EXAMPLE_OBJECTIVE_5": "על פי skillSaver.ts, כתבו מיומנות חדשה בשם airtableSaver.ts שמשתמשת ב- API של Airtable כדי להכניס נתונים לטבלה מסוימת."
+  "EXAMPLE_OBJECTIVE_5": "על פי skillSaver.ts, כתבו מיומנות חדשה בשם airtableSaver.ts שמשתמשת ב- API של Airtable כדי להכניס נתונים לטבלה מסוימת.",
+  "EXAMPLE_OBJECTIVE_6": "סכם את הדף"
 }

@@ -21,5 +21,6 @@
   "EXAMPLE_OBJECTIVE_3": "Rapportér de seneste nyheder inden for brugerens foretrukne kategori.",
   "EXAMPLES": "Eksempler",
   "EXAMPLE_OBJECTIVE_4": "Skriv en rapport om hvad BabyAGI er. Inkluder et Youtube-link i rapporten.",
-  "EXAMPLE_OBJECTIVE_5": "Baseret på skillSaver.ts, skriv en ny funktion kaldet airtableSaver.ts, som bruger Airtable API til at indsætte data i en specifik tabel."
+  "EXAMPLE_OBJECTIVE_5": "Baseret på skillSaver.ts, skriv en ny funktion kaldet airtableSaver.ts, som bruger Airtable API til at indsætte data i en specifik tabel.",
+  "EXAMPLE_OBJECTIVE_6": "Resumér siden"
 }

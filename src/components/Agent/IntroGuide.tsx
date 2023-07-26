@@ -13,9 +13,12 @@ export const IntroGuide: FC<IntroGuideProps> = ({ onClick, agent }) => {
     translate('EXAMPLE_OBJECTIVE_3', 'constants'),
   ];
   const elfExample = [
+    `${translate(
+      'EXAMPLE_OBJECTIVE_6',
+      'constants',
+    )}: http://www.paulgraham.com/greatwork.html`,
     translate('EXAMPLE_OBJECTIVE_4', 'constants'),
     translate('EXAMPLE_OBJECTIVE_1', 'constants'),
-    translate('EXAMPLE_OBJECTIVE_2', 'constants'),
   ];
   const elfDevExample = [
     translate('EXAMPLE_OBJECTIVE_4', 'constants'),

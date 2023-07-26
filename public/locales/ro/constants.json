@@ -21,5 +21,6 @@
   "EXAMPLE_OBJECTIVE_3": "Raportați cele mai recente știri în categoria preferată a utilizatorului",
   "EXAMPLES": "Exemple",
   "EXAMPLE_OBJECTIVE_4": "Scrieți un raport despre ce înseamnă BabyAGI. Includeți un link de pe Youtube în raport.",
-  "EXAMPLE_OBJECTIVE_5": "Pe baza fișierului skillSaver.ts, scrie un nou skill numit airtableSaver.ts, care utilizează API-ul Airtable pentru a insera date într-o anumită tabelă."
+  "EXAMPLE_OBJECTIVE_5": "Pe baza fișierului skillSaver.ts, scrie un nou skill numit airtableSaver.ts, care utilizează API-ul Airtable pentru a insera date într-o anumită tabelă.",
+  "EXAMPLE_OBJECTIVE_6": "Rezuma pagina."
 }

@@ -21,5 +21,6 @@
   "EXAMPLE_OBJECTIVE_3": "Raportuj najnowsze wiadomości w ulubionej kategorii użytkownika.",
   "EXAMPLES": "Przykłady",
   "EXAMPLE_OBJECTIVE_4": "Napisz raport na temat BabyAGI. Dołącz link do filmu na YouTube w raporcie.",
-  "EXAMPLE_OBJECTIVE_5": "Na podstawie pliku skillSaver.ts, napisz nową umiejętność o nazwie airtableSaver.ts, która będzie korzystać z interfejsu API Airtable do wstawiania danych do określonej tabeli."
+  "EXAMPLE_OBJECTIVE_5": "Na podstawie pliku skillSaver.ts, napisz nową umiejętność o nazwie airtableSaver.ts, która będzie korzystać z interfejsu API Airtable do wstawiania danych do określonej tabeli.",
+  "EXAMPLE_OBJECTIVE_6": "Przedstaw streszczenie strony"
 }
