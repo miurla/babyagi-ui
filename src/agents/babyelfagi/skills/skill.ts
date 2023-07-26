@@ -95,10 +95,11 @@ export class Skill {
     prompt: string,
     task: AgentTask,
     params?: LLMParams,
+    ignoreCallback: boolean = false,
   ): Promise<string> {
     if (getUserApiKey()) {
       let chunk = '';
-      const messageCallback = params?.callbacks || this.messageCallback;
+      const messageCallback = ignoreCallback ? () => {} : this.messageCallback;
       const llm = new ChatOpenAI(
         {
           openAIApiKey: this.apiKeys.openai,

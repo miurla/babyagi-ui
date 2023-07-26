@@ -11,18 +11,12 @@ export class WebReader extends Skill {
     'This skill reads web pages from provided URLs. Returns the web page content.';
   icon = '🌐';
 
-  async execute(
-    task: AgentTask,
-    dependentTaskOutputs: string,
-    objective: string,
-  ): Promise<string> {
-    if (
-      typeof dependentTaskOutputs !== 'string' ||
-      typeof objective !== 'string'
-    ) {
+  async execute(task: AgentTask, objective: string): Promise<string> {
+    if (typeof objective !== 'string') {
       throw new Error('Invalid inputs');
     }
 
+    let statusMessage = '- Extracting URLs from the task.\n';
     const callback = (message: string) => {
       statusMessage += message;
       this.messageCallback({
@@ -35,22 +29,37 @@ export class WebReader extends Skill {
       });
     };
 
-    let statusMessage = '- Extracting URLs from the task.\n';
-    // Extract URLs from the task (e.g. "'https://www.google.com', 'http://www.paulgraham.com/greatwork.html`)
-    const prompt = `- Extracting URLs from the task.
-    Return a comma-separated URL List.
-    TASK: ${task.task}
-    URLS:`;
-    const urlString = await this.generateText(prompt, task, {
-      callbacks: () => {},
-    });
-    callback(`  - URLs: ${urlString}\n`);
-
+    const urlString = await this.extractUrlsFromTask(task, callback);
     const urls = urlString.split(',').map((url) => url.trim());
-    const contents = await Promise.all(
+    const contents = await this.fetchContentsFromUrls(urls, callback);
+    const info = await this.extractInfoFromContents(
+      contents,
+      objective,
+      task,
+      callback,
+    );
+
+    return info.join('\n\n');
+  }
+
+  private async extractUrlsFromTask(
+    task: AgentTask,
+    callback: (message: string) => void,
+  ): Promise<string> {
+    const prompt = `- Extracting URLs from the task.\nReturn a comma-separated URL List.\nTASK: ${task.task}\nURLS:`;
+    const urlString = await this.generateText(prompt, task, undefined, true);
+    callback(`  - URLs: ${urlString}\n`);
+    return urlString;
+  }
+
+  private async fetchContentsFromUrls(
+    urls: string[],
+    callback: (message: string) => void,
+  ): Promise<{ url: string; content: string }[]> {
+    return await Promise.all(
       urls.map(async (url) => {
         callback(`- Reading: ${url} ...\n`);
-        const content = await webScrapeTool(url, this.abortController.signal);
+        const content = await this.webScrapeTool(url);
         if (content.length === 0) {
           callback(`  - Content: No content found.\n`);
           return { url, content: '' };
@@ -63,9 +72,16 @@ export class WebReader extends Skill {
         return { url, content };
       }),
     );
+  }
 
+  private async extractInfoFromContents(
+    contents: { url: string; content: string }[],
+    objective: string,
+    task: AgentTask,
+    callback: (message: string) => void,
+  ): Promise<string[]> {
     callback(`- Extracting relevant information from the web pages.\n`);
-    const info = await Promise.all(
+    return await Promise.all(
       contents.map(async (item) => {
         return (
           `URL: ${item.url}\n\n` +
@@ -80,29 +96,23 @@ export class WebReader extends Skill {
         );
       }),
     );
+  }
 
-    return info.join('\n\n');
+  private async webScrapeTool(url: string): Promise<string> {
+    try {
+      const response = await axios.post(
+        '/api/tools/scrape',
+        { url },
+        { signal: this.abortController.signal },
+      );
+      return response?.data?.response;
+    } catch (error: any) {
+      if (error.name === 'AbortError') {
+        console.error('Request aborted', error.message);
+      } else {
+        console.error(error.message);
+      }
+      return '';
+    }
   }
 }
-
-const webScrapeTool = async (url: string, signal?: AbortSignal) => {
-  const response = await axios
-    .post(
-      '/api/tools/scrape',
-      {
-        url,
-      },
-      {
-        signal: signal,
-      },
-    )
-    .catch((error) => {
-      if (error.name === 'AbortError') {
-        console.log('Request aborted', error.message);
-      } else {
-        console.log(error.message);
-      }
-    });
-
-  return response?.data?.response;
-};

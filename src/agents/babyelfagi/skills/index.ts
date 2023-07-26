@@ -7,6 +7,6 @@ export * from './presets/directoryStructure';
 export * from './presets/objectiveSaver';
 export * from './presets/codeWriter';
 export * from './presets/codeReviewer';
+export * from './presets/webReader';
 export * from './addons/airtableSaver';
 export * from './addons/youtubeSearch';
-export * from './addons/webReader';
