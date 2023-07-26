@@ -6,9 +6,10 @@ import { translate } from '@/utils/translate';
 
 export class WebLoader extends Skill {
   name = 'web_loader';
-  descriptionForHuman = 'This skill loas web pages from provided URLs.';
+  descriptionForHuman =
+    'This skill extracts URLs from the task and returns the contents of the web pages of those URLs.';
   descriptionForModel =
-    'This skill loads web pages from provided URLs. Returns the web page content.';
+    'This skill extracts URLs from the task and returns the contents of the web pages of those URLs.';
   icon = '🌐';
 
   async execute(task: AgentTask, objective: string): Promise<string> {
