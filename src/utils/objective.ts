@@ -9,16 +9,20 @@ const getObjectivesExamples = async () => {
     // return JSON.parse(storedObjectives);
     return [];
   } else {
-    const jsonFiles = [
+    const jsonFiles = ['example3', 'example4', 'example_deer'];
+    const jsonFilesForDev = [
       'example3',
       'example4',
       'example_deer',
       'example_code',
       'example_code_review',
     ];
+
+    const targetJsonFiles =
+      process.env.NODE_ENV === 'development' ? jsonFilesForDev : jsonFiles;
     let loadedObjectives: any[] = [];
 
-    for (const jsonFile of jsonFiles) {
+    for (const jsonFile of targetJsonFiles) {
       const response = await fetch(`/api/json-provider?file=${jsonFile}`);
       const data = await response.json();
       loadedObjectives.push(data);
