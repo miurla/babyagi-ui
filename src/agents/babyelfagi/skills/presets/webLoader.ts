@@ -4,11 +4,11 @@ import axios from 'axios';
 import { largeTextExtract } from '@/agents/babydeeragi/tools/largeTextExtract';
 import { translate } from '@/utils/translate';
 
-export class WebReader extends Skill {
-  name = 'web_reader';
-  descriptionForHuman = 'This skill reads web pages from provided URLs.';
+export class WebLoader extends Skill {
+  name = 'web_loader';
+  descriptionForHuman = 'This skill loas web pages from provided URLs.';
   descriptionForModel =
-    'This skill reads web pages from provided URLs. Returns the web page content.';
+    'This skill loads web pages from provided URLs. Returns the web page content.';
   icon = '🌐';
 
   async execute(task: AgentTask, objective: string): Promise<string> {

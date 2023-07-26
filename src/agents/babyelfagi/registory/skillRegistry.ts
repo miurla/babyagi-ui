@@ -7,7 +7,7 @@ import {
   DirectoryStructure,
   SkillSaver,
   TextCompletion,
-  WebReader,
+  WebLoader,
   WebSearch,
   YoutubeSearch,
 } from '../skills';
@@ -82,7 +82,7 @@ export class SkillRegistry {
       DirectoryStructure,
       YoutubeSearch,
       CodeReviewer,
-      WebReader,
+      WebLoader,
     ];
     return skills;
   }
