@@ -21,5 +21,6 @@
   "EXAMPLE_OBJECTIVE_3": "Signaler les dernières actualités dans la catégorie préférée de l'utilisateur.",
   "EXAMPLES": "Exemples",
   "EXAMPLE_OBJECTIVE_4": "Ecrivez un rapport sur ce qu'est BabyAGI. Incluez un lien Youtube dans le rapport.",
-  "EXAMPLE_OBJECTIVE_5": "Basé sur skillSaver.ts, écrivez une nouvelle compétence appelée airtableSaver.ts qui utilise l'API Airtable pour insérer des données dans une table spécifique."
+  "EXAMPLE_OBJECTIVE_5": "Basé sur skillSaver.ts, écrivez une nouvelle compétence appelée airtableSaver.ts qui utilise l'API Airtable pour insérer des données dans une table spécifique.",
+  "EXAMPLE_OBJECTIVE_6": "Résumez la page"
 }

@@ -22,5 +22,6 @@
   "EXAMPLE_OBJECTIVE_3": "ユーザーのお気に入りのカテゴリーの最新ニュースを報告してください。",
   "EXAMPLES": "例",
   "EXAMPLE_OBJECTIVE_4": "「BabyAGIとは何かについてのレポートを書いてください。レポートにはYouTubeのリンクも含めてください。」",
-  "EXAMPLE_OBJECTIVE_5": "skillSaver.tsに基づいて、Airtable APIを使用して特定のテーブルにデータを挿入するairtableSaver.tsという新しいスキルを作成してください。"
+  "EXAMPLE_OBJECTIVE_5": "skillSaver.tsに基づいて、Airtable APIを使用して特定のテーブルにデータを挿入するairtableSaver.tsという新しいスキルを作成してください。",
+  "EXAMPLE_OBJECTIVE_6": "ページを要約してください。"
 }

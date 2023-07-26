@@ -21,5 +21,6 @@
   "EXAMPLE_OBJECTIVE_3": "Jelentse a legfrissebb híreket a felhasználó kedvenc kategóriájában.",
   "EXAMPLES": "Példák",
   "EXAMPLE_OBJECTIVE_4": "Készítsen jelentést arról, hogy mi az a BabyAGI. Tartalmazzon egy YouTube-linket a jelentésben.",
-  "EXAMPLE_OBJECTIVE_5": "A skillSaver.ts alapján írjon egy új skillt, amely airtableSaver.ts-nak nevezzük el, és az Airtable API-t használja adatok beszúrásához egy adott táblába."
+  "EXAMPLE_OBJECTIVE_5": "A skillSaver.ts alapján írjon egy új skillt, amely airtableSaver.ts-nak nevezzük el, és az Airtable API-t használja adatok beszúrásához egy adott táblába.",
+  "EXAMPLE_OBJECTIVE_6": "Az oldal összefoglalása"
 }

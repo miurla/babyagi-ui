@@ -21,5 +21,6 @@
   "EXAMPLE_OBJECTIVE_3": "Звітувати про останні новини в улюбленій користувача категорії.",
   "EXAMPLES": "Приклади",
   "EXAMPLE_OBJECTIVE_4": "Напишіть звіт про те, що таке BabyAGI. Включіть посилання на YouTube у звіті.",
-  "EXAMPLE_OBJECTIVE_5": "За основою skillSaver.ts напишіть новий навик з назвою airtableSaver.ts, який використовує API Airtable для вставки даних у певну таблицю."
+  "EXAMPLE_OBJECTIVE_5": "За основою skillSaver.ts напишіть новий навик з назвою airtableSaver.ts, який використовує API Airtable для вставки даних у певну таблицю.",
+  "EXAMPLE_OBJECTIVE_6": "Підсумуйте сторінку."
 }

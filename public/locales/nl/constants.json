@@ -21,5 +21,6 @@
   "EXAMPLE_OBJECTIVE_3": "Rapporteer het laatste nieuws in de favoriete categorie van de gebruiker.",
   "EXAMPLES": "Voorbeelden",
   "EXAMPLE_OBJECTIVE_4": "Schrijf een rapport over wat BabyAGI is. Voeg een YouTube-link toe aan het rapport.",
-  "EXAMPLE_OBJECTIVE_5": "Gebaseerd op skillSaver.ts, schrijf een nieuwe vaardigheid genaamd airtableSaver.ts die de Airtable API gebruikt om gegevens in een specifieke tabel in te voegen."
+  "EXAMPLE_OBJECTIVE_5": "Gebaseerd op skillSaver.ts, schrijf een nieuwe vaardigheid genaamd airtableSaver.ts die de Airtable API gebruikt om gegevens in een specifieke tabel in te voegen.",
+  "EXAMPLE_OBJECTIVE_6": "Vat de pagina samen"
 }

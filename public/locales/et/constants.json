@@ -21,5 +21,6 @@
   "EXAMPLE_OBJECTIVE_3": "Teatage oma lemmik-kategooria viimaseid uudiseid.",
   "EXAMPLES": "Näited",
   "EXAMPLE_OBJECTIVE_4": "Kirjuta aruanne selle kohta, mis on BabyAGI. Lisa aruandesse Youtube'i link.",
-  "EXAMPLE_OBJECTIVE_5": "Põhinedes skillSaver.ts-il, kirjuta uus oskus nimega airtableSaver.ts, mis kasutab Airtable API-d andmete sisestamiseks konkreetsetesse tabelitesse."
+  "EXAMPLE_OBJECTIVE_5": "Põhinedes skillSaver.ts-il, kirjuta uus oskus nimega airtableSaver.ts, mis kasutab Airtable API-d andmete sisestamiseks konkreetsetesse tabelitesse.",
+  "EXAMPLE_OBJECTIVE_6": "Lehe kokkuvõte"
 }
