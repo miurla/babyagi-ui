@@ -57,8 +57,9 @@ export class WebLoader extends Skill {
     urls: string[],
     callback: (message: string) => void,
   ): Promise<{ url: string; content: string }[]> {
+    const MAX_URLS = 10;
     return await Promise.all(
-      urls.map(async (url) => {
+      urls.slice(0, MAX_URLS).map(async (url) => {
         callback(`- Reading: ${url} ...\n`);
         const content = await this.webScrapeTool(url);
         if (content.length === 0) {
