@@ -7,7 +7,6 @@ import {
   Message,
   MessageBlock,
   SelectItem,
-  SkillInfo,
   UserSettings,
 } from '@/types';
 import { Input } from './Input';
@@ -21,8 +20,6 @@ import {
   loadingAgentMessage,
 } from '../../utils/message';
 import { BabyAGI } from '@/agents/babyagi';
-import { BabyBeeAGI } from '@/agents/babybeeagi/agent';
-import { BabyCatAGI } from '@/agents/babycatagi/agent';
 import { BabyDeerAGI } from '@/agents/babydeeragi/executer';
 import { AGENT, ITERATIONS, MODELS, SETTINGS_KEY } from '@/utils/constants';
 import { toast } from 'sonner';
@@ -38,8 +35,6 @@ import { AgentTask } from './AgentTask';
 import { IntroGuide } from './IntroGuide';
 import { BabyElfAGI } from '@/agents/babyelfagi/executer';
 import { SkillsList } from './SkillList';
-import { title } from 'process';
-import { Skill } from '@/agents/babyelfagi/skills';
 
 export const Agent: FC = () => {
   const [model, setModel] = useState<SelectItem>(MODELS[1]);
@@ -53,9 +48,9 @@ export const Agent: FC = () => {
   const [agentStatus, setAgentStatus] = useState<AgentStatus>({
     type: 'ready',
   });
-  const [agent, setAgent] = useState<
-    BabyAGI | BabyBeeAGI | BabyCatAGI | BabyDeerAGI | BabyElfAGI | null
-  >(null);
+  const [agent, setAgent] = useState<BabyAGI | BabyDeerAGI | BabyElfAGI | null>(
+    null,
+  );
   const [selectedAgent, setSelectedAgent] = useState<SelectItem>(AGENT[0]);
   const { i18n } = useTranslation();
   const [language, setLanguage] = useState(i18n.language);
@@ -206,29 +201,6 @@ export const Agent: FC = () => {
           Number(iterations.id),
           firstTask,
           execution.id,
-          messageHandler,
-          setAgentStatus,
-          cancelHandle,
-          language,
-          verbose,
-        );
-        break;
-      case 'babybeeagi':
-        agent = new BabyBeeAGI(
-          objective,
-          model.id,
-          firstTask,
-          messageHandler,
-          setAgentStatus,
-          cancelHandle,
-          language,
-          verbose,
-        );
-        break;
-      case 'babycatagi':
-        agent = new BabyCatAGI(
-          objective,
-          model.id,
           messageHandler,
           setAgentStatus,
           cancelHandle,
