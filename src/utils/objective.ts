@@ -2,39 +2,50 @@ import { getUserApiKey } from '@/utils/settings';
 import axios from 'axios';
 import { OpenAIEmbeddings } from 'langchain/embeddings/openai';
 
+const CURRENT_OBJECTIVES_VERSION = '1.0.0';
+const JSON_FILES = ['example3', 'example4', 'example_deer'];
+const JSON_FILES_FOR_DEV = [
+  'example3',
+  'example4',
+  'example_deer',
+  'example_code',
+  'example_code_review',
+];
+
+async function fetchJsonFiles(targetJsonFiles: string[]) {
+  let loadedObjectives: any[] = [];
+
+  for (const jsonFile of targetJsonFiles) {
+    const response = await fetch(`/api/json-provider?file=${jsonFile}`);
+    const data = await response.json();
+    loadedObjectives.push(data);
+  }
+
+  return loadedObjectives;
+}
+
 const getObjectivesExamples = async () => {
   const storedObjectives = localStorage.getItem('BABYAGIUI_OBJECTIVES');
 
   if (storedObjectives) {
-    // return JSON.parse(storedObjectives);
-    return [];
-  } else {
-    const jsonFiles = ['example3', 'example4', 'example_deer'];
-    const jsonFilesForDev = [
-      'example3',
-      'example4',
-      'example_deer',
-      'example_code',
-      'example_code_review',
-    ];
-
-    const targetJsonFiles =
-      process.env.NODE_ENV === 'development' ? jsonFilesForDev : jsonFiles;
-    let loadedObjectives: any[] = [];
-
-    for (const jsonFile of targetJsonFiles) {
-      const response = await fetch(`/api/json-provider?file=${jsonFile}`);
-      const data = await response.json();
-      loadedObjectives.push(data);
+    const data = JSON.parse(storedObjectives);
+    if (data.version === CURRENT_OBJECTIVES_VERSION) {
+      return data.objectives;
     }
-
-    // localStorage.setItem(
-    //   'BABYAGIUI_OBJECTIVES',
-    //   JSON.stringify(loadedObjectives),
-    // );
-
-    return loadedObjectives;
   }
+
+  const targetJsonFiles =
+    process.env.NODE_ENV === 'development' ? JSON_FILES_FOR_DEV : JSON_FILES;
+  const loadedObjectives = await fetchJsonFiles(targetJsonFiles);
+
+  const data = {
+    version: CURRENT_OBJECTIVES_VERSION,
+    objectives: loadedObjectives,
+  };
+
+  localStorage.setItem('BABYAGIUI_OBJECTIVES', JSON.stringify(data));
+
+  return loadedObjectives;
 };
 
 async function getEmbedding(
