@@ -38,6 +38,7 @@ This is a port of [babyagi](https://github.com/yoheinakajima/babyagi) with [Lang
 - [x] User input & parallel tasking. ([🦌 BabyDeerAGI](https://twitter.com/yoheinakajima/status/1666313838868992001))
 - [x] API updates support (gpt-3.5-turbo-0613/gpt-3.5-turbo-16k-0613/gpt-4-0613)
 - [x] Skills Class allows for easy skill creation ([🧝 BabyElfAGI](https://twitter.com/yoheinakajima/status/1678443482866933760))
+- [ ] Support the Llama2 model 🦙
 
 and more ...
 
