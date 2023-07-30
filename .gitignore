@@ -40,3 +40,4 @@ yarn-error.log*
 next-env.d.ts
 
 /data/output/*
+/multion_token.txt

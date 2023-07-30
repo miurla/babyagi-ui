@@ -9,7 +9,7 @@ export class WebLoader extends Skill {
   descriptionForHuman =
     'This skill extracts URLs from the task and returns the contents of the web pages of those URLs.';
   descriptionForModel =
-    'This skill extracts URLs from the task and returns the contents of the web pages of those URLs.';
+    'This skill extracts URLs from the task and returns the contents of the web pages of those URLs. This skill must always include the URL in the task.';
   icon = '🌐';
 
   async execute(task: AgentTask, objective: string): Promise<string> {
@@ -32,6 +32,9 @@ export class WebLoader extends Skill {
 
     const urlString = await this.extractUrlsFromTask(task, callback);
     const urls = urlString.split(',').map((url) => url.trim());
+    if (urls.length === 0) {
+      throw new Error('No URLs found in the task');
+    }
     const contents = await this.fetchContentsFromUrls(urls, callback);
     const info = await this.extractInfoFromContents(
       contents,

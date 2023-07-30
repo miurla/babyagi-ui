@@ -13,6 +13,7 @@ import {
 } from '../skills';
 import { Skill } from '../skills/skill';
 import { getUserApiKey } from '@/utils/settings';
+import { MultiOn } from '../skills/addons/multiOn';
 
 export class SkillRegistry {
   skillClasses: (typeof Skill)[];
@@ -83,6 +84,7 @@ export class SkillRegistry {
       YoutubeSearch,
       CodeReviewer,
       WebLoader,
+      MultiOn,
     ];
     return skills;
   }

@@ -1,0 +1,37 @@
+{
+  "objective": "Create a poem about BabyAGI and tweet it in 140 characters. Please add '(sent by MultiON)' at the end.",
+  "examples": [
+    {
+      "id": 1,
+      "task": "UUse web_search to find information about BabyAGI",
+      "skill": "web_search",
+      "icon": "🔎",
+      "dependent_task_ids": [],
+      "status": "incomplete"
+    },
+    {
+      "id": 2,
+      "task": "Use text_completion to create a poem about BabyAGI based on the information found",
+      "skill": "text_completion",
+      "icon": "🤖",
+      "dependent_task_ids": [1],
+      "status": "incomplete"
+    },
+    {
+      "id": 3,
+      "task": "Use text_completion to shorten the poem to fit within 140 characters, including the phrase '(sent by MultiON)'",
+      "skill": "text_completion",
+      "icon": "🤖",
+      "dependent_task_ids": [2],
+      "status": "incomplete"
+    },
+    {
+      "id": 4,
+      "task": "Use multion to log into Twitter, compose a new tweet with the shortened poem, and post it",
+      "skill": "multion",
+      "icon": "🪐",
+      "dependent_task_ids": [3],
+      "status": "incomplete"
+    }
+  ]
+}

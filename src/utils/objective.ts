@@ -2,8 +2,8 @@ import { getUserApiKey } from '@/utils/settings';
 import axios from 'axios';
 import { OpenAIEmbeddings } from 'langchain/embeddings/openai';
 
-const CURRENT_OBJECTIVES_VERSION = '1.0.0';
-const JSON_FILES = ['example3', 'example4', 'example_deer'];
+const CURRENT_OBJECTIVES_VERSION = '1.0.1';
+const JSON_FILES = ['example3', 'example4', 'example_deer', 'example_multion'];
 const JSON_FILES_FOR_DEV = [
   'example3',
   'example4',
