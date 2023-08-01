@@ -50,7 +50,7 @@ export class BabyElfAGI extends AgentExecuter {
     await this.taskRegistry.createTaskList(
       this.objective,
       skillDescriptions,
-      this.modelName,
+      'gpt-4', // Culletly using GPT-4
       this.messageCallback,
       this.abortController,
       this.language,
