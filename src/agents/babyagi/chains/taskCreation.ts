@@ -3,7 +3,7 @@ import { LLMChain, LLMChainInput } from 'langchain/chains';
 
 export class TaskCreationChain extends LLMChain {
   static fromLLM(fields: Omit<LLMChainInput, 'prompt'>): LLMChain {
-    const taskCreationTemplate = `You are an task creation AI that uses the result of an execution agent
+    const taskCreationTemplate = `You are a task creation AI that uses the result of an execution agent
       to create new tasks with the following objective: {objective}
       The last completed task has the result: {result}.
       This result was based on this task description: {task_description}.
