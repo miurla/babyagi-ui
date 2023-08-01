@@ -1,3 +1,4 @@
+import TextareaAutosize from 'react-textarea-autosize';
 import { AgentType } from '@/types';
 import { translate } from '@/utils/translate';
 import {
@@ -42,12 +43,12 @@ export const Input: FC<InputProps> = ({
   agent,
   evaluation,
 }) => {
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (hasMessages) {
       return;
     }
 
-    if (e.key === 'Enter' && !e.nativeEvent.isComposing) {
+    if (e.key === 'Enter' && !e.shiftKey && !e.nativeEvent.isComposing) {
       e.preventDefault();
       onStart(value);
     }
@@ -129,15 +130,16 @@ export const Input: FC<InputProps> = ({
             )}
           </div>
         </div>
-        <div className="relative flex w-full flex-grow flex-col justify-center rounded-xl border border-black/10 bg-white py-3 shadow-[0_0_10px_rgba(0,0,0,0.10)] dark:border-gray-900/50 dark:bg-neutral-800 dark:text-white dark:shadow-[0_0_15px_rgba(0,0,0,0.10)] md:py-4 md:pl-4">
-          <input
-            className="m-0 w-full resize-none border-0 bg-transparent p-0 pl-2 pr-12 text-black outline-none focus:ring-0 focus-visible:ring-0 dark:bg-transparent dark:text-white dark:placeholder-neutral-600 md:pl-0"
+        <div className="relative flex w-full flex-grow flex-col justify-end rounded-xl border border-black/10 bg-white py-3 shadow-[0_0_10px_rgba(0,0,0,0.10)] dark:border-gray-900/50 dark:bg-neutral-800 dark:text-white dark:shadow-[0_0_15px_rgba(0,0,0,0.10)] md:py-4 md:pl-4">
+          <TextareaAutosize
+            className="m-0 h-6 w-full resize-none border-0 bg-transparent p-0 pl-2 pr-12 text-black outline-none focus:ring-0 focus-visible:ring-0 dark:bg-transparent dark:text-white dark:placeholder-neutral-600 md:pl-0"
             placeholder={
               agent !== 'babyagi'
                 ? 'Input your objective here...'
                 : 'Input your objective here... (e.g. Solve world hunger)'
             }
             value={value}
+            maxRows={8}
             onChange={(e) => onChange(e.target.value)}
             onKeyDown={handleKeyDown}
           />
