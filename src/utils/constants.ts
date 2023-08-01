@@ -38,7 +38,7 @@ export const AGENT = [
     id: 'babyelfagi',
     name: 'BabyElfAGI',
     icon: '🧝',
-    message: '',
+    message: '(Currently using GPT-4 for task creation)',
     badge: 'BETA',
   },
   {
