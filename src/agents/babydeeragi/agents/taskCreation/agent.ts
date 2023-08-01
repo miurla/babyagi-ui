@@ -19,7 +19,7 @@ export const taskCreationAgent = async (
 ) => {
   let chunk = '```json\n';
   const websearchVar =
-    process.env.SEARP_API_KEY || process.env.GOOGLE_SEARCH_API_KEY
+    process.env.SERP_API_KEY || process.env.GOOGLE_SEARCH_API_KEY
       ? '[web-search] '
       : ''; // if search api key is not set, don't add [web-search] to the task description
 

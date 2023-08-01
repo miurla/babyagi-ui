@@ -31,6 +31,9 @@ export const webBrowsing = async (
   let message = `Search query: ${trimmedQuery}\n`;
   callbackSearchStatus(title, message, task, messageCallback);
   const searchResults = await webSearchTool(trimmedQuery, signal);
+  if (!searchResults) {
+    return 'Failed to search.';
+  }
   let statusMessage = message;
 
   if (!isRunningRef?.current) return;
