@@ -371,7 +371,7 @@ export class BabyCatAGI {
   // Agent functions
   async taskCreationAgent() {
     this.abortController = new AbortController();
-    const websearchVar = process.env.SEARP_API_KEY ? '[web-search] ' : ''; // if search api key is not set, don't add [web-search] to the task description
+    const websearchVar = process.env.SERP_API_KEY ? '[web-search] ' : ''; // if search api key is not set, don't add [web-search] to the task description
 
     this.chunk = '```json\n';
     const callback = (token: string) => {

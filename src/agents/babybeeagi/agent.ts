@@ -347,7 +347,7 @@ export class BabyBeeAGI {
       const { result, ...rest } = task;
       return rest;
     });
-    const websearchVar = process.env.SEARP_API_KEY ? '[web-search] ' : ''; // if search api key is not set, don't add [web-search] to the task description
+    const websearchVar = process.env.SERP_API_KEY ? '[web-search] ' : ''; // if search api key is not set, don't add [web-search] to the task description
     const res = result.slice(0, 4000); // come up with a better solution lator
 
     let managedResult = '';

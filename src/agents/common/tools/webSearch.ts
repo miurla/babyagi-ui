@@ -2,16 +2,26 @@ import axios from 'axios';
 
 export const webSearch = async (query: string) => {
   try {
-    if (process.env.SEARP_API_KEY) {
+    // Change environment variable name for typo
+    if (!process.env.SERP_API_KEY && process.env.SEARP_API_KEY !== undefined) {
+      throw new Error(
+        'The environment variable name has been changed due to a typo: SEARP_API_KEY. Please fix it to SERP_API_KEY.',
+      );
+    }
+
+    if (process.env.SERP_API_KEY) {
       const response = await axios.get('https://serpapi.com/search', {
         params: {
-          api_key: process.env.SEARP_API_KEY,
+          api_key: process.env.SERP_API_KEY,
           engine: 'google',
           q: query,
         },
       });
       return response.data.organic_results;
-    } else if (process.env.GOOGLE_SEARCH_API_KEY && process.env.GOOGLE_CUSTOM_INDEX_ID) {
+    } else if (
+      process.env.GOOGLE_SEARCH_API_KEY &&
+      process.env.GOOGLE_CUSTOM_INDEX_ID
+    ) {
       const response = await axios.get(
         'https://www.googleapis.com/customsearch/v1',
         {
@@ -26,7 +36,7 @@ export const webSearch = async (query: string) => {
     }
   } catch (error) {
     console.log('error: ', error);
-    return error;
+    return;
   }
 };
 
