@@ -35,6 +35,7 @@ import { AgentTask } from './AgentTask';
 import { IntroGuide } from './IntroGuide';
 import { BabyElfAGI } from '@/agents/babyelfagi/executer';
 import { SkillsList } from './SkillList';
+import { useAgent } from '@/hooks/useAgent';
 
 export const AgentView: FC = () => {
   const [model, setModel] = useState<SelectItem>(MODELS[1]);
@@ -435,11 +436,28 @@ export const AgentView: FC = () => {
     return [];
   };
 
+  const { input, handleInputChange, handleSubmit, agentMessages } = useAgent({
+    api: '/api/agent',
+  });
+
   return (
     <div className="overflow-none relative flex-1 bg-white dark:bg-black">
-      <p className="w-full p-4 text-center  text-red-500">
-        for development use only
-      </p>
+      <div className="text-black">
+        <p className="w-full p-4 text-center  text-red-500">
+          for development use only
+        </p>
+        {agentMessages.map((m, index) => (
+          <div key={index}>{m}</div>
+        ))}
+        <form onSubmit={handleSubmit}>
+          <input
+            className="mb-8 w-full max-w-md rounded border border-gray-300 p-2 text-neutral-800 shadow-xl"
+            value={input}
+            placeholder="Say something..."
+            onChange={handleInputChange}
+          />
+        </form>
+      </div>
       {messageBlocks.length === 0 ? (
         <>
           <AgentParameter
