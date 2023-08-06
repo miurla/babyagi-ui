@@ -1,4 +1,7 @@
-import { useRef, useEffect, useState } from 'react';
+import { AgentMessage } from '@/types';
+import { parseMessage } from '@/utils/message';
+import { i18n } from 'next-i18next';
+import { useRef, useState } from 'react';
 
 export type UseAgentOptions = {
   api?: string;
@@ -9,8 +12,8 @@ export type UseAgentOptions = {
 };
 
 export type UseAgentHelpers = {
-  agentMessages: string[];
-  setMessages: React.Dispatch<React.SetStateAction<string[]>>;
+  agentMessages: AgentMessage[];
+  setMessages: React.Dispatch<React.SetStateAction<AgentMessage[]>>;
   stop: () => void;
   handleInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
@@ -28,8 +31,9 @@ export function useAgent({
   const abortControllerRef = useRef<AbortController | null>(
     new AbortController(),
   );
-  const [agentMessages, setMessages] = useState<string[]>([]);
+  const [agentMessages, setMessages] = useState<AgentMessage[]>([]);
   const [input, setInput] = useState('');
+  const [language] = useState(i18n?.language);
 
   // Handle input change
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -50,7 +54,7 @@ export function useAgent({
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ id, input }),
+        body: JSON.stringify({ id, input, language }),
         signal: abortControllerRef.current.signal, // Add the abort signal
       });
 
@@ -66,7 +70,13 @@ export function useAgent({
 
           if (value) {
             const message = new TextDecoder().decode(value);
-            setMessages((prevMessages) => [...prevMessages, message]);
+            const agentMessages: AgentMessage[] = message
+              .trim()
+              .split('\n')
+              .map((m) => parseMessage(m));
+            console.log(agentMessages);
+
+            setMessages((prevMessages) => [...prevMessages, ...agentMessages]);
 
             // Call onResponse with the new message
             if (onResponse) {

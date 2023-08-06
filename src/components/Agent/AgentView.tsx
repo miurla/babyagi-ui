@@ -446,8 +446,10 @@ export const AgentView: FC = () => {
         <p className="w-full p-4 text-center  text-red-500">
           for development use only
         </p>
-        {agentMessages.map((m, index) => (
-          <div key={index}>{m}</div>
+        {agentMessages.map((m) => (
+          <div key={m.id} className="p-1">
+            {m.content}
+          </div>
         ))}
         <form onSubmit={handleSubmit}>
           <input

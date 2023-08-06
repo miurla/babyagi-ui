@@ -146,3 +146,13 @@ export type LLMParams = {
   streaming?: boolean;
   callbacks?: (message: Message) => void;
 };
+
+export type AgentMessage = {
+  id?: string;
+  content: string;
+  type?: string;
+  taskId?: string;
+  style?: 'default' | 'log';
+  status?: 'complete' | 'incomplete' | 'running';
+  options?: { string: string };
+};

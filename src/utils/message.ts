@@ -1,4 +1,5 @@
 import {
+  AgentMessage,
   AgentStatus,
   AgentTask,
   Message,
@@ -335,4 +336,14 @@ export const getMessageBlocks = (
   }
 
   return messageBlocks;
+};
+
+export const parseMessage = (json: string): AgentMessage => {
+  const message = JSON.parse(json).message as AgentMessage;
+
+  return {
+    ...message,
+    style: message.style ?? 'default',
+    status: message.status ?? 'incomplete',
+  };
 };
