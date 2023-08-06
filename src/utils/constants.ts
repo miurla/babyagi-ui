@@ -35,18 +35,18 @@ export const BABYBEEAGI_ITERATIONS = [
 
 export const AGENT = [
   {
-    id: 'babyelfagi',
-    name: 'BabyElfAGI',
-    icon: '🧝',
-    message: '(Currently using GPT-4 for task creation)',
-    badge: 'BETA',
-  },
-  {
     id: 'babydeeragi',
     name: 'BabyDeerAGI',
     icon: '🦌',
     message: '🤖/🔎+📄/🧑‍💻',
     badge: 'STABLE',
+  },
+  {
+    id: 'babyelfagi',
+    name: 'BabyElfAGI',
+    icon: '🧝',
+    message: '(Currently using GPT-4 for task creation)',
+    badge: 'BETA',
   },
   { id: 'babyagi', name: 'BabyAGI', icon: '👶', message: '🤖' },
 ];
