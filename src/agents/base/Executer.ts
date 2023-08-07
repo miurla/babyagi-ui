@@ -47,9 +47,14 @@ export class Executer {
     for (let i = 0; i < 3; i++) {
       const task = new Promise<void>((resolve) => {
         setTimeout(async () => {
+          const id = `task + ${i}`;
           await this.handleMessage({
             content: `Test message ${i}`,
-            type: 'test',
+            title: `Task description ${i}`,
+            type: 'task',
+            style: 'task',
+            taskId: `${i}`,
+            id,
           });
           resolve();
         }, 1000 * i);
@@ -73,7 +78,8 @@ export class Executer {
     const msg = {
       ...message,
       id: message.id || uuidv4(),
+      status: message.status || 'complete',
     };
-    await this.handlers.handleMessage(message);
+    await this.handlers.handleMessage(msg);
   }
 }

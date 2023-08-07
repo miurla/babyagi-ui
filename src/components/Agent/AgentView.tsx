@@ -8,6 +8,7 @@ import {
   MessageBlock,
   SelectItem,
   UserSettings,
+  Block,
 } from '@/types';
 import { AgentInput } from './AgentInput';
 import AgentMessage from './AgentMessage';
@@ -18,6 +19,7 @@ import {
   getExportText,
   getMessageBlocks,
   loadingAgentMessage,
+  groupMessages,
 } from '../../utils/message';
 import { BabyAGI } from '@/agents/babyagi';
 import { BabyDeerAGI } from '@/agents/babydeeragi/executer';
@@ -30,12 +32,11 @@ import { translate } from '../../utils/translate';
 import axios from 'axios';
 import { taskCompletedNotification } from '@/utils/notification';
 import { useTranslation } from 'next-i18next';
-import { AgentMessageBlock } from './AgentMessageBlock';
-import { AgentTask } from './AgentTask';
 import { IntroGuide } from './IntroGuide';
 import { BabyElfAGI } from '@/agents/babyelfagi/executer';
 import { SkillsList } from './SkillList';
 import { useAgent } from '@/hooks/useAgent';
+import { AgentBlock } from './AgentBlock';
 
 export const AgentView: FC = () => {
   const [model, setModel] = useState<SelectItem>(MODELS[1]);
@@ -384,6 +385,13 @@ export const AgentView: FC = () => {
     onCancel: stopHandler,
   });
 
+  const [agentBlocks, setAgentBlocks] = useState<Block[]>([]);
+
+  useEffect(() => {
+    const newGroupedMessages = groupMessages(agentMessages);
+    setAgentBlocks(newGroupedMessages);
+  }, [agentMessages]);
+
   return (
     <div className="overflow-none relative flex-1 bg-white dark:bg-black">
       <div className="text-black">
@@ -422,10 +430,8 @@ export const AgentView: FC = () => {
       ) : (
         <div className="max-h-full overflow-scroll">
           <AgentMessageHeader model={model} agent={selectedAgent} />
-          {agentMessages.map((m) => (
-            <div key={m.id} className="p-1 text-black">
-              {m.content}
-            </div>
+          {agentBlocks.map((block, index) => (
+            <AgentBlock key={index} block={block} />
           ))}
           {isRunning && (
             <AgentMessage message={loadingAgentMessage(agentStatus)} />

@@ -6,6 +6,7 @@ import {
   MessageBlock,
   MessageType,
   ToolType,
+  Block,
 } from '@/types';
 import { translate } from './translate';
 
@@ -343,7 +344,70 @@ export const parseMessage = (json: string): AgentMessage => {
 
   return {
     ...message,
-    style: message.style ?? 'default',
+    style: message.style ?? 'label',
     status: message.status ?? 'incomplete',
   };
+};
+
+export const getEmoji = (type?: string) => {
+  switch (type) {
+    case 'objective':
+      return '🎯';
+    case 'finish':
+      return '🏁';
+    case 'task-list':
+      return '📝';
+    case 'task':
+      return '📄';
+    default:
+      return '🤖';
+  }
+};
+
+export const getTitle = (type?: string) => {
+  switch (type) {
+    case 'objective':
+      return translate('OBJECTIVE', 'message');
+    case 'finish':
+      return translate('FINISH', 'message');
+    case 'task-list':
+      return translate('TASK_LIST', 'message');
+    case 'task':
+      return translate('TASK', 'message');
+    default:
+      return type?.toUpperCase() || 'Untitled';
+  }
+};
+
+export const groupMessages = (messages: AgentMessage[]) => {
+  const messageGroups: Block[] = [];
+
+  let block: Block | null = null;
+  let prevMessage: AgentMessage | null = null;
+  messages.forEach((message) => {
+    if (!block || block.id !== message.id) {
+      block = {
+        id: message.id,
+        status: message.status,
+        messages: [message],
+        style: message.style === 'task' ? 'task' : 'label',
+      };
+      messageGroups.push(block);
+    } else if (
+      prevMessage &&
+      prevMessage.id === message.id &&
+      prevMessage.type === message.type
+    ) {
+      block.messages[block.messages.length - 1].content += message.content;
+      block.status = message.status;
+    } else {
+      block.messages.push(message);
+      block.status = message.status;
+    }
+    prevMessage = block?.messages[block.messages.length - 1];
+  });
+
+  console.log(messageGroups);
+
+  return messageGroups;
 };

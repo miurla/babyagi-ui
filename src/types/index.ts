@@ -151,8 +151,17 @@ export type AgentMessage = {
   id?: string;
   content: string;
   type?: string;
+  title?: string;
+  icon?: string;
   taskId?: string;
-  style?: 'default' | 'log';
+  style?: 'label' | 'task' | 'log';
   status?: 'complete' | 'incomplete' | 'running';
-  options?: { string: string };
+  options?: { [key: string]: string };
+};
+
+export type Block = {
+  id?: string;
+  messages: AgentMessage[];
+  status?: 'complete' | 'incomplete' | 'running';
+  style?: 'label' | 'task';
 };

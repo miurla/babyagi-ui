@@ -6,7 +6,7 @@ import React from 'react';
 export interface AgentResultProps {
   children: React.ReactNode;
   title: string;
-  dependencies?: number[];
+  dependencies?: number[] | string;
   isOpen?: boolean;
 }
 
@@ -17,6 +17,8 @@ export const AgentResult: FC<AgentResultProps> = ({
   isOpen = true,
 }) => {
   const [open, setOpen] = React.useState(false);
+  const dependenciesString =
+    typeof dependencies === 'string' ? dependencies : dependencies?.join(', ');
 
   useEffect(() => {
     setOpen(isOpen);
@@ -37,7 +39,7 @@ export const AgentResult: FC<AgentResultProps> = ({
           {dependencies && dependencies.length > 0 && (
             <div className="flex items-center gap-2">
               <Link1Icon />
-              <div className="">{dependencies.join(', ')}</div>
+              <div className="">{dependenciesString}</div>
             </div>
           )}
         </button>
