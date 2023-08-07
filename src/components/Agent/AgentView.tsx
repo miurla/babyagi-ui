@@ -9,7 +9,7 @@ import {
   SelectItem,
   UserSettings,
 } from '@/types';
-import { Input } from './Input';
+import { AgentInput } from './AgentInput';
 import AgentMessage from './AgentMessage';
 import { AgentParameter } from './AgentParameter';
 import { ProjectTile } from './ProjectTile';
@@ -174,67 +174,12 @@ export const AgentView: FC = () => {
     setExecuting(false);
   };
 
+  const stopHandler = () => {
+    va.track('Stop');
+  };
+
   const startHandler = async () => {
-    if (needSettingsAlert()) {
-      alert(translate('ALERT_SET_UP_API_KEY', 'agent'));
-      return;
-    }
-    if (model.id === 'gpt-4') {
-      const enabled = await enabledGPT4();
-      if (!enabled) {
-        alert(translate('ALERT_GPT_4_DISABLED', 'constants'));
-        return;
-      }
-    }
-
-    setMessages([]);
-    setExecuting(true);
-    const execution = await saveNewData();
-    const verbose = false; // You can set this to true to see the agent's internal state
-
-    // switch agent
-    let agent = null;
-    switch (selectedAgent.id) {
-      case 'babyagi':
-        agent = new BabyAGI(
-          objective,
-          model.id,
-          Number(iterations.id),
-          firstTask,
-          execution.id,
-          messageHandler,
-          setAgentStatus,
-          cancelHandle,
-          language,
-          verbose,
-        );
-        break;
-      case 'babydeeragi':
-        agent = new BabyDeerAGI(
-          objective,
-          model.id,
-          messageHandler,
-          setAgentStatus,
-          cancelHandle,
-          language,
-          verbose,
-        );
-        break;
-      case 'babyelfagi':
-        agent = new BabyElfAGI(
-          objective,
-          model.id,
-          messageHandler,
-          setAgentStatus,
-          cancelHandle,
-          language,
-          verbose,
-        );
-        break;
-    }
-    setAgent(agent);
-    agent?.start();
-
+    saveNewData();
     va.track('Start', {
       model: model.id,
       agent: selectedAgent.id,
@@ -242,19 +187,8 @@ export const AgentView: FC = () => {
     });
   };
 
-  const stopHandler = () => {
-    // refresh message blocks
-    const blocks = getMessageBlocks(messages, false);
-    setMessageBlocks(blocks);
-
-    setExecuting(false);
-    agent?.stop();
-
-    va.track('Stop');
-  };
-
   const clearHandler = () => {
-    setMessages([]);
+    reset();
     selectExecution(undefined);
     setAgentStatus({ type: 'ready' });
 
@@ -436,8 +370,18 @@ export const AgentView: FC = () => {
     return [];
   };
 
-  const { input, handleInputChange, handleSubmit, agentMessages } = useAgent({
+  const {
+    input,
+    agentMessages,
+    isRunning,
+    handleInputChange,
+    handleSubmit,
+    handleCancel,
+    reset,
+  } = useAgent({
     api: '/api/agent',
+    onSubmit: startHandler,
+    onCancel: stopHandler,
   });
 
   return (
@@ -446,21 +390,8 @@ export const AgentView: FC = () => {
         <p className="w-full p-4 text-center  text-red-500">
           for development use only
         </p>
-        {agentMessages.map((m) => (
-          <div key={m.id} className="p-1">
-            {m.content}
-          </div>
-        ))}
-        <form onSubmit={handleSubmit}>
-          <input
-            className="mb-8 w-full max-w-md rounded border border-gray-300 p-2 text-neutral-800 shadow-xl"
-            value={input}
-            placeholder="Say something..."
-            onChange={handleInputChange}
-          />
-        </form>
       </div>
-      {messageBlocks.length === 0 ? (
+      {agentMessages.length === 0 ? (
         <>
           <AgentParameter
             model={model}
@@ -491,23 +422,12 @@ export const AgentView: FC = () => {
       ) : (
         <div className="max-h-full overflow-scroll">
           <AgentMessageHeader model={model} agent={selectedAgent} />
-          {messageBlocks.map((block, index) =>
-            currentAgentId() === 'babydeeragi' ||
-            currentAgentId() === 'babyelfagi' ? (
-              <AgentTask
-                block={block}
-                key={index}
-                userInputCallback={userInputHandler}
-              />
-            ) : (
-              <AgentMessageBlock
-                block={block}
-                key={index}
-                userInputCallback={userInputHandler}
-              />
-            ),
-          )}
-          {isExecuting && (
+          {agentMessages.map((m) => (
+            <div key={m.id} className="p-1 text-black">
+              {m.content}
+            </div>
+          ))}
+          {isRunning && (
             <AgentMessage message={loadingAgentMessage(agentStatus)} />
           )}
           <div
@@ -516,18 +436,18 @@ export const AgentView: FC = () => {
           />
         </div>
       )}
-      <Input
-        value={objective}
-        onChange={inputHandler}
-        onStart={startHandler}
-        onStop={stopHandler}
-        onClear={clearHandler}
-        onCopy={copyHandler}
-        onDownload={downloadHandler}
-        onFeedback={feedbackHandler}
-        isExecuting={isExecuting}
-        hasMessages={messages.length > 0}
-        agent={selectedAgent.id as AgentType}
+      <AgentInput
+        value={input}
+        handleSubmit={handleSubmit}
+        handleInputChange={handleInputChange}
+        handleCancel={handleCancel}
+        handleClear={clearHandler}
+        handleCopy={copyHandler}
+        handleDownload={downloadHandler}
+        handleFeedback={feedbackHandler}
+        isRunning={isRunning}
+        hasMessages={agentMessages.length > 0}
+        type={selectedAgent.id}
         evaluation={currentEvaluation()}
       />
     </div>
