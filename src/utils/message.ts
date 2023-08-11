@@ -420,3 +420,18 @@ export const groupMessages = (messages: AgentMessage[]) => {
 
   return messageGroups;
 };
+
+export const getExportAgentMessage = (blocks: Block[]) => {
+  const text = blocks
+    .map((block) => {
+      const title = getTitle(block.messages[0].type);
+      const emoji = getEmoji(block.messages[0].type);
+      const messages = block.messages
+        .map((message) => message.content)
+        .join('\n');
+      return `## ${emoji} ${title}\n${messages}`;
+    })
+    .join('\n\n');
+
+  return text;
+};

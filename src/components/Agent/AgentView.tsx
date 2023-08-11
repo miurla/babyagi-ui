@@ -16,7 +16,7 @@ import { AgentParameter } from './AgentParameter';
 import { ProjectTile } from './ProjectTile';
 import { AgentMessageHeader } from './AgentMessageHeader';
 import {
-  getExportText,
+  getExportAgentMessage,
   getMessageBlocks,
   loadingAgentMessage,
   groupMessages,
@@ -197,7 +197,7 @@ export const AgentView: FC = () => {
   };
 
   const copyHandler = () => {
-    navigator.clipboard.writeText(getExportText(messages, selectedAgent.id));
+    navigator.clipboard.writeText(getExportAgentMessage(agentBlocks));
     toast.success(translate('COPIED_TO_CLIPBOARD', 'agent'));
 
     va.track('CopyToClipboard');
@@ -209,12 +209,9 @@ export const AgentView: FC = () => {
       objective.length > 0
         ? `${objective.replace(/\s/g, '_')}.txt`
         : 'download.txt';
-    const file = new Blob(
-      ['\uFEFF' + getExportText(messages, selectedAgent.id)],
-      {
-        type: 'text/plain;charset=utf-8',
-      },
-    );
+    const file = new Blob(['\uFEFF' + getExportAgentMessage(agentBlocks)], {
+      type: 'text/plain;charset=utf-8',
+    });
     element.href = URL.createObjectURL(file);
     element.download = filename;
     document.body.appendChild(element);
