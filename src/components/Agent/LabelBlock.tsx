@@ -8,9 +8,10 @@ export interface LabelBlockProps {
 }
 
 export const LabelBlock: React.FC<LabelBlockProps> = ({ block }) => {
-  const { icon, type, title, content } = block.messages[0];
+  const { icon, type, style, title, content } = block.messages[0];
   const emoji = icon || getEmoji(type);
   const blockTitle = title || getTitle(type);
+  const blockContent = style === 'log' ? '```\n' + content + '\n```' : content;
 
   const renderEmoji = () => (
     <div className="flex aspect-square h-9 items-center justify-center border-neutral-200 text-lg">
@@ -21,7 +22,7 @@ export const LabelBlock: React.FC<LabelBlockProps> = ({ block }) => {
   const renderContent = () => (
     <div className="focus:border-1 prose prose-neutral w-full dark:prose-invert prose-pre:bg-neutral-200 prose-pre:text-black dark:prose-pre:bg-neutral-800 dark:prose-pre:text-white">
       <ReactMarkdown remarkPlugins={[remarkGfm]}>
-        {`### ${blockTitle}\n${content}`}
+        {`### ${blockTitle}\n${blockContent}`}
       </ReactMarkdown>
     </div>
   );

@@ -1,5 +1,5 @@
 import { AgentMessage, AgentTask } from '@/types';
-import { v4 as uuidv4 } from 'uuid';
+import { Printer } from '@/utils/elf/print';
 
 export class Executer {
   objective: string;
@@ -9,7 +9,9 @@ export class Executer {
     handleEnd: () => Promise<void>;
   };
   language: string;
+  verbose: boolean;
 
+  printer: Printer;
   taskList: AgentTask[] = [];
 
   constructor(
@@ -20,11 +22,14 @@ export class Executer {
       handleEnd: () => Promise<void>;
     },
     language: string = 'en',
+    varbose: boolean = false,
   ) {
     this.objective = objective;
     this.modelName = modelName;
     this.handlers = handlers;
     this.language = language;
+    this.verbose = varbose;
+    this.printer = new Printer(this.handlers.handleMessage, this.verbose);
   }
 
   async run() {
@@ -36,50 +41,14 @@ export class Executer {
 
   // prepare() is called before loop()
   async prepare() {
-    this.handleMessage({
-      content: `objective: ${this.objective}`,
-      type: 'objective',
-    });
+    this.printer.printObjective(this.objective);
   }
 
-  async loop() {
-    const tasks = [];
-    for (let i = 0; i < 3; i++) {
-      const task = new Promise<void>((resolve) => {
-        setTimeout(async () => {
-          const id = `task + ${i}`;
-          await this.handleMessage({
-            content: `Test message ${i}`,
-            title: `Task description ${i}`,
-            type: 'task',
-            style: 'task',
-            taskId: `${i}`,
-            id,
-          });
-          resolve();
-        }, 1000 * i);
-      });
-      tasks.push(task);
-    }
-    await Promise.all(tasks);
-  }
+  async loop() {}
 
   async finishup() {
     // Objective completed
-    this.handlers.handleMessage({
-      content: 'Objective completed',
-      type: 'finish',
-    });
+    this.printer.printAllTaskCompleted();
     this.handlers.handleEnd();
-  }
-
-  // handleMessage() is called by the agent to send a message to the frontend
-  async handleMessage(message: AgentMessage) {
-    const msg = {
-      ...message,
-      id: message.id || uuidv4(),
-      status: message.status || 'complete',
-    };
-    await this.handlers.handleMessage(msg);
   }
 }

@@ -45,6 +45,7 @@ export function useAgent({
   const [input, setInput] = useState('');
   const [language] = useState(i18n?.language);
   const [isRunning, setIsRunning] = useState(false);
+  const messageMap = useRef(new Map<string, AgentMessage>());
 
   // Handle input change
   const handleInputChange = (
@@ -76,19 +77,34 @@ export function useAgent({
 
         if (value) {
           const message = new TextDecoder().decode(value);
-          const agentMessages: AgentMessage[] = message
+          const newAgentMessages: AgentMessage[] = message
             .trim()
             .split('\n')
             .map((m) => parseMessage(m));
 
-          setAgentMessages((prevMessages) => [
-            ...prevMessages,
-            ...agentMessages,
-          ]);
+          newAgentMessages.forEach((newMsg) => {
+            if (newMsg.id) {
+              const existingMsg = messageMap.current.get(newMsg.id);
+              if (
+                existingMsg &&
+                existingMsg.id === newMsg.id &&
+                existingMsg.type === newMsg.type
+              ) {
+                existingMsg.content += newMsg.content;
+              } else {
+                messageMap.current.set(newMsg.id, newMsg);
+              }
+            }
+          });
+
+          const updatedNewMessages = Array.from(messageMap.current.values());
+          setAgentMessages(updatedNewMessages);
 
           // Call onResponse with the new message
           if (onResponse) {
-            onResponse(new MessageEvent('message', { data: message }));
+            onResponse(
+              new MessageEvent('message', { data: updatedNewMessages }),
+            );
           }
         }
 
@@ -118,6 +134,7 @@ export function useAgent({
     abortControllerRef.current = abortController;
     setIsRunning(true);
     setInput('');
+    messageMap.current = new Map<string, AgentMessage>();
 
     if (onSubmit) {
       onSubmit();
