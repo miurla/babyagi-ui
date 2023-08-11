@@ -91,6 +91,7 @@ export function useAgent({
                 existingMsg.type === newMsg.type
               ) {
                 existingMsg.content += newMsg.content;
+                existingMsg.status = newMsg.status;
               } else {
                 messageMap.current.set(newMsg.id, newMsg);
               }

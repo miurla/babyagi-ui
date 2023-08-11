@@ -359,6 +359,10 @@ export const getEmoji = (type?: string) => {
       return '📝';
     case 'task':
       return '📄';
+    case 'session-summary':
+      return '📄';
+    case 'result':
+      return '📜';
     default:
       return '🤖';
   }
@@ -369,11 +373,15 @@ export const getTitle = (type?: string) => {
     case 'objective':
       return translate('OBJECTIVE', 'message');
     case 'finish':
-      return translate('FINISH', 'message');
+      return translate('FINISHED', 'message');
     case 'task-list':
       return translate('TASK_LIST', 'message');
     case 'task':
       return translate('TASK', 'message');
+    case 'session-summary':
+      return translate('SESSION_SUMMARY', 'message');
+    case 'result':
+      return translate('FINAL_TASK_RESULT', 'message');
     default:
       return type?.toUpperCase() || 'Untitled';
   }
@@ -385,9 +393,10 @@ export const groupMessages = (messages: AgentMessage[]) => {
   let block: Block | null = null;
   let prevMessage: AgentMessage | null = null;
   messages.forEach((message) => {
-    if (!block || block.id !== message.id) {
+    const id = message.taskId !== undefined ? message.taskId : message.id;
+    if (!block || block.id !== id) {
       block = {
-        id: message.id,
+        id: id,
         status: message.status,
         messages: [message],
         style: message.style === 'task' ? 'task' : 'label',
@@ -395,7 +404,7 @@ export const groupMessages = (messages: AgentMessage[]) => {
       messageGroups.push(block);
     } else if (
       prevMessage &&
-      prevMessage.id === message.id &&
+      prevMessage.id === id &&
       prevMessage.type === message.type
     ) {
       block.messages[block.messages.length - 1].content += message.content;

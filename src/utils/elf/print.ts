@@ -39,8 +39,6 @@ export class Printer {
   }
 
   printTaskExecute(task: AgentTask) {
-    // this.messageCallback(setupMessageWithTask(task));
-
     if (!this.verbose) return;
     console.log('%c*****NEXT TASK*****\n%c', 'color:fuchsia', '');
     console.log(task);
@@ -81,14 +79,6 @@ export class Printer {
   }
 
   printTaskOutput(output: string, task: AgentTask) {
-    if (task.tool !== 'text-completion') {
-      // code block for non-text-completion tools
-      // output = '```\n' + output + '\n```';
-    }
-    // this.messageCallback(
-    //   setupMessage('task-output', output, task?.tool, undefined, task?.id),
-    // );
-
     if (!this.verbose) return;
     console.log('%c*****TASK OUTPUT*****\n%c%s', 'color:fuchsia', '', output);
   }

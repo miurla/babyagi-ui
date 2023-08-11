@@ -7,7 +7,6 @@ import { getUserApiKey } from '@/utils/settings';
 import { translate } from '@/utils/translate';
 import { SkillRegistry } from './skillRegistry';
 import { findMostRelevantObjective } from '@/utils/elf/objective';
-import axios from 'axios';
 
 export class TaskRegistry {
   tasks: AgentTask[];
@@ -106,23 +105,7 @@ export class TaskRegistry {
       ? task.dependentTaskIds.map((id) => taskOutputs[id].output).join('\n')
       : '';
 
-    if (skill.executionLocation === 'server') {
-      // Call the API endpoint if the skill needs to be executed on the server side
-      const response = await axios.post('/api/execute-skill', {
-        task: JSON.stringify(task),
-        dependent_task_outputs: dependentTaskOutputs,
-        objective,
-      });
-      return response.data.taskOutput;
-    } else {
-      // Execute the skill on the client side
-      let taskOutput = await skill.execute(
-        task,
-        dependentTaskOutputs,
-        objective,
-      );
-      return taskOutput;
-    }
+    return await skill.execute(task, dependentTaskOutputs, objective);
   }
 
   getTasks(): AgentTask[] {

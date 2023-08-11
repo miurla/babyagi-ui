@@ -1,9 +1,7 @@
 import { AgentTask, LLMParams, AgentMessage } from '@/types';
-import { setupMessage } from '@/utils/message';
-import { getUserApiKey } from '@/utils/settings';
-import axios from 'axios';
 import { ChatOpenAI } from 'langchain/chat_models/openai';
 import { HumanChatMessage } from 'langchain/schema';
+import { v4 as uuidv4 } from 'uuid';
 
 export type SkillType = 'normal' | 'dev';
 export type SkillExecutionLocation = 'client' | 'server';
@@ -88,40 +86,63 @@ export class Skill {
   async generateText(
     prompt: string,
     task: AgentTask,
-    params?: LLMParams,
+    params: LLMParams = {},
     ignoreCallback: boolean = false,
   ): Promise<string> {
-    let chunk = '';
-    const messageCallback = ignoreCallback ? () => {} : this.messageCallback;
+    const messageCallback = ignoreCallback ? () => {} : this.handleMessage;
+    const id = uuidv4();
+    const defaultParams = {
+      modelName: 'gpt-3.5-turbo',
+      temperature: 0.7,
+      maxTokens: 1500,
+      topP: 1,
+      frequencyPenalty: 0,
+      presencePenalty: 0,
+      streaming: true,
+    };
+    const llmParams = { ...defaultParams, ...params };
     const llm = new ChatOpenAI(
       {
         openAIApiKey: this.apiKeys.openai,
-        modelName: params?.modelName ?? 'gpt-3.5-turbo',
-        temperature: params?.temperature ?? 0.7,
-        maxTokens: params?.maxTokens ?? 1500,
-        topP: params?.topP ?? 1,
-        frequencyPenalty: params?.frequencyPenalty ?? 0,
-        presencePenalty: params?.presencePenalty ?? 0,
-        streaming: params?.streaming === undefined ? true : params.streaming,
+        ...llmParams,
         callbacks: [
           {
             handleLLMNewToken(token: string) {
-              chunk += token;
-              messageCallback?.(
-                setupMessage('task-execute', chunk, undefined, '🤖', task.id),
-              );
+              messageCallback?.({
+                id,
+                content: token,
+                title: `${task.task}`,
+                style: 'task',
+                type: task.skill,
+                icon: '🤖',
+                taskId: task.id.toString(),
+                status: 'running',
+                options: {
+                  dependentTaskIds: task.dependentTaskIds?.join(',') ?? '',
+                },
+              });
             },
           },
         ],
       },
-      { baseOptions: { signal: this.abortController.signal } },
+      // { baseOptions: { signal: this.abortController.signal } },
     );
 
     try {
       const response = await llm.call([new HumanChatMessage(prompt)]);
-      messageCallback?.(
-        setupMessage('task-output', response.text, undefined, '✅', task.id),
-      );
+      messageCallback?.({
+        id,
+        taskId: task.id.toString(),
+        content: response.text,
+        title: task.task,
+        icon: '✅',
+        style: 'task',
+        type: task.skill,
+        status: 'complete',
+        options: {
+          dependentTaskIds: task.dependentTaskIds?.join(',') ?? '',
+        },
+      });
       return response.text;
     } catch (error: any) {
       if (error.name === 'AbortError') {

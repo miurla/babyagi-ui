@@ -1,18 +1,16 @@
 import { AgentMessage } from '@/types';
 import {
-  AirtableSaver,
-  CodeReader,
-  CodeReviewer,
-  CodeWriter,
-  DirectoryStructure,
-  SkillSaver,
+  // CodeReader,
+  // CodeReviewer,
+  // CodeWriter,
+  // DirectoryStructure,
+  // SkillSaver,
   TextCompletion,
-  WebLoader,
-  WebSearch,
-  YoutubeSearch,
+  // WebLoader,
+  // WebSearch,
+  // YoutubeSearch,
 } from '../skills';
 import { Skill } from '../skills/skill';
-import { getUserApiKey } from '@/utils/settings';
 
 export class SkillRegistry {
   skillClasses: (typeof Skill)[];
@@ -65,8 +63,7 @@ export class SkillRegistry {
 
   static getSkillClasses(): (typeof Skill)[] {
     const skills: (typeof Skill)[] = [
-      Skill,
-      // TextCompletion,
+      TextCompletion,
       // WebSearch,
       // AirtableSaver,
       // CodeReader,
@@ -81,8 +78,8 @@ export class SkillRegistry {
   }
 
   static apiKeys = {
-    openai: getUserApiKey() || process.env.OPENAI_API_KEY || '',
-    airtable: 'keyXXXXXXXXXXXXXX', // Your Airtable API key here
+    openai: process.env.OPENAI_API_KEY || '',
+    airtable: process.env.AIRTABLE_API_KEY || '',
   };
 
   getSkill(name: string): Skill {
