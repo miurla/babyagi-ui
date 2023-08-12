@@ -88,7 +88,7 @@ export class Skill {
     params: LLMParams = {},
     ignoreCallback: boolean = false,
   ): Promise<string> {
-    const messageCallback = ignoreCallback ? () => {} : this.handleMessage;
+    const callback = ignoreCallback ? () => {} : this.callbackMessage;
     const id = uuidv4();
     const defaultParams = {
       modelName: 'gpt-3.5-turbo',
@@ -100,40 +100,36 @@ export class Skill {
       streaming: true,
     };
     const llmParams = { ...defaultParams, ...params };
-    const llm = new ChatOpenAI(
-      {
-        openAIApiKey: this.apiKeys.openai,
-        ...llmParams,
-        callbacks: [
-          {
-            handleLLMNewToken(token: string) {
-              messageCallback?.({
-                id,
-                content: token,
-                title: `${task.task}`,
-                type: task.skill,
-                icon: '🤖',
-                taskId: task.id.toString(),
-                status: 'running',
-                options: {
-                  dependentTaskIds: task.dependentTaskIds?.join(',') ?? '',
-                },
-              });
-            },
+    const llm = new ChatOpenAI({
+      openAIApiKey: this.apiKeys.openai,
+      ...llmParams,
+      callbacks: [
+        {
+          handleLLMNewToken(token: string) {
+            callback?.({
+              id,
+              content: token,
+              title: `${task.task}`,
+              type: task.skill,
+              icon: task.icon,
+              taskId: task.id.toString(),
+              status: 'running',
+              options: {
+                dependentTaskIds: task.dependentTaskIds?.join(', ') ?? '',
+              },
+            });
           },
-        ],
-      },
-      // { baseOptions: { signal: this.abortController.signal } },
-    );
+        },
+      ],
+    });
 
     try {
       const response = await llm.call([new HumanChatMessage(prompt)]);
-      messageCallback?.({
-        id,
+      this.callbackMessage({
         taskId: task.id.toString(),
-        content: response.text,
+        content: '',
         title: task.task,
-        icon: '✅',
+        icon: task.icon,
         type: task.skill,
         status: 'complete',
         options: {
@@ -149,4 +145,17 @@ export class Skill {
       return 'Failed to generate text.';
     }
   }
+
+  callbackMessage = (message: AgentMessage) => {
+    const baseMessage: AgentMessage = {
+      id: this.id,
+      content: '',
+      icon: this.icon,
+      type: this.name,
+      style: 'text',
+      status: 'running',
+    };
+    const mergedMessage = { ...baseMessage, ...message };
+    this.handleMessage(mergedMessage);
+  };
 }

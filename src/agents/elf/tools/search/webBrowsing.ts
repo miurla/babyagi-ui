@@ -105,12 +105,14 @@ export const webBrowsing = async (
   );
 
   // callback to search logs
+  message = 'Completed analyzing results.';
   const msg: AgentMessage = {
     id,
     taskId: task.id.toString(),
     type: task.skill,
     content: message,
     title: task.task,
+    style: 'log',
     status: 'complete',
   };
   messageCallback(msg);

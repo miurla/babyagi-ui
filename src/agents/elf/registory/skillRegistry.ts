@@ -8,7 +8,7 @@ import {
   TextCompletion,
   WebLoader,
   WebSearch,
-  // YoutubeSearch,
+  YoutubeSearch,
 } from '../skills';
 import { Skill } from '../skills/skill';
 
@@ -66,12 +66,12 @@ export class SkillRegistry {
       TextCompletion,
       WebSearch,
       WebLoader,
+      YoutubeSearch,
       // AirtableSaver,
       // CodeReader,
       // CodeWriter,
       // SkillSaver,
       // DirectoryStructure,
-      // YoutubeSearch,
       // CodeReviewer,
     ];
     return skills;

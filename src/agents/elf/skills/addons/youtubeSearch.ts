@@ -1,6 +1,6 @@
 import { AgentTask } from '@/types';
 import { Skill } from '../skill';
-import axios from 'axios';
+import { webSearch } from '../../tools/search/webSearch';
 
 export class YoutubeSearch extends Skill {
   name = 'youtube_search';
@@ -15,37 +15,26 @@ export class YoutubeSearch extends Skill {
     objective: string,
   ): Promise<string> {
     const prompt = `Generate query for YouTube search based on the dependent task outputs and the objective.
-        Dependent tasks output: ${dependentTaskOutputs}
-        Objective: ${objective}
+    Dont include "Youtube video". Only include the query.
+    Dependent tasks output: ${dependentTaskOutputs}
+    Objective: ${objective}
       `;
     const query = await this.generateText(prompt, task);
-    const searchResults = await this.webSearchTool(`site:youtube.com ${query}`);
+    const searchResults = await webSearch(`site:youtube.com ${query}`);
     const youtubeLinks = this.extractYoutubeLinks(searchResults);
+    const result = JSON.stringify(youtubeLinks, null, 2);
 
-    return '```json\n' + JSON.stringify(youtubeLinks, null, 2) + '\n```';
+    this.callbackMessage({
+      taskId: task.id.toString(),
+      content: '```json\n\n' + result + '\n\n```',
+      title: task.task,
+      type: task.skill,
+      style: 'text',
+      status: 'complete',
+    });
+
+    return result;
   }
-
-  webSearchTool = async (query: string) => {
-    const response = await axios
-      .post(
-        '/api/tools/search',
-        {
-          query,
-        },
-        {
-          signal: this.abortController.signal,
-        },
-      )
-      .catch((error) => {
-        if (error.name === 'AbortError') {
-          console.log('Request aborted', error.message);
-        } else {
-          console.log(error.message);
-        }
-      });
-
-    return response?.data.response;
-  };
 
   extractYoutubeLinks = (searchResults: any[]) => {
     const youtubeLinks = searchResults

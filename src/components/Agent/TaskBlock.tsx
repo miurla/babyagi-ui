@@ -10,10 +10,8 @@ export interface AgentTaskProps {
 }
 
 const renderIcon = (message: AgentMessage, block: Block) => {
-  return message.style === 'log'
+  return message.style === 'log' || block.status === 'complete'
     ? ''
-    : block.status === 'complete'
-    ? '✅'
     : message.icon || getEmoji(message.type);
 };
 
@@ -37,7 +35,7 @@ const renderContent = (message: AgentMessage, firstContent: string) => {
 
 export const TaskBlock: FC<AgentTaskProps> = ({ block }) => {
   const message = block.messages[0];
-  let icon = message.icon || getEmoji(message.type);
+  const icon = message.icon || getEmoji(message.type);
   const title = message.taskId
     ? `${message.taskId}. ${message.title}`
     : message.title;
@@ -68,9 +66,7 @@ export const TaskBlock: FC<AgentTaskProps> = ({ block }) => {
                   <div className="flex aspect-square h-9 items-center justify-center text-lg">
                     {renderIcon(message, block)}
                   </div>
-                  <div className="flex flex-col gap-8">
-                    {renderContent(message, firstContent)}
-                  </div>
+                  <div>{renderContent(message, firstContent)}</div>
                 </div>
               </div>
             ))}
