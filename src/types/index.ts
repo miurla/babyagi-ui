@@ -154,7 +154,7 @@ export type AgentMessage = {
   title?: string;
   icon?: string;
   taskId?: string;
-  style?: 'label' | 'task' | 'log';
+  style?: 'text' | 'log';
   status?: 'complete' | 'incomplete' | 'running';
   options?: { [key: string]: string };
 };

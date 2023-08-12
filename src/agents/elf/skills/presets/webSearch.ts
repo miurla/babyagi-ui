@@ -1,5 +1,5 @@
 import { AgentTask } from '@/types';
-import { webBrowsing } from '@/agents/babydeeragi/tools/webBrowsing';
+import { webBrowsing } from '@/agents/elf/tools/search/webBrowsing';
 import { Skill } from '../skill';
 
 // This skill is Specialized for web browsing
@@ -17,19 +17,15 @@ export class WebSearch extends Skill {
     objective: string,
   ): Promise<string> {
     if (!this.valid) return '';
-
     const taskOutput =
       (await webBrowsing(
         objective,
         task,
         dependentTaskOutputs,
-        this.messageCallback,
-        undefined,
-        this.isRunningRef,
+        this.handleMessage,
         this.verbose,
         undefined,
         this.language,
-        this.abortController.signal,
       )) ?? '';
 
     return taskOutput;

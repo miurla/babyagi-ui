@@ -21,11 +21,10 @@ export class TestExecuter extends Executer {
       const task = new Promise<void>((resolve) => {
         setTimeout(async () => {
           const id = `task + ${i}`;
-          await this.handleMessage({
+          await this.handlers.handleMessage({
             content: `Test message ${i}`,
             title: `Task description ${i}`,
             type: 'task',
-            style: 'task',
             taskId: `${i}`,
             id,
           });

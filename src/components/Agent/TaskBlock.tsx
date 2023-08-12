@@ -5,22 +5,27 @@ import { AgentTaskStatus } from './AgentTastStatus';
 import { getEmoji } from '@/utils/message';
 import Markdown from './Markdown';
 import { AgentCollapsible } from './AgentCollapsible';
-
 export interface AgentTaskProps {
   block: Block;
 }
 
 const renderIcon = (message: AgentMessage, block: Block) => {
-  return block.status === 'complete'
+  return message.style === 'log'
+    ? ''
+    : block.status === 'complete'
     ? '✅'
     : message.icon || getEmoji(message.type);
 };
 
-const renderContent = (message: AgentMessage, lastContent: string) => {
-  return message.type === 'log' ? (
-    <AgentCollapsible title={lastContent} isOpen={false}>
+const renderContent = (message: AgentMessage, firstContent: string) => {
+  const title =
+    message.status === 'complete'
+      ? firstContent.split('\n')[0]
+      : firstContent.trim().split('\n').slice(-1)[0];
+  return message.style === 'log' ? (
+    <AgentCollapsible title={title} isOpen={false}>
       <div className="prose prose-sm w-full dark:prose-invert prose-pre:bg-neutral-200 prose-pre:text-black dark:prose-pre:bg-neutral-800 dark:prose-pre:text-white">
-        <Markdown content={message.content} />
+        <Markdown content={`\`\`\`\n${message.content}\n\`\`\``} />
       </div>
     </AgentCollapsible>
   ) : (
@@ -32,12 +37,12 @@ const renderContent = (message: AgentMessage, lastContent: string) => {
 
 export const TaskBlock: FC<AgentTaskProps> = ({ block }) => {
   const message = block.messages[0];
-  const icon = message.icon || getEmoji(message.type);
+  let icon = message.icon || getEmoji(message.type);
   const title = message.taskId
     ? `${message.taskId}. ${message.title}`
     : message.title;
   const dependentTaskIds = message?.options?.dependentTaskIds ?? '';
-  const lastContent = block.messages[block.messages.length - 1].content;
+  const firstContent = block.messages[0].content;
 
   return (
     <div className="relative m-auto flex w-full flex-col gap-4 px-4 py-4 text-base text-neutral-900 dark:text-neutral-300 md:max-w-2xl md:gap-6 lg:max-w-2xl lg:px-0 xl:max-w-3xl">
@@ -64,7 +69,7 @@ export const TaskBlock: FC<AgentTaskProps> = ({ block }) => {
                     {renderIcon(message, block)}
                   </div>
                   <div className="flex flex-col gap-8">
-                    {renderContent(message, lastContent)}
+                    {renderContent(message, firstContent)}
                   </div>
                 </div>
               </div>

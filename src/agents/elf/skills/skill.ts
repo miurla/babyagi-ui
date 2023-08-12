@@ -4,7 +4,6 @@ import { HumanChatMessage } from 'langchain/schema';
 import { v4 as uuidv4 } from 'uuid';
 
 export type SkillType = 'normal' | 'dev';
-export type SkillExecutionLocation = 'client' | 'server';
 
 export class Skill {
   name: string = 'base_kill';
@@ -15,7 +14,6 @@ export class Skill {
   apiKeysRequired: Array<string | Array<string>> = [];
   valid: boolean;
   apiKeys: { [key: string]: string };
-  executionLocation: SkillExecutionLocation = 'client'; // 'client' or 'server'
   // for UI
   handleMessage: (message: AgentMessage) => void;
   verbose: boolean;
@@ -112,7 +110,6 @@ export class Skill {
                 id,
                 content: token,
                 title: `${task.task}`,
-                style: 'task',
                 type: task.skill,
                 icon: '🤖',
                 taskId: task.id.toString(),
@@ -136,11 +133,10 @@ export class Skill {
         content: response.text,
         title: task.task,
         icon: '✅',
-        style: 'task',
         type: task.skill,
         status: 'complete',
         options: {
-          dependentTaskIds: task.dependentTaskIds?.join(',') ?? '',
+          dependentTaskIds: task.dependentTaskIds?.join(', ') ?? '',
         },
       });
       return response.text;

@@ -257,7 +257,7 @@ export const AgentView: FC = () => {
         (message) =>
           message.type === 'complete' || message.type === 'end-of-iterations',
       ).length > 0;
-    const output = getExportText(messages);
+    const output = getExportAgentMessage(agentBlocks);
 
     axios.post('/api/feedback', {
       objective: feedbackObjective,

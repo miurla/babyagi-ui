@@ -7,7 +7,7 @@ import {
   // SkillSaver,
   TextCompletion,
   // WebLoader,
-  // WebSearch,
+  WebSearch,
   // YoutubeSearch,
 } from '../skills';
 import { Skill } from '../skills/skill';
@@ -64,7 +64,7 @@ export class SkillRegistry {
   static getSkillClasses(): (typeof Skill)[] {
     const skills: (typeof Skill)[] = [
       TextCompletion,
-      // WebSearch,
+      WebSearch,
       // AirtableSaver,
       // CodeReader,
       // CodeWriter,

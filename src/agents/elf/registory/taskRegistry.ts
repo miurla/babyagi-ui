@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import { AgentTask, AgentMessage, TaskOutputs } from '@/types';
 import { ChatOpenAI } from 'langchain/chat_models/openai';
 import { parseTasks } from '@/utils/task';
@@ -133,7 +132,7 @@ export class TaskRegistry {
   }
 
   reorderTasks(): void {
-    this.tasks = _.sortBy(this.tasks, ['priority', 'task_id']);
+    this.tasks.sort((a, b) => a.id - b.id);
   }
 
   async reflectOnOutput(

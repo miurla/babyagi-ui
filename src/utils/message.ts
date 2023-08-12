@@ -344,7 +344,7 @@ export const parseMessage = (json: string): AgentMessage => {
 
   return {
     ...message,
-    style: message.style ?? 'label',
+    style: message.style ?? 'text',
     status: message.status ?? 'incomplete',
   };
 };
@@ -391,29 +391,32 @@ export const groupMessages = (messages: AgentMessage[]) => {
   const messageGroups: Block[] = [];
 
   let block: Block | null = null;
-  let prevMessage: AgentMessage | null = null;
   messages.forEach((message) => {
     const id = message.taskId !== undefined ? message.taskId : message.id;
-    if (!block || block.id !== id) {
+    const existingBlock = messageGroups.find((block) => block.id === id);
+    if (!existingBlock) {
       block = {
         id: id,
         status: message.status,
         messages: [message],
-        style: message.style === 'task' ? 'task' : 'label',
+        style: message.taskId ? 'task' : 'label',
       };
       messageGroups.push(block);
     } else if (
-      prevMessage &&
-      prevMessage.id === id &&
-      prevMessage.type === message.type
+      existingBlock &&
+      existingBlock.id === id &&
+      existingBlock.messages[existingBlock.messages.length - 1].type ===
+        message.type &&
+      existingBlock.messages[existingBlock.messages.length - 1].id ===
+        message.id
     ) {
-      block.messages[block.messages.length - 1].content += message.content;
-      block.status = message.status;
+      existingBlock.messages[existingBlock.messages.length - 1].content +=
+        message.content;
+      existingBlock.status = message.status;
     } else {
-      block.messages.push(message);
-      block.status = message.status;
+      existingBlock.messages.push(message);
+      existingBlock.status = message.status;
     }
-    prevMessage = block?.messages[block.messages.length - 1];
   });
 
   console.log(messageGroups);
