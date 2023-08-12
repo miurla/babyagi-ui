@@ -6,6 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 export type SkillType = 'normal' | 'dev';
 
 export class Skill {
+  id: string = uuidv4();
   name: string = 'base_kill';
   descriptionForHuman: string = 'This is the base skill.';
   descriptionForModel: string = 'This is the base skill.';

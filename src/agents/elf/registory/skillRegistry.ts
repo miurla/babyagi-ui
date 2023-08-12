@@ -6,7 +6,7 @@ import {
   // DirectoryStructure,
   // SkillSaver,
   TextCompletion,
-  // WebLoader,
+  WebLoader,
   WebSearch,
   // YoutubeSearch,
 } from '../skills';
@@ -65,6 +65,7 @@ export class SkillRegistry {
     const skills: (typeof Skill)[] = [
       TextCompletion,
       WebSearch,
+      WebLoader,
       // AirtableSaver,
       // CodeReader,
       // CodeWriter,
@@ -72,7 +73,6 @@ export class SkillRegistry {
       // DirectoryStructure,
       // YoutubeSearch,
       // CodeReviewer,
-      // WebLoader,
     ];
     return skills;
   }

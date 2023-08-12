@@ -3,7 +3,6 @@ import { ChatOpenAI } from 'langchain/chat_models/openai';
 import { parseTasks } from '@/utils/task';
 import { HumanChatMessage, SystemChatMessage } from 'langchain/schema';
 import { getUserApiKey } from '@/utils/settings';
-import { translate } from '@/utils/translate';
 import { SkillRegistry } from './skillRegistry';
 import { findMostRelevantObjective } from '@/utils/elf/objective';
 
@@ -62,9 +61,8 @@ export class TaskRegistry {
             handleLLMNewToken(token: string) {
               const message: AgentMessage = {
                 id,
-                title: translate('TASK_LIST', 'message'),
                 content: token,
-                icon: '📝',
+                type: 'task-list',
                 style: 'log',
               };
               handleMessage(message);

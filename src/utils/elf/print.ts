@@ -71,6 +71,7 @@ export class Printer {
       id,
       content: message,
       type: 'task-list',
+      style: 'text',
       status: 'complete',
     });
 

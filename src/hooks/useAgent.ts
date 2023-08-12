@@ -88,7 +88,8 @@ export function useAgent({
               if (
                 existingMsg &&
                 existingMsg.id === newMsg.id &&
-                existingMsg.type === newMsg.type
+                existingMsg.type === newMsg.type &&
+                existingMsg.style === newMsg.style
               ) {
                 existingMsg.content += newMsg.content;
                 existingMsg.status = newMsg.status;
