@@ -1,7 +1,6 @@
-import { AgentStatus, AgentMessage, TaskOutputs } from '@/types'; // You need to define these types
+import { AgentMessage, TaskOutputs } from '@/types'; // You need to define these types
 import { Executer } from '../base/Executer';
 import { SkillRegistry, TaskRegistry } from './registory';
-import { translate } from '@/utils/translate';
 import { v4 as uuidv4 } from 'uuid';
 
 const REFLECTION = false; // If you want to use reflection, set this to true. now support only client side reflection.
@@ -20,6 +19,7 @@ export class BabyElfAGI extends Executer {
     },
     language: string = 'en',
     verbose: boolean = true,
+    specifiedSkills: string[] = [],
   ) {
     super(objective, modelName, handlers, language);
 
@@ -27,8 +27,14 @@ export class BabyElfAGI extends Executer {
       this.handlers.handleMessage,
       verbose,
       this.language,
+      specifiedSkills,
     );
-    this.taskRegistry = new TaskRegistry(this.language, this.verbose);
+    const useSpecifiedSkills = specifiedSkills.length > 0;
+    this.taskRegistry = new TaskRegistry(
+      this.language,
+      this.verbose,
+      useSpecifiedSkills,
+    );
   }
 
   async prepare() {

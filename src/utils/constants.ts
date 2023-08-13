@@ -48,7 +48,7 @@ export const AGENT = [
     message: '🤖/🔎+📄/🧑‍💻',
     badge: 'STABLE',
   },
-  { id: 'babyagi', name: 'BabyAGI', icon: '👶', message: '🤖' },
+  // { id: 'babyagi', name: 'BabyAGI', icon: '👶', message: '🤖' },
 ];
 
 export const THEME = [
@@ -56,3 +56,5 @@ export const THEME = [
   { id: 'light', name: 'LIGHT', icon: '🌞' },
   { id: 'dark', name: 'DARK', icon: '🌚' },
 ];
+
+export const SPECIFIED_SKILLS = ['text_completion', 'web_search']; // for BabyDeerAGI

@@ -10,11 +10,13 @@ export class TaskRegistry {
   tasks: AgentTask[];
   verbose: boolean = false;
   language: string = 'en';
+  useSpecifiedSkills: boolean = false;
 
-  constructor(language = 'en', verbose = false) {
+  constructor(language = 'en', verbose = false, useSpecifiedSkills = false) {
     this.tasks = [];
     this.verbose = verbose;
     this.language = language;
+    this.useSpecifiedSkills = useSpecifiedSkills;
   }
 
   async createTaskList(
@@ -23,7 +25,6 @@ export class TaskRegistry {
     skillDescriptions: string,
     modelName: string = 'gpt-3.5-turbo',
     handleMessage: (message: AgentMessage) => Promise<void>,
-    abortController?: AbortController,
   ): Promise<void> {
     const relevantObjective = await findMostRelevantObjective(objective);
     const exapmleObjective = relevantObjective.objective;
@@ -48,31 +49,28 @@ export class TaskRegistry {
     const messages = new HumanChatMessage(prompt);
 
     let result = '';
-    const model = new ChatOpenAI(
-      {
-        modelName,
-        temperature: 0,
-        maxTokens: 1500,
-        topP: 1,
-        verbose: this.verbose,
-        streaming: true,
-        callbacks: [
-          {
-            handleLLMNewToken(token: string) {
-              const message: AgentMessage = {
-                id,
-                content: token,
-                type: 'task-list',
-                style: 'log',
-                status: 'running',
-              };
-              handleMessage(message);
-            },
+    const model = new ChatOpenAI({
+      modelName: this.useSpecifiedSkills ? modelName : 'gpt-4',
+      temperature: 0,
+      maxTokens: 1500,
+      topP: 1,
+      verbose: this.verbose,
+      streaming: true,
+      callbacks: [
+        {
+          handleLLMNewToken(token: string) {
+            const message: AgentMessage = {
+              id,
+              content: token,
+              type: 'task-list',
+              style: 'log',
+              status: 'running',
+            };
+            handleMessage(message);
           },
-        ],
-      },
-      { baseOptions: { signal: abortController?.signal } },
-    );
+        },
+      ],
+    });
 
     try {
       const response = await model.call([systemMessage, messages]);

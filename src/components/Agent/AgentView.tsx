@@ -11,7 +11,6 @@ import {
   Block,
 } from '@/types';
 import { AgentInput } from './AgentInput';
-import AgentMessage from './AgentMessage';
 import { AgentParameter } from './AgentParameter';
 import { ProjectTile } from './ProjectTile';
 import { AgentMessageHeader } from './AgentMessageHeader';
@@ -23,7 +22,13 @@ import {
 } from '../../utils/message';
 import { BabyAGI } from '@/agents/babyagi';
 import { BabyDeerAGI } from '@/agents/babydeeragi/executer';
-import { AGENT, ITERATIONS, MODELS, SETTINGS_KEY } from '@/utils/constants';
+import {
+  AGENT,
+  ITERATIONS,
+  MODELS,
+  SETTINGS_KEY,
+  SPECIFIED_SKILLS,
+} from '@/utils/constants';
 import { toast } from 'sonner';
 import { v4 as uuidv4 } from 'uuid';
 import { useExecution } from '@/hooks/useExecution';
@@ -33,7 +38,7 @@ import axios from 'axios';
 import { taskCompletedNotification } from '@/utils/notification';
 import { useTranslation } from 'next-i18next';
 import { IntroGuide } from './IntroGuide';
-import { BabyElfAGI } from '@/agents/babyelfagi/executer';
+import { BabyElfAGI } from '@/agents/elf/executer';
 import { SkillsList } from './SkillList';
 import { useAgent } from '@/hooks/useAgent';
 import { AgentBlock } from './AgentBlock';
@@ -334,29 +339,30 @@ export const AgentView: FC = () => {
   };
 
   const skills = () => {
-    if (selectedAgent.id === 'babyelfagi') {
-      const elf = new BabyElfAGI(
-        objective,
-        model.id,
-        messageHandler,
-        setAgentStatus,
-        cancelHandle,
-        language,
-        false,
-      );
-      const skills = elf.skillRegistry.getAllSkills();
-      const skillInfos = skills.map((skill) => {
-        const skillInfo = {
-          name: skill.name,
-          description: skill.descriptionForHuman,
-          icon: skill.icon,
-          badge: skill.type,
-        };
-        return skillInfo;
-      });
-      return skillInfos;
-    }
-    return [];
+    const specificSkills =
+      selectedAgent.id === 'babydeeragi' ? SPECIFIED_SKILLS : [];
+    const elf = new BabyElfAGI(
+      '',
+      '',
+      {
+        handleMessage: async (message) => {},
+        handleEnd: async () => {},
+      },
+      'en',
+      false,
+      specificSkills,
+    );
+    const skills = elf.skillRegistry.getAllSkills();
+    const skillInfos = skills.map((skill) => {
+      const skillInfo = {
+        name: skill.name,
+        description: skill.descriptionForHuman,
+        icon: skill.icon,
+        badge: skill.type,
+      };
+      return skillInfo;
+    });
+    return skillInfos;
   };
 
   const {
@@ -405,9 +411,7 @@ export const AgentView: FC = () => {
             agent={selectedAgent}
             setAgent={setSelectedAgent}
           />
-          {selectedAgent.id === 'babyelfagi' && (
-            <SkillsList skills={skills()} />
-          )}
+          <SkillsList skills={skills()} />
           <div className="h-[calc(100vh-600px)]">
             <div className="flex h-full flex-col items-center justify-center gap-6 p-4">
               <ProjectTile />

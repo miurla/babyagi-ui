@@ -9,3 +9,4 @@ export * from './presets/codeWriter';
 export * from './presets/codeReviewer';
 export * from './presets/webLoader';
 export * from './addons/youtubeSearch';
+export * from './addons/airtableSaver';

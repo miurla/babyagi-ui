@@ -9,6 +9,7 @@ import {
   CodeWriter,
   DirectoryStructure,
   SkillSaver,
+  AirtableSaver,
 } from '../skills';
 import { Skill } from '../skills/skill';
 
@@ -25,6 +26,7 @@ export class SkillRegistry {
     handleMessage: (message: AgentMessage) => Promise<void>,
     verbose: boolean = false,
     language: string = 'en',
+    specifiedSkills: string[] = [],
   ) {
     this.skillClasses = SkillRegistry.getSkillClasses();
     this.apiKeys = SkillRegistry.apiKeys;
@@ -41,6 +43,15 @@ export class SkillRegistry {
         this.verbose,
         this.language,
       );
+
+      // If the skill is specified, load it.
+      if (specifiedSkills.length > 0) {
+        if (specifiedSkills.includes(skill.name)) {
+          this.skills.push(skill);
+        }
+        continue;
+      }
+
       if (
         skill.type === 'dev' ? process.env.NODE_ENV === 'development' : true
       ) {
@@ -67,7 +78,7 @@ export class SkillRegistry {
       WebSearch,
       WebLoader,
       YoutubeSearch,
-      // AirtableSaver,
+      AirtableSaver,
       CodeReader,
       CodeWriter,
       SkillSaver,
