@@ -387,7 +387,7 @@ export const getTitle = (type?: string) => {
   }
 };
 
-export const groupMessages = (messages: AgentMessage[]) => {
+export const groupMessages = (messages: AgentMessage[], isRunning: boolean) => {
   const messageGroups: Block[] = [];
 
   let block: Block | null = null;
@@ -419,7 +419,14 @@ export const groupMessages = (messages: AgentMessage[]) => {
     }
   });
 
-  console.log(messageGroups);
+  // if isRunning is false, set all running messageGroups to incomplete
+  if (!isRunning) {
+    messageGroups.forEach((messageGroup) => {
+      if (messageGroup.status === 'running') {
+        messageGroup.status = 'incomplete';
+      }
+    });
+  }
 
   return messageGroups;
 };

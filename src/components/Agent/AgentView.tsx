@@ -386,9 +386,9 @@ export const AgentView: FC = () => {
   const [agentBlocks, setAgentBlocks] = useState<Block[]>([]);
 
   useEffect(() => {
-    const newGroupedMessages = groupMessages(agentMessages);
+    const newGroupedMessages = groupMessages(agentMessages, isRunning);
     setAgentBlocks(newGroupedMessages);
-  }, [agentMessages]);
+  }, [agentMessages, isRunning]);
 
   return (
     <div className="overflow-none relative flex-1 bg-white dark:bg-black">
