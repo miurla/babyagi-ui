@@ -26,13 +26,13 @@ export class ObjectiveSaver extends Skill {
     const examplesPath = `data/example_objectives/`;
 
     try {
-      const response = await fetch('/api/local/write-file', {
+      const response = await fetch(`${this.BASE_URL}/api/local/write-file`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          filename: `${examplesPath}/${filename}`,
+          filename: `${this.BASE_URL}/${examplesPath}/${filename}`,
           content: `${code}`,
         }),
       });

@@ -92,7 +92,7 @@ export class BabyElfAGI extends Executer {
           updates: { status: 'running' },
         });
         this.printer.printTaskExecute(task);
-        // this.currentStatusCallback();
+
         const output = await this.taskRegistry.executeTask(
           i,
           task,

@@ -1,14 +1,14 @@
 import { AgentMessage } from '@/types';
 import {
-  // CodeReader,
-  // CodeReviewer,
-  // CodeWriter,
-  // DirectoryStructure,
-  // SkillSaver,
   TextCompletion,
   WebLoader,
   WebSearch,
   YoutubeSearch,
+  CodeReader,
+  CodeReviewer,
+  CodeWriter,
+  DirectoryStructure,
+  SkillSaver,
 } from '../skills';
 import { Skill } from '../skills/skill';
 
@@ -68,11 +68,11 @@ export class SkillRegistry {
       WebLoader,
       YoutubeSearch,
       // AirtableSaver,
-      // CodeReader,
-      // CodeWriter,
-      // SkillSaver,
-      // DirectoryStructure,
-      // CodeReviewer,
+      CodeReader,
+      CodeWriter,
+      SkillSaver,
+      DirectoryStructure,
+      CodeReviewer,
     ];
     return skills;
   }

@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 export type SkillType = 'normal' | 'dev';
 
 export class Skill {
-  id: string = uuidv4();
+  id: string;
   name: string = 'base_kill';
   descriptionForHuman: string = 'This is the base skill.';
   descriptionForModel: string = 'This is the base skill.';
@@ -19,6 +19,8 @@ export class Skill {
   handleMessage: (message: AgentMessage) => void;
   verbose: boolean;
   language: string = 'en';
+
+  BASE_URL = process.env.BASE_URL || 'http://localhost:3000';
 
   // This index signature allows dynamic assignment of properties
   [key: string]: any;
@@ -33,6 +35,7 @@ export class Skill {
     this.handleMessage = handleMessage;
     this.verbose = verbose;
     this.language = language;
+    this.id = uuidv4();
 
     const missingKeys = this.checkRequiredKeys(apiKeys);
     if (missingKeys.length > 0) {
@@ -80,6 +83,13 @@ export class Skill {
   ): Promise<string> {
     // This method should be overridden by subclasses
     throw new Error("Method 'execute' must be implemented");
+  }
+
+  async sendCompletionMessage() {
+    this.handleMessage({
+      content: '',
+      status: 'complete',
+    });
   }
 
   async generateText(
@@ -158,4 +168,17 @@ export class Skill {
     const mergedMessage = { ...baseMessage, ...message };
     this.handleMessage(mergedMessage);
   };
+
+  async getDirectoryStructure(): Promise<any> {
+    const response = await fetch(
+      `${this.BASE_URL}/api/local/directory-structure`,
+      {
+        method: 'GET',
+      },
+    );
+    if (!response.ok) {
+      throw new Error('Failed to get directory structure');
+    }
+    return await response.json();
+  }
 }

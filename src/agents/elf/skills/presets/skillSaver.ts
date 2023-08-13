@@ -33,8 +33,8 @@ export class SkillSaver extends Skill {
     TASK: ${task.task}
     CODE: ${code}
     FILE_NAME:`;
-    const filename = await this.generateText(filePrompt, task, params);
-    let skillsPath = `src/agents/babyelfagi/skills/addons`;
+    const filename = await this.generateText(filePrompt, task, params, true);
+    let skillsPath = `src/agents/elf/skills/addons`;
 
     const dirStructure: string[] = await this.getDirectoryStructure();
     const skillPaths = dirStructure.filter((path) => path.includes(filename));
@@ -45,7 +45,7 @@ export class SkillSaver extends Skill {
     }
 
     try {
-      const response = await fetch('/api/local/write-file', {
+      const response = await fetch(`${this.BASE_URL}/api/local/write-file`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -58,9 +58,18 @@ export class SkillSaver extends Skill {
       if (!response.ok) {
         throw new Error('Failed to save file');
       }
-      return `Code saved successfully: ${filename}`;
+      const message = `Code saved successfully: ${filename}`;
+      this.callbackMessage({
+        content: message,
+        status: 'complete',
+      });
+      return message;
     } catch (error) {
       console.error('Error saving code.', error);
+      this.callbackMessage({
+        content: 'Error saving code.',
+        status: 'complete',
+      });
       return 'Error saving code.';
     }
   }

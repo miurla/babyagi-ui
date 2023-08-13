@@ -370,6 +370,7 @@ export const AgentView: FC = () => {
 
   const {
     input,
+    setInput,
     agentMessages,
     isRunning,
     handleInputChange,
@@ -417,7 +418,7 @@ export const AgentView: FC = () => {
               {(selectedAgent.id === 'babydeeragi' ||
                 selectedAgent.id === 'babyelfagi') && (
                 <IntroGuide
-                  onClick={(value) => setObjective(value)}
+                  onClick={(value) => setInput(value)}
                   agent={selectedAgent.id}
                 />
               )}
