@@ -18,7 +18,7 @@ import { AgentMessageHeader } from './AgentMessageHeader';
 import {
   getExportAgentMessage,
   getMessageBlocks,
-  loadingAgentMessage,
+  getAgentLoadingMessage,
   groupMessages,
 } from '../../utils/message';
 import { BabyAGI } from '@/agents/babyagi';
@@ -37,6 +37,7 @@ import { BabyElfAGI } from '@/agents/babyelfagi/executer';
 import { SkillsList } from './SkillList';
 import { useAgent } from '@/hooks/useAgent';
 import { AgentBlock } from './AgentBlock';
+import AgentLoading from './AgentLoading';
 
 export const AgentView: FC = () => {
   const [model, setModel] = useState<SelectItem>(MODELS[1]);
@@ -67,16 +68,6 @@ export const AgentView: FC = () => {
   } = useExecution();
   const { isExecuting, setExecuting } = useExecutionStatus();
 
-  const scrollToBottom = useCallback(() => {
-    const behavior = isExecuting ? 'smooth' : 'auto';
-    messagesEndRef.current?.scrollIntoView({ behavior: behavior });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [messageBlocks]);
-
-  useEffect(() => {
-    scrollToBottom();
-  }, [scrollToBottom]);
-
   useEffect(() => {
     if (selectedExecutionId) {
       const selectedExecution = executions.find(
@@ -102,7 +93,7 @@ export const AgentView: FC = () => {
       updateExec(updatedExecution);
     }
 
-    const blocks = getMessageBlocks(messages, isExecuting);
+    const blocks = getMessageBlocks(messages, isRunning);
     setMessageBlocks(blocks);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -390,13 +381,18 @@ export const AgentView: FC = () => {
     setAgentBlocks(newGroupedMessages);
   }, [agentMessages, isRunning]);
 
+  const scrollToBottom = useCallback(() => {
+    const behavior = isRunning ? 'smooth' : 'auto';
+    messagesEndRef.current?.scrollIntoView({ behavior: behavior });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [agentBlocks, isRunning]);
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [scrollToBottom]);
+
   return (
     <div className="overflow-none relative flex-1 bg-white dark:bg-black">
-      <div className="text-black">
-        <p className="w-full p-4 text-center  text-red-500">
-          for development use only
-        </p>
-      </div>
       {agentMessages.length === 0 ? (
         <>
           <AgentParameter
@@ -432,7 +428,7 @@ export const AgentView: FC = () => {
             <AgentBlock key={index} block={block} />
           ))}
           {isRunning && (
-            <AgentMessage message={loadingAgentMessage(agentStatus)} />
+            <AgentLoading message={getAgentLoadingMessage(agentBlocks)} />
           )}
           <div
             className="h-[162px] bg-white dark:bg-black"

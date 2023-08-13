@@ -445,3 +445,28 @@ export const getExportAgentMessage = (blocks: Block[]) => {
 
   return text;
 };
+
+export const getAgentLoadingMessage = (blocks: Block[]) => {
+  const runningBlocks = blocks.filter((block) => block.status === 'running');
+  const lastMessageTypes = runningBlocks.map(
+    (block) => block.messages[block.messages.length - 1].type,
+  );
+  const blocksWithTaskId = runningBlocks.filter(
+    (block) => block.messages[block.messages.length - 1].taskId !== undefined,
+  );
+  const taskExecuteIds = blocksWithTaskId.map(
+    (block) => block.messages[block.messages.length - 1].taskId,
+  );
+  const execteMessage = `${translate(
+    'EXECUTING',
+    'message',
+  )} [${taskExecuteIds.join(', ')}]`;
+
+  if (lastMessageTypes.includes('task-list')) {
+    return translate('CREATING', 'message');
+  } else if (blocksWithTaskId.length > 0) {
+    return execteMessage;
+  } else {
+    return translate('THINKING', 'message');
+  }
+};

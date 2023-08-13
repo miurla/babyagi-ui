@@ -64,6 +64,7 @@ export class TaskRegistry {
                 content: token,
                 type: 'task-list',
                 style: 'log',
+                status: 'running',
               };
               handleMessage(message);
             },
