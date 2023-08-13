@@ -22,17 +22,10 @@ import {
 } from '../../utils/message';
 import { BabyAGI } from '@/agents/babyagi';
 import { BabyDeerAGI } from '@/agents/babydeeragi/executer';
-import {
-  AGENT,
-  ITERATIONS,
-  MODELS,
-  SETTINGS_KEY,
-  SPECIFIED_SKILLS,
-} from '@/utils/constants';
+import { AGENT, ITERATIONS, MODELS, SETTINGS_KEY } from '@/utils/constants';
 import { toast } from 'sonner';
 import { v4 as uuidv4 } from 'uuid';
 import { useExecution } from '@/hooks/useExecution';
-import { useExecutionStatus } from '@/hooks/useExecutionStatus';
 import { translate } from '../../utils/translate';
 import axios from 'axios';
 import { taskCompletedNotification } from '@/utils/notification';
@@ -43,6 +36,7 @@ import { SkillsList } from './SkillList';
 import { useAgent } from '@/hooks/useAgent';
 import { AgentBlock } from './AgentBlock';
 import AgentLoading from './AgentLoading';
+import { useSkills } from '@/hooks/useSkills';
 
 export const AgentView: FC = () => {
   const [model, setModel] = useState<SelectItem>(MODELS[1]);
@@ -62,6 +56,7 @@ export const AgentView: FC = () => {
   const [selectedAgent, setSelectedAgent] = useState<SelectItem>(AGENT[0]);
   const { i18n } = useTranslation();
   const [language, setLanguage] = useState(i18n.language);
+  const skills = useSkills(selectedAgent.id);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const {
@@ -71,7 +66,6 @@ export const AgentView: FC = () => {
     selectedExecutionId,
     selectExecution,
   } = useExecution();
-  const { isExecuting, setExecuting } = useExecutionStatus();
 
   useEffect(() => {
     if (selectedExecutionId) {
@@ -160,15 +154,6 @@ export const AgentView: FC = () => {
 
       return updatedMessages;
     });
-  };
-
-  const inputHandler = (value: string) => {
-    setObjective(value);
-  };
-
-  const cancelHandle = () => {
-    setAgent(null);
-    setExecuting(false);
   };
 
   const stopHandler = () => {
@@ -325,7 +310,7 @@ export const AgentView: FC = () => {
   };
 
   const currentAgentId = () => {
-    if (isExecuting) {
+    if (isRunning) {
       return selectedAgent.id;
     }
 
@@ -336,33 +321,6 @@ export const AgentView: FC = () => {
       return selectedExecution.params.agent;
     }
     return undefined;
-  };
-
-  const skills = () => {
-    const specificSkills =
-      selectedAgent.id === 'babydeeragi' ? SPECIFIED_SKILLS : [];
-    const elf = new BabyElfAGI(
-      '',
-      '',
-      {
-        handleMessage: async (message) => {},
-        handleEnd: async () => {},
-      },
-      'en',
-      false,
-      specificSkills,
-    );
-    const skills = elf.skillRegistry.getAllSkills();
-    const skillInfos = skills.map((skill) => {
-      const skillInfo = {
-        name: skill.name,
-        description: skill.descriptionForHuman,
-        icon: skill.icon,
-        badge: skill.type,
-      };
-      return skillInfo;
-    });
-    return skillInfos;
   };
 
   const {
@@ -411,7 +369,7 @@ export const AgentView: FC = () => {
             agent={selectedAgent}
             setAgent={setSelectedAgent}
           />
-          <SkillsList skills={skills()} />
+          <SkillsList skills={skills} />
           <div className="h-[calc(100vh-600px)]">
             <div className="flex h-full flex-col items-center justify-center gap-6 p-4">
               <ProjectTile />
