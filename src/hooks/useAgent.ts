@@ -1,11 +1,13 @@
 import { AgentMessage } from '@/types';
 import { parseMessage } from '@/utils/message';
+import { getUserApiKey } from '@/utils/settings';
 import { i18n } from 'next-i18next';
 import { useRef, useState, useEffect, useCallback } from 'react';
 
 export type UseAgentOptions = {
   api?: string;
-  id?: string;
+  agentId?: string;
+  modelName?: string;
   onResponse?: (event: MessageEvent) => void;
   onError?: (event: Event | ErrorEvent) => void;
   onFinish?: () => void;
@@ -33,7 +35,8 @@ export type UseAgentHelpers = {
 
 export function useAgent({
   api = '/api/agent',
-  id,
+  agentId,
+  modelName,
   onResponse,
   onError,
   onFinish,
@@ -56,69 +59,83 @@ export function useAgent({
 
   // Function to send the request
   const sendRequest = async (abortController: AbortController) => {
-    const response = await fetch(api, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ id, input, language }),
-      signal: abortController.signal, // Add the abort signal
-    });
+    const userKey = getUserApiKey();
+    try {
+      const response = await fetch(api, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          input,
+          agent_id: agentId,
+          model_name: modelName,
+          language,
+          user_key: userKey,
+        }),
+        signal: abortController.signal, // Add the abort signal
+      });
 
-    const reader = response.body?.getReader();
+      const reader = response.body?.getReader();
 
-    if (reader) {
-      while (true) {
-        const { done, value } = await reader.read();
+      if (reader) {
+        while (true) {
+          const { done, value } = await reader.read();
 
-        if (done) {
-          break;
-        }
+          if (done) {
+            break;
+          }
 
-        if (value) {
-          const message = new TextDecoder().decode(value);
-          const newAgentMessages: AgentMessage[] = message
-            .trim()
-            .split('\n')
-            .map((m) => parseMessage(m));
+          if (value) {
+            const message = new TextDecoder().decode(value);
+            const newAgentMessages: AgentMessage[] = message
+              .trim()
+              .split('\n')
+              .map((m) => parseMessage(m));
 
-          newAgentMessages.forEach((newMsg) => {
-            if (newMsg.id) {
-              const existingMsg = messageMap.current.get(newMsg.id);
-              if (
-                existingMsg &&
-                existingMsg.id === newMsg.id &&
-                existingMsg.type === newMsg.type &&
-                existingMsg.style === newMsg.style
-              ) {
-                existingMsg.content += newMsg.content;
-                existingMsg.status = newMsg.status;
-              } else {
-                messageMap.current.set(newMsg.id, newMsg);
+            newAgentMessages.forEach((newMsg) => {
+              if (newMsg.id) {
+                const existingMsg = messageMap.current.get(newMsg.id);
+                if (
+                  existingMsg &&
+                  existingMsg.id === newMsg.id &&
+                  existingMsg.type === newMsg.type &&
+                  existingMsg.style === newMsg.style
+                ) {
+                  existingMsg.content += newMsg.content;
+                  existingMsg.status = newMsg.status;
+                } else {
+                  messageMap.current.set(newMsg.id, newMsg);
+                }
               }
+            });
+
+            const updatedNewMessages = Array.from(messageMap.current.values());
+            setAgentMessages(updatedNewMessages);
+
+            // Call onResponse with the new message
+            if (onResponse) {
+              onResponse(
+                new MessageEvent('message', { data: updatedNewMessages }),
+              );
             }
-          });
+          }
 
-          const updatedNewMessages = Array.from(messageMap.current.values());
-          setAgentMessages(updatedNewMessages);
-
-          // Call onResponse with the new message
-          if (onResponse) {
-            onResponse(
-              new MessageEvent('message', { data: updatedNewMessages }),
-            );
+          if (abortController.signal.aborted) {
+            reader.cancel();
+            break;
           }
         }
 
-        if (abortController.signal.aborted) {
-          reader.cancel();
-          break;
+        // Call onFinish when the stream is finished
+        if (onFinish) {
+          onFinish();
         }
       }
-
-      // Call onFinish when the stream is finished
-      if (onFinish) {
-        onFinish();
+    } catch (error) {
+      // Call onError when an error occurs
+      if (onError) {
+        onError(new ErrorEvent('error', { error }));
       }
     }
   };

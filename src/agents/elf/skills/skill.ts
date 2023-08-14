@@ -101,6 +101,7 @@ export class Skill {
     const callback = ignoreCallback ? () => {} : this.callbackMessage;
     const id = uuidv4();
     const defaultParams = {
+      apiKey: this.apiKeys.openai,
       modelName: 'gpt-3.5-turbo',
       temperature: 0.7,
       maxTokens: 1500,

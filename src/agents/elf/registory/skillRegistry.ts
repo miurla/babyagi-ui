@@ -17,6 +17,7 @@ export class SkillRegistry {
   skillClasses: (typeof Skill)[];
   skills: Skill[] = [];
   apiKeys: { [key: string]: string };
+  userApiKey?: string;
   // for UI
   handleMessage: (message: AgentMessage) => Promise<void>;
   verbose: boolean;
@@ -27,13 +28,19 @@ export class SkillRegistry {
     verbose: boolean = false,
     language: string = 'en',
     specifiedSkills: string[] = [],
+    userApiKey?: string,
   ) {
     this.skillClasses = SkillRegistry.getSkillClasses();
     this.apiKeys = SkillRegistry.apiKeys;
+    this.userApiKey = userApiKey;
     //
     this.handleMessage = handleMessage;
     this.verbose = verbose;
     this.language = language;
+
+    if (this.userApiKey) {
+      this.apiKeys['openai'] = this.userApiKey;
+    }
 
     // Load all skills
     for (let SkillClass of this.skillClasses) {

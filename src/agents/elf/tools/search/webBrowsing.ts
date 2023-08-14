@@ -15,13 +15,20 @@ export const webBrowsing = async (
   verbose: boolean = false,
   modelName: string = 'gpt-3.5-turbo',
   language: string = 'en',
+  userApiKey?: string,
 ) => {
   let id = uuidv4();
   const prompt = searchQueryPrompt(
     task.task,
     dependentTasksOutput.slice(0, 3500),
   );
-  const searchQuery = await textCompletionTool(prompt, id, task, modelName);
+  const searchQuery = await textCompletionTool(
+    prompt,
+    id,
+    task,
+    modelName,
+    userApiKey,
+  );
   const trimmedQuery = searchQuery?.replace(/^"|"$/g, ''); // remove quotes from the search query
 
   let message = `Search query: ${trimmedQuery}\n`;
@@ -76,6 +83,7 @@ export const webBrowsing = async (
       objective,
       content.slice(0, 20000),
       task,
+      userApiKey,
       messageCallback,
     );
 
@@ -101,6 +109,7 @@ export const webBrowsing = async (
     outputId,
     task,
     modelName,
+    userApiKey,
     messageCallback,
   );
 

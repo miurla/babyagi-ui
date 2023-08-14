@@ -9,7 +9,7 @@ export class WebSearch extends Skill {
   descriptionForHuman = 'A tool that performs web searches.';
   descriptionForModel = 'A tool that performs web searches.';
   icon = '🔎';
-  apiKeysRequired = [];
+  apiKeysRequired = ['openai'];
 
   async execute(
     task: AgentTask,
@@ -26,6 +26,7 @@ export class WebSearch extends Skill {
         this.verbose,
         undefined,
         this.language,
+        this.apiKeys.openai,
       )) ?? '';
 
     return taskOutput;

@@ -2,7 +2,6 @@ import { AgentTask, AgentMessage, TaskOutputs } from '@/types';
 import { ChatOpenAI } from 'langchain/chat_models/openai';
 import { parseTasks } from '@/utils/task';
 import { HumanChatMessage, SystemChatMessage } from 'langchain/schema';
-import { getUserApiKey } from '@/utils/settings';
 import { SkillRegistry } from './skillRegistry';
 import { findMostRelevantObjective } from '@/utils/elf/objective';
 
@@ -11,12 +10,22 @@ export class TaskRegistry {
   verbose: boolean = false;
   language: string = 'en';
   useSpecifiedSkills: boolean = false;
+  userApiKey?: string;
+  abortController?: AbortController;
 
-  constructor(language = 'en', verbose = false, useSpecifiedSkills = false) {
+  constructor(
+    language = 'en',
+    verbose = false,
+    useSpecifiedSkills = false,
+    userApiKey?: string,
+    abortController?: AbortController,
+  ) {
     this.tasks = [];
     this.verbose = verbose;
     this.language = language;
+    this.userApiKey = userApiKey;
     this.useSpecifiedSkills = useSpecifiedSkills;
+    this.abortController = abortController;
   }
 
   async createTaskList(
@@ -26,7 +35,11 @@ export class TaskRegistry {
     modelName: string = 'gpt-3.5-turbo',
     handleMessage: (message: AgentMessage) => Promise<void>,
   ): Promise<void> {
-    const relevantObjective = await findMostRelevantObjective(objective);
+    const relevantObjective = await findMostRelevantObjective(
+      objective,
+      this.userApiKey,
+    );
+
     const exapmleObjective = relevantObjective.objective;
     const exampleTaskList = relevantObjective.examples;
     const prompt = `
@@ -49,28 +62,32 @@ export class TaskRegistry {
     const messages = new HumanChatMessage(prompt);
 
     let result = '';
-    const model = new ChatOpenAI({
-      modelName: this.useSpecifiedSkills ? modelName : 'gpt-4',
-      temperature: 0,
-      maxTokens: 1500,
-      topP: 1,
-      verbose: this.verbose,
-      streaming: true,
-      callbacks: [
-        {
-          handleLLMNewToken(token: string) {
-            const message: AgentMessage = {
-              id,
-              content: token,
-              type: 'task-list',
-              style: 'log',
-              status: 'running',
-            };
-            handleMessage(message);
+    const model = new ChatOpenAI(
+      {
+        openAIApiKey: this.userApiKey,
+        modelName: this.useSpecifiedSkills ? modelName : 'gpt-4',
+        temperature: 0,
+        maxTokens: 1500,
+        topP: 1,
+        verbose: false, // You can set this to true to see the lanchain logs
+        streaming: true,
+        callbacks: [
+          {
+            handleLLMNewToken(token: string) {
+              const message: AgentMessage = {
+                id,
+                content: token,
+                type: 'task-list',
+                style: 'log',
+                status: 'running',
+              };
+              handleMessage(message);
+            },
           },
-        },
-      ],
-    });
+        ],
+      },
+      { baseOptions: { signal: this.abortController?.signal } },
+    );
 
     try {
       const response = await model.call([systemMessage, messages]);
@@ -198,7 +215,7 @@ export class TaskRegistry {
     );
 
     const model = new ChatOpenAI({
-      openAIApiKey: getUserApiKey(),
+      openAIApiKey: this.userApiKey,
       modelName,
       temperature: 0.7,
       maxTokens: 1500,

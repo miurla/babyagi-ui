@@ -1,4 +1,3 @@
-import { getUserApiKey } from '@/utils/settings';
 import { OpenAIEmbeddings } from 'langchain/embeddings/openai';
 
 const JSON_FILES = ['example3', 'example4', 'example_deer'];
@@ -36,10 +35,11 @@ const getObjectivesExamples = async () => {
 async function getEmbedding(
   text: string,
   modelName: string = 'text-embedding-ada-002',
+  userApiKey?: string,
 ) {
   const embedding = new OpenAIEmbeddings({
     modelName,
-    openAIApiKey: getUserApiKey(),
+    openAIApiKey: userApiKey,
   });
   return await embedding.embedQuery(text);
 }
@@ -54,10 +54,14 @@ function calculateSimilarity(embedding1: number[], embedding2: number[]) {
   return dotProduct / (magnitude1 * magnitude2);
 }
 
-export async function findMostRelevantObjective(userInput: string) {
+export async function findMostRelevantObjective(
+  userInput: string,
+  userApiKey?: string,
+) {
   const userInputEmbedding = await getEmbedding(
     userInput,
     'text-embedding-ada-002',
+    userApiKey,
   );
   const examples = await getObjectivesExamples();
 

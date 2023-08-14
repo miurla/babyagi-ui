@@ -6,6 +6,7 @@ export const largeTextExtract = async (
   objective: string,
   largeString: string,
   task: AgentTask,
+  userApiKey?: string,
   callback?: (message: AgentMessage) => void,
 ) => {
   const chunkSize = 15000;
@@ -32,6 +33,7 @@ export const largeTextExtract = async (
       task.task,
       notes,
       chunk,
+      userApiKey,
     );
     notes += response;
   }

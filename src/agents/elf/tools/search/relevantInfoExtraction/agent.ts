@@ -11,6 +11,7 @@ export const relevantInfoExtractionAgent = async (
   task: string,
   notes: string,
   chunk: string,
+  userApiKey?: string,
   signal?: AbortSignal,
 ) => {
   const modelName = 'gpt-3.5-turbo-16k-0613'; // use a fixed model
@@ -28,6 +29,7 @@ export const relevantInfoExtractionAgent = async (
   const chain = new LLMChain({ llm: llm, prompt });
   try {
     const response = await chain.call({
+      openAIApiKey: userApiKey,
       objective,
       task,
       notes,

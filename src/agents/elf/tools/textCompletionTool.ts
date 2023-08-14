@@ -7,6 +7,7 @@ export const textCompletionTool = async (
   id: string,
   task: AgentTask,
   modelName: string,
+  userApiKey?: string,
   messageCallnback?: (message: AgentMessage) => void,
 ) => {
   if (prompt.length > 3200) {
@@ -14,7 +15,8 @@ export const textCompletionTool = async (
   }
 
   const llm = new ChatOpenAI({
-    modelName: modelName,
+    openAIApiKey: userApiKey,
+    modelName,
     temperature: 0.2,
     maxTokens: 800,
     topP: 1,

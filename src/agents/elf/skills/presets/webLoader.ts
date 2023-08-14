@@ -3,7 +3,6 @@ import { Skill } from '../skill';
 import { largeTextExtract } from '@/agents/elf/tools/search/largeTextExtract';
 import { webScrape } from '../../tools/webScrape';
 import { v4 as uuidv4 } from 'uuid';
-import { text } from 'stream/consumers';
 
 export class WebLoader extends Skill {
   name = 'web_loader';
@@ -102,6 +101,7 @@ export class WebLoader extends Skill {
             objective,
             item.content,
             task,
+            this.apiKeys.openai,
             this.handleMessage,
           ))
         );

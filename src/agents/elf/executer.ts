@@ -20,20 +20,23 @@ export class BabyElfAGI extends Executer {
     language: string = 'en',
     verbose: boolean = true,
     specifiedSkills: string[] = [],
+    userApiKey?: string,
   ) {
-    super(objective, modelName, handlers, language);
+    super(objective, modelName, handlers, language, verbose);
 
     this.skillRegistry = new SkillRegistry(
       this.handlers.handleMessage,
-      verbose,
+      this.verbose,
       this.language,
       specifiedSkills,
+      userApiKey,
     );
     const useSpecifiedSkills = specifiedSkills.length > 0;
     this.taskRegistry = new TaskRegistry(
       this.language,
       this.verbose,
       useSpecifiedSkills,
+      userApiKey,
     );
   }
 
@@ -47,7 +50,7 @@ export class BabyElfAGI extends Executer {
       id,
       this.objective,
       skillDescriptions,
-      this.modelName, // Culletly using GPT-4
+      this.modelName,
       this.handlers.handleMessage,
     );
     this.printer.printTaskList(this.taskRegistry.tasks, id);

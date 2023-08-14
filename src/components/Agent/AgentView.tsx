@@ -325,6 +325,8 @@ export const AgentView: FC = () => {
     reset,
   } = useAgent({
     api: '/api/agent',
+    agentId: selectedAgent.id,
+    modelName: model.id,
     onSubmit: startHandler,
     onCancel: stopHandler,
   });
