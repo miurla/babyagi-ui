@@ -9,6 +9,7 @@ import {
   Block,
 } from '@/types';
 import { translate } from './translate';
+import { v4 as uuidv4 } from 'uuid';
 
 export const setupMessage = (
   type: MessageType,
@@ -469,4 +470,39 @@ export const getAgentLoadingMessage = (blocks: Block[]) => {
   } else {
     return translate('THINKING', 'message');
   }
+};
+
+const convertToAgentMessage = (message: Message): AgentMessage => {
+  // 0 is for objective, 9999 is for finish
+  const hasTask = message.id !== 0 && message.id !== 9999 && message.id;
+  const style = message.type === 'search-logs' ? 'log' : 'text';
+  // remove task number from task title
+  const taskTitle = message.text.replace(/^\d+\.\s/, '');
+  // objective title
+  const title =
+    message.type === 'objective'
+      ? undefined
+      : hasTask
+      ? taskTitle
+      : message.title;
+
+  return {
+    id: message.id?.toString() ?? uuidv4(),
+    taskId: hasTask ? message.id?.toString() : undefined,
+    type: message.type,
+    content: message.text,
+    title,
+    icon: message.icon,
+    style: style,
+    status: 'complete',
+    options: {
+      dependentTaskIds: message.dependentTaskIds?.join(', ') ?? '',
+    },
+  };
+};
+
+export const convertToAgentMessages = (messages: Message[]): AgentMessage[] => {
+  return messages
+    .filter((message) => message.type !== 'task-execute')
+    .map((message) => convertToAgentMessage(message));
 };

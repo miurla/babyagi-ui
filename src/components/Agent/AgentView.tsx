@@ -19,6 +19,7 @@ import {
   getMessageBlocks,
   getAgentLoadingMessage,
   groupMessages,
+  convertToAgentMessages,
 } from '../../utils/message';
 import { BabyAGI } from '@/agents/babyagi';
 import { BabyDeerAGI } from '@/agents/babydeeragi/executer';
@@ -73,11 +74,11 @@ export const AgentView: FC = () => {
         (exe) => exe.id === selectedExecutionId,
       );
       if (selectedExecution) {
-        setMessages(selectedExecution.messages);
+        const messages = convertToAgentMessages(selectedExecution.messages);
+        setAgentMessages(messages);
       }
     } else {
-      setMessages([]);
-      setObjective('');
+      reset();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedExecutionId]);
@@ -327,6 +328,7 @@ export const AgentView: FC = () => {
     input,
     setInput,
     agentMessages,
+    setAgentMessages,
     isRunning,
     handleInputChange,
     handleSubmit,
