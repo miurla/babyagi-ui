@@ -10,8 +10,8 @@ import {
   StopIcon,
   UpdateIcon,
 } from '@radix-ui/react-icons';
-import { ThumbsUp, ThumbsDown } from 'react-feather';
 import { FC, FormEvent, ChangeEvent, KeyboardEvent } from 'react';
+import { FeedbackButtons } from './FeedbackButtons';
 
 type InputProps = {
   value: string;
@@ -23,7 +23,7 @@ type InputProps = {
   handleClear: () => void;
   handleCopy: () => void;
   handleDownload: () => void;
-  handleFeedback: (value: boolean) => void;
+  handleFeedback: (isGood: boolean) => void;
   isRunning: boolean;
   hasMessages: boolean;
   type?: string;
@@ -96,30 +96,10 @@ export const AgentInput: FC<InputProps> = ({
           <div className="flex w-1/3 justify-end">
             {!isRunning && hasMessages && (
               <div className="inline-flex items-center gap-2">
-                <div className="flex gap-1">
-                  {!evaluation || evaluation === 'good' ? (
-                    <button
-                      className="w-fit rounded p-2 text-black hover:opacity-50 disabled:opacity-30 dark:text-white md:top-0"
-                      onClick={() => {
-                        handleFeedback(true);
-                      }}
-                      disabled={evaluation === 'good'}
-                    >
-                      <ThumbsUp className="mb-[2px] inline-block h-4 w-4" />
-                    </button>
-                  ) : null}
-                  {!evaluation || evaluation === 'bad' ? (
-                    <button
-                      className="w-fit rounded p-2 text-black hover:opacity-50 disabled:opacity-30 dark:text-white md:top-0"
-                      onClick={() => {
-                        handleFeedback(false);
-                      }}
-                      disabled={evaluation === 'bad'}
-                    >
-                      <ThumbsDown className="mb-[2px] inline-block h-4 w-4" />
-                    </button>
-                  ) : null}
-                </div>
+                <FeedbackButtons
+                  handleFeedback={handleFeedback}
+                  evaluation={evaluation}
+                />
                 <div>
                   <DividerVerticalIcon className="text-black opacity-30 dark:text-white" />
                 </div>
