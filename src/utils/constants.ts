@@ -20,7 +20,7 @@ export const MODELS = [
 ];
 
 export const ITERATIONS = [
-  { id: '0', name: 'Infinity' }, // translate('INFINITY', 'constants') this translation is not working
+  { id: '0', name: 'Infinity' },
   { id: '1', name: '1' },
   { id: '3', name: '3' },
   { id: '5', name: '5' },
@@ -46,7 +46,35 @@ export const AGENT = [
     icon: '🧝',
     badge: 'BETA',
   },
-  // { id: 'babyagi', name: 'BabyAGI', icon: '👶', message: '🤖' },
+];
+
+export const ALL_AGENTS = [
+  {
+    id: 'babyelfagi',
+    name: 'BabyElfAGI',
+    icon: '🧝',
+    badge: 'BETA',
+  },
+  {
+    id: 'babydeeragi',
+    name: 'BabyDeerAGI',
+    icon: '🦌',
+    message: '🤖/🔎+📄/🧑‍💻',
+    badge: 'STABLE',
+  },
+  {
+    id: 'babycatagi',
+    name: 'BabyCatAGI',
+    icon: '🐱',
+    message: '🤖/🔎+📄',
+  },
+  {
+    id: 'babybeeagi',
+    name: 'BabyBeeAGI',
+    icon: '🐝',
+    message: '🤖/🔎/📄',
+  },
+  { id: 'babyagi', name: 'BabyAGI', icon: '👶', message: '🤖' },
 ];
 
 export const THEME = [

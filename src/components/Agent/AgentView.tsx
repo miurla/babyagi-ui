@@ -74,30 +74,18 @@ export const AgentView: FC = () => {
         (exe) => exe.id === selectedExecutionId,
       );
       if (selectedExecution) {
-        const messages = convertToAgentMessages(selectedExecution.messages);
-        setAgentMessages(messages);
+        if (selectedExecution.messages) {
+          const messages = convertToAgentMessages(selectedExecution.messages);
+          setAgentMessages(messages);
+        } else {
+          setAgentMessages(selectedExecution.agentMessages);
+        }
       }
     } else {
       reset();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedExecutionId]);
-
-  useEffect(() => {
-    const execution = executions.find((exe) => exe.id === selectedExecutionId);
-    if (execution) {
-      const updatedExecution: Execution = {
-        ...execution,
-        messages: messages,
-      };
-      updateExec(updatedExecution);
-    }
-
-    const blocks = getMessageBlocks(messages, isRunning);
-    setMessageBlocks(blocks);
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [messages]);
 
   useEffect(() => {
     setLanguage(i18n.language);
@@ -107,16 +95,17 @@ export const AgentView: FC = () => {
   const saveNewData = async () => {
     const execution: Execution = {
       id: uuidv4(),
-      name: objective,
+      name: input,
       date: new Date().toISOString(),
       params: {
-        objective: objective,
+        objective: input,
         model: model,
         iterations: iterations,
         firstTask: firstTask,
         agent: selectedAgent.id as AgentType,
       },
-      messages: messages,
+      messages: undefined,
+      agentMessages: agentMessages,
     };
 
     selectExecution(execution.id);
@@ -206,9 +195,9 @@ export const AgentView: FC = () => {
     let selectedExecution = executions.find(
       (exe) => exe.id === selectedExecutionId,
     );
-    if (selectedExecution) {
-      setMessages(selectedExecution.messages);
-    }
+    // if (selectedExecution) {
+    //   setMessages(selectedExecution.messages);
+    // }
     const feedbackObjective = selectedExecution?.params.objective;
     const feedbackModel = selectedExecution?.params.model.id;
     const feedbackAgent = selectedExecution?.params.agent;
@@ -343,8 +332,18 @@ export const AgentView: FC = () => {
   const [agentBlocks, setAgentBlocks] = useState<Block[]>([]);
 
   useEffect(() => {
+    const execution = executions.find((exe) => exe.id === selectedExecutionId);
+    if (execution) {
+      const updatedExecution: Execution = {
+        ...execution,
+        agentMessages,
+      };
+      updateExec(updatedExecution);
+    }
+
     const newGroupedMessages = groupMessages(agentMessages, isRunning);
     setAgentBlocks(newGroupedMessages);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [agentMessages, isRunning]);
 
   const scrollToBottom = useCallback(() => {
@@ -371,7 +370,7 @@ export const AgentView: FC = () => {
             agent={selectedAgent}
             setAgent={setSelectedAgent}
           />
-          <SkillsList skills={skills} />
+          {selectedAgent.id !== 'babyagi' && <SkillsList skills={skills} />}
           <div className="h-[calc(100vh-600px)]">
             <div className="flex h-full flex-col items-center justify-center gap-6 p-4">
               <ProjectTile />

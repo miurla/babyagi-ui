@@ -32,9 +32,10 @@ export type Execution = {
   id: string;
   name: string;
   params: ExecutionParams;
-  messages: Message[];
+  agentMessages: AgentMessage[];
   date: string;
   evaluation?: 'good' | 'bad';
+  messages: Message[] | undefined; // left for backward compatibility
 };
 
 export type ExecutionParams = {
