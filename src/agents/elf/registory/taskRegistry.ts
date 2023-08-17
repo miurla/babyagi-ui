@@ -4,26 +4,27 @@ import { parseTasks } from '@/utils/task';
 import { HumanChatMessage, SystemChatMessage } from 'langchain/schema';
 import { SkillRegistry } from './skillRegistry';
 import { findMostRelevantObjective } from '@/utils/elf/objective';
-
 export class TaskRegistry {
   tasks: AgentTask[];
   verbose: boolean = false;
   language: string = 'en';
   useSpecifiedSkills: boolean = false;
   userApiKey?: string;
-  abortController?: AbortController;
+  signal?: AbortSignal;
 
   constructor(
     language = 'en',
     verbose = false,
     useSpecifiedSkills = false,
     userApiKey?: string,
+    signal?: AbortSignal,
   ) {
     this.tasks = [];
     this.verbose = verbose;
     this.language = language;
     this.userApiKey = userApiKey;
     this.useSpecifiedSkills = useSpecifiedSkills;
+    this.signal = signal;
   }
 
   async createTaskList(
@@ -60,29 +61,32 @@ export class TaskRegistry {
     const messages = new HumanChatMessage(prompt);
 
     let result = '';
-    const model = new ChatOpenAI({
-      openAIApiKey: this.userApiKey,
-      modelName: this.useSpecifiedSkills ? modelName : 'gpt-4',
-      temperature: 0,
-      maxTokens: 1500,
-      topP: 1,
-      verbose: false, // You can set this to true to see the lanchain logs
-      streaming: true,
-      callbacks: [
-        {
-          handleLLMNewToken(token: string) {
-            const message: AgentMessage = {
-              id,
-              content: token,
-              type: 'task-list',
-              style: 'log',
-              status: 'running',
-            };
-            handleMessage(message);
+    const model = new ChatOpenAI(
+      {
+        openAIApiKey: this.userApiKey,
+        modelName: this.useSpecifiedSkills ? modelName : 'gpt-4',
+        temperature: 0,
+        maxTokens: 1500,
+        topP: 1,
+        verbose: false, // You can set this to true to see the lanchain logs
+        streaming: true,
+        callbacks: [
+          {
+            handleLLMNewToken(token: string) {
+              const message: AgentMessage = {
+                id,
+                content: token,
+                type: 'task-list',
+                style: 'log',
+                status: 'running',
+              };
+              handleMessage(message);
+            },
           },
-        },
-      ],
-    });
+        ],
+      },
+      { baseOptions: { signal: this.signal } },
+    );
 
     try {
       const response = await model.call([systemMessage, messages]);

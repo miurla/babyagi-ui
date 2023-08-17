@@ -18,11 +18,17 @@ export class BabyElfAGI extends Executer {
       handleEnd: () => Promise<void>;
     },
     language: string = 'en',
-    verbose: boolean = true,
+    verbose: boolean = false,
     specifiedSkills: string[] = [],
     userApiKey?: string,
+    signal?: AbortSignal,
   ) {
-    super(objective, modelName, handlers, language, verbose);
+    super(objective, modelName, handlers, language, verbose, signal);
+
+    signal?.addEventListener('abort', () => {
+      this.verbose &&
+        console.log('Abort signal received. Stopping execution...');
+    });
 
     this.skillRegistry = new SkillRegistry(
       this.handlers.handleMessage,
@@ -30,13 +36,16 @@ export class BabyElfAGI extends Executer {
       this.language,
       specifiedSkills,
       userApiKey,
+      this.signal,
     );
+
     const useSpecifiedSkills = specifiedSkills.length > 0;
     this.taskRegistry = new TaskRegistry(
       this.language,
       this.verbose,
       useSpecifiedSkills,
       userApiKey,
+      this.signal,
     );
   }
 
@@ -62,11 +71,11 @@ export class BabyElfAGI extends Executer {
     for (let task of this.taskRegistry.tasks) {
       taskOutputs[task.id] = { completed: false, output: undefined };
     }
-
     // Loop until all tasks are completed
-    while (!Object.values(taskOutputs).every((task) => task.completed)) {
-      // this.handlers.handleMessage({ type: 'preparing' });
-
+    while (
+      !this.signal?.aborted &&
+      !Object.values(taskOutputs).every((task) => task.completed)
+    ) {
       // Get the tasks that are ready to be executed
       const tasks = this.taskRegistry.getTasks();
 
@@ -102,13 +111,19 @@ export class BabyElfAGI extends Executer {
         });
         this.printer.printTaskExecute(task);
 
-        const output = await this.taskRegistry.executeTask(
-          i,
-          task,
-          taskOutputs,
-          this.objective,
-          this.skillRegistry,
-        );
+        let output = '';
+        try {
+          output = await this.taskRegistry.executeTask(
+            i,
+            task,
+            taskOutputs,
+            this.objective,
+            this.skillRegistry,
+          );
+        } catch (error) {
+          console.error(error);
+          return;
+        }
 
         taskOutputs[task.id] = { completed: true, output: output };
         this.taskRegistry.updateTasks({
@@ -151,6 +166,8 @@ export class BabyElfAGI extends Executer {
   }
 
   async finishup() {
+    super.finishup();
+
     const tasks = this.taskRegistry.getTasks();
     const lastTask = tasks[tasks.length - 1];
     this.handlers.handleMessage({
@@ -167,4 +184,6 @@ export class BabyElfAGI extends Executer {
 
     super.finishup();
   }
+
+  async close() {}
 }

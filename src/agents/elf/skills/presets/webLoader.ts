@@ -103,6 +103,7 @@ export class WebLoader extends Skill {
             task,
             this.apiKeys.openai,
             this.handleMessage,
+            this.abortSignal,
           ))
         );
       }),

@@ -18,6 +18,7 @@ export class SkillRegistry {
   skills: Skill[] = [];
   apiKeys: { [key: string]: string };
   userApiKey?: string;
+  signal?: AbortSignal;
   // for UI
   handleMessage: (message: AgentMessage) => Promise<void>;
   verbose: boolean;
@@ -29,11 +30,12 @@ export class SkillRegistry {
     language: string = 'en',
     specifiedSkills: string[] = [],
     userApiKey?: string,
+    signal?: AbortSignal,
   ) {
     this.skillClasses = SkillRegistry.getSkillClasses();
     this.apiKeys = SkillRegistry.apiKeys;
     this.userApiKey = userApiKey;
-    //
+    this.signal = signal;
     this.handleMessage = handleMessage;
     this.verbose = verbose;
     this.language = language;
@@ -49,6 +51,7 @@ export class SkillRegistry {
         this.handleMessage,
         this.verbose,
         this.language,
+        this.signal,
       );
 
       // If the skill is specified, load it.

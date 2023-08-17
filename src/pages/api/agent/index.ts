@@ -9,7 +9,7 @@ export const config = {
 };
 
 export default async function handler(req: NextRequest) {
-  const { stream, handlers } = AgentStream();
+  const { stream, handlers, addObserver } = AgentStream();
   const { input, agent_id, model_name, language, verbose, user_key } =
     await req.json();
 
@@ -21,6 +21,16 @@ export default async function handler(req: NextRequest) {
   }
 
   const specifiedSkills = agent_id === 'babydeeragi' ? SPECIFIED_SKILLS : [];
+
+  // req.signal is not working, so we use AbortController.
+  const abortController = new AbortController();
+  const signal = abortController.signal;
+
+  // Add an observer to abort the request when the client disconnects.
+  addObserver((isActive) => {
+    if (!isActive) abortController.abort();
+  });
+
   const executer = new BabyElfAGI(
     input,
     model_name,
@@ -29,6 +39,7 @@ export default async function handler(req: NextRequest) {
     verbose,
     specifiedSkills,
     user_key,
+    signal,
   );
   executer.run();
 

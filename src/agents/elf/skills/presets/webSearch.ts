@@ -16,7 +16,8 @@ export class WebSearch extends Skill {
     dependentTaskOutputs: string,
     objective: string,
   ): Promise<string> {
-    if (!this.valid) return '';
+    if (!this.valid || this.signal?.aborted) return '';
+
     const taskOutput =
       (await webBrowsing(
         objective,
@@ -27,6 +28,7 @@ export class WebSearch extends Skill {
         undefined,
         this.language,
         this.apiKeys.openai,
+        this.signal,
       )) ?? '';
 
     return taskOutput;

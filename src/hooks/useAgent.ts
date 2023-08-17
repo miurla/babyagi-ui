@@ -72,8 +72,9 @@ export function useAgent({
           model_name: modelName,
           language,
           user_key: userKey,
+          verbose: true,
         }),
-        signal: abortController.signal, // Add the abort signal
+        signal: abortController.signal,
       });
 
       const reader = response.body?.getReader();

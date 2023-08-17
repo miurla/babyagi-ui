@@ -10,6 +10,7 @@ export class Executer {
   };
   language: string;
   verbose: boolean;
+  signal?: AbortSignal;
 
   printer: Printer;
   taskList: AgentTask[] = [];
@@ -23,12 +24,14 @@ export class Executer {
     },
     language: string = 'en',
     varbose: boolean = false,
+    signal?: AbortSignal,
   ) {
     this.objective = objective;
     this.modelName = modelName;
     this.handlers = handlers;
     this.language = language;
     this.verbose = varbose;
+    this.signal = signal;
     this.printer = new Printer(this.handlers.handleMessage, this.verbose);
   }
 
@@ -47,6 +50,7 @@ export class Executer {
   async loop() {}
 
   async finishup() {
+    if (this.signal?.aborted) return;
     // Objective completed
     this.printer.printAllTaskCompleted();
     this.handlers.handleEnd();

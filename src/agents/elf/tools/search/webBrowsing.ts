@@ -16,6 +16,7 @@ export const webBrowsing = async (
   modelName: string = 'gpt-3.5-turbo',
   language: string = 'en',
   userApiKey?: string,
+  signal?: AbortSignal,
 ) => {
   let id = uuidv4();
   const prompt = searchQueryPrompt(
@@ -28,6 +29,7 @@ export const webBrowsing = async (
     task,
     modelName,
     userApiKey,
+    signal,
   );
   const trimmedQuery = searchQuery?.replace(/^"|"$/g, ''); // remove quotes from the search query
 
@@ -48,6 +50,7 @@ export const webBrowsing = async (
   const MaxCompletedCount = 3;
   // Loop through search results
   for (const searchResult of simplifiedSearchResults) {
+    if (signal?.aborted) return '';
     if (completedCount >= MaxCompletedCount) break;
 
     // Extract the URL from the search result
@@ -85,6 +88,7 @@ export const webBrowsing = async (
       task,
       userApiKey,
       messageCallback,
+      signal,
     );
 
     message = `  - Relevant info: ${info
@@ -110,6 +114,7 @@ export const webBrowsing = async (
     task,
     modelName,
     userApiKey,
+    signal,
     messageCallback,
   );
 

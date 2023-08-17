@@ -8,6 +8,7 @@ export const largeTextExtract = async (
   task: AgentTask,
   userApiKey?: string,
   callback?: (message: AgentMessage) => void,
+  signal?: AbortSignal,
 ) => {
   const chunkSize = 15000;
   const overlap = 500;
@@ -34,6 +35,7 @@ export const largeTextExtract = async (
       notes,
       chunk,
       userApiKey,
+      signal,
     );
     notes += response;
   }

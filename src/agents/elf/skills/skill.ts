@@ -19,6 +19,7 @@ export class Skill {
   handleMessage: (message: AgentMessage) => void;
   verbose: boolean;
   language: string = 'en';
+  signal?: AbortSignal;
 
   BASE_URL = process.env.BASE_URL || 'http://localhost:3000';
 
@@ -30,11 +31,13 @@ export class Skill {
     handleMessage: (message: AgentMessage) => Promise<void>,
     verbose: boolean = false,
     language: string = 'en',
+    abortSignal?: AbortSignal,
   ) {
     this.apiKeys = apiKeys;
     this.handleMessage = handleMessage;
     this.verbose = verbose;
     this.language = language;
+    this.signal = abortSignal;
     this.id = uuidv4();
 
     const missingKeys = this.checkRequiredKeys(apiKeys);
@@ -111,28 +114,31 @@ export class Skill {
       streaming: true,
     };
     const llmParams = { ...defaultParams, ...params };
-    const llm = new ChatOpenAI({
-      openAIApiKey: this.apiKeys.openai,
-      ...llmParams,
-      callbacks: [
-        {
-          handleLLMNewToken(token: string) {
-            callback?.({
-              id,
-              content: token,
-              title: `${task.task}`,
-              type: task.skill,
-              icon: task.icon,
-              taskId: task.id.toString(),
-              status: 'running',
-              options: {
-                dependentTaskIds: task.dependentTaskIds?.join(', ') ?? '',
-              },
-            });
+    const llm = new ChatOpenAI(
+      {
+        openAIApiKey: this.apiKeys.openai,
+        ...llmParams,
+        callbacks: [
+          {
+            handleLLMNewToken(token: string) {
+              callback?.({
+                id,
+                content: token,
+                title: `${task.task}`,
+                type: task.skill,
+                icon: task.icon,
+                taskId: task.id.toString(),
+                status: 'running',
+                options: {
+                  dependentTaskIds: task.dependentTaskIds?.join(', ') ?? '',
+                },
+              });
+            },
           },
-        },
-      ],
-    });
+        ],
+      },
+      { baseOptions: { signal: this.abortSignal } },
+    );
 
     try {
       const response = await llm.call([new HumanChatMessage(prompt)]);
