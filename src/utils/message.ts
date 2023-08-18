@@ -1,12 +1,15 @@
 import {
+  AgentMessage,
   AgentStatus,
   AgentTask,
   Message,
   MessageBlock,
   MessageType,
   ToolType,
+  Block,
 } from '@/types';
 import { translate } from './translate';
+import { v4 as uuidv4 } from 'uuid';
 
 export const setupMessage = (
   type: MessageType,
@@ -335,4 +338,171 @@ export const getMessageBlocks = (
   }
 
   return messageBlocks;
+};
+
+export const parseMessage = (json: string): AgentMessage => {
+  const message = JSON.parse(json).message as AgentMessage;
+
+  return {
+    ...message,
+    style: message.style ?? 'text',
+    status: message.status ?? 'incomplete',
+  };
+};
+
+export const getEmoji = (type?: string) => {
+  switch (type) {
+    case 'objective':
+      return '🎯';
+    case 'finish':
+      return '🏁';
+    case 'task-list':
+      return '📝';
+    case 'task':
+      return '📄';
+    case 'session-summary':
+      return '📄';
+    case 'result':
+      return '📜';
+    default:
+      return '🤖';
+  }
+};
+
+export const getTitle = (type?: string) => {
+  switch (type) {
+    case 'objective':
+      return translate('OBJECTIVE', 'message');
+    case 'finish':
+      return translate('FINISHED', 'message');
+    case 'task-list':
+      return translate('TASK_LIST', 'message');
+    case 'task':
+      return translate('TASK', 'message');
+    case 'session-summary':
+      return translate('SESSION_SUMMARY', 'message');
+    case 'result':
+      return translate('FINAL_TASK_RESULT', 'message');
+    default:
+      return type?.toUpperCase() || 'Untitled';
+  }
+};
+
+export const groupMessages = (messages: AgentMessage[], isRunning: boolean) => {
+  const messageGroups: Block[] = [];
+
+  let block: Block | null = null;
+  messages.forEach((message) => {
+    const id = message.taskId !== undefined ? message.taskId : message.id;
+    const existingBlock = messageGroups.find((block) => block.id === id);
+    if (!existingBlock) {
+      block = {
+        id: id,
+        status: message.status,
+        messages: [message],
+        style: message.taskId ? 'task' : 'label',
+      };
+      messageGroups.push(block);
+    } else if (
+      existingBlock &&
+      existingBlock.id === id &&
+      existingBlock.messages[existingBlock.messages.length - 1].type ===
+        message.type &&
+      existingBlock.messages[existingBlock.messages.length - 1].id ===
+        message.id
+    ) {
+      existingBlock.messages[existingBlock.messages.length - 1].content +=
+        message.content;
+      existingBlock.status = message.status;
+    } else {
+      existingBlock.messages.push(message);
+      existingBlock.status = message.status;
+    }
+  });
+
+  // if isRunning is false, set all running messageGroups to incomplete
+  if (!isRunning) {
+    messageGroups.forEach((messageGroup) => {
+      if (messageGroup.status === 'running') {
+        messageGroup.status = 'incomplete';
+      }
+    });
+  }
+
+  return messageGroups;
+};
+
+export const getExportAgentMessage = (blocks: Block[]) => {
+  const text = blocks
+    .map((block) => {
+      const title = getTitle(block.messages[0].type);
+      const emoji = getEmoji(block.messages[0].type);
+      const messages = block.messages
+        .map((message) => message.content)
+        .join('\n');
+      return `## ${emoji} ${title}\n${messages}`;
+    })
+    .join('\n\n');
+
+  return text;
+};
+
+export const getAgentLoadingMessage = (blocks: Block[]) => {
+  const runningBlocks = blocks.filter((block) => block.status === 'running');
+  const lastMessageTypes = runningBlocks.map(
+    (block) => block.messages[block.messages.length - 1].type,
+  );
+  const blocksWithTaskId = runningBlocks.filter(
+    (block) => block.messages[block.messages.length - 1].taskId !== undefined,
+  );
+  const taskExecuteIds = blocksWithTaskId.map(
+    (block) => block.messages[block.messages.length - 1].taskId,
+  );
+  const execteMessage = `${translate(
+    'EXECUTING',
+    'message',
+  )} [${taskExecuteIds.join(', ')}]`;
+
+  if (lastMessageTypes.includes('task-list')) {
+    return translate('CREATING', 'message');
+  } else if (blocksWithTaskId.length > 0) {
+    return execteMessage;
+  } else {
+    return translate('THINKING', 'message');
+  }
+};
+
+const convertToAgentMessage = (message: Message): AgentMessage => {
+  // 0 is for objective, 9999 is for finish
+  const hasTask = message.id !== 0 && message.id !== 9999 && message.id;
+  const style = message.type === 'search-logs' ? 'log' : 'text';
+  // remove task number from task title
+  const taskTitle = message.text.replace(/^\d+\.\s/, '');
+  // objective title
+  const title =
+    message.type === 'objective'
+      ? undefined
+      : hasTask
+      ? taskTitle
+      : message.title;
+
+  return {
+    id: message.id?.toString() ?? uuidv4(),
+    taskId: hasTask ? message.id?.toString() : undefined,
+    type: message.type,
+    content: message.text,
+    title,
+    icon: message.icon,
+    style: style,
+    status: 'complete',
+    options: {
+      dependentTaskIds: message.dependentTaskIds?.join(', ') ?? '',
+    },
+  };
+};
+
+export const convertToAgentMessages = (messages: Message[]): AgentMessage[] => {
+  return messages
+    .filter((message) => message.type !== 'task-execute')
+    .map((message) => convertToAgentMessage(message));
 };

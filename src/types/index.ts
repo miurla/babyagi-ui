@@ -32,9 +32,10 @@ export type Execution = {
   id: string;
   name: string;
   params: ExecutionParams;
-  messages: Message[];
+  agentMessages: AgentMessage[];
   date: string;
   evaluation?: 'good' | 'bad';
+  messages: Message[] | undefined; // left for backward compatibility
 };
 
 export type ExecutionParams = {
@@ -145,4 +146,23 @@ export type LLMParams = {
   presencePenalty?: number;
   streaming?: boolean;
   callbacks?: (message: Message) => void;
+};
+
+export type AgentMessage = {
+  id?: string;
+  content: string;
+  type?: string;
+  title?: string;
+  icon?: string;
+  taskId?: string;
+  style?: 'text' | 'log';
+  status?: 'complete' | 'incomplete' | 'running';
+  options?: { [key: string]: string };
+};
+
+export type Block = {
+  id?: string;
+  messages: AgentMessage[];
+  status?: 'complete' | 'incomplete' | 'running';
+  style?: 'label' | 'task';
 };

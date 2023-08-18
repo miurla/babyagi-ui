@@ -1,8 +1,8 @@
-import { MessageBlock } from '@/types';
+import { Block, MessageBlock } from '@/types';
 import { CheckCircledIcon, CircleIcon } from '@radix-ui/react-icons';
 
 export interface AgentTaskStatusProps {
-  block: MessageBlock;
+  block: MessageBlock | Block;
 }
 
 export const AgentTaskStatus: React.FC<AgentTaskStatusProps> = ({ block }) => {
