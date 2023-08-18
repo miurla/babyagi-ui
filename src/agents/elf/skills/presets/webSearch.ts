@@ -1,5 +1,5 @@
 import { AgentTask } from '@/types';
-import { webBrowsing } from '@/agents/elf/tools/search/webBrowsing';
+import { webBrowsing } from '@/agents/elf/tools/webBrowsing';
 import { Skill } from '../skill';
 
 // This skill is Specialized for web browsing

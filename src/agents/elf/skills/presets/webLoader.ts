@@ -1,6 +1,6 @@
 import { AgentTask } from '@/types';
 import { Skill } from '../skill';
-import { largeTextExtract } from '@/agents/elf/tools/search/largeTextExtract';
+import { largeTextExtract } from '@/agents/elf/tools/utils/largeTextExtract';
 import { webScrape } from '../../tools/webScrape';
 import { v4 as uuidv4 } from 'uuid';
 

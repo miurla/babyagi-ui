@@ -1,5 +1,5 @@
 import { AgentMessage, AgentTask } from '@/types';
-import { relevantInfoExtractionAgent } from './relevantInfoExtraction/agent';
+import { relevantInfoExtraction } from './relevantInfoExtraction';
 
 export const largeTextExtract = async (
   id: string,
@@ -29,7 +29,7 @@ export const largeTextExtract = async (
 
     const chunk = largeString.slice(i, i + chunkSize);
 
-    const response = await relevantInfoExtractionAgent(
+    const response = await relevantInfoExtraction(
       objective,
       task.task,
       notes,

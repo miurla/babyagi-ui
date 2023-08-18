@@ -1,11 +1,11 @@
 import { simplifySearchResults } from '@/agents/common/tools/webSearch';
 import { AgentTask, AgentMessage } from '@/types';
-import { analystPrompt, searchQueryPrompt } from './prompt';
-import { textCompletionTool } from '../textCompletionTool';
-import { largeTextExtract } from './largeTextExtract';
+import { analystPrompt, searchQueryPrompt } from '../../../utils/prompt';
+import { textCompletion } from './utils/textCompletion';
+import { largeTextExtract } from './utils/largeTextExtract';
 import { v4 as uuidv4 } from 'uuid';
 import { webSearch } from './webSearch';
-import { webScrape } from '../webScrape';
+import { webScrape } from './webScrape';
 
 export const webBrowsing = async (
   objective: string,
@@ -23,7 +23,7 @@ export const webBrowsing = async (
     task.task,
     dependentTasksOutput.slice(0, 3500),
   );
-  const searchQuery = await textCompletionTool(
+  const searchQuery = await textCompletion(
     prompt,
     id,
     task,
@@ -108,7 +108,7 @@ export const webBrowsing = async (
 
   const outputId = uuidv4();
   const ap = analystPrompt(results, language);
-  const analyzedResults = await textCompletionTool(
+  const analyzedResults = await textCompletion(
     ap,
     outputId,
     task,

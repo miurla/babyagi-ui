@@ -1,6 +1,6 @@
 import { AgentTask } from '@/types';
 import { Skill } from '../skill';
-import { webSearch } from '../../tools/search/webSearch';
+import { webSearch } from '../../tools/webSearch';
 
 export class YoutubeSearch extends Skill {
   name = 'youtube_search';
