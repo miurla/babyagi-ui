@@ -1,61 +1,68 @@
-import { AgentStatus, Message, TaskOutputs } from '@/types'; // You need to define these types
+import { AgentMessage, TaskOutputs } from '@/types'; // You need to define these types
 import { AgentExecuter } from '../base/AgentExecuter';
 import { SkillRegistry, TaskRegistry } from './registory';
-import { translate } from '@/utils/translate';
+import { v4 as uuidv4 } from 'uuid';
 
 const REFLECTION = false; // If you want to use reflection, set this to true. now support only client side reflection.
 
 export class BabyElfAGI extends AgentExecuter {
   skillRegistry: SkillRegistry;
   taskRegistry: TaskRegistry;
-  sessionSummary: string;
+  sessionSummary: string = '';
 
   constructor(
     objective: string,
     modelName: string,
-    messageCallback: (message: Message) => void,
-    statusCallback: (status: AgentStatus) => void,
-    cancelCallback: () => void,
+    handlers: {
+      handleMessage: (message: AgentMessage) => Promise<void>;
+      handleEnd: () => Promise<void>;
+    },
     language: string = 'en',
     verbose: boolean = false,
+    specifiedSkills: string[] = [],
+    userApiKey?: string,
+    signal?: AbortSignal,
   ) {
-    super(
-      objective,
-      modelName,
-      messageCallback,
-      statusCallback,
-      cancelCallback,
-      language,
-      verbose,
+    super(objective, modelName, handlers, language, verbose, signal);
+
+    signal?.addEventListener('abort', () => {
+      this.verbose &&
+        console.log('Abort signal received. Stopping execution...');
+    });
+
+    this.skillRegistry = new SkillRegistry(
+      this.handlers.handleMessage,
+      this.verbose,
+      this.language,
+      specifiedSkills,
+      userApiKey,
+      this.signal,
     );
 
-    this.abortController = new AbortController();
-    this.skillRegistry = new SkillRegistry(
-      this.messageCallback,
-      this.abortController,
-      this.isRunningRef,
-      verbose,
+    const useSpecifiedSkills = specifiedSkills.length > 0;
+    this.taskRegistry = new TaskRegistry(
       this.language,
+      this.verbose,
+      useSpecifiedSkills,
+      userApiKey,
+      this.signal,
     );
-    this.taskRegistry = new TaskRegistry(this.verbose);
-    this.sessionSummary = '';
   }
 
   async prepare() {
     await super.prepare();
 
     const skillDescriptions = this.skillRegistry.getSkillDescriptions();
-    this.abortController = new AbortController();
-    this.statusCallback({ type: 'creating' });
+    const id = uuidv4();
+    // Create task list
     await this.taskRegistry.createTaskList(
+      id,
       this.objective,
       skillDescriptions,
-      'gpt-4', // Culletly using GPT-4
-      this.messageCallback,
-      this.abortController,
-      this.language,
+      this.modelName,
+      this.handlers.handleMessage,
     );
-    this.printer.printTaskList(this.taskRegistry.tasks, 0);
+    this.printer.printTaskList(this.taskRegistry.tasks, id);
   }
 
   async loop() {
@@ -64,14 +71,11 @@ export class BabyElfAGI extends AgentExecuter {
     for (let task of this.taskRegistry.tasks) {
       taskOutputs[task.id] = { completed: false, output: undefined };
     }
-
     // Loop until all tasks are completed
-    while (!Object.values(taskOutputs).every((task) => task.completed)) {
-      if (!this.isRunningRef.current) {
-        break;
-      }
-      this.statusCallback({ type: 'preparing' });
-
+    while (
+      !this.signal?.aborted &&
+      !Object.values(taskOutputs).every((task) => task.completed)
+    ) {
       // Get the tasks that are ready to be executed
       const tasks = this.taskRegistry.getTasks();
 
@@ -106,14 +110,20 @@ export class BabyElfAGI extends AgentExecuter {
           updates: { status: 'running' },
         });
         this.printer.printTaskExecute(task);
-        this.currentStatusCallback();
-        const output = await this.taskRegistry.executeTask(
-          i,
-          task,
-          taskOutputs,
-          this.objective,
-          this.skillRegistry,
-        );
+
+        let output = '';
+        try {
+          output = await this.taskRegistry.executeTask(
+            i,
+            task,
+            taskOutputs,
+            this.objective,
+            this.skillRegistry,
+          );
+        } catch (error) {
+          console.error(error);
+          return;
+        }
 
         taskOutputs[task.id] = { completed: true, output: output };
         this.taskRegistry.updateTasks({
@@ -156,31 +166,24 @@ export class BabyElfAGI extends AgentExecuter {
   }
 
   async finishup() {
+    super.finishup();
+
     const tasks = this.taskRegistry.getTasks();
     const lastTask = tasks[tasks.length - 1];
-    this.messageCallback({
-      type: 'final-result',
-      text: lastTask.result ?? '',
-      title: translate('FINAL_TASK_RESULT', 'message'),
-      icon: '✍️',
-      id: 9999,
+    this.handlers.handleMessage({
+      type: 'result',
+      content: lastTask.result ?? '',
+      id: uuidv4(),
     });
 
-    this.messageCallback({
+    this.handlers.handleMessage({
       type: 'session-summary',
-      text: this.sessionSummary,
-      id: 9999,
+      content: this.sessionSummary,
+      id: uuidv4(),
     });
 
     super.finishup();
   }
 
-  currentStatusCallback = () => {
-    const tasks = this.taskRegistry.getTasks();
-    const ids = tasks.filter((t) => t.status === 'running').map((t) => t.id);
-    this.statusCallback({
-      type: 'executing',
-      message: `(👉 ${ids.join(', ')} / ${tasks.length})`,
-    });
-  };
+  async close() {}
 }

@@ -37,7 +37,9 @@ export class CodeReader extends Skill {
 
     try {
       const response = await fetch(
-        `/api/local/read-file?filename=${encodeURIComponent(filePath)}`,
+        `${this.BASE_URL}/api/local/read-file?filename=${encodeURIComponent(
+          filePath,
+        )}`,
         {
           method: 'GET',
         },
@@ -47,6 +49,10 @@ export class CodeReader extends Skill {
       }
       const fileContent = await response.json();
       console.log(`File content:\n${JSON.stringify(fileContent)}`);
+      this.callbackMessage({
+        content: 'Read file successfully.',
+        status: 'complete',
+      });
       return JSON.stringify(fileContent);
     } catch (error) {
       console.error(

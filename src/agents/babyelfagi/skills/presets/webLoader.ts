@@ -1,8 +1,8 @@
 import { AgentTask } from '@/types';
 import { Skill } from '../skill';
-import axios from 'axios';
-import { largeTextExtract } from '@/agents/babydeeragi/tools/largeTextExtract';
-import { translate } from '@/utils/translate';
+import { largeTextExtract } from '@/agents/babyelfagi/tools/utils/largeTextExtract';
+import { webScrape } from '../../tools/webScrape';
+import { v4 as uuidv4 } from 'uuid';
 
 export class WebLoader extends Skill {
   name = 'web_loader';
@@ -17,28 +17,39 @@ export class WebLoader extends Skill {
       throw new Error('Invalid inputs');
     }
 
-    let statusMessage = '- Extracting URLs from the task.\n';
-    const callback = (message: string) => {
-      statusMessage += message;
-      this.messageCallback({
-        type: 'search-logs',
-        text: '```markdown\n' + statusMessage + '\n```',
-        title: `🔎 ${translate('SEARCH_LOGS', 'message')}`,
-        id: task.id,
-        icon: '🌐',
-        open: false,
+    let message = '- Extracting URLs from the task.\n';
+    const callback = (
+      message: string,
+      status: 'running' | 'complete' | 'incomplete' = 'running',
+    ) => {
+      this.handleMessage({
+        id: this.id,
+        taskId: task.id.toString(),
+        content: message,
+        title: task.task,
+        icon: this.icon,
+        type: this.name,
+        style: 'log',
+        status,
       });
     };
 
+    callback(message);
     const urlString = await this.extractUrlsFromTask(task, callback);
     const urls = urlString.split(',').map((url) => url.trim());
     const contents = await this.fetchContentsFromUrls(urls, callback);
-    const info = await this.extractInfoFromContents(
-      contents,
-      objective,
-      task,
-      callback,
-    );
+    const info = await this.extractInfoFromContents(contents, objective, task);
+    this.handleMessage({
+      id: uuidv4(),
+      taskId: task.id.toString(),
+      content: info.join('\n\n'),
+      title: task.task,
+      icon: this.icon,
+      type: this.name,
+      style: 'text',
+      status: 'complete',
+    });
+    callback('- Completed: Extract info from contents', 'complete');
 
     return info.join('\n\n');
   }
@@ -47,7 +58,7 @@ export class WebLoader extends Skill {
     task: AgentTask,
     callback: (message: string) => void,
   ): Promise<string> {
-    const prompt = `- Extracting URLs from the task.\nReturn a comma-separated URL List.\nTASK: ${task.task}\nURLS:`;
+    const prompt = `Extracting URLs from the task.\nReturn a comma-separated URL List.\nTASK: ${task.task}\nURLS:`;
     const urlString = await this.generateText(prompt, task, undefined, true);
     callback(`  - URLs: ${urlString}\n`);
     return urlString;
@@ -61,8 +72,8 @@ export class WebLoader extends Skill {
     return await Promise.all(
       urls.slice(0, MAX_URLS).map(async (url) => {
         callback(`- Reading: ${url} ...\n`);
-        const content = await this.webScrapeTool(url);
-        if (content.length === 0) {
+        const content = await webScrape(url);
+        if (!content || content.length === 0) {
           callback(`  - Content: No content found.\n`);
           return { url, content: '' };
         }
@@ -80,41 +91,22 @@ export class WebLoader extends Skill {
     contents: { url: string; content: string }[],
     objective: string,
     task: AgentTask,
-    callback: (message: string) => void,
   ): Promise<string[]> {
-    callback(`- Extracting relevant information from the web pages.\n`);
     return await Promise.all(
       contents.map(async (item) => {
         return (
           `URL: ${item.url}\n\n` +
           (await largeTextExtract(
+            this.id,
             objective,
             item.content,
             task,
-            this.isRunningRef,
-            callback,
-            this.abortController.signal,
+            this.apiKeys.openai,
+            this.handleMessage,
+            this.abortSignal,
           ))
         );
       }),
     );
-  }
-
-  private async webScrapeTool(url: string): Promise<string> {
-    try {
-      const response = await axios.post(
-        '/api/tools/scrape',
-        { url },
-        { signal: this.abortController.signal },
-      );
-      return response?.data?.response;
-    } catch (error: any) {
-      if (error.name === 'AbortError') {
-        console.error('Request aborted', error.message);
-      } else {
-        console.error(error.message);
-      }
-      return '';
-    }
   }
 }

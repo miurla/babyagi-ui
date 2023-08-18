@@ -1,5 +1,5 @@
 import { AgentTask } from '@/types';
-import { webBrowsing } from '@/agents/babydeeragi/tools/webBrowsing';
+import { webBrowsing } from '@/agents/babyelfagi/tools/webBrowsing';
 import { Skill } from '../skill';
 
 // This skill is Specialized for web browsing
@@ -9,27 +9,26 @@ export class WebSearch extends Skill {
   descriptionForHuman = 'A tool that performs web searches.';
   descriptionForModel = 'A tool that performs web searches.';
   icon = '🔎';
-  apiKeysRequired = [];
+  apiKeysRequired = ['openai'];
 
   async execute(
     task: AgentTask,
     dependentTaskOutputs: string,
     objective: string,
   ): Promise<string> {
-    if (!this.valid) return '';
+    if (!this.valid || this.signal?.aborted) return '';
 
     const taskOutput =
       (await webBrowsing(
         objective,
         task,
         dependentTaskOutputs,
-        this.messageCallback,
-        undefined,
-        this.isRunningRef,
+        this.handleMessage,
         this.verbose,
         undefined,
         this.language,
-        this.abortController.signal,
+        this.apiKeys.openai,
+        this.signal,
       )) ?? '';
 
     return taskOutput;

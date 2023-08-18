@@ -1,4 +1,4 @@
-import { simplifySearchResults } from '@/agents/common/tools/webSearch';
+import { simplifySearchResults } from '@/agents/babyelfagi/tools/webSearch';
 import { AgentTask, AgentMessage } from '@/types';
 import { analystPrompt, searchQueryPrompt } from '../../../utils/prompt';
 import { textCompletion } from './utils/textCompletion';

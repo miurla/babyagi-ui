@@ -25,19 +25,12 @@ This is a port of [babyagi](https://github.com/yoheinakajima/babyagi) with [Lang
 
 ## 🚗 Roadmap
 
-- [x] The BabyAGI can search and scrape the web. ([🐝 BabyBeeAGI](https://twitter.com/yoheinakajima/status/1652732735344246784))
-- [x] Exporting Execution Results
-- [x] Execution history
-- [x] Faster speeds and fewer errors. ([😺 BabyCatAGI](https://twitter.com/yoheinakajima/status/1657448504112091136))
-- [x] i18n support ( 🇧🇷, 🇩🇪, 🇺🇸, 🇪🇸, 🇫🇷, 🇮🇳, 🇭🇺, 🇯🇵, 🇷🇺, 🇹🇭, ... and much more)
-- [x] User feedback
-- [x] Improv UX for task creation (only BabyCatAGI🐱 & Client request)
-- [x] Notification that all tasks have been completed. 🔔
-- [x] Display the current task and task list. 📌
 - [x] Collapsible Sidebar ⏩️
 - [x] User input & parallel tasking. ([🦌 BabyDeerAGI](https://twitter.com/yoheinakajima/status/1666313838868992001))
 - [x] API updates support (gpt-3.5-turbo-0613/gpt-3.5-turbo-16k-0613/gpt-4-0613)
 - [x] Skills Class allows for easy skill creation ([🧝 BabyElfAGI](https://twitter.com/yoheinakajima/status/1678443482866933760))
+- [x] Aggregate the logic of the agent in the backend.
+- [x] Add hooks to make it easier to handle the agent on the frontend.
 - [ ] Support the Llama2 model 🦙
 
 and more ...
