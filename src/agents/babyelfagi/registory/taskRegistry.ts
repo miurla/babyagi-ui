@@ -1,32 +1,44 @@
-import _ from 'lodash';
-import { AgentTask, Message, TaskOutputs } from '@/types';
+import { AgentTask, AgentMessage, TaskOutputs } from '@/types';
 import { ChatOpenAI } from 'langchain/chat_models/openai';
 import { parseTasks } from '@/utils/task';
 import { HumanChatMessage, SystemChatMessage } from 'langchain/schema';
-import { getUserApiKey } from '@/utils/settings';
-import { translate } from '@/utils/translate';
 import { SkillRegistry } from './skillRegistry';
 import { findMostRelevantObjective } from '@/utils/objective';
-import axios from 'axios';
-
 export class TaskRegistry {
   tasks: AgentTask[];
   verbose: boolean = false;
+  language: string = 'en';
+  useSpecifiedSkills: boolean = false;
+  userApiKey?: string;
+  signal?: AbortSignal;
 
-  constructor(verbose = false) {
+  constructor(
+    language = 'en',
+    verbose = false,
+    useSpecifiedSkills = false,
+    userApiKey?: string,
+    signal?: AbortSignal,
+  ) {
     this.tasks = [];
     this.verbose = verbose;
+    this.language = language;
+    this.userApiKey = userApiKey;
+    this.useSpecifiedSkills = useSpecifiedSkills;
+    this.signal = signal;
   }
 
   async createTaskList(
+    id: string,
     objective: string,
     skillDescriptions: string,
     modelName: string = 'gpt-3.5-turbo',
-    messageCallback?: (message: Message) => void,
-    abortController?: AbortController,
-    language: string = 'en',
+    handleMessage: (message: AgentMessage) => Promise<void>,
   ): Promise<void> {
-    const relevantObjective = await findMostRelevantObjective(objective);
+    const relevantObjective = await findMostRelevantObjective(
+      objective,
+      this.userApiKey,
+    );
+
     const exapmleObjective = relevantObjective.objective;
     const exampleTaskList = relevantObjective.examples;
     const prompt = `
@@ -36,10 +48,10 @@ export class TaskRegistry {
     RULES:
     Do not use skills that are not listed.
     Always include one skill.
-    Do not create files unless specified in the objective.    
+    Do not create files unless specified in the objective.
     dependent_task_ids should always be an empty array, or an array of numbers representing the task ID it should pull results from.
     Make sure all task IDs are in chronological order.###
-    Output must be answered in ${language}.
+    Output must be answered in ${this.language}.
     EXAMPLE OBJECTIVE=${exapmleObjective}
     TASK LIST=${JSON.stringify(exampleTaskList)}
     OBJECTIVE=${objective}
@@ -47,75 +59,43 @@ export class TaskRegistry {
     const systemPrompt = 'You are a task creation AI.';
     const systemMessage = new SystemChatMessage(systemPrompt);
     const messages = new HumanChatMessage(prompt);
-    const openAIApiKey = getUserApiKey();
-
-    if (!openAIApiKey && process.env.NEXT_PUBLIC_USE_USER_API_KEY === 'true') {
-      throw new Error('User API key is not set.');
-    }
 
     let result = '';
-    if (openAIApiKey) {
-      let chunk = '```json\n';
-      const model = new ChatOpenAI(
-        {
-          openAIApiKey,
-          modelName,
-          temperature: 0,
-          maxTokens: 1500,
-          topP: 1,
-          verbose: this.verbose,
-          streaming: true,
-          callbacks: [
-            {
-              handleLLMNewToken(token: string) {
-                chunk += token;
-                const message: Message = {
-                  type: 'task-execute',
-                  title: translate('CREATING', 'message'),
-                  text: chunk,
-                  icon: '📝',
-                  id: 0,
-                };
-                messageCallback?.(message);
-              },
+    const model = new ChatOpenAI(
+      {
+        openAIApiKey: this.userApiKey,
+        modelName: this.useSpecifiedSkills ? modelName : 'gpt-4',
+        temperature: 0,
+        maxTokens: 1500,
+        topP: 1,
+        verbose: false, // You can set this to true to see the lanchain logs
+        streaming: true,
+        callbacks: [
+          {
+            handleLLMNewToken(token: string) {
+              const message: AgentMessage = {
+                id,
+                content: token,
+                type: 'task-list',
+                style: 'log',
+                status: 'running',
+              };
+              handleMessage(message);
             },
-          ],
-        },
-        { baseOptions: { signal: abortController?.signal } },
-      );
+          },
+        ],
+      },
+      { baseOptions: { signal: this.signal } },
+    );
 
-      try {
-        const response = await model.call([systemMessage, messages]);
-        result = response.text;
-      } catch (error: any) {
-        if (error.name === 'AbortError') {
-          console.log('Task creation aborted');
-        }
-        console.log(error);
+    try {
+      const response = await model.call([systemMessage, messages]);
+      result = response.text;
+    } catch (error: any) {
+      if (error.name === 'AbortError') {
+        console.log('Task creation aborted');
       }
-    } else {
-      // server side request
-      const response = await axios
-        .post(
-          '/api/elf/completion',
-          {
-            prompt: prompt,
-            model_name: modelName,
-            temperature: 0,
-            max_tokens: 1500,
-          },
-          {
-            signal: abortController?.signal,
-          },
-        )
-        .catch((error) => {
-          if (error.name === 'AbortError') {
-            console.log('Request aborted', error.message);
-          } else {
-            console.log(error.message);
-          }
-        });
-      result = response?.data?.response;
+      console.log(error);
     }
 
     if (result === undefined) {
@@ -137,23 +117,7 @@ export class TaskRegistry {
       ? task.dependentTaskIds.map((id) => taskOutputs[id].output).join('\n')
       : '';
 
-    if (skill.executionLocation === 'server') {
-      // Call the API endpoint if the skill needs to be executed on the server side
-      const response = await axios.post('/api/execute-skill', {
-        task: JSON.stringify(task),
-        dependent_task_outputs: dependentTaskOutputs,
-        objective,
-      });
-      return response.data.taskOutput;
-    } else {
-      // Execute the skill on the client side
-      let taskOutput = await skill.execute(
-        task,
-        dependentTaskOutputs,
-        objective,
-      );
-      return taskOutput;
-    }
+    return await skill.execute(task, dependentTaskOutputs, objective);
   }
 
   getTasks(): AgentTask[] {
@@ -181,7 +145,7 @@ export class TaskRegistry {
   }
 
   reorderTasks(): void {
-    this.tasks = _.sortBy(this.tasks, ['priority', 'task_id']);
+    this.tasks.sort((a, b) => a.id - b.id);
   }
 
   async reflectOnOutput(
@@ -250,7 +214,7 @@ export class TaskRegistry {
     );
 
     const model = new ChatOpenAI({
-      openAIApiKey: getUserApiKey(),
+      openAIApiKey: this.userApiKey,
       modelName,
       temperature: 0.7,
       maxTokens: 1500,

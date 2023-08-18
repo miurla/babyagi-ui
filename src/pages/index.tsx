@@ -1,11 +1,11 @@
-import { Agent } from '@/components/Agent/Agent';
+import { AgentView } from '@/components/Agent/AgentView';
 import { Sidebar } from '@/components/Sidebar/Sidebar';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import type { GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import nextI18NextConfig from '../../next-i18next.config.js';
-import { languages } from '../utils/languages';
+import { languages } from '@/utils/languages';
 import { STATE_KEY } from '@/utils/constants';
 import { UIState } from '@/types/index.js';
 import { CollapsedButton } from '@/components/Sidebar/CollapsedButton';
@@ -43,10 +43,15 @@ function Home() {
     saveSidebarState(!showSidebar);
   };
 
+  // This page is for development only.
+  if (process.env.NODE_ENV !== 'development') {
+    return <p>This page is for development.</p>;
+  }
+
   return (
     <>
       <Head>
-        <title>BabyAGI-UI</title>
+        <title>BabyAGI-UI | DEV</title>
         <meta
           name="description"
           content="BabyAGI UI is designed to make it easier to run and develop with babyagi in a web app, like a ChatGPT."
@@ -80,7 +85,7 @@ function Home() {
               <Sidebar onMenuClick={menuClickHandler} />
             </div>
           )}
-          <Agent />
+          <AgentView />
         </div>
         <div className="absolute left-2 top-2">
           <CollapsedButton

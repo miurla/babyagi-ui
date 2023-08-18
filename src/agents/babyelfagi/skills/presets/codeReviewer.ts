@@ -31,7 +31,9 @@ export class CodeReviewer extends Skill {
     const prompt = this.generatePrompt(dependentTaskOutputs);
 
     try {
-      return this.generateText(prompt, task, { modelName: MODEL_NAME });
+      const result = this.generateText(prompt, task, { modelName: MODEL_NAME });
+      this.sendCompletionMessage();
+      return result;
     } catch (error) {
       console.error('Failed to generate text:', error);
       throw new Error(

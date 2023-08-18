@@ -1,4 +1,3 @@
-import Airtable from 'airtable';
 import { Skill, SkillType } from '../skill';
 import { AgentTask } from '@/types';
 
@@ -17,19 +16,29 @@ export class AirtableSaver extends Skill {
 
   async execute(
     task: AgentTask,
-    dependentTaskOutputs: any,
+    dependentTaskOutputs: string,
     objective: string,
   ): Promise<string> {
     if (!this.valid) {
       return '';
     }
 
-    const airtable = new Airtable({ apiKey: this.apiKeys['airtable'] });
-    const base = airtable.base(this.baseId);
     const fields = { Notes: dependentTaskOutputs }; // Your fields here
+    const url = `https://api.airtable.com/v0/${this.baseId}/${this.tableName}`;
+    const options = {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${this.apiKeys['airtable']}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ fields }),
+    };
 
     try {
-      await base(this.tableName).create([{ fields }]);
+      const response = await fetch(url, options);
+      if (!response.ok) {
+        throw new Error('Record creation failed');
+      }
       return 'Record creation successful';
     } catch (error: any) {
       return `Record creation failed: ${error.message}`;

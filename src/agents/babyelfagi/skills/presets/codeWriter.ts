@@ -42,11 +42,12 @@ export class CodeWriter extends Skill {
     `;
 
     try {
-      return await this.generateText(prompt, task, {
+      const result = await this.generateText(prompt, task, {
         modelName: MODEL_NAME,
         temperature: TEMPERATURE,
         maxTokens: MAX_TOKENS,
       });
+      return result;
     } catch (error) {
       console.error('Error generating text:', error);
       throw error;
