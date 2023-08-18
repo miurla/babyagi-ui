@@ -2,7 +2,7 @@ import { AgentMessage, AgentTask } from '@/types';
 import { ChatOpenAI } from 'langchain/chat_models/openai';
 import { HumanChatMessage } from 'langchain/schema';
 
-export const textCompletionTool = async (
+export const textCompletion = async (
   prompt: string,
   id: string,
   task: AgentTask,
