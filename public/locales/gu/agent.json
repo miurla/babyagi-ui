@@ -2,5 +2,6 @@
   "ALERT_SET_UP_API_KEY": "કૃપા કરીને સેટિંગ્સ મેનૂમાંથી તમારી OpenAI API કી સેટ કરો.",
   "ALL_TASKS_COMPLETED_TOAST": "બધા કાર્યો પૂર્ણ!",
   "COPIED_TO_CLIPBOARD": "ક્લિપબોર્ડ પર કૉપિ કરી",
-  "TASK_COMPLETED_TOAST": "કાર્ય પૂર્ણ થયું!"
+  "TASK_COMPLETED_TOAST": "કાર્ય પૂર્ણ થયું!",
+  "EXECUTION_STOPPED": "પરિનિર્માણ બંધ થઇ ગયેલું છે"
 }
