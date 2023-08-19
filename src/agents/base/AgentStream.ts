@@ -23,10 +23,16 @@ export function AgentStream(callbacks?: AIStreamCallbacks) {
         notifyObservers();
         if (!isWriterActive()) return;
         await writer.ready;
+
+        delete message.title;
+        delete message.icon;
+        delete message.style;
+        delete message.status;
+
         await writer.write(
           `${JSON.stringify({
             message,
-          })}\n`,
+          })}\n\n`,
         );
       },
       handleEnd: async () => {

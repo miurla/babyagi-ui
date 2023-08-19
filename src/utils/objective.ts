@@ -48,8 +48,6 @@ async function getEmbedding(
   userApiKey?: string,
 ) {
   try {
-    console.log(`getEmbedding: ${userApiKey}`);
-
     const embedding = new OpenAIEmbeddings({
       modelName,
       openAIApiKey: userApiKey,

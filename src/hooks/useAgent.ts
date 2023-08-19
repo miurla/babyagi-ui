@@ -80,6 +80,7 @@ export function useAgent({
       });
 
       const reader = response.body?.getReader();
+      let partialMessage;
 
       if (reader) {
         while (true) {
@@ -90,11 +91,31 @@ export function useAgent({
           }
 
           if (value) {
-            const message = new TextDecoder().decode(value);
-            const newAgentMessages: AgentMessage[] = message
+            const decodedValue = new TextDecoder().decode(value);
+            const splitMessages = decodedValue.split('\n\n');
+
+            if (partialMessage && !splitMessages[0].startsWith('{"message":')) {
+              splitMessages[0] = partialMessage + splitMessages[0];
+              partialMessage = null;
+            }
+
+            if (!decodedValue.endsWith('\n\n')) {
+              partialMessage = splitMessages.pop() || '';
+            }
+            if (splitMessages.length === 0) {
+              continue;
+            }
+
+            let combinedMessage = splitMessages.join('\n\n');
+
+            console.log('value: ', decodedValue);
+            // console.log('partialMessage: ', partialMessage);
+            // console.log('combinedMessage: ', combinedMessage);
+
+            const newAgentMessages: AgentMessage[] = combinedMessage
               .trim()
-              .split('\n')
-              .map((m) => parseMessage(m))
+              .split('\n\n')
+              .map(parseMessage)
               .filter((m): m is AgentMessage => m !== null);
 
             newAgentMessages.forEach((newMsg) => {

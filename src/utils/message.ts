@@ -350,7 +350,10 @@ export const parseMessage = (json: string): AgentMessage | null => {
       status: message.status ?? 'incomplete',
     };
   } catch (e) {
-    console.error(`Failed to parse message: ${json}`, e);
+    console.error(
+      `Failed to parse message: ${json}, length: ${json.length}`,
+      e,
+    );
     return null;
   }
 };
