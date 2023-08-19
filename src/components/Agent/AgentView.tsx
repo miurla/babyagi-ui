@@ -127,6 +127,7 @@ export const AgentView: FC = () => {
     api: '/api/agent',
     agentId: selectedAgent.id,
     modelName: model.id,
+    verbose: false,
     onSubmit: startHandler,
     onCancel: stopHandler,
     onFinish: finishHandler,
