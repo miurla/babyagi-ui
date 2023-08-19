@@ -32,6 +32,7 @@ import {
   useScrollControl,
   useCurrentEvaluation,
 } from '@/hooks';
+import { toast } from 'sonner';
 
 export const AgentView: FC = () => {
   // Custom hooks
@@ -73,6 +74,7 @@ export const AgentView: FC = () => {
   // Functions
   const stopHandler = () => {
     va.track('Stop');
+    toast(translate('EXECUTION_STOPPED', 'agent'));
   };
 
   const startHandler = async () => {

@@ -114,6 +114,19 @@ export class Skill {
       streaming: true,
     };
     const llmParams = { ...defaultParams, ...params };
+
+    const message: AgentMessage = {
+      id,
+      content: '',
+      title: task.task,
+      type: task.skill,
+      icon: task.icon,
+      taskId: task.id.toString(),
+      status: 'complete',
+      options: {
+        dependentTaskIds: task.dependentTaskIds?.join(', ') ?? '',
+      },
+    };
     const llm = new ChatOpenAI(
       {
         openAIApiKey: this.apiKeys.openai,
@@ -122,16 +135,8 @@ export class Skill {
           {
             handleLLMNewToken(token: string) {
               callback?.({
-                id,
-                content: token,
-                title: `${task.task}`,
-                type: task.skill,
-                icon: task.icon,
-                taskId: task.id.toString(),
-                status: 'running',
-                options: {
-                  dependentTaskIds: task.dependentTaskIds?.join(', ') ?? '',
-                },
+                ...message,
+                ...{ content: token, status: 'running' },
               });
             },
           },
@@ -142,17 +147,7 @@ export class Skill {
 
     try {
       const response = await llm.call([new HumanChatMessage(prompt)]);
-      this.callbackMessage({
-        taskId: task.id.toString(),
-        content: '',
-        title: task.task,
-        icon: task.icon,
-        type: task.skill,
-        status: 'complete',
-        options: {
-          dependentTaskIds: task.dependentTaskIds?.join(', ') ?? '',
-        },
-      });
+      this.callbackMessage(message);
       return response.text;
     } catch (error: any) {
       if (error.name === 'AbortError') {
