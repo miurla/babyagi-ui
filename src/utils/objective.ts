@@ -17,8 +17,18 @@ async function fetchJsonFiles(targetJsonFiles: string[]) {
     const response = await fetch(
       `${BASE_URL}/api/json-provider?file=${jsonFile}`,
     );
-    const data = await response.json();
-    loadedObjectives.push(data);
+
+    if (!response.ok) {
+      console.error(`Error fetching ${jsonFile}: ${response.statusText}`);
+      continue;
+    }
+
+    try {
+      const data = await response.json();
+      loadedObjectives.push(data);
+    } catch (e) {
+      console.error(`Error parsing JSON for ${jsonFile}: ${e}`);
+    }
   }
 
   return loadedObjectives;
@@ -37,14 +47,24 @@ async function getEmbedding(
   modelName: string = 'text-embedding-ada-002',
   userApiKey?: string,
 ) {
-  const embedding = new OpenAIEmbeddings({
-    modelName,
-    openAIApiKey: userApiKey,
-  });
-  return await embedding.embedQuery(text);
+  try {
+    console.log(`getEmbedding: ${userApiKey}`);
+
+    const embedding = new OpenAIEmbeddings({
+      modelName,
+      openAIApiKey: userApiKey,
+    });
+    return await embedding.embedQuery(text);
+  } catch (e) {
+    throw new Error(`error: ${e}`);
+  }
 }
 
 function calculateSimilarity(embedding1: number[], embedding2: number[]) {
+  if (!embedding1 || !embedding2) {
+    throw new Error('Embedding is not defined');
+  }
+
   const dotProduct = embedding1.reduce(
     (sum, a, i) => sum + a * embedding2[i],
     0,
@@ -69,16 +89,29 @@ export async function findMostRelevantObjective(
   let mostRelevantObjective = null;
 
   for (const example of examples) {
-    const objectiveEmbedding = await getEmbedding(example.objective);
-    const similarity = calculateSimilarity(
-      objectiveEmbedding,
-      userInputEmbedding,
-    );
+    try {
+      const objectiveEmbedding = await getEmbedding(
+        example.objective,
+        'text-embedding-ada-002',
+        userApiKey,
+      );
+      const similarity = calculateSimilarity(
+        objectiveEmbedding,
+        userInputEmbedding,
+      );
 
-    if (similarity > maxSimilarity) {
-      maxSimilarity = similarity;
-      mostRelevantObjective = example;
+      if (similarity > maxSimilarity) {
+        maxSimilarity = similarity;
+        mostRelevantObjective = example;
+      }
+    } catch (e) {
+      console.error(`Error in processing example: ${e}`);
     }
+  }
+
+  // const embed = (await getEmbedding(examples[0].objective)).toString();
+  if (mostRelevantObjective === null) {
+    throw new Error(`No objective found ${examples.length}`);
   }
 
   return mostRelevantObjective;

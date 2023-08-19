@@ -340,14 +340,19 @@ export const getMessageBlocks = (
   return messageBlocks;
 };
 
-export const parseMessage = (json: string): AgentMessage => {
-  const message = JSON.parse(json).message as AgentMessage;
+export const parseMessage = (json: string): AgentMessage | null => {
+  try {
+    const message = JSON.parse(json).message as AgentMessage;
 
-  return {
-    ...message,
-    style: message.style ?? 'text',
-    status: message.status ?? 'incomplete',
-  };
+    return {
+      ...message,
+      style: message.style ?? 'text',
+      status: message.status ?? 'incomplete',
+    };
+  } catch (e) {
+    console.error(`Failed to parse message: ${json}`, e);
+    return null;
+  }
 };
 
 export const getEmoji = (type?: string) => {

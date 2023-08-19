@@ -94,7 +94,8 @@ export function useAgent({
             const newAgentMessages: AgentMessage[] = message
               .trim()
               .split('\n')
-              .map((m) => parseMessage(m));
+              .map((m) => parseMessage(m))
+              .filter((m): m is AgentMessage => m !== null);
 
             newAgentMessages.forEach((newMsg) => {
               if (newMsg.id) {
@@ -136,6 +137,8 @@ export function useAgent({
         }
       }
     } catch (error) {
+      console.log(error);
+
       // Call onError when an error occurs
       if (onError) {
         // If the reason for the error is abort, ignore it

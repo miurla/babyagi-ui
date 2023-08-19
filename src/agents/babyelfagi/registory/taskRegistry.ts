@@ -76,9 +76,9 @@ export class TaskRegistry {
               const message: AgentMessage = {
                 id,
                 content: token,
-                type: 'task-list',
-                style: 'log',
-                status: 'running',
+                // type: 'task-list',
+                // style: 'log',
+                // status: 'running',
               };
               handleMessage(message);
             },

@@ -19,6 +19,7 @@ export const relevantInfoExtraction = async (
   const llm = new OpenAIChat(
     {
       modelName,
+      openAIApiKey: userApiKey,
       temperature: 0.7,
       maxTokens: 800,
       topP: 1,
