@@ -136,7 +136,16 @@ export function useAgent({
     } catch (error) {
       // Call onError when an error occurs
       if (onError) {
-        onError(new ErrorEvent('error', { error }));
+        // If the reason for the error is abort, ignore it
+        if (error instanceof Error && error.name === 'AbortError') {
+          // ignore
+        } else {
+          onError(
+            new ErrorEvent('error', {
+              error: error instanceof Error ? error.message : 'Unknown error',
+            }),
+          );
+        }
       }
     }
   };

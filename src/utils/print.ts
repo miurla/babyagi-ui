@@ -20,18 +20,18 @@ export class Printer {
     });
 
     if (!this.verbose) return;
-    console.log('%c*****OBJECTIVE*****\n%c%s', 'color:fuchsia', '', objective);
+    console.log('\x1b[35m%s\x1b[0m', '*****OBJECTIVE*****\n' + objective);
   }
 
   printNextTask(task: AgentTask) {
     if (!this.verbose) return;
-    console.log('%c*****NEXT TASK*****\n%c', 'color:fuchsia', '');
+    console.log('\x1b[33m%s\x1b[0m', '*****NEXT TASK*****\n');
     console.log(task);
   }
 
   printTaskExecute(task: AgentTask) {
     if (!this.verbose) return;
-    console.log('%c*****NEXT TASK*****\n%c', 'color:fuchsia', '');
+    console.log('\x1b[35m%s\x1b[0m', '*****NEXT TASK*****\n');
     console.log(task);
   }
 
@@ -56,19 +56,19 @@ export class Printer {
     });
 
     if (!this.verbose) return;
-    console.log('%c*****TASK LIST*****\n%c%s', 'color:fuchsia', '', message);
+    console.log('\x1b[34m%s\x1b[0m', '*****TASK LIST*****\n' + message);
   }
 
   printTaskOutput(output: string, task: AgentTask) {
     if (!this.verbose) return;
-    console.log('%c*****TASK OUTPUT*****\n%c%s', 'color:fuchsia', '', output);
+    console.log('\x1b[32m%s\x1b[0m', '*****TASK OUTPUT*****\n' + output);
   }
 
   printTaskCompleted() {
     // this.messageCallback(setupMessage('done', 'Done!'));
 
     if (!this.verbose) return;
-    console.log('%c*****DONE*****\n%c', 'color:fuchsia', '');
+    console.log('\x1b[35m%s\x1b[0m', '*****DONE*****\n');
   }
 
   printAllTaskCompleted() {
@@ -78,7 +78,7 @@ export class Printer {
     });
 
     if (!this.verbose) return;
-    console.log('%c*****ALL TASK COMPLETED*****%c', 'color:fuchsia', '');
+    console.log('\x1b[36m%s\x1b[0m', '*****ALL TASK COMPLETED*****\n');
   }
 
   // handleMessage() is called by the agent to send a message to the frontend

@@ -166,7 +166,7 @@ export class BabyElfAGI extends AgentExecuter {
   }
 
   async finishup() {
-    super.finishup();
+    if (this.signal?.aborted) return;
 
     const tasks = this.taskRegistry.getTasks();
     const lastTask = tasks[tasks.length - 1];
