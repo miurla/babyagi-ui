@@ -13,6 +13,7 @@ export type UseAgentOptions = {
   onFinish?: () => void;
   onSubmit?: () => void;
   onCancel?: () => void;
+  verbose?: boolean;
 };
 
 export type UseAgentHelpers = {
@@ -42,6 +43,7 @@ export function useAgent({
   onFinish,
   onSubmit,
   onCancel,
+  verbose = false,
 }: UseAgentOptions = {}): UseAgentHelpers {
   const abortControllerRef = useRef<AbortController | null>(null);
   const [agentMessages, setAgentMessages] = useState<AgentMessage[]>([]);
@@ -72,7 +74,7 @@ export function useAgent({
           model_name: modelName,
           language,
           user_key: userKey,
-          verbose: true,
+          verbose,
         }),
         signal: abortController.signal,
       });

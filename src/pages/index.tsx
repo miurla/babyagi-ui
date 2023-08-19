@@ -43,11 +43,6 @@ function Home() {
     saveSidebarState(!showSidebar);
   };
 
-  // This page is for development only.
-  if (process.env.NODE_ENV !== 'development') {
-    return <p>This page is for development.</p>;
-  }
-
   return (
     <>
       <Head>
