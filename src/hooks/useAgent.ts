@@ -9,7 +9,7 @@ export type UseAgentOptions = {
   agentId?: string;
   modelName?: string;
   onResponse?: (event: MessageEvent) => void;
-  onError?: (event: Event | ErrorEvent) => void;
+  onError?: (error: Error) => void;
   onFinish?: () => void;
   onSubmit?: () => void;
   onCancel?: () => void;
@@ -142,11 +142,7 @@ export function useAgent({
         if (error instanceof Error && error.name === 'AbortError') {
           // ignore
         } else {
-          onError(
-            new ErrorEvent('error', {
-              error: error instanceof Error ? error.message : 'Unknown error',
-            }),
-          );
+          onError(error as Error);
         }
       }
     }
@@ -173,11 +169,6 @@ export function useAgent({
 
     try {
       await sendRequest(abortController);
-    } catch (error) {
-      // Call onError when an error occurs
-      if (onError) {
-        onError(new ErrorEvent('error', { error }));
-      }
     } finally {
       setIsRunning(false);
     }
