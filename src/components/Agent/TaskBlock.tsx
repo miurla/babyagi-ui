@@ -1,5 +1,6 @@
-import { Block, AgentMessage } from '@/types';
 import { FC } from 'react';
+import { Block, AgentMessage } from '@/types';
+import { useSkills } from '@/hooks';
 import { AgentResult } from './AgentResult';
 import { AgentTaskStatus } from './AgentTastStatus';
 import { getEmoji } from '@/utils/message';
@@ -15,11 +16,11 @@ const renderIcon = (message: AgentMessage, block: Block) => {
     : message.icon || getEmoji(message.type);
 };
 
-const renderContent = (message: AgentMessage, firstContent: string) => {
+const renderContent = (message: AgentMessage) => {
   const title =
     message.status === 'complete'
-      ? firstContent.split('\n')[0]
-      : firstContent.trim().split('\n').slice(-1)[0];
+      ? message.content.split('\n')[0]
+      : message.content.trim().split('\n').slice(-1)[0];
   return message.style === 'log' ? (
     <AgentCollapsible title={title} isOpen={false}>
       <div className="prose prose-sm w-full dark:prose-invert prose-pre:bg-neutral-200 prose-pre:text-black dark:prose-pre:bg-neutral-800 dark:prose-pre:text-white">
@@ -35,12 +36,14 @@ const renderContent = (message: AgentMessage, firstContent: string) => {
 
 export const TaskBlock: FC<AgentTaskProps> = ({ block }) => {
   const message = block.messages[0];
-  const icon = message.icon || getEmoji(message.type);
   const title = message.taskId
     ? `${message.taskId}. ${message.title}`
     : message.title;
   const dependentTaskIds = message?.options?.dependentTaskIds ?? '';
-  const firstContent = block.messages[0].content;
+  const icon = message.icon || getEmoji(message.type);
+  const renderMessages = block.messages.filter(
+    (message) => message.content !== '',
+  );
 
   return (
     <div className="relative m-auto flex w-full flex-col gap-4 px-4 py-4 text-base text-neutral-900 dark:text-neutral-300 md:max-w-2xl md:gap-6 lg:max-w-2xl lg:px-0 xl:max-w-3xl">
@@ -54,19 +57,19 @@ export const TaskBlock: FC<AgentTaskProps> = ({ block }) => {
           </div>
           <AgentTaskStatus block={block} />
         </div>
-        {block.messages.length > 0 && (
+        {renderMessages.length > 0 && (
           <AgentResult
             title="Task Details"
             dependencies={dependentTaskIds}
             isOpen={false}
           >
-            {block.messages.map((message, index) => (
+            {renderMessages.map((message, index) => (
               <div className="flex flex-col gap-4 p-6" key={index}>
                 <div className="flex gap-4">
                   <div className="flex aspect-square h-9 items-center justify-center text-lg">
                     {renderIcon(message, block)}
                   </div>
-                  <div>{renderContent(message, firstContent)}</div>
+                  <div>{renderContent(message)}</div>
                 </div>
               </div>
             ))}

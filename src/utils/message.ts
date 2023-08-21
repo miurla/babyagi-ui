@@ -369,6 +369,10 @@ export const getEmoji = (type?: string) => {
   }
 };
 
+export const getSkillEmoji = (skill?: string) => {
+  const skills = useSkills();
+};
+
 export const getTitle = (type?: string) => {
   switch (type) {
     case 'objective':

@@ -15,12 +15,7 @@ const ExamplePage: React.FC = () => {
       </form>
       {agentMessages.map((m) => (
         <div key={m.id}>
-          {m.title && (
-            <div className="font-bold">
-              {m.icon}: {m.title}
-            </div>
-          )}
-          <div>{m.content}</div>
+          {m.type}: {m.content}
         </div>
       ))}
     </div>

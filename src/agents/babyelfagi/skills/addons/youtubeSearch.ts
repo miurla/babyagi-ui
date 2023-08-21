@@ -27,7 +27,6 @@ export class YoutubeSearch extends Skill {
     this.callbackMessage({
       taskId: task.id.toString(),
       content: '```json\n\n' + result + '\n\n```',
-      title: task.task,
       type: task.skill,
       style: 'text',
       status: 'complete',

@@ -125,7 +125,6 @@ export const webBrowsing = async (
     taskId: task.id.toString(),
     type: task.skill,
     content: message,
-    title: task.task,
     style: 'log',
     status: 'complete',
   };
@@ -149,10 +148,8 @@ const callbackSearchStatus = (
     id,
     taskId: task.id.toString(),
     type: task.skill,
-    icon: '🔎',
     style: 'log',
     content: message,
-    title: task.task,
     status: 'running',
   });
 };
