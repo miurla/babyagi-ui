@@ -1,8 +1,9 @@
 import React from 'react';
 import { useAgent } from '@/hooks/useAgent';
-const ExamplePage: React.FC = () => {
+const ExampleHeadlessPage: React.FC = () => {
   const { agentMessages, input, handleSubmit, handleInputChange } = useAgent({
     api: '/api/agent',
+    agentId: 'babydeeragi',
   });
   return (
     <div className="p-12">
@@ -22,4 +23,4 @@ const ExamplePage: React.FC = () => {
   );
 };
 
-export default ExamplePage;
+export default ExampleHeadlessPage;
