@@ -3,7 +3,7 @@ import { useExecutionStatus } from '@/hooks/useExecutionStatus';
 import { Execution } from '@/types';
 import { FC } from 'react';
 import { ExtraButton } from './ExtraButton';
-import { AGENT } from '@/utils/constants';
+import { ALL_AGENTS } from '@/utils/constants';
 
 interface ExecutionRowProps {
   execution: Execution;
@@ -23,7 +23,7 @@ export const ExecutionRow: FC<ExecutionRowProps> = ({ execution }) => {
     selectExecution(undefined);
   };
 
-  const agent = AGENT.find((agent) => agent.id === execution.params.agent);
+  const agent = ALL_AGENTS.find((agent) => agent.id === execution.params.agent);
 
   return (
     <button

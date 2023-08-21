@@ -32,7 +32,7 @@ export class CodeWriter extends Skill {
     }
 
     const prompt = `
-      You are a genius AI programmer. 
+      You are a genius AI programmer.
       Complete your assigned task based on the objective and only based on information provided in the dependent task output, if provided.
       Dependent tasks output include reference code.
       Your objective: ${objective}.
@@ -42,11 +42,12 @@ export class CodeWriter extends Skill {
     `;
 
     try {
-      return await this.generateText(prompt, task, {
+      const result = await this.generateText(prompt, task, {
         modelName: MODEL_NAME,
         temperature: TEMPERATURE,
         maxTokens: MAX_TOKENS,
       });
+      return result;
     } catch (error) {
       console.error('Error generating text:', error);
       throw error;

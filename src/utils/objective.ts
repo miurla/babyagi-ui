@@ -1,8 +1,5 @@
-import { getUserApiKey } from '@/utils/settings';
-import axios from 'axios';
 import { OpenAIEmbeddings } from 'langchain/embeddings/openai';
 
-const CURRENT_OBJECTIVES_VERSION = '1.0.0';
 const JSON_FILES = ['example3', 'example4', 'example_deer'];
 const JSON_FILES_FOR_DEV = [
   'example3',
@@ -11,39 +8,36 @@ const JSON_FILES_FOR_DEV = [
   'example_code',
   'example_code_review',
 ];
+const BASE_URL = process.env.BASE_URL || 'http://localhost:3000';
 
 async function fetchJsonFiles(targetJsonFiles: string[]) {
   let loadedObjectives: any[] = [];
 
   for (const jsonFile of targetJsonFiles) {
-    const response = await fetch(`/api/json-provider?file=${jsonFile}`);
-    const data = await response.json();
-    loadedObjectives.push(data);
+    const response = await fetch(
+      `${BASE_URL}/api/json-provider?file=${jsonFile}`,
+    );
+
+    if (!response.ok) {
+      console.error(`Error fetching ${jsonFile}: ${response.statusText}`);
+      continue;
+    }
+
+    try {
+      const data = await response.json();
+      loadedObjectives.push(data);
+    } catch (e) {
+      console.error(`Error parsing JSON for ${jsonFile}: ${e}`);
+    }
   }
 
   return loadedObjectives;
 }
 
 const getObjectivesExamples = async () => {
-  const storedObjectives = localStorage.getItem('BABYAGIUI_OBJECTIVES');
-
-  if (storedObjectives) {
-    const data = JSON.parse(storedObjectives);
-    if (data.version === CURRENT_OBJECTIVES_VERSION) {
-      return data.objectives;
-    }
-  }
-
   const targetJsonFiles =
     process.env.NODE_ENV === 'development' ? JSON_FILES_FOR_DEV : JSON_FILES;
   const loadedObjectives = await fetchJsonFiles(targetJsonFiles);
-
-  const data = {
-    version: CURRENT_OBJECTIVES_VERSION,
-    objectives: loadedObjectives,
-  };
-
-  localStorage.setItem('BABYAGIUI_OBJECTIVES', JSON.stringify(data));
 
   return loadedObjectives;
 };
@@ -51,34 +45,24 @@ const getObjectivesExamples = async () => {
 async function getEmbedding(
   text: string,
   modelName: string = 'text-embedding-ada-002',
+  userApiKey?: string,
 ) {
-  const openAIApiKey = getUserApiKey();
-  if (!openAIApiKey && process.env.NEXT_PUBLIC_USE_USER_API_KEY === 'true') {
-    throw new Error('User API key is not set.');
-  }
-
-  if (openAIApiKey) {
+  try {
     const embedding = new OpenAIEmbeddings({
       modelName,
-      openAIApiKey: getUserApiKey(),
+      openAIApiKey: userApiKey,
     });
     return await embedding.embedQuery(text);
-  } else {
-    const response = await axios.post(
-      '/api/elf/embedding',
-      {
-        text: text,
-        model_name: modelName,
-      },
-      {
-        signal: new AbortController().signal,
-      },
-    );
-    return response.data.response;
+  } catch (e) {
+    throw new Error(`error: ${e}`);
   }
 }
 
 function calculateSimilarity(embedding1: number[], embedding2: number[]) {
+  if (!embedding1 || !embedding2) {
+    throw new Error('Embedding is not defined');
+  }
+
   const dotProduct = embedding1.reduce(
     (sum, a, i) => sum + a * embedding2[i],
     0,
@@ -88,10 +72,14 @@ function calculateSimilarity(embedding1: number[], embedding2: number[]) {
   return dotProduct / (magnitude1 * magnitude2);
 }
 
-export async function findMostRelevantObjective(userInput: string) {
+export async function findMostRelevantObjective(
+  userInput: string,
+  userApiKey?: string,
+) {
   const userInputEmbedding = await getEmbedding(
     userInput,
     'text-embedding-ada-002',
+    userApiKey,
   );
   const examples = await getObjectivesExamples();
 
@@ -99,16 +87,28 @@ export async function findMostRelevantObjective(userInput: string) {
   let mostRelevantObjective = null;
 
   for (const example of examples) {
-    const objectiveEmbedding = await getEmbedding(example.objective);
-    const similarity = calculateSimilarity(
-      objectiveEmbedding,
-      userInputEmbedding,
-    );
+    try {
+      const objectiveEmbedding = await getEmbedding(
+        example.objective,
+        'text-embedding-ada-002',
+        userApiKey,
+      );
+      const similarity = calculateSimilarity(
+        objectiveEmbedding,
+        userInputEmbedding,
+      );
 
-    if (similarity > maxSimilarity) {
-      maxSimilarity = similarity;
-      mostRelevantObjective = example;
+      if (similarity > maxSimilarity) {
+        maxSimilarity = similarity;
+        mostRelevantObjective = example;
+      }
+    } catch (e) {
+      console.error(`Error in processing example: ${e}`);
     }
+  }
+
+  if (mostRelevantObjective === null) {
+    throw new Error(`No objective found ${examples.length}`);
   }
 
   return mostRelevantObjective;

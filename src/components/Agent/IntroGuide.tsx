@@ -10,7 +10,6 @@ export const IntroGuide: FC<IntroGuideProps> = ({ onClick, agent }) => {
   const deerExamples = [
     translate('EXAMPLE_OBJECTIVE_1', 'constants'),
     translate('EXAMPLE_OBJECTIVE_2', 'constants'),
-    translate('EXAMPLE_OBJECTIVE_3', 'constants'),
   ];
   const elfExample = [
     `${translate(

@@ -15,9 +15,12 @@ export class DirectoryStructure extends Skill {
     dependentTaskOutputs: string,
     objective: string,
   ): Promise<any> {
-    const response = await fetch('/api/local/directory-structure', {
-      method: 'GET',
-    });
+    const response = await fetch(
+      `${this.BASE_URL}/api/local/directory-structure`,
+      {
+        method: 'GET',
+      },
+    );
     if (!response.ok) {
       throw new Error('Failed to get directory structure');
     }

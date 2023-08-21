@@ -1,56 +1,67 @@
-import { Message } from '@/types';
+import { AgentMessage } from '@/types';
 import {
-  AirtableSaver,
+  TextCompletion,
+  WebLoader,
+  WebSearch,
+  YoutubeSearch,
   CodeReader,
   CodeReviewer,
   CodeWriter,
   DirectoryStructure,
   SkillSaver,
-  TextCompletion,
-  WebLoader,
-  WebSearch,
-  YoutubeSearch,
+  AirtableSaver,
 } from '../skills';
 import { Skill } from '../skills/skill';
-import { getUserApiKey } from '@/utils/settings';
 
 export class SkillRegistry {
   skillClasses: (typeof Skill)[];
   skills: Skill[] = [];
   apiKeys: { [key: string]: string };
+  userApiKey?: string;
+  signal?: AbortSignal;
   // for UI
-  messageCallback: (message: Message) => void;
-  abortController: AbortController;
-  isRunningRef?: React.MutableRefObject<boolean>;
+  handleMessage: (message: AgentMessage) => Promise<void>;
   verbose: boolean;
   language: string = 'en';
 
   constructor(
-    messageCallback?: (message: Message) => void,
-    abortController?: AbortController,
-    isRunningRef?: React.MutableRefObject<boolean>,
+    handleMessage: (message: AgentMessage) => Promise<void>,
     verbose: boolean = false,
     language: string = 'en',
+    specifiedSkills: string[] = [],
+    userApiKey?: string,
+    signal?: AbortSignal,
   ) {
     this.skillClasses = SkillRegistry.getSkillClasses();
     this.apiKeys = SkillRegistry.apiKeys;
-    //
-    this.messageCallback = messageCallback || (() => {});
-    this.abortController = abortController || new AbortController();
-    this.isRunningRef = isRunningRef;
+    this.userApiKey = userApiKey;
+    this.signal = signal;
+    this.handleMessage = handleMessage;
     this.verbose = verbose;
     this.language = language;
+
+    if (this.userApiKey) {
+      this.apiKeys['openai'] = this.userApiKey;
+    }
 
     // Load all skills
     for (let SkillClass of this.skillClasses) {
       let skill = new SkillClass(
         this.apiKeys,
-        this.messageCallback,
-        this.abortController,
-        this.isRunningRef,
+        this.handleMessage,
         this.verbose,
         this.language,
+        this.signal,
       );
+
+      // If the skill is specified, load it.
+      if (specifiedSkills.length > 0) {
+        if (specifiedSkills.includes(skill.name)) {
+          this.skills.push(skill);
+        }
+        continue;
+      }
+
       if (
         skill.type === 'dev' ? process.env.NODE_ENV === 'development' : true
       ) {
@@ -75,21 +86,21 @@ export class SkillRegistry {
     const skills: (typeof Skill)[] = [
       TextCompletion,
       WebSearch,
+      WebLoader,
+      YoutubeSearch,
       AirtableSaver,
       CodeReader,
       CodeWriter,
       SkillSaver,
       DirectoryStructure,
-      YoutubeSearch,
       CodeReviewer,
-      WebLoader,
     ];
     return skills;
   }
 
   static apiKeys = {
-    openai: getUserApiKey() || process.env.OPENAI_API_KEY || '',
-    airtable: 'keyXXXXXXXXXXXXXX', // Your Airtable API key here
+    openai: process.env.OPENAI_API_KEY || '',
+    airtable: process.env.AIRTABLE_API_KEY || '',
   };
 
   getSkill(name: string): Skill {

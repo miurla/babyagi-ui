@@ -1,14 +1,12 @@
-import { AgentTask, LLMParams, Message } from '@/types';
-import { setupMessage } from '@/utils/message';
-import { getUserApiKey } from '@/utils/settings';
-import axios from 'axios';
+import { AgentTask, LLMParams, AgentMessage } from '@/types';
 import { ChatOpenAI } from 'langchain/chat_models/openai';
 import { HumanChatMessage } from 'langchain/schema';
+import { v4 as uuidv4 } from 'uuid';
 
 export type SkillType = 'normal' | 'dev';
-export type SkillExecutionLocation = 'client' | 'server';
 
 export class Skill {
+  id: string;
   name: string = 'base_kill';
   descriptionForHuman: string = 'This is the base skill.';
   descriptionForModel: string = 'This is the base skill.';
@@ -17,31 +15,30 @@ export class Skill {
   apiKeysRequired: Array<string | Array<string>> = [];
   valid: boolean;
   apiKeys: { [key: string]: string };
-  executionLocation: SkillExecutionLocation = 'client'; // 'client' or 'server'
   // for UI
-  messageCallback: (message: Message) => void;
-  abortController: AbortController;
-  isRunningRef?: React.MutableRefObject<boolean>;
+  handleMessage: (message: AgentMessage) => void;
   verbose: boolean;
   language: string = 'en';
+  signal?: AbortSignal;
+
+  BASE_URL = process.env.BASE_URL || 'http://localhost:3000';
 
   // This index signature allows dynamic assignment of properties
   [key: string]: any;
 
   constructor(
     apiKeys: { [key: string]: string },
-    messageCallback: (message: Message) => void,
-    abortController: AbortController,
-    isRunningRef?: React.MutableRefObject<boolean>,
+    handleMessage: (message: AgentMessage) => Promise<void>,
     verbose: boolean = false,
     language: string = 'en',
+    abortSignal?: AbortSignal,
   ) {
     this.apiKeys = apiKeys;
-    this.messageCallback = messageCallback;
-    this.abortController = abortController;
-    this.isRunningRef = isRunningRef;
+    this.handleMessage = handleMessage;
     this.verbose = verbose;
     this.language = language;
+    this.signal = abortSignal;
+    this.id = uuidv4();
 
     const missingKeys = this.checkRequiredKeys(apiKeys);
     if (missingKeys.length > 0) {
@@ -91,86 +88,90 @@ export class Skill {
     throw new Error("Method 'execute' must be implemented");
   }
 
+  async sendCompletionMessage() {
+    this.handleMessage({
+      content: '',
+      status: 'complete',
+    });
+  }
+
   async generateText(
     prompt: string,
     task: AgentTask,
-    params?: LLMParams,
+    params: LLMParams = {},
     ignoreCallback: boolean = false,
   ): Promise<string> {
-    if (getUserApiKey()) {
-      let chunk = '';
-      const messageCallback = ignoreCallback ? () => {} : this.messageCallback;
-      const llm = new ChatOpenAI(
-        {
-          openAIApiKey: this.apiKeys.openai,
-          modelName: params?.modelName ?? 'gpt-3.5-turbo',
-          temperature: params?.temperature ?? 0.7,
-          maxTokens: params?.maxTokens ?? 1500,
-          topP: params?.topP ?? 1,
-          frequencyPenalty: params?.frequencyPenalty ?? 0,
-          presencePenalty: params?.presencePenalty ?? 0,
-          streaming: params?.streaming === undefined ? true : params.streaming,
-          callbacks: [
-            {
-              handleLLMNewToken(token: string) {
-                chunk += token;
-                messageCallback?.(
-                  setupMessage('task-execute', chunk, undefined, '🤖', task.id),
-                );
-              },
+    const callback = ignoreCallback ? () => {} : this.callbackMessage;
+    const id = uuidv4();
+    const defaultParams = {
+      apiKey: this.apiKeys.openai,
+      modelName: 'gpt-3.5-turbo',
+      temperature: 0.7,
+      maxTokens: 1500,
+      topP: 1,
+      frequencyPenalty: 0,
+      presencePenalty: 0,
+      streaming: true,
+    };
+    const llmParams = { ...defaultParams, ...params };
+
+    const message: AgentMessage = {
+      id,
+      content: '',
+      type: task.skill,
+      taskId: task.id.toString(),
+      status: 'complete',
+    };
+    const llm = new ChatOpenAI(
+      {
+        openAIApiKey: this.apiKeys.openai,
+        ...llmParams,
+        callbacks: [
+          {
+            handleLLMNewToken(token: string) {
+              callback?.({
+                ...message,
+                ...{ content: token, status: 'running' },
+              });
             },
-          ],
-        },
-        { baseOptions: { signal: this.abortController.signal } },
-      );
+          },
+        ],
+      },
+      { baseOptions: { signal: this.abortSignal } },
+    );
 
-      try {
-        const response = await llm.call([new HumanChatMessage(prompt)]);
-        messageCallback?.(
-          setupMessage('task-output', response.text, undefined, '✅', task.id),
-        );
-        return response.text;
-      } catch (error: any) {
-        if (error.name === 'AbortError') {
-          return `Task aborted.`;
-        }
-        console.log('error: ', error);
-        return 'Failed to generate text.';
+    try {
+      const response = await llm.call([new HumanChatMessage(prompt)]);
+      this.callbackMessage(message);
+      return response.text;
+    } catch (error: any) {
+      if (error.name === 'AbortError') {
+        return `Task aborted.`;
       }
-    } else {
-      // server side request
-      const response = await axios
-        .post(
-          '/api/elf/completion',
-          {
-            prompt: prompt,
-            model_name: params?.modelName ?? 'gpt-3.5-turbo',
-            temperature: params?.temperature ?? 0.7,
-            max_tokens: params?.maxTokens ?? 1500,
-            top_p: params?.topP ?? 1,
-            frequency_penalty: params?.frequencyPenalty ?? 0,
-            presence_penalty: params?.presencePenalty ?? 0,
-          },
-          {
-            signal: this.abortController.signal,
-          },
-        )
-        .catch((error) => {
-          if (error.name === 'AbortError') {
-            return undefined;
-          }
-          console.log('error: ', error);
-          return undefined;
-        });
-
-      return response?.data.response;
+      console.log('error: ', error);
+      return 'Failed to generate text.';
     }
   }
 
+  callbackMessage = (message: AgentMessage) => {
+    const baseMessage: AgentMessage = {
+      id: this.id,
+      content: '',
+      type: this.name,
+      style: 'text',
+      status: 'running',
+    };
+    const mergedMessage = { ...baseMessage, ...message };
+    this.handleMessage(mergedMessage);
+  };
+
   async getDirectoryStructure(): Promise<any> {
-    const response = await fetch('/api/local/directory-structure', {
-      method: 'GET',
-    });
+    const response = await fetch(
+      `${this.BASE_URL}/api/local/directory-structure`,
+      {
+        method: 'GET',
+      },
+    );
     if (!response.ok) {
       throw new Error('Failed to get directory structure');
     }

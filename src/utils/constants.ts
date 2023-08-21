@@ -20,7 +20,7 @@ export const MODELS = [
 ];
 
 export const ITERATIONS = [
-  { id: '0', name: 'Infinity' }, // translate('INFINITY', 'constants') this translation is not working
+  { id: '0', name: 'Infinity' },
   { id: '1', name: '1' },
   { id: '3', name: '3' },
   { id: '5', name: '5' },
@@ -38,15 +38,41 @@ export const AGENT = [
     id: 'babydeeragi',
     name: 'BabyDeerAGI',
     icon: '🦌',
-    message: '🤖/🔎+📄/🧑‍💻',
     badge: 'STABLE',
   },
   {
     id: 'babyelfagi',
     name: 'BabyElfAGI',
     icon: '🧝',
-    message: '(Currently using GPT-4 for task creation)',
     badge: 'BETA',
+  },
+];
+
+export const ALL_AGENTS = [
+  {
+    id: 'babyelfagi',
+    name: 'BabyElfAGI',
+    icon: '🧝',
+    badge: 'BETA',
+  },
+  {
+    id: 'babydeeragi',
+    name: 'BabyDeerAGI',
+    icon: '🦌',
+    message: '🤖/🔎+📄/🧑‍💻',
+    badge: 'STABLE',
+  },
+  {
+    id: 'babycatagi',
+    name: 'BabyCatAGI',
+    icon: '🐱',
+    message: '🤖/🔎+📄',
+  },
+  {
+    id: 'babybeeagi',
+    name: 'BabyBeeAGI',
+    icon: '🐝',
+    message: '🤖/🔎/📄',
   },
   { id: 'babyagi', name: 'BabyAGI', icon: '👶', message: '🤖' },
 ];
@@ -56,3 +82,5 @@ export const THEME = [
   { id: 'light', name: 'LIGHT', icon: '🌞' },
   { id: 'dark', name: 'DARK', icon: '🌚' },
 ];
+
+export const SPECIFIED_SKILLS = ['text_completion', 'web_search']; // for BabyDeerAGI

@@ -1,11 +1,11 @@
-import { Agent } from '@/components/Agent/Agent';
+import { AgentView } from '@/components/Agent/AgentView';
 import { Sidebar } from '@/components/Sidebar/Sidebar';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import type { GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import nextI18NextConfig from '../../next-i18next.config.js';
-import { languages } from '../utils/languages';
+import { languages } from '@/utils/languages';
 import { STATE_KEY } from '@/utils/constants';
 import { UIState } from '@/types/index.js';
 import { CollapsedButton } from '@/components/Sidebar/CollapsedButton';
@@ -80,7 +80,7 @@ function Home() {
               <Sidebar onMenuClick={menuClickHandler} />
             </div>
           )}
-          <Agent />
+          <AgentView />
         </div>
         <div className="absolute left-2 top-2">
           <CollapsedButton
