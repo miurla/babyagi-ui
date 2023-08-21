@@ -91,29 +91,39 @@ export function useAgent({
           }
 
           if (value) {
+            // Decode the value using TextDecoder
             const decodedValue = new TextDecoder().decode(value);
+            // Split the decoded value into messages
             const splitMessages = decodedValue.split('\n\n');
 
+            // If there is a partial message and the first split message does not start with '{"message":'
+            // then prepend the partial message to the first split message
             if (partialMessage && !splitMessages[0].startsWith('{"message":')) {
               splitMessages[0] = partialMessage + splitMessages[0];
               partialMessage = null;
             }
 
+            // If the decoded value does not end with '\n\n', then the last message is partial
+            // So, pop the last message and store it as partial message
             if (!decodedValue.endsWith('\n\n')) {
               partialMessage = splitMessages.pop() || '';
             }
+            // If there are no split messages, then continue to the next iteration
             if (splitMessages.length === 0) {
               continue;
             }
 
+            // Combine the split messages into a single message
             let combinedMessage = splitMessages.join('\n\n');
 
+            // Parse the combined message
             const newAgentMessages: AgentMessage[] = combinedMessage
               .trim()
               .split('\n\n')
               .map(parseMessage)
               .filter((m): m is AgentMessage => m !== null);
 
+            // Update the message map
             newAgentMessages.forEach((newMsg) => {
               if (newMsg.id) {
                 const existingMsg = messageMap.current.get(newMsg.id);
@@ -131,6 +141,7 @@ export function useAgent({
               }
             });
 
+            // Update the agent messages state
             const updatedNewMessages = Array.from(messageMap.current.values());
             setAgentMessages(updatedNewMessages);
 
