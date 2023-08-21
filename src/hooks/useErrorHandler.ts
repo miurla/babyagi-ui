@@ -2,9 +2,9 @@ import va from '@vercel/analytics';
 import { toast } from 'sonner';
 
 export const useErrorHandler = () => {
-  const errorHandler = (error: Event | ErrorEvent) => {
+  const errorHandler = (error: Error) => {
     const errorMessage =
-      error instanceof ErrorEvent ? error.message : 'Unknown Error';
+      error instanceof Error ? error.message : 'Unknown Error';
     toast.error(errorMessage);
     va.track('Error', { error: errorMessage });
   };
