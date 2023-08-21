@@ -47,7 +47,7 @@ export const webBrowsing = async (
   let results = '';
   let index = 1;
   let completedCount = 0;
-  const MaxCompletedCount = 3;
+  const MaxCompletedCount = 2;
   // Loop through search results
   for (const searchResult of simplifiedSearchResults) {
     if (signal?.aborted) return '';
@@ -81,6 +81,13 @@ export const webBrowsing = async (
     message = `  - Extracting relevant information\n`;
     title = `${index}. Extracting relevant info...`;
     callbackSearchStatus(id, message, task, messageCallback, verbose);
+
+    // Set an interval to ping callbackSearchStatus every 10 seconds
+    const intervalId = setInterval(() => {
+      message = '  - Still extracting relevant information...\n';
+      callbackSearchStatus(id, message, task, messageCallback, verbose);
+    }, 10000);
+
     const info = await largeTextExtract(
       id,
       objective,
@@ -90,6 +97,7 @@ export const webBrowsing = async (
       messageCallback,
       signal,
     );
+    clearInterval(intervalId);
 
     message = `  - Relevant info: ${info
       .slice(0, 100)

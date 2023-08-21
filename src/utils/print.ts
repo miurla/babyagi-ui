@@ -39,6 +39,7 @@ export class Printer {
       options: {
         dependentTaskIds: task.dependentTaskIds?.join(', ') ?? '',
       },
+      status: 'running',
     });
 
     if (!this.verbose) return;
