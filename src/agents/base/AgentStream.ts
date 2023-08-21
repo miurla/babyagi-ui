@@ -24,30 +24,14 @@ export function AgentStream(callbacks?: AIStreamCallbacks) {
         if (!isWriterActive()) return;
         await writer.ready;
 
-        delete message.title;
-        delete message.icon;
-        delete message.style;
-        delete message.status;
+        // delete message.title;
+        // delete message.icon;
 
-        const chunkedContent = message.content
-          ? message.content.match(/.{1,20}/g)
-          : [];
-        if (chunkedContent) {
-          for (const chunk of chunkedContent) {
-            const chunkedMessage = { ...message, content: chunk };
-            await writer.write(
-              `${JSON.stringify({
-                message: chunkedMessage,
-              })}\n\n`,
-            );
-          }
-        } else {
-          await writer.write(
-            `${JSON.stringify({
-              message,
-            })}\n\n`,
-          );
-        }
+        await writer.write(
+          `${JSON.stringify({
+            message,
+          })}\n\n`,
+        );
       },
       handleEnd: async () => {
         notifyObservers();
