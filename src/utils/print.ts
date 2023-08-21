@@ -36,6 +36,9 @@ export class Printer {
       type: task.skill,
       title: task.task,
       icon: task.icon || '',
+      options: {
+        dependentTaskIds: task.dependentTaskIds?.join(', ') ?? '',
+      },
     });
 
     if (!this.verbose) return;

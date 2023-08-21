@@ -121,9 +121,6 @@ export class Skill {
       type: task.skill,
       taskId: task.id.toString(),
       status: 'complete',
-      options: {
-        dependentTaskIds: task.dependentTaskIds?.join(', ') ?? '',
-      },
     };
     const llm = new ChatOpenAI(
       {
