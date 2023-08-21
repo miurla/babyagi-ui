@@ -118,9 +118,7 @@ export class Skill {
     const message: AgentMessage = {
       id,
       content: '',
-      title: task.task,
       type: task.skill,
-      icon: task.icon,
       taskId: task.id.toString(),
       status: 'complete',
       options: {
@@ -162,7 +160,6 @@ export class Skill {
     const baseMessage: AgentMessage = {
       id: this.id,
       content: '',
-      icon: this.icon,
       type: this.name,
       style: 'text',
       status: 'running',

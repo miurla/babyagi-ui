@@ -30,6 +30,14 @@ export class Printer {
   }
 
   printTaskExecute(task: AgentTask) {
+    this.handleMessage({
+      taskId: task.id.toString(),
+      content: '',
+      type: task.skill,
+      title: task.task,
+      icon: task.icon || '',
+    });
+
     if (!this.verbose) return;
     console.log('\x1b[35m%s\x1b[0m', '*****NEXT TASK*****\n');
     console.log(task);

@@ -9,7 +9,7 @@ type SkillInfo = {
   badge: string;
 };
 
-export const useSkills = (selectedAgentId: string) => {
+export const useSkills = (selectedAgentId?: string) => {
   const [skillInfos, setSkillInfos] = useState<SkillInfo[]>([]);
 
   useEffect(() => {
