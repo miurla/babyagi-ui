@@ -26,7 +26,7 @@ export function AgentStream(callbacks?: AIStreamCallbacks) {
         await writer.write(
           `${JSON.stringify({
             message,
-          })}\n`,
+          })}\n\n`,
         );
       },
       handleEnd: async () => {
