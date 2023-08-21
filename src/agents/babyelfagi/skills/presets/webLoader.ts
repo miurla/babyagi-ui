@@ -32,7 +32,6 @@ export class WebLoader extends Skill {
       });
     };
 
-    callback(message);
     const urlString = await this.extractUrlsFromTask(task, callback);
     const urls = urlString.split(',').map((url) => url.trim());
     const contents = await this.fetchContentsFromUrls(urls, callback);
