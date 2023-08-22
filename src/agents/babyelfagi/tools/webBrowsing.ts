@@ -47,7 +47,7 @@ export const webBrowsing = async (
   let results = '';
   let index = 1;
   let completedCount = 0;
-  const MaxCompletedCount = 2;
+  const MaxCompletedCount = 3;
   // Loop through search results
   for (const searchResult of simplifiedSearchResults) {
     if (signal?.aborted) return '';

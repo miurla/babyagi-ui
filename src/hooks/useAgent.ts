@@ -116,12 +116,14 @@ export function useAgent({
             // Combine the split messages into a single message
             let combinedMessage = splitMessages.join('\n\n');
 
-            // Parse the combined message
+            // Parse the combined message and exclude 'ping' type messages
             const newAgentMessages: AgentMessage[] = combinedMessage
               .trim()
               .split('\n\n')
               .map(parseMessage)
-              .filter((m): m is AgentMessage => m !== null);
+              .filter(
+                (m): m is AgentMessage => m !== null && m.type !== 'ping',
+              );
 
             // Update the message map
             newAgentMessages.forEach((newMsg) => {
