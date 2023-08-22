@@ -14,6 +14,7 @@ export class AgentExecuter {
 
   printer: Printer;
   taskList: AgentTask[] = [];
+  intervalId?: NodeJS.Timeout;
 
   constructor(
     objective: string,
@@ -45,8 +46,16 @@ export class AgentExecuter {
   // prepare() is called before loop()
   async prepare() {
     this.printer.printObjective(this.objective);
-  }
 
+    // Start ping loop to keep the connection alive
+    this.intervalId = setInterval(async () => {
+      if (this.signal?.aborted) {
+        clearInterval(this.intervalId);
+      } else {
+        await this.handlers.handleMessage({ type: 'ping', content: '' });
+      }
+    }, 10000);
+  }
   async loop() {}
 
   async finishup() {
@@ -54,5 +63,8 @@ export class AgentExecuter {
     // Objective completed
     this.printer.printAllTaskCompleted();
     this.handlers.handleEnd();
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+    }
   }
 }
