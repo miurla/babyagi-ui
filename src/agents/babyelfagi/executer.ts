@@ -16,6 +16,7 @@ export class BabyElfAGI extends AgentExecuter {
     handlers: {
       handleMessage: (message: AgentMessage) => Promise<void>;
       handleEnd: () => Promise<void>;
+      handleError: (error: Error) => Promise<void>;
     },
     language: string = 'en',
     verbose: boolean = false,
@@ -55,13 +56,20 @@ export class BabyElfAGI extends AgentExecuter {
     const skillDescriptions = this.skillRegistry.getSkillDescriptions();
     const id = uuidv4();
     // Create task list
-    await this.taskRegistry.createTaskList(
-      id,
-      this.objective,
-      skillDescriptions,
-      this.modelName,
-      this.handlers.handleMessage,
-    );
+    try {
+      await this.taskRegistry.createTaskList(
+        id,
+        this.objective,
+        skillDescriptions,
+        this.modelName,
+        this.handlers.handleMessage,
+      );
+    } catch (error) {
+      console.error(error);
+      this.handlers.handleError(error as Error);
+      return;
+    }
+
     this.printer.printTaskList(this.taskRegistry.tasks, id);
   }
 
@@ -167,8 +175,9 @@ export class BabyElfAGI extends AgentExecuter {
 
   async finishup() {
     if (this.signal?.aborted) return;
-
     const tasks = this.taskRegistry.getTasks();
+    if (tasks.length === 0) return;
+
     const lastTask = tasks[tasks.length - 1];
     this.handlers.handleMessage({
       type: 'result',

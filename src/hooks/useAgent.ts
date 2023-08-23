@@ -63,6 +63,7 @@ export function useAgent({
   const sendRequest = async (abortController: AbortController) => {
     const userKey = getUserApiKey();
     try {
+      let currentMesageType;
       const response = await fetch(api, {
         method: 'POST',
         headers: {
@@ -143,6 +144,12 @@ export function useAgent({
               }
             });
 
+            // Update the current message type
+            if (newAgentMessages.length > 0) {
+              currentMesageType =
+                newAgentMessages[newAgentMessages.length - 1]?.type;
+            }
+
             // Update the agent messages state
             const updatedNewMessages = Array.from(messageMap.current.values());
             setAgentMessages(updatedNewMessages);
@@ -162,8 +169,19 @@ export function useAgent({
         }
 
         // Call onFinish when the stream is finished
-        if (onFinish) {
+        const hadFinishMessage = currentMesageType === 'finish';
+        if (onFinish && hadFinishMessage) {
           onFinish();
+          return;
+        }
+        // Call onError when there is no result message
+        // stream is finished
+        if (onError && !hadFinishMessage) {
+          if (!currentMesageType) {
+            onError(new Error('Error: Invalid OpenAI API key'));
+          } else {
+            onError(new Error('Error: No result message'));
+          }
         }
       }
     } catch (error) {
