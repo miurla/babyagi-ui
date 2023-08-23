@@ -76,15 +76,21 @@ export async function findMostRelevantObjective(
   userInput: string,
   userApiKey?: string,
 ) {
+  const examples = await getObjectivesExamples();
+
+  let maxSimilarity = -Infinity;
+  let mostRelevantObjective = examples[2];
+
+  // specific to project site
+  if (process.env.BASE_URL === 'https://babyagi-ui.vercel.app') {
+    return mostRelevantObjective;
+  }
+
   const userInputEmbedding = await getEmbedding(
     userInput,
     'text-embedding-ada-002',
     userApiKey,
   );
-  const examples = await getObjectivesExamples();
-
-  let maxSimilarity = -Infinity;
-  let mostRelevantObjective = examples[2];
 
   for (const example of examples) {
     try {
