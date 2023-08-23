@@ -22,6 +22,7 @@ export default async function handler(
       await fs.writeFile(filePath, content, 'utf8');
       res.status(200).json({ message: 'File written successfully' });
     } catch (err) {
+      console.error(err);
       res.status(500).json({ error: 'Failed to write file' });
     }
   } else {
