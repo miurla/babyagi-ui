@@ -30,11 +30,13 @@ export class SkillSaver extends Skill {
 
     const filePrompt = `Come up with a file name (eg. 'getWeather.ts') for the following skill.
     If there is a file name to save in the task, please use it. (eg. 'getWeather.ts')
+    There may be multiple file names. In that case, please select the file name to be created.
     TASK: ${task.task}
+    OBJECTIVE: ${objective}
     CODE: ${code}
     FILE_NAME:`;
     const filename = await this.generateText(filePrompt, task, params, true);
-    let skillsPath = `src/agents/elf/skills/addons`;
+    let skillsPath = `src/agents/babyelfagi/skills/addons`;
 
     const dirStructure: string[] = await this.getDirectoryStructure();
     const skillPaths = dirStructure.filter((path) => path.includes(filename));
@@ -60,6 +62,7 @@ export class SkillSaver extends Skill {
       }
       const message = `Code saved successfully: ${filename}`;
       this.callbackMessage({
+        taskId: task.id.toString(),
         content: message,
         status: 'complete',
       });

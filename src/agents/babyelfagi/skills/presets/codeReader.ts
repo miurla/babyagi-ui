@@ -50,6 +50,7 @@ export class CodeReader extends Skill {
       const fileContent = await response.json();
       console.log(`File content:\n${JSON.stringify(fileContent)}`);
       this.callbackMessage({
+        taskId: task.id.toString(),
         content: 'Read file successfully.',
         status: 'complete',
       });
