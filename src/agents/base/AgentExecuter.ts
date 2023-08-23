@@ -7,6 +7,7 @@ export class AgentExecuter {
   handlers: {
     handleMessage: (message: AgentMessage) => Promise<void>;
     handleEnd: () => Promise<void>;
+    handleError: (e: Error) => Promise<void>;
   };
   language: string;
   verbose: boolean;
@@ -22,6 +23,7 @@ export class AgentExecuter {
     handlers: {
       handleMessage: (message: AgentMessage) => Promise<void>;
       handleEnd: () => Promise<void>;
+      handleError: (e: Error) => Promise<void>;
     },
     language: string = 'en',
     varbose: boolean = false,

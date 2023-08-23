@@ -21,6 +21,7 @@ export const useSkills = (selectedAgentId?: string) => {
       {
         handleMessage: async (message) => {},
         handleEnd: async () => {},
+        handleError: async (error) => {},
       },
       'en',
       false,

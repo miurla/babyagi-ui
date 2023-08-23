@@ -38,6 +38,10 @@ export class TaskRegistry {
       objective,
       this.userApiKey,
     );
+    if (!relevantObjective) {
+      console.error('No relevant objective found');
+      return;
+    }
 
     const exapmleObjective = relevantObjective.objective;
     const exampleTaskList = relevantObjective.examples;
