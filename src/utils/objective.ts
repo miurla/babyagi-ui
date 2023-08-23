@@ -84,7 +84,7 @@ export async function findMostRelevantObjective(
   const examples = await getObjectivesExamples();
 
   let maxSimilarity = -Infinity;
-  let mostRelevantObjective = null;
+  let mostRelevantObjective = examples[2];
 
   for (const example of examples) {
     try {
@@ -105,10 +105,6 @@ export async function findMostRelevantObjective(
     } catch (e) {
       console.error(`Error in processing example: ${e}`);
     }
-  }
-
-  if (mostRelevantObjective === null) {
-    throw new Error(`No objective found ${examples.length}`);
   }
 
   return mostRelevantObjective;
