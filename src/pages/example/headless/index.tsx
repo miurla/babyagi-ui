@@ -1,5 +1,6 @@
 import React from 'react';
 import { useAgent } from '@/hooks/useAgent';
+import FirstTimeUserMessage from '@/components/Agent/FirstTimeMessage';
 const ExampleHeadlessPage: React.FC = () => {
   const { agentMessages, input, handleSubmit, handleInputChange } = useAgent({
     api: '/api/agent',
@@ -19,6 +20,7 @@ const ExampleHeadlessPage: React.FC = () => {
           {m.type}: {m.content}
         </div>
       ))}
+      <FirstTimeUserMessage />
     </div>
   );
 };
