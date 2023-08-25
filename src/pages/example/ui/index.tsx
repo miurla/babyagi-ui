@@ -3,6 +3,7 @@ import { Block } from '@/types';
 import { useAgent } from '@/hooks/useAgent';
 import { groupMessages } from '@/utils/message';
 import { AgentBlock } from '@/components/Agent/AgentBlock';
+import FirstTimeUserMessage from '@/components/Agent/FirstTimeMessage';
 const ExampleUIPage: React.FC = () => {
   const [agentBlocks, setAgentBlocks] = useState<Block[]>([]);
   const { agentMessages, input, handleSubmit, handleInputChange, isRunning } =
@@ -28,6 +29,7 @@ const ExampleUIPage: React.FC = () => {
       {agentBlocks.map((block, index) => (
         <AgentBlock block={block} key={index} />
       ))}
+      <FirstTimeUserMessage />
     </div>
   );
 };
