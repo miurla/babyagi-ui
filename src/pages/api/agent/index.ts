@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { StreamingTextResponse } from 'ai';
-import { AgentStream } from '@/agents/base/AgentStream';
-import { BabyElfAGI } from '@/agents/babyelfagi/executer';
+import { AgentStream } from '@/lib/agents/base/AgentStream';
+import { BabyElfAGI } from '@/lib/agents/babyelfagi/executer';
 import { SPECIFIED_SKILLS } from '@/utils/constants';
 
 export const config = {

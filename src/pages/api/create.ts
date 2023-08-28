@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { taskCreationAgent } from '@/agents/babyagi/service';
+import { taskCreationAgent } from '@/lib/agents/babyagi/service';
 
 export const config = {
   runtime: 'edge',
