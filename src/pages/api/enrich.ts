@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { enrichResult } from '@/agents/babyagi/service';
+import { enrichResult } from '@/lib/agents/babyagi/service';
 
 export const config = {
   runtime: 'edge',

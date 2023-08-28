@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { prioritizationAgent } from '@/agents/babyagi/service';
+import { prioritizationAgent } from '@/lib/agents/babyagi/service';
 
 export const config = {
   runtime: 'edge',

@@ -1,6 +1,6 @@
-import { simplifySearchResults } from '@/agents/babyelfagi/tools/webSearch';
+import { simplifySearchResults } from '@/lib/agents/babyelfagi/tools/webSearch';
 import { AgentTask, AgentMessage } from '@/types';
-import { analystPrompt, searchQueryPrompt } from '../../../utils/prompt';
+import { analystPrompt, searchQueryPrompt } from '../../../../utils/prompt';
 import { textCompletion } from './utils/textCompletion';
 import { largeTextExtract } from './utils/largeTextExtract';
 import { v4 as uuidv4 } from 'uuid';
