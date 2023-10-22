@@ -20,9 +20,8 @@ export class TextCompletion extends Skill {
     const prompt = `Complete your assigned task based on the objective and only based on information provided in the dependent task output, if provided. \n###
     Output must be answered in ${this.language}.
     Your objective: ${objective}. \n###
-    Your task: ${task} \n###
+    Your task: ${task.task} \n###
     Dependent tasks output: ${dependentTaskOutputs}  ###
-    Your task: ${task}\n###
     RESPONSE:`;
 
     return this.generateText(prompt, task, {
