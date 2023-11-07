@@ -74,6 +74,7 @@ export class TaskRegistry {
         topP: 1,
         verbose: false, // You can set this to true to see the lanchain logs
         streaming: true,
+        maxRetries: 2,
         callbacks: [
           {
             handleLLMNewToken(token: string) {
@@ -110,6 +111,7 @@ export class TaskRegistry {
     }
 
     if (result === undefined) {
+      console.log('error');
       return;
     }
 

@@ -178,9 +178,15 @@ export function useAgent({
         // stream is finished
         if (onError && !hadFinishMessage) {
           if (!currentMesageType) {
-            onError(new Error('Error: Invalid OpenAI API key'));
+            onError(
+              new Error(
+                'Error: OpenAI API error occurred or Invalid OpenAI API key',
+              ),
+            );
+            reset();
           } else {
-            onError(new Error('Error: No result message'));
+            onError(new Error('Error: OpenAI API error occurred'));
+            reset();
           }
         }
       }

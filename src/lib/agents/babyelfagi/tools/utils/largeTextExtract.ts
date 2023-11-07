@@ -12,7 +12,7 @@ export const largeTextExtract = async (
   signal?: AbortSignal,
   model?: string,
 ) => {
-  const chunkSize = model === 'gpt-4-1106-preview' ? 128000 : 15000;
+  const chunkSize = model === 'gpt-4-1106-preview' ? 127000 : 15000;
   const overlap = 500;
   let notes = '';
 
