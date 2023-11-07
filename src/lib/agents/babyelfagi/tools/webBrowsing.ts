@@ -1,7 +1,7 @@
 import { simplifySearchResults } from '@/lib/agents/babyelfagi/tools/webSearch';
 import { AgentTask, AgentMessage } from '@/types';
 import { analystPrompt, searchQueryPrompt } from '../../../../utils/prompt';
-import { textCompletion } from './utils/textCompletion';
+import { textCompletion, generateText } from './utils/textCompletion';
 import { largeTextExtract } from './utils/largeTextExtract';
 import { v4 as uuidv4 } from 'uuid';
 import { webSearch } from './webSearch';
@@ -47,11 +47,13 @@ export const webBrowsing = async (
   let results = '';
   let index = 1;
   let completedCount = 0;
-  const MaxCompletedCount = 3;
+  const MaxRetryCount = 3;
+  let sufficientResultsObtained = false;
+
   // Loop through search results
   for (const searchResult of simplifiedSearchResults) {
     if (signal?.aborted) return '';
-    if (completedCount >= MaxCompletedCount) break;
+    if (completedCount >= MaxRetryCount || sufficientResultsObtained) break;
 
     // Extract the URL from the search result
     const url = searchResult.link;
@@ -106,6 +108,25 @@ export const webBrowsing = async (
 
     title = `${index}. Relevant info...`;
     callbackSearchStatus(id, message, task, messageCallback, verbose);
+
+    const reflect = `You are expart task manager.
+    Your Mission: You'll be provided with a goal for the team to accomplish and one task from the team's task list and its results.
+    You decide if the results of the task are satisfactory.
+    Your judgment will determine whether the task is complete or not.
+    RULE: If you judge the task to be complete, then OK. If it needs to be redone, then just reply with NG.
+    Do not include anything else in your response.
+    Objective: ${objective}
+    TASK: ${task.task}
+    Result: ${info}
+    `;
+
+    const judgment = await generateText(
+      reflect,
+      { temperature: 0.0 },
+      userApiKey,
+      signal,
+    );
+    sufficientResultsObtained = judgment === 'OK';
 
     results += `${info}. `;
     index += 1;
