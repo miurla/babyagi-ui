@@ -10,7 +10,7 @@ export const MODELS = [
     id: 'gpt-4-1106-preview',
     name: 'OpenAI GPT-4 Turbo',
     icon: 'openai-logo.svg',
-    badge: 'NEW',
+    badge: 'Preview',
   },
   {
     id: 'gpt-4',
