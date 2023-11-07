@@ -39,7 +39,7 @@ export const AgentView: FC = () => {
   const { i18n } = useTranslation();
 
   // useState hooks
-  const [model, setModel] = useState<SelectItem>(MODELS[1]);
+  const [model, setModel] = useState<SelectItem>(MODELS[0]);
   const [iterations, setIterations] = useState<SelectItem>(ITERATIONS[0]);
   const [objective, setObjective] = useState<string>('');
   const [firstTask, setFirstTask] = useState<string>(

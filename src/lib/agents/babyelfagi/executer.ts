@@ -127,6 +127,7 @@ export class BabyElfAGI extends AgentExecuter {
             taskOutputs,
             this.objective,
             this.skillRegistry,
+            this.modelName,
           );
         } catch (error) {
           console.error(error);

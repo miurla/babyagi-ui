@@ -7,14 +7,19 @@ export const EXAMPLES_KEY = 'BABYAGIUI_EXAMPLES';
 
 export const MODELS = [
   {
-    id: 'gpt-4-0613',
-    name: 'OpenAI gpt-4',
-    message: `GPT_4_WARNING`,
+    id: 'gpt-4-1106-preview',
+    name: 'OpenAI GPT-4 Turbo',
+    icon: 'openai-logo.svg',
+    badge: 'Preview',
+  },
+  {
+    id: 'gpt-4',
+    name: 'OpenAI GPT-4',
     icon: 'openai-logo.svg',
   },
   {
-    id: 'gpt-3.5-turbo-0613',
-    name: 'OpenAI gpt-3.5-turbo',
+    id: 'gpt-3.5-turbo',
+    name: 'OpenAI GPT-3.5 Turbo',
     icon: 'openai-logo.svg',
   },
 ];

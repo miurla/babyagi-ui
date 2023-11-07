@@ -31,6 +31,7 @@ This is a port of [babyagi](https://github.com/yoheinakajima/babyagi) with [Lang
 - [x] Skills Class allows for easy skill creation ([🧝 BabyElfAGI](https://twitter.com/yoheinakajima/status/1678443482866933760))
 - [x] Aggregate the logic of the agent in the backend.
 - [x] Add hooks to make it easier to handle the agent on the frontend.
+- [ ] Support the OpenAI GPT-4 Turbo model
 - [ ] Support the Llama2 model 🦙
 
 and more ...

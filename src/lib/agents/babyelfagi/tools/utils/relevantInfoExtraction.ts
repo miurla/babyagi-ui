@@ -13,8 +13,10 @@ export const relevantInfoExtraction = async (
   chunk: string,
   userApiKey?: string,
   signal?: AbortSignal,
+  model?: string,
 ) => {
-  const modelName = 'gpt-3.5-turbo-16k-0613'; // use a fixed model
+  const modelName =
+    model === 'gpt-4-1106-preview' ? model : 'gpt-3.5-turbo-16k';
   const prompt = relevantInfoExtractionPrompt();
   const llm = new OpenAIChat(
     {
