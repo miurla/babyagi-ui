@@ -18,7 +18,7 @@
   "ERROR_CREATING_TASKS": "Error creating tasks",
   "EXAMPLES": "Examples",
   "EXAMPLE_OBJECTIVE_1": "Write a weather report for the next 3 days in Paris",
-  "EXAMPLE_OBJECTIVE_2": "Research the gpt-3.5-turbo-0613 model",
+  "EXAMPLE_OBJECTIVE_2": "Research the GPT-4 Turbo model",
   "EXAMPLE_OBJECTIVE_3": "Report the latest news in the user’s favorite category",
   "EXAMPLE_OBJECTIVE_4": "Write a report on what BabyAGI is. Include a Youtube link in the report",
   "EXAMPLE_OBJECTIVE_5": "Based on skillSaver.ts, write a new skill called airtableSaver.ts which use the Airtable API to insert data into a specific table",
