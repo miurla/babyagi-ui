@@ -15,6 +15,7 @@ export class WebSearch extends Skill {
     task: AgentTask,
     dependentTaskOutputs: string,
     objective: string,
+    modelName?: string,
   ): Promise<string> {
     if (!this.valid || this.signal?.aborted) return '';
 
@@ -25,7 +26,7 @@ export class WebSearch extends Skill {
         dependentTaskOutputs,
         this.handleMessage,
         this.verbose,
-        undefined,
+        modelName,
         this.language,
         this.apiKeys.openai,
         this.signal,

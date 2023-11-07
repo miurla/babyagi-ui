@@ -68,7 +68,7 @@ export class TaskRegistry {
     const model = new ChatOpenAI(
       {
         openAIApiKey: this.userApiKey,
-        modelName: this.useSpecifiedSkills ? modelName : 'gpt-4',
+        modelName,
         temperature: 0,
         maxTokens: 1500,
         topP: 1,
@@ -95,6 +95,13 @@ export class TaskRegistry {
     try {
       const response = await model.call([systemMessage, messages]);
       result = response.text;
+      // markdown is now appended (remove when langchain supports json mode)
+      if (result.startsWith('```json')) {
+        result = result.slice(7);
+      }
+      if (result.endsWith('```')) {
+        result = result.slice(0, -3);
+      }
     } catch (error: any) {
       if (error.name === 'AbortError') {
         console.log('Task creation aborted');
@@ -115,13 +122,19 @@ export class TaskRegistry {
     taskOutputs: TaskOutputs,
     objective: string,
     skillRegistry: SkillRegistry,
+    modelName: string,
   ): Promise<string> {
     const skill = skillRegistry.getSkill(task.skill ?? '');
     const dependentTaskOutputs = task.dependentTaskIds
       ? task.dependentTaskIds.map((id) => taskOutputs[id].output).join('\n')
       : '';
 
-    return await skill.execute(task, dependentTaskOutputs, objective);
+    return await skill.execute(
+      task,
+      dependentTaskOutputs,
+      objective,
+      modelName,
+    );
   }
 
   getTasks(): AgentTask[] {
@@ -156,7 +169,7 @@ export class TaskRegistry {
     objective: string,
     taskOutput: string,
     skillDescriptions: string,
-    modelName: string = 'gpt-3.5-turbo-16k',
+    modelName: string = 'gpt-4-1106-preview',
   ): Promise<[AgentTask[], number[], AgentTask[]]> {
     const example = [
       [

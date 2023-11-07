@@ -14,6 +14,7 @@ export class TextCompletion extends Skill {
     task: AgentTask,
     dependentTaskOutputs: string,
     objective: string,
+    modelName: string,
   ): Promise<string> {
     if (!this.valid) return '';
 
@@ -27,7 +28,8 @@ export class TextCompletion extends Skill {
     return this.generateText(prompt, task, {
       temperature: 0.2,
       maxTokens: 800,
-      modelName: 'gpt-3.5-turbo-16k',
+      modelName:
+        modelName === 'gpt-4-1106-preview' ? modelName : 'gpt-3.5-turbo-16k',
     });
   }
 }

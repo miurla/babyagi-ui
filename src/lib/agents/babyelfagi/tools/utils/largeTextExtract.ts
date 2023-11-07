@@ -1,5 +1,6 @@
 import { AgentMessage, AgentTask } from '@/types';
 import { relevantInfoExtraction } from './relevantInfoExtraction';
+import { chunk } from 'lodash';
 
 export const largeTextExtract = async (
   id: string,
@@ -9,8 +10,9 @@ export const largeTextExtract = async (
   userApiKey?: string,
   callback?: (message: AgentMessage) => void,
   signal?: AbortSignal,
+  model?: string,
 ) => {
-  const chunkSize = 15000;
+  const chunkSize = model === 'gpt-4-1106-preview' ? 128000 : 15000;
   const overlap = 500;
   let notes = '';
 
@@ -36,6 +38,7 @@ export const largeTextExtract = async (
       chunk,
       userApiKey,
       signal,
+      model,
     );
     notes += response;
   }

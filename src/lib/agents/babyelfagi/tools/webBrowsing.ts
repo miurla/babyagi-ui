@@ -91,11 +91,12 @@ export const webBrowsing = async (
     const info = await largeTextExtract(
       id,
       objective,
-      content.slice(0, 20000),
+      content,
       task,
       userApiKey,
       messageCallback,
       signal,
+      modelName,
     );
     clearInterval(intervalId);
 

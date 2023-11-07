@@ -83,6 +83,7 @@ export class Skill {
     task: AgentTask,
     dependentTaskOutputs: string,
     objective: string,
+    modelName?: string,
   ): Promise<string> {
     // This method should be overridden by subclasses
     throw new Error("Method 'execute' must be implemented");

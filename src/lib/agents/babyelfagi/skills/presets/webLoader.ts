@@ -12,7 +12,12 @@ export class WebLoader extends Skill {
     'This skill extracts URLs from the task and returns the contents of the web pages of those URLs.';
   icon = '🌐';
 
-  async execute(task: AgentTask, objective: string): Promise<string> {
+  async execute(
+    task: AgentTask,
+    dependentTaskOutputs: string,
+    objective: string,
+    modelName?: string,
+  ): Promise<string> {
     if (typeof objective !== 'string') {
       throw new Error('Invalid inputs');
     }
@@ -32,10 +37,15 @@ export class WebLoader extends Skill {
       });
     };
 
-    const urlString = await this.extractUrlsFromTask(task, callback);
+    const urlString = await this.extractUrlsFromTask(task, callback, modelName);
     const urls = urlString.split(',').map((url) => url.trim());
     const contents = await this.fetchContentsFromUrls(urls, callback);
-    const info = await this.extractInfoFromContents(contents, objective, task);
+    const info = await this.extractInfoFromContents(
+      contents,
+      objective,
+      task,
+      modelName,
+    );
     this.handleMessage({
       id: uuidv4(),
       taskId: task.id.toString(),
@@ -52,9 +62,15 @@ export class WebLoader extends Skill {
   private async extractUrlsFromTask(
     task: AgentTask,
     callback: (message: string) => void,
+    modelName: string = 'gpt-3.5-turbo',
   ): Promise<string> {
     const prompt = `Extracting URLs from the task.\nReturn a comma-separated URL List.\nTASK: ${task.task}\nURLS:`;
-    const urlString = await this.generateText(prompt, task, undefined, true);
+    const urlString = await this.generateText(
+      prompt,
+      task,
+      { modelName },
+      true,
+    );
     callback(`  - URLs: ${urlString}\n`);
     return urlString;
   }
@@ -86,6 +102,7 @@ export class WebLoader extends Skill {
     contents: { url: string; content: string }[],
     objective: string,
     task: AgentTask,
+    modelName: string = 'gpt-3.5-turbo',
   ): Promise<string[]> {
     return await Promise.all(
       contents.map(async (item) => {
@@ -99,6 +116,7 @@ export class WebLoader extends Skill {
             this.apiKeys.openai,
             this.handleMessage,
             this.abortSignal,
+            modelName,
           ))
         );
       }),
