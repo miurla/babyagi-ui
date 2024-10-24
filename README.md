@@ -5,6 +5,9 @@
 [![Twitter Follow](https://img.shields.io/twitter/follow/miiura?style=social)](https://twitter.com/miiura)
 [![GitHub Repo stars](https://img.shields.io/github/stars/miurla/babyagi-ui?style=social)](https://github.com/miurla/babyagi-ui/stargazers)
 
+> [!CAUTION]
+> This project started in May 2023. Currently, the AI Agent has moved to the next phase. Its role of allowing users to easily try out BabyAGI (AI Agent) has ended. This project has already been archived.
+
 BabyAGI UI is designed to make it easier to run and develop with [babyagi](https://github.com/yoheinakajima/babyagi) in a web app, like a ChatGPT.
 This is a port of [babyagi](https://github.com/yoheinakajima/babyagi) with [Langchain.js](https://github.com/hwchase17/langchainjs) and build a user interface.
 
